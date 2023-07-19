@@ -1,0 +1,50 @@
+<app-side-bar></app-side-bar>
+<div class="content">
+    <div class="body">
+        <div class="navigate mb-5">
+            <a class="me-4 active" routerLink="/admin/professionals" > ALL</a>
+            <a routerLink="/admin/professionals/request"> Request</a>
+        </div>
+        <div *ngIf="loading$">Loading...</div>
+        <div class="table-div table-responsive " *ngIf="!loading$">
+          <h3 *ngIf="professionals$.length === 0">No professionals found</h3>
+            <table class="table" *ngIf="professionals$.length !== 0">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                    <th>Education</th>
+                    <th>Email verified</th>
+                    <th>Block</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let professional of professionals$; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{professional.firstName}}</td>
+                    <td>{{professional.email}}</td>
+                    <td>
+                        <p *ngIf="professional.location">{{professional.location}}</p>
+                        <p class="text-danger" *ngIf="!professional.location">Not provided</p>
+                    </td>
+                    <td>
+                        <p *ngIf="professional.education">{{professional.education}}</p>
+                        <p class="text-danger" *ngIf="!professional.education">Not provided</p>
+                    </td>
+                    <td>
+                        <p *ngIf="professional.emailVerified">verified</p>
+                        <p class="text-danger" *ngIf="!professional.emailVerified">Not verified</p>
+                    </td>
+                    <td>
+                        <button (click)="unblock(professional._id)" *ngIf="professional.blocked">Unblock</button>
+                        <button (click)="block(professional._id)" class="text-danger" *ngIf="!professional.blocked">Block</button>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

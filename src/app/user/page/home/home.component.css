@@ -1,0 +1,45 @@
+
+
+.heading {
+    display: inline-flex;
+    align-items: flex-start;
+}
+
+.heading h1 {
+    color: #111827;
+    font-family: 'Roboto';
+    font-size: 72px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 72px;
+    letter-spacing: -1.8px;
+}
+
+ button {
+    display: flex;
+    width: 159.98px;
+    height: 56px;
+    padding: 20px 28px 16px 30px;
+    align-items: flex-start;
+    gap : 25.28px;
+    border-radius: 8px;
+    background: #FFF;
+    position: relative;
+    top: -58px;
+    border: none;
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.get-started {
+    width: 159.98px;
+    height: 56px;
+    border-radius: 8px;
+    opacity: 0.5;
+    background: linear-gradient(90deg, #0015CF 0%, #41A2E8 100%);
+    filter: blur(4px);
+}

@@ -1,0 +1,133 @@
+
+<ng-container *ngIf="pageCount === 1">
+    <div class="body">
+        <div class="center-div">
+            <div class="heading">
+                <h1>Sign up to </h1>
+                <img src="../../../assets/skill learn.png" alt="skill learn">
+            </div>
+            <form [formGroup]="emailForm" (submit)="next()">
+                <div class="email">
+                    <p>Email</p>
+                    <input type="email" class="email-input" formControlName="email">
+                    <p class="validation" 
+                    *ngIf="emailForm.get('email')?.touched && emailForm.controls['email'].errors?.['required']">Email is required</p>
+                    <p class="validation" 
+                    *ngIf="emailForm.get('email')?.touched && emailForm.controls['email'].errors?.['email']">Enter valid email</p>
+                </div>
+                <div class="login-button mt-5">
+                    <button type="submit">Login with Email</button>
+                    <div class="or mt-5">
+                        <hr><span>Or</span><hr>
+                    </div>
+                </div>
+            </form>
+            <div class="google-button">
+            </div>
+            <p class="login mt-4">Have an account? <a routerLink="/login">Sign in</a></p>
+        </div>
+    </div>
+</ng-container>
+<!-- <ng-container *ngIf="pageCount === 2">
+    <div class="body">
+        <div class="center-div">
+            <div class="heading">
+                <h1>Enter OTP</h1>
+            </div>
+            <form [formGroup]="otpForm" (submit)="next()">
+                <div class="email">
+                    <p>OTP</p>
+                    <input type="number" class="email-input number-input" formControlName="otp">
+                    <p class="validation" 
+                    *ngIf="otpForm.get('otp')?.touched && otpForm.controls['otp'].errors?.['required']">Enter OTP</p>
+                   
+                </div>
+                <div class="login-button mt-5">
+                    <button type="submit">Login with Email</button>
+                    <div class="or mt-5">
+                        <hr><span>Or</span><hr>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container> -->
+<ng-container *ngIf="pageCount === 2">
+    <div class="body">
+        <div class="center-div">
+            <!-- <a (click)="back()" class="back-button">Back</a> -->
+            <div class="heading">
+                <h1>Create your password</h1>
+            </div>
+            <form [formGroup]="passwordForm" (submit)="next()">
+                <div class="email">
+                    <p>password</p>
+                    <input type="text" class="email-input" formControlName="password">
+                    <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['required']">password is required</p>
+                <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['minlength']">Minimum 8 charecters required</p>
+                </div>
+                <div class="charecter-limit mt-5">
+                    <div></div>
+                    <p>At least 8 characters</p>
+                </div>
+                <div class="otp-button ">
+                    <button type="submit">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="pageCount === 3">
+    <!-- <app-user-name></app-user-name> -->
+    <div class="body">
+        <div class="center-div">
+            <a (click)="back()" class="back-button">Back</a>
+            <div class="heading">
+                <h1>Whats your name</h1>
+            </div>
+            <form [formGroup]="userNameForm" (submit)="next()">
+                <div class="inputs">
+                    <div class="email">
+                        <p>First Name</p>
+                        <input type="text" class="email-input" formControlName="firstName">
+                        <p class="validation" *ngIf="userNameForm.get('firstName')?.touched && userNameForm.controls['firstName'].errors?.['required']">First name is required</p>
+                    </div>
+                    <div class="password mt-5">
+                        <p>Last Name</p>
+                        <input type="text" class="email-input" formControlName="lastName">
+                        <p class="validation" *ngIf="userNameForm.get('lastName')?.touched && userNameForm.controls['lastName'].errors?.['required']">Last name is required</p>
+                    </div>
+                </div>
+                <div class="otp-button mt-5">
+                    <button type="submit">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="pageCount === 4">
+    <div class="body">
+        <div class="center-div">
+            <a (click)="back()" class="back-button">Back</a>
+            <div class="heading">
+                <h1>Your Education</h1>
+            </div>
+            <form [formGroup]="educationForm" (submit)="submit()">
+                <div class="inputs">
+                    <p class="validation">{{error$}}</p>
+                    <div class="email">
+                        <p>higher level of education</p>
+                        <input type="text" class="email-input" formControlName="education">
+                        <p class="validation" 
+                        *ngIf="educationForm.get('education')?.touched && 
+                        educationForm.controls['education'].errors?.['required']">Please enter the field</p>
+                    </div>
+                    
+                </div>
+                <div class="otp-button mt-5">
+                    <button type="submit">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-container>
