@@ -19,7 +19,7 @@ const route : Routes = [
     LoginComponent,
     HomeComponent,
     SignUpComponent,
-    NavBarComponent
+    NavBarComponent,
   ],
   imports: [
     CommonModule,
