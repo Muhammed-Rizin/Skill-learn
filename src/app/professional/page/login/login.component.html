@@ -22,7 +22,8 @@
                 <a routerLink="/forget_password>">Forget password?</a>
             </div>
             <div class="login-button mt-5">
-                <button type="submit">Login with Email</button>
+                <button type="submit" *ngIf="!loading$">Login with Email</button>
+                <button type="submit" *ngIf="loading$">Loading...</button>
                 <div class="or">
                     <hr><span>Or</span><hr>
                 </div>

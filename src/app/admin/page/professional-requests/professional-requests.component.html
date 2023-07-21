@@ -7,8 +7,8 @@
         </div>
         <div *ngIf="loading$">Loading...</div>
         <div class="table-div table-responsive" *ngIf="!loading$">
-          <h3 *ngIf="professionals$.length === 0">No requests</h3>
-            <table class="table" *ngIf="professionals$.length !== 0">
+          <h3 *ngIf="professionals$.length === 0 || getLength() === 0">No requests</h3>
+            <table class="table" *ngIf="professionals$.length !== 0 && getLength() !== 0">
                 <thead>
                   <tr>
                     <th>#</th>

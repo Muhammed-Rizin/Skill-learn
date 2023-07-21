@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { professionalData } from '../../types/professional.types';
 import { professionalRegister } from '../../store/professional.actions';
-import { selectRegisterError, selectRegisterUserData } from '../../store/professional.selector';
+import { selectRegisterError, selectRegisterLoading, selectRegisterUserData } from '../../store/professional.selector';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,6 +19,7 @@ export class SignUpComponent {
 
   error$ : Observable<String> | string
   data$ : Observable<professionalData> | string
+  loading$ : Observable<boolean> | boolean
 
   pageCount : number = 1
   data : any = {}
@@ -37,6 +38,12 @@ export class SignUpComponent {
       map((doc: any) => (this.data$ = doc))
     );
     this.data$?.subscribe((doc: professionalData) => doc);
+
+    this.loading$ = this.store.pipe(
+      select(selectRegisterLoading),
+      map((doc: any) => (this.loading$ = doc))
+    );
+    this.loading$?.subscribe((doc: boolean) => doc);
   }
 
   ngOnInit(): void {

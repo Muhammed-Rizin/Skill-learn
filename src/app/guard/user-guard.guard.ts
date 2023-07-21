@@ -77,3 +77,15 @@ export class RegisterGuard implements CanActivate {
     }
   }
 }
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HomeGuard implements CanActivate {
+  constructor(private router: Router) {}
+  canActivate() {
+    this.router.navigate(['/home'])
+    return false
+  }
+}

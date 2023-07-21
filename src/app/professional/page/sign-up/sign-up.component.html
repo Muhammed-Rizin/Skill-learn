@@ -44,7 +44,7 @@
                 </div>
                 <div class="charecter-limit mt-5">
                     <div></div>
-                    <p>At least 8 characters</p>
+                    <p class="w-100">At least 8 characters</p>
                 </div>
                 <div class="otp-button ">
                     <button type="submit">Next</button>
@@ -101,7 +101,8 @@
                     
                 </div>
                 <div class="otp-button mt-5">
-                    <button type="submit">Next</button>
+                    <button type="submit" *ngIf="!loading$">submit</button>
+                    <button type="submit" *ngIf="loading$">Loading...</button>
                 </div>
             </form>
         </div>

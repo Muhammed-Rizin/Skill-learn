@@ -19,7 +19,8 @@
                 <p class="validation" *ngIf="form.get('password')?.touched && form.controls['password'].errors?.['minlength']">Minimum 8 charecters required</p>
             </div>
             <div class="login-button mt-5">
-                <button type="submit">Login</button>
+                <button type="submit" *ngIf="!loading$">Login</button>
+                <button type="submit" *ngIf="loading$">Loading...</button>
             </div>
         </form>
     </div>

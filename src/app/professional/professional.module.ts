@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConsecutiveGuard, ProfessionalGuard, professionalBackGuard } from '../guard/professional-guard.guard';
+import { NavBarComponent } from './page/nav-bar/nav-bar.component';
 
 const route : Routes = [
   {path : '', component : HomeComponent, canActivate :[ConsecutiveGuard, ProfessionalGuard]},
@@ -17,7 +18,8 @@ const route : Routes = [
   declarations: [
     LoginComponent,
     HomeComponent,
-    SignUpComponent
+    SignUpComponent,
+    NavBarComponent
   ],
   imports: [
     CommonModule,

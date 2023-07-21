@@ -23,6 +23,10 @@ export class ProfessionalRequestsComponent {
     });
   }
 
+  getLength() {
+    return Object.keys(this.professionals$).length
+  }
+
   ngOnInit(): void {
     this.store.dispatch(loadRequestProfessionals())
   }

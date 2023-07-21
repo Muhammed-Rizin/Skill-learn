@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { professionalData } from '../../types/professional.types';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { selectLoginError, selectLoginUserData } from '../../store/professional.selector';
+import { selectLoginError, selectLoginLoading, selectLoginUserData } from '../../store/professional.selector';
 import { professionalLogin } from '../../store/professional.actions';
 
 @Component({
@@ -17,6 +17,7 @@ export class LoginComponent {
   
   error$ : Observable<String> | string
   data$ : Observable<professionalData> | string
+  loading$: Observable<boolean> | boolean;
   constructor (
     readonly formBuilder : FormBuilder, private store : Store,private router : Router
   ){
@@ -31,6 +32,12 @@ export class LoginComponent {
       map((doc: any) => (this.data$ = doc))
     );
     this.data$?.subscribe((doc: professionalData) => doc);
+
+    this.loading$ = this.store.pipe(
+      select(selectLoginLoading),
+      map((doc: any) => (this.loading$ = doc))
+    );
+    this.loading$?.subscribe((doc: boolean) => doc);
   }
 
   ngOnInit(): void {

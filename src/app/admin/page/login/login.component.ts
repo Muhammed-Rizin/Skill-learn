@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { adminLogin } from '../../store/admin.actions';
 import { Observable, map } from 'rxjs';
-import { selectError } from '../../store/admin.selector';
+import { selectError, selectLoading } from '../../store/admin.selector';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +13,7 @@ import { selectError } from '../../store/admin.selector';
 export class LoginComponent implements OnInit{
   form !: FormGroup
   error$ !: Observable<string> | string
+  loading$ : Observable<boolean> | boolean
 
   constructor(
     private formBuilder : FormBuilder, 
@@ -23,6 +24,12 @@ export class LoginComponent implements OnInit{
       map((doc: any) => (this.error$ = doc))
     );
     this.error$?.subscribe((doc) => doc)
+
+    this.loading$ = this.store.pipe(
+      select(selectLoading),
+      map((doc: any) => (this.loading$ = doc))
+    );
+    this.loading$?.subscribe((doc: boolean) => doc);
   }
 
   ngOnInit(): void {

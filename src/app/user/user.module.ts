@@ -6,11 +6,11 @@ import { NavBarComponent } from './page/nav-bar/nav-bar.component';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConsecutiveGuard, UserBackGuard, UserGuard } from '../guard/user-guard.guard';
+import { ConsecutiveGuard, HomeGuard, UserBackGuard, UserGuard } from '../guard/user-guard.guard';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfileComponent } from './page/profile/profile.component';
 const routes: Routes = [
-  {path : '' , component : HomeComponent, canActivate : [ConsecutiveGuard]},
+  {path : '' , component : HomeComponent, canActivate : [ConsecutiveGuard, HomeGuard]},
   {path : 'home' , component : HomeComponent, canActivate : [ConsecutiveGuard]},
   {path : 'login' , component : LoginComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
   {path : 'sign_up', component : SignUpComponent, canActivate: [UserBackGuard, ConsecutiveGuard]},
