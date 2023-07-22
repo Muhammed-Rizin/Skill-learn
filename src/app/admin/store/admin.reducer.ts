@@ -9,7 +9,6 @@ export const initialState : initialStateType =  {
     error : null
 }
 
-// export const userList : 
 
 export const adminLoginReducer = createReducer(
     initialState,
@@ -18,10 +17,30 @@ export const adminLoginReducer = createReducer(
     on(adminActions.adminLoginFailure, (state, {error}) => ({...state, loading : false, error}))
 )
 
+export const loadTotalUserReducer = createReducer(
+    initialState,
+    on(adminActions.loadTotalUsers, state => ({...state, loading : true})),
+    on(adminActions.loadTotalUsersSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
+    on(adminActions.loadTotalUsersFailure, (state, {error}) => ({...state, loading : false, error})),
+)
+
+export const loadTotalProfessionalsReducer = createReducer(
+    initialState,
+    on(adminActions.loadTotalProfessionals, state => ({...state, loading : true})),
+    on(adminActions.loadTotalProfessionalsSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
+    on(adminActions.loadTotalProfessionalsFailure, (state, {error}) => ({...state, loading : false, error})),
+)
+
+export const loadTotalRequestProfessionalReducer = createReducer(
+    initialState,
+    on(adminActions.loadTotalRequestProfessionals, state => ({...state, loading : true})),
+    on(adminActions.loadTotalRequestProfessionalsSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
+    on(adminActions.loadTotalRequestProfessionalsFailure, (state, {error}) => ({...state, loading : false, error})),
+)
 
 export const loadUsersReducer = createReducer(
     initialState,
-    on(adminActions.loadUsers, state => ({...state, loading : true})),
+    on(adminActions.loadUsers, (state, {page, limit}) => ({...state, loading : true})),
     on(adminActions.loadUsersSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
     on(adminActions.loadUsersFailure, (state, {error}) => ({...state, loading : false, error})),
     on(adminActions.userBlocking, (state, {id}) => ({...state, loading : true})),
@@ -34,7 +53,7 @@ export const loadUsersReducer = createReducer(
 
 export const loadProfessionalsReducer = createReducer(
     initialState,
-    on(adminActions.loadProfessionals, state => ({...state, loading : true})),
+    on(adminActions.loadProfessionals, (state, {page, limit})=> ({...state, loading : true})),
     on(adminActions.loadProfessionalsSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
     on(adminActions.loadProfessionalsFailure, (state, {error}) => ({...state, loading : false, error})),
     on(adminActions.professionalBlocking, (state, {id}) => ({...state, loading : true})),
@@ -47,7 +66,7 @@ export const loadProfessionalsReducer = createReducer(
 
 export const loadRequestedProfessionalsReducer = createReducer(
     initialState,
-    on(adminActions.loadRequestProfessionals, state => ({...state, loading : true})),
+    on(adminActions.loadRequestProfessionals, (state, {page, limit}) => ({...state, loading : true})),
     on(adminActions.loadRequestProfessionalsSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
     on(adminActions.loadRequestProfessionalsFailure, (state, {error}) => ({...state, loading : false, error})),
     on(adminActions.approveProfessionals, (state, {id}) => ({...state, loading : true})),

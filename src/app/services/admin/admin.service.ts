@@ -27,16 +27,28 @@ export class AdminService {
     return localStorage.getItem('admin_jwt') ? true : false
   }
 
-  getUsers() : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/get_users`, httpOptions)
+  getTotalUsers() : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/admin/get_totalusers`, httpOptions)
   }
 
-  getProfessionals() : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/get_professionals`, httpOptions)
+  getTotalProfessionals() : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/admin/get_totalprofessionals`, httpOptions)
   }
 
-  getRequestProfessionals() : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/professional_requests`, httpOptions)
+  getTotalRequestProfessionals() : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/admin/totalprofessional_requests`, httpOptions)
+  }
+
+  getUsers(page : number, limit : number) : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/admin/get_users?page=${page}&limit=${limit}`, httpOptions)
+  }
+
+  getProfessionals(page : number, limit : number) : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/admin/get_professionals?page=${page}&limit=${limit}`, httpOptions)
+  }
+
+  getRequestProfessionals(page : number, limit : number) : Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/admin/professional_requests?page=${page}&limit=${limit}`, httpOptions)
   }
 
   blockUser(id : string) : Observable<User[]> {

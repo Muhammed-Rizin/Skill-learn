@@ -13,7 +13,7 @@ import { loginReducer, registerReducer } from './user/store/user.reducer';
 import { UserEffects } from './user/store/user.effect';
 import { HttpClientModule } from '@angular/common/http';
 import { ConsecutiveGuard, UserBackGuard, RegisterGuard } from './guard/user-guard.guard';
-import { adminLoginReducer, loadRequestedProfessionalsReducer, loadProfessionalsReducer, loadUsersReducer } from './admin/store/admin.reducer';
+import { adminLoginReducer, loadRequestedProfessionalsReducer, loadProfessionalsReducer, loadUsersReducer, loadTotalUserReducer, loadTotalProfessionalsReducer, loadTotalRequestProfessionalReducer } from './admin/store/admin.reducer';
 import { adminEffects } from './admin/store/admin.effects';
 import { UserService } from './services/user/user.service';
 import { ProfessionalService } from './services/professional/professional.service';
@@ -42,6 +42,9 @@ import { MatDialogModule } from '@angular/material/dialog';
       loginAdminState : adminLoginReducer,
       registerProfessionalState : professionalRegisterReducer,
       loginProfessionalState : professionalLoginReducer,
+      loadTotalUserState : loadTotalUserReducer,
+      loadTotalProfessionals : loadTotalProfessionalsReducer,
+      loadTotalRequestedProfessionals : loadTotalRequestProfessionalReducer,
       loadUsersState : loadUsersReducer,
       loadProfessionalState : loadProfessionalsReducer,
       loadRequestProfessionalState : loadRequestedProfessionalsReducer

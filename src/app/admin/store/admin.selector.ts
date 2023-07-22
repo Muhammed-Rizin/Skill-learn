@@ -6,6 +6,18 @@ export const selectError = createSelector(selectAdminLoginState, state => (state
 export const selectLoading = createSelector(selectAdminLoginState, state => state.loading)
 export const selectUserData = createSelector(selectAdminLoginState, state => state.user)
 
+export const selectTotalUsersState = createFeatureSelector<initialStateType>('loadTotalUserState')
+export const selectTotalUsers = createSelector(selectTotalUsersState, state => state.user)
+export const selectLoadingTotalUsers = createSelector(selectTotalUsersState, state => state.loading)
+
+export const selectTotalProfessionalState = createFeatureSelector<initialStateType>('loadTotalProfessionals')
+export const selectTotalProfessional = createSelector(selectTotalProfessionalState, state => state.user)
+export const selectLoadingTotalProfessionals = createSelector(selectTotalProfessionalState, state => state.loading)
+
+export const selectTotalRequestProfessionalState = createFeatureSelector<initialStateType>('loadTotalRequestedProfessionals')
+export const selectTotalRequestProfessional = createSelector(selectTotalRequestProfessionalState, state => state.user)
+export const selectLoadingTotalRequestProfessionals = createSelector(selectTotalRequestProfessionalState, state => state.loading)
+
 export const selectUsersState = createFeatureSelector<initialStateType>('loadUsersState')
 export const selectUsers = createSelector(selectUsersState, state => state.user)
 export const selectLoadingUsers = createSelector(selectUsersState, state => state.loading)

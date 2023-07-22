@@ -7,9 +7,24 @@ export const adminLogin = createAction(`[Admin component] Admin login`, props<{f
 export const adminLoginSuccess = createAction(`[Admin component] Admin login success`, props<{adminData : adminData}>())
 export const adminLoginFailure = createAction(`[Admin component] Admin login failure`, props<{error : any}>())
 
+// Loadin total users
+export const loadTotalUsers = createAction(`[Admin component] Load total user`)
+export const loadTotalUsersSuccess = createAction(`[Admin component] Load total user success`, props<{user : User[]}>())
+export const loadTotalUsersFailure = createAction(`[Admin component] Load total user failure`, props<{error : any}>())
+
+
+// Load total professionals
+export const loadTotalProfessionals = createAction(`[Admin component] Load total professionals`)
+export const loadTotalProfessionalsSuccess = createAction(`[Admin component] Load total professionals success`, props<{user : User[]}>())
+export const loadTotalProfessionalsFailure = createAction(`[Admin component] Load total professionals failure`, props<{error : any}>())
+
+// Load total requested professionals
+export const loadTotalRequestProfessionals = createAction(`[Admin component] Load total Request professionals`)
+export const loadTotalRequestProfessionalsSuccess = createAction(`[Admin component] Load total Request professionals success`, props<{user : User[]}>())
+export const loadTotalRequestProfessionalsFailure = createAction(`[Admin component] Load total Request professionals failure`, props<{error : any}>())
 
 // Load users
-export const loadUsers = createAction(`[Admin component] Load user`)
+export const loadUsers = createAction(`[Admin component] Load user`, props<{page : number, limit : number}>())
 export const loadUsersSuccess = createAction(`[Admin component] Load user success`, props<{user : User[]}>())
 export const loadUsersFailure = createAction(`[Admin component] Load user failure`, props<{error : any}>())
 
@@ -24,12 +39,12 @@ export const userunBlockingSuccess = createAction(`[Admin component] User unbloc
 export const userunBlockingFailure = createAction(`[Admin component] User unblock failure`, props<{error : any}>())
 
 // Load professionals
-export const loadProfessionals = createAction(`[Admin component] Load professionals`)
+export const loadProfessionals = createAction(`[Admin component] Load professionals`, props<{page : number, limit : number}>())
 export const loadProfessionalsSuccess = createAction(`[Admin component] Load professionals success`, props<{user : User[]}>())
 export const loadProfessionalsFailure = createAction(`[Admin component] Load professionals failure`, props<{error : any}>())
 
 // Load requested professionals
-export const loadRequestProfessionals = createAction(`[Admin component] Load Request professionals`)
+export const loadRequestProfessionals = createAction(`[Admin component] Load Request professionals`, props<{page : number, limit : number}>())
 export const loadRequestProfessionalsSuccess = createAction(`[Admin component] Load Request professionals success`, props<{user : User[]}>())
 export const loadRequestProfessionalsFailure = createAction(`[Admin component] Load Request professionals failure`, props<{error : any}>())
 

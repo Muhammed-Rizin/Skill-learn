@@ -5,10 +5,17 @@
             <a class="me-4" routerLink="/admin/professionals" > ALL</a>
             <a routerLink="/admin/professional_request" class="active"> Request</a>
         </div>
-        <div *ngIf="loading$">Loading...</div>
+        <div *ngIf="loading$ || professionalsLoading$">Loading...</div>
+        <mat-paginator  *ngIf="!loading$ && professionals$.length !== 0" 
+          [length]="professioanlLength$"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="pageChange($event)"
+          aria-label="Select page">
+        </mat-paginator>
         <div class="table-div table-responsive" *ngIf="!loading$">
           <h3 *ngIf="professionals$.length === 0 || getLength() === 0">No requests</h3>
-            <table class="table" *ngIf="professionals$.length !== 0 && getLength() !== 0">
+            <table class="table" *ngIf="!professionalsLoading$ && professionals$.length !== 0 && getLength() !== 0">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -22,7 +29,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let professional of professionals$; let i = index">
-                    <th scope="row">{{i+1}}</th>
+                    <th scope="row">{{(page -1) * limit + i+1}}</th>
                     <td>{{professional.firstName}}</td>
                     <td>{{professional.email}}</td>
                     <td>
@@ -45,8 +52,8 @@
                                     Action
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                  <li><a class="dropdown-item" (click)="approve(professional._id)">Approve</a></li>
-                                  <li><a class="dropdown-item" (click)="reject(professional._id)">Reject</a></li>
+                                  <li><a class="dropdown-item" (click)="approve(professional._id, professional.firstName)">Approve</a></li>
+                                  <li><a class="dropdown-item" (click)="reject(professional._id, professional.firstName)">Reject</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -57,7 +64,7 @@
                               <a class="nav-link dropdown-toggle text-danger p-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Rejected
                               </a>
                               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" (click)="approve(professional._id)">Approve</a></li>
+                                <li><a class="dropdown-item" (click)="approve(professional._id, professional.firstName)">Approve</a></li>
                               </ul>
                           </li>
                       </ul>

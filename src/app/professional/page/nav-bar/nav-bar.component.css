@@ -25,3 +25,113 @@ button {
     background: transparent;
     color: rgba(0,0,0,.55);
 }
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background: #F8FAFC;
+    position: fixed;
+    height: 100vh;
+    overflow: auto;
+}
+
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.sidebar a.active {
+    background-color: #00A4BD;
+    color: white;
+}
+
+.sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+}
+
+a.logout:hover { cursor: pointer; }
+
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar a {
+        float: left;
+    }
+
+    div.content {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+}
+
+
+/* Add your custom styles here */
+.custom-dialog {
+    /* Customize the dialog container styles */
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-dialog-title {
+    /* Customize the title styles */
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .custom-dialog-content {
+    /* Customize the content styles */
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .custom-dialog-actions {
+    /* Customize the actions container styles */
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .custom-dialog-button {
+    /* Customize the button styles */
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .custom-dialog-button:hover {
+    /* Customize the button hover styles */
+    background-color: #0056b3;
+  }
+  
+  .custom-dialog-button:focus {
+    /* Customize the button focus styles */
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff;
+  }
+  

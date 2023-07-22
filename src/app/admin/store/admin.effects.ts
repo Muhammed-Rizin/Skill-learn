@@ -30,14 +30,52 @@ export class adminEffects {
         )
     })
 
+    loadTotalUsers$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(adminActions.loadTotalUsers),
+            mergeMap(() => 
+                this.adminService.getTotalUsers().pipe(
+                    map((users : User[]) => adminActions.loadTotalUsersSuccess({user : users})),
+                    catchError(error => of(adminActions.loadTotalUsersFailure({error})))
+                )
+            )
+        )
+    })
+
+    loadTotalProfessionals$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(adminActions.loadTotalProfessionals),
+            mergeMap(() => 
+                this.adminService.getTotalProfessionals().pipe(
+                    map((Professionals : User[]) => adminActions.loadTotalProfessionalsSuccess({user : Professionals})),
+                    catchError(error => of(adminActions.loadTotalProfessionalsFailure({error})))
+                )
+            )
+        )
+    })
+
+    loadTotalRequestProfessionals$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(adminActions.loadTotalRequestProfessionals),
+            mergeMap(() => 
+                this.adminService.getTotalRequestProfessionals().pipe(
+                    map((Professionals : User[]) => adminActions.loadTotalRequestProfessionalsSuccess({user : Professionals})),
+                    catchError(error => of(adminActions.loadTotalRequestProfessionalsFailure({error})))
+                )
+            )
+        )
+    })
+
     loadUsers$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.loadUsers),
-            mergeMap(() => 
-                this.adminService.getUsers().pipe(
+            mergeMap((payload) => {
+                console.log(payload)
+                return this.adminService.getUsers(payload.page, payload.limit).pipe(
                     map((users : User[]) => adminActions.loadUsersSuccess({user : users})),
                     catchError(error => of(adminActions.loadUsersFailure({error})))
                 )
+            }
             )
         )
     })
@@ -69,8 +107,8 @@ export class adminEffects {
     loadProfessionals$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.loadProfessionals),
-            mergeMap(() => 
-                this.adminService.getProfessionals().pipe(
+            mergeMap((payload) => 
+                this.adminService.getProfessionals(payload.page, payload.limit).pipe(
                     map((Professionals : User[]) => adminActions.loadProfessionalsSuccess({user : Professionals})),
                     catchError(error => of(adminActions.loadProfessionalsFailure({error})))
                 )
@@ -81,8 +119,8 @@ export class adminEffects {
     loadRequestProfessionals$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.loadRequestProfessionals),
-            mergeMap(() => 
-                this.adminService.getRequestProfessionals().pipe(
+            mergeMap((payload) => 
+                this.adminService.getRequestProfessionals(payload.page, payload.limit).pipe(
                     map((Professionals : User[]) => adminActions.loadRequestProfessionalsSuccess({user : Professionals})),
                     catchError(error => of(adminActions.loadRequestProfessionalsFailure({error})))
                 )

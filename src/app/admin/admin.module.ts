@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './page/login/login.component';
-import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+import { LoginComponent } from './page/login/login.component';
+import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { SideBarComponent } from './page/side-bar/side-bar.component';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfessionalRequestsComponent } from './page/professional-requests/professional-requests.component';
@@ -25,12 +27,13 @@ const routes : Routes = [
     SideBarComponent,
     ProfessionalsComponent,
     ProfessionalRequestsComponent,
-    UsersComponent
+    UsersComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule
   ],
   exports : [RouterModule]
 })
