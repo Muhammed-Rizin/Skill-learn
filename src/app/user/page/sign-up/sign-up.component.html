@@ -62,7 +62,7 @@
             <form [formGroup]="passwordForm" (submit)="next()">
                 <div class="email">
                     <p>password</p>
-                    <input type="text" class="email-input" formControlName="password">
+                    <input type="password" class="email-input" formControlName="password">
                     <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['required']">password is required</p>
                 <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['minlength']">Minimum 8 charecters required</p>
                 </div>

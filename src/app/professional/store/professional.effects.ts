@@ -45,4 +45,49 @@ export class professionalEffects {
         )
     })
 
+    forgetPassword$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.forgotEmailProfessional),
+            mergeMap((paylod) => {
+                return(
+                this.professionalService.sendForgotPasswordMail(paylod.email).pipe(
+                    map((message : string) => {
+                        return professionalActions.forgotEmailProfessionalSuccess({message})
+                    }),
+                    catchError(error => of(professionalActions.forgotEmailProfessionalFailure({error : error})))
+                )
+            )})
+        )
+    })
+
+    getUserDetails$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.getProfessionalDetails),
+            mergeMap((payload) => (
+                this.professionalService.getProfessionalDetails(payload.token).pipe(
+                    map((user : professionalData) => professionalActions.getProfessionalDetailsSuccess({professionalData : user})),
+                    catchError(error => of(professionalActions.getProfessionalDetailsFailure({error : error})))
+                )
+            ))
+        )
+    })
+
+    newPassword$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.newPassword),
+            mergeMap((payload) => {
+                console.log(payload)
+                return (
+                this.professionalService.newPassword(payload.token, payload.password).pipe(
+                    map((user : professionalData) =>{ 
+                        localStorage.setItem('professional_token', user.token)
+                        this.router.navigate(['/professional'])
+                        return professionalActions.newPasswordSuccess({professionalData : user})
+                    }),
+                    catchError(error => of(professionalActions.newPasswordFailure({error : error})))
+                )
+            )})
+        )
+    })
+
 }

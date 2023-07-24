@@ -9,4 +9,10 @@ export const selectUserData = createSelector(selectLoginState, state => state.us
 export const selectRegisterState = createFeatureSelector<registerState>('registerUserState')
 export const selectRegisterError = createSelector(selectRegisterState, state => (state?.error?.message))
 export const selectRegisterUserData = createSelector(selectRegisterState, state => state.user)
-export const selectRegisterLoading = createSelector(selectLoginState, state => state.loading)
+export const selectRegisterLoading = createSelector(selectRegisterState, state => state.loading)
+
+
+export const selectForgotPasswordState = createFeatureSelector<registerState>('userForgetPasswordState')
+export const selectForgotPasswordError = createSelector(selectForgotPasswordState, state => (state?.error?.error?.message))
+export const selectForgotPasswordMessage = createSelector(selectForgotPasswordState, state => state?.message?.message)
+export const selectForgotPasswordLoading = createSelector(selectForgotPasswordState, state => state.loading)

@@ -45,4 +45,50 @@ export class UserEffects {
             ))
         )
     })
+
+    forgetPassword$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(UserActions.forgotEmailUser),
+            mergeMap((paylod) => {
+                return(
+                this.userService.sendForgotPasswordMail(paylod.email).pipe(
+                    map((message : string) => {
+                        return UserActions.forgotEmailUserSuccess({message})
+                    }),
+                    catchError(error => of(UserActions.forgotEmailUserFailure({error : error})))
+                )
+            )})
+        )
+    })
+
+    getUserDetails$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(UserActions.getUserDetails),
+            mergeMap((payload) => (
+                this.userService.getUserDetails(payload.token).pipe(
+                    map((user : userData) => UserActions.getUserDetailsSuccess({userData : user})),
+                    catchError(error => of(UserActions.getUserDetailsFailure({error : error})))
+                )
+            ))
+        )
+    })
+
+    newPassword$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(UserActions.newPassword),
+            mergeMap((payload) => {
+                console.log(payload)
+                return (
+                this.userService.newPassword(payload.token, payload.password).pipe(
+                    map((user : userData) =>{ 
+                        localStorage.setItem('userjwt', user.token)
+                        this.router.navigate(['/'])
+                        return UserActions.newPasswordSuccess({userData : user})
+                    }),
+                    catchError(error => of(UserActions.newPasswordFailure({error : error})))
+                )
+            )})
+        )
+    })
+    
 }

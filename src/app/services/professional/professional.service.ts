@@ -24,4 +24,18 @@ export class ProfessionalService {
     console.log(data, 'pro services')
     return this.http.post<professionalData>(`${this.apiUrl}/professional/login`,data, httpOptions)
   }
+
+  sendForgotPasswordMail(email : string) : Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/professional/forgetpassword?email=${email}`, httpOptions)
+  }
+
+
+  getProfessionalDetails(token : string) : Observable<professionalData> {
+    return this.http.get<professionalData>(`${this.apiUrl}/professional/forgetpassword/professional_details?token=${token}`)
+  }
+
+  newPassword(token : string, password : string) : Observable<professionalData> {
+    console.log(token, password)
+    return this.http.post<professionalData>(`${this.apiUrl}/professional/newpassword`, {token,password}, httpOptions)
+  }
 }

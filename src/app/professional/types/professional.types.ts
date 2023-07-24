@@ -11,7 +11,8 @@ export interface State {
     user : professionalType | null
     loading : boolean
     loaded : boolean
-    error : any
+    error : any,
+    message ?: any
 }
 
 export interface professionalData {

@@ -16,7 +16,7 @@
                     *ngIf="emailForm.get('email')?.touched && emailForm.controls['email'].errors?.['email']">Enter valid email</p>
                 </div>
                 <div class="login-button mt-5">
-                    <button type="submit">Login with Email</button>
+                    <button type="submit">Sign-up with Email</button>
                     <div class="or mt-5">
                         <hr><span>Or</span><hr>
                     </div>
@@ -38,7 +38,7 @@
             <form [formGroup]="passwordForm" (submit)="next()">
                 <div class="email">
                     <p>password</p>
-                    <input type="text" class="email-input" formControlName="password">
+                    <input type="password" class="email-input" formControlName="password">
                     <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['required']">password is required</p>
                 <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['minlength']">Minimum 8 charecters required</p>
                 </div>

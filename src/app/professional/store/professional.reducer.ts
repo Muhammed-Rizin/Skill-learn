@@ -26,3 +26,24 @@ export const professionalLoginReducer = createReducer(
     on(professionalActions.professionalLoginFailure, (state, {error}) => ({...state, loading : false, error}))
 
 )
+
+export const professionalForgetpasswordReducer = createReducer(
+    initialState,
+    on(professionalActions.forgotEmailProfessional, (state, {email}) => ({...state, loading : true})),
+    on(professionalActions.forgotEmailProfessionalSuccess, (state, {message}) => ({...state, loading : false, loaded : true, message})),
+    on(professionalActions.forgotEmailProfessionalFailure, (state, {error}) => ({...state, error, loading : false}))
+)
+
+export const getProfessionalDetailsReducer = createReducer(
+    initialState,
+    on(professionalActions.getProfessionalDetails, (state, {token}) => ({...state, loading : true})),
+    on(professionalActions.getProfessionalDetailsSuccess, (state, {professionalData}) => ({...state, loading : false, loaded : true, Professional : professionalData})),
+    on(professionalActions.getProfessionalDetailsFailure, (state, {error}) => ({...state, error, loading : false}))
+)
+
+export const professionalNewPasswordReducer = createReducer(
+    initialState,
+    on(professionalActions.newPassword, (state, {token, password}) => ({...state, loading : true})),
+    on(professionalActions.newPasswordSuccess, (state, {professionalData}) => ({...state, loading : false, loaded : true, Professional : professionalData})),
+    on(professionalActions.newPasswordFailure, (state, {error}) => ({...state, error, loading : false}))
+)

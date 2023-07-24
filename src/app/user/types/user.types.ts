@@ -25,6 +25,7 @@ export interface registerState {
     loading : boolean
     loaded : boolean
     error : any
+    message ?: any
 }
 
 export interface userData {

@@ -9,13 +9,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConsecutiveGuard, HomeGuard, UserBackGuard, UserGuard } from '../guard/user-guard.guard';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfileComponent } from './page/profile/profile.component';
+import { ForgetpasswordComponent } from './page/forgetpassword/forgetpassword.component';
+import { NewPasswordComponent } from './page/new-password/new-password.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent, canActivate : [ConsecutiveGuard, HomeGuard]},
   {path : 'home' , component : HomeComponent, canActivate : [ConsecutiveGuard]},
   {path : 'login' , component : LoginComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
   {path : 'sign_up', component : SignUpComponent, canActivate: [UserBackGuard, ConsecutiveGuard]},
   {path : 'explore', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard]},
-  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserGuard]}
+  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserGuard]},
+  {path : 'forgotpassword', component : ForgetpasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
+  {path : 'newpassword', component : NewPasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]}
 ];
 
 @NgModule({
@@ -25,7 +29,9 @@ const routes: Routes = [
     NavBarComponent,
     SignUpComponent,
     ProfessionalsComponent,
-    ProfileComponent
+    ProfileComponent,
+    ForgetpasswordComponent,
+    NewPasswordComponent
   ],
   imports: [
     CommonModule,
