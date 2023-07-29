@@ -6,20 +6,22 @@ import { NavBarComponent } from './page/nav-bar/nav-bar.component';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConsecutiveGuard, HomeGuard, UserBackGuard, UserGuard } from '../guard/user-guard.guard';
+import { ConsecutiveGuard, HomeGuard, UserBackGuard, UserBlockedGuard, UserGuard } from '../guard/user-guard.guard';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { ForgetpasswordComponent } from './page/forgetpassword/forgetpassword.component';
 import { NewPasswordComponent } from './page/new-password/new-password.component';
+import { ErrorPageComponent } from '../error/error-page/error-page.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent, canActivate : [ConsecutiveGuard, HomeGuard]},
   {path : 'home' , component : HomeComponent, canActivate : [ConsecutiveGuard]},
   {path : 'login' , component : LoginComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
   {path : 'sign_up', component : SignUpComponent, canActivate: [UserBackGuard, ConsecutiveGuard]},
-  {path : 'explore', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard]},
-  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserGuard]},
+  {path : 'explore', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard ]},
+  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserGuard, UserBlockedGuard]},
   {path : 'forgotpassword', component : ForgetpasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
-  {path : 'newpassword', component : NewPasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]}
+  {path : 'newpassword', component : NewPasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
+  {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 
 @NgModule({

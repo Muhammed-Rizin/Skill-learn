@@ -43,4 +43,9 @@ export class UserService {
   newPassword(token : string, password : string) : Observable<userData> {
     return this.http.post<userData>(`${this.apiUrl}/newpassword`, {token,password}, httpOptions)
   }
+
+  isBlocked() : Observable<boolean> {
+  
+    return this.http.get<boolean>(`${this.apiUrl}/isblocked`)
+  }
 }

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,10 +24,13 @@ import { ProfessionalService } from './services/professional/professional.servic
 import { AdminService } from './services/admin/admin.service';
 import { getProfessionalDetailsReducer, professionalForgetpasswordReducer, professionalLoginReducer, professionalNewPasswordReducer, professionalRegisterReducer } from './professional/store/professional.reducer';
 import { professionalEffects } from './professional/store/professional.effects';
+import { ErrorPageComponent } from './error/error-page/error-page.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,11 @@ import { professionalEffects } from './professional/store/professional.effects';
     MatButtonModule,
     MatDialogModule
   ],
-  providers: [ConsecutiveGuard, UserBackGuard, RegisterGuard, UserService, ProfessionalService, AdminService],
+  providers: [ConsecutiveGuard, UserBackGuard, RegisterGuard, UserService, ProfessionalService, AdminService, {
+    provide:HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

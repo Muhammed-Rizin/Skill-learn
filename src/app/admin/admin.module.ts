@@ -11,6 +11,7 @@ import { ProfessionalsComponent } from './page/professionals/professionals.compo
 import { ProfessionalRequestsComponent } from './page/professional-requests/professional-requests.component';
 import { UsersComponent } from './page/users/users.component';
 import { AdminGuard, ConsecutiveGuard, adminBackGuard } from '../guard/admin-guard.guard';
+import { ErrorPageComponent } from '../error/error-page/error-page.component';
 
 const routes : Routes = [
   {path : '', component : LoginComponent, canActivate : [ConsecutiveGuard, adminBackGuard]},
@@ -18,6 +19,7 @@ const routes : Routes = [
   {path : 'professionals/request', component : ProfessionalRequestsComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
   {path : 'professionals', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
   {path : 'users', component : UsersComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
+  {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ]
 
 @NgModule({
