@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
+import { ChatData, loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -45,7 +45,24 @@ export class UserService {
   }
 
   isBlocked() : Observable<boolean> {
-  
-    return this.http.get<boolean>(`${this.apiUrl}/isblocked`)
+    return this.http.get<boolean>(`${this.apiUrl}/isblocked`, httpOptions)
+  }
+
+  getUserData() : Observable<userData> {
+    console.log('Data')
+    return this.http.get<userData>(`${this.apiUrl}/userdata`)
+  }
+
+  getUserDataByEmail(email :string) : Observable<userData> {
+    return this.http.get<userData>(`${this.apiUrl}/userdatabyemail?email=${email}`, httpOptions)
+  }
+
+  // type
+  getChats() : Observable<ChatData> {
+    return this.http.get<ChatData>(`${this.apiUrl}/getchats`, httpOptions)
+  }
+
+  getChatHistory(roomId : string) : Observable<ChatData> {
+    return this.http.get<ChatData>(`${this.apiUrl}/getchathistory?roomid=${roomId}`, httpOptions)
   }
 }

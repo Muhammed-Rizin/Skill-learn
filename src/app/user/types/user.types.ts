@@ -47,3 +47,22 @@ export interface userData {
     emailverified ?: boolean
 }
   
+
+export interface ChatData {
+  _id: string
+  roomId: string
+  __v: number
+  messages: Message[]
+  users: string[]
+}
+  
+export interface Message {
+  text: string
+  sender: userData[]
+  senderType: string
+  recever: userData[]
+  recevertype: string
+  time: string
+  _id: string
+}
+  

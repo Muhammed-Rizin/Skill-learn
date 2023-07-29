@@ -5,7 +5,7 @@ import { HomeComponent } from './page/home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConsecutiveGuard, ProfessionalGuard, professionalBackGuard } from '../guard/professional-guard.guard';
+import { ConsecutiveGuard, ProfessionalBlockedGuard, ProfessionalGuard, professionalBackGuard } from '../guard/professional-guard.guard';
 import { NavBarComponent } from './page/nav-bar/nav-bar.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './page/new-password/new-password.component';

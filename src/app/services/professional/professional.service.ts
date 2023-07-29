@@ -38,4 +38,12 @@ export class ProfessionalService {
     console.log(token, password)
     return this.http.post<professionalData>(`${this.apiUrl}/professional/newpassword`, {token,password}, httpOptions)
   }
+
+  isBlocked() : Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/professional/isblocked`)
+  }
+
+  isApproved() : Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/professional/isapproved`)
+  }
 }

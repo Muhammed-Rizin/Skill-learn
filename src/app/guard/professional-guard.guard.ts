@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { ProfessionalService } from '../services/professional/professional.service';
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +79,46 @@ export class RegisterGuard implements CanActivate {
     } else {
       return true;
     }
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProfessionalBlockedGuard implements CanActivate {
+  constructor(private router : Router,private professionalService : ProfessionalService) {}
+  canActivate(): Observable<boolean> {
+    return this.professionalService.isBlocked().pipe(
+      map((isBlocked: boolean) => {
+        if (isBlocked) {
+          localStorage.clear()
+          this.router.navigate(['/professional'])
+          return false;
+        } else {
+          return true;
+        }
+      }),
+    );
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProfessionalApprovedGuard implements CanActivate {
+  constructor(private router : Router,private professionalService : ProfessionalService) {}
+  canActivate(): Observable<boolean> {
+    return this.professionalService.isApproved().pipe(
+      map((isApproved: boolean) => {
+        if (isApproved) {
+          this.router.navigate(['/professional/profile'])
+          return false;
+        } else {
+          return true;
+        }
+      }),
+    );
   }
 }

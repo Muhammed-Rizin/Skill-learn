@@ -1,0 +1,86 @@
+<div class="body">
+  <app-nav-bar></app-nav-bar>
+  <div class="content p-5">
+    <div class="row">
+      <div class="col-3 userlist">
+        <div class="users row mt-2" *ngFor="let chat of alreadyMessaged">
+          <div class="userimage col-2">
+            <img src="../../../assets/null-icon.jpg" alt="skill learn" class="image">
+          </div>
+          <div class="username col-10" [routerLink]="['/chat', getRoomId(getChattedUserEmail(chat))]">
+            <p>{{getChattedUserName(chat)}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <ng-container *ngIf="chatHistory">
+          <div class="chathistory">
+            <div class="userheader">
+              <div class="userDetails row">
+                <div class="col-lg-2 col-4">
+                  <div class="imgAbt">
+                    <img src="../../../assets/null-icon.jpg" alt="skill learn" class="image">
+                  </div>
+                </div>
+                <div class="col-lg-10 col-8">
+                  <p>{{getChattedUserName(chatHistory)}}</p>
+                </div>
+              </div>
+              <div class="call"></div>
+            </div>
+            <div class="messages" *ngFor="let message of chatHistory?.messages">
+              <div class="sendermessage p-3 mt-2" *ngIf="message.senderType !== 'User'">
+                <p class="themessage p-3" >
+                  {{ message.text }}
+                </p>
+                
+              </div>
+              <div class="sendermessage outgoing p-3 mt-2" *ngIf="message.senderType === 'User'">
+                <p class="themessageuser p-3" >
+                  {{ message.text }}
+                </p>
+              </div>
+              
+              
+            </div>
+            <div class="sendmessage mt-5">
+              <input type="text" [(ngModel)]="message" placeholder="Type in text" />
+              <button (click)="sendMessage()">Send</button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="App">
+  <form [formGroup]="toFrom" (submit)="submitUser()">
+    <input type="text" placeholder="Enter token" formControlName="to" />
+    <button type="submit">Submit</button>
+  </form>
+  <ng-container *ngIf="CHAT_ROOM">
+    <div class="box">
+      <div class="messages">
+
+        <div *ngFor="let message of chatHistory">
+          <ng-container *ngIf="message.from === userId">
+            you: {{ message.message }}
+          </ng-container>
+          <ng-container *ngIf="message.from !== userId">
+            {{message.from}}: {{ message.message }}
+          </ng-container>
+        </div>
+      </div>
+      <input type="text" [(ngModel)]="message" placeholder="Type in text" />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </ng-container>
+</div> -->
+
+<!-- <h2>Chat History</h2>
+<div *ngFor="let chat of alreadyMessaged">
+  <p><a [routerLink]="['/chat', getRoomId(getChattedUserEmail(chat))]">
+    User ID of the person the client chatted with: {{ getChattedUserName(chat) }} </a></p>
+</div> -->
