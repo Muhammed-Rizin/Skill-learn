@@ -31,9 +31,13 @@ export interface professionalData {
     bio ?: string
     address ?: string
     image ?: string
-    emailverified ?: boolean
+    emailVerified ?: boolean
     experience ?: string
     payment ?: number
     skills ?: string[]
+    field?: string
+    work?: string
+    qualification?: string
+    about?:string
 }
   

@@ -32,7 +32,6 @@ export class NewPasswordComponent implements OnInit{
   submit(){
     const data = this.form.getRawValue()
     if(this.form.valid){
-      console.log(data, this.token)
       const token = this.token
       this.store.dispatch(newPassword({token, password : data.password}))
     }else {

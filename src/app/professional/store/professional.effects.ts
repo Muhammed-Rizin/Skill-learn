@@ -76,7 +76,6 @@ export class professionalEffects {
         return this.actions$.pipe(
             ofType(professionalActions.newPassword),
             mergeMap((payload) => {
-                console.log(payload)
                 return (
                 this.professionalService.newPassword(payload.token, payload.password).pipe(
                     map((user : professionalData) =>{ 

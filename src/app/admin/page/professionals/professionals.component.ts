@@ -79,7 +79,6 @@ export class ProfessionalsComponent implements OnInit{
     this.page = page
     this.limit = limit
 
-    console.log(page, limit, totallength)
     this.store.dispatch(loadProfessionals({page, limit}))
   }
 }

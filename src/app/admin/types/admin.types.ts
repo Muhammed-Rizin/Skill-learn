@@ -35,7 +35,7 @@ export interface User {
     bio ?: string
     address ?: string
     image ?: string
-    emailverified ?: boolean
+    emailVerified ?: boolean
     approved ?: boolean
     rejected ?: boolean
 }

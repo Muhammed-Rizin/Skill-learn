@@ -1,3 +1,5 @@
+import { professionalData } from "src/app/professional/types/professional.types"
+
 export interface loginUser {
     email ?: string | null
     password ?: string | null
@@ -44,7 +46,8 @@ export interface userData {
     bio ?: string
     address ?: string
     image ?: string
-    emailverified ?: boolean
+    emailVerified ?: boolean
+    emailToken?: string
 }
   
 
@@ -58,11 +61,19 @@ export interface ChatData {
   
 export interface Message {
   text: string
-  sender: userData[]
+  sender: userData[] | professionalData[]
   senderType: string
-  recever: userData[]
+  recever: userData[] | professionalData[]
   recevertype: string
   time: string
   _id: string
 }
   
+
+export interface Payment {
+    from: string
+    to: string
+    paymentId: string
+    amount: number
+    createdAt?: Date
+}

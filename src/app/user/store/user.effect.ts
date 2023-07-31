@@ -77,7 +77,6 @@ export class UserEffects {
         return this.actions$.pipe(
             ofType(UserActions.newPassword),
             mergeMap((payload) => {
-                console.log(payload)
                 return (
                 this.userService.newPassword(payload.token, payload.password).pipe(
                     map((user : userData) =>{ 

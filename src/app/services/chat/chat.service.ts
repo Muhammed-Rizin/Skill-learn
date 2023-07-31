@@ -22,7 +22,6 @@ export class ChatService {
 
   subscribeToMessages = (cb: (err: any, data: { sender: string, text: string, recever: string, data: ChatData }) => void) => {
     this.socket.on('message', (msg: { sender: string, text: string, recever: string, data: ChatData }) => {
-      console.log(msg)
       cb(null, msg);
     });
     return true;
@@ -31,14 +30,12 @@ export class ChatService {
   join(roomName: string) {
     if(this.socket){
       this.socket.emit('join', roomName)
-      console.log('joined')
     }
   }
 
   sendMessage =
     ({ message, roomName, from, to, type, receverType }:
       { message: string, roomName: string, from: string, to: string, type: string, receverType: string }, cb: (cb: string) => void) => {
-      console.log(type, 'type')
       if (this.socket) this.socket.emit('message', { message, roomName, from, to, type, receverType }, cb);
     }
 }

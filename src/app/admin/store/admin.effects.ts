@@ -70,7 +70,6 @@ export class adminEffects {
         return this.actions$.pipe(
             ofType(adminActions.loadUsers),
             mergeMap((payload) => {
-                console.log(payload)
                 return this.adminService.getUsers(payload.page, payload.limit).pipe(
                     map((users : User[]) => adminActions.loadUsersSuccess({user : users})),
                     catchError(error => of(adminActions.loadUsersFailure({error})))

@@ -79,7 +79,6 @@ export class ProfessionalRequestsComponent {
 
     this.page = page
     this.limit = limit
-    console.log(page, limit, totallength)
     this.store.dispatch(loadRequestProfessionals({page, limit}))
   }
 }

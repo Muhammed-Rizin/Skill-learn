@@ -1,0 +1,44 @@
+<div class="body">
+    <app-nav-bar></app-nav-bar>
+    <div class="container mt-2">
+        <div class="userdetails row">
+            <div class="col-12 col-lg-3 profileimage">
+                <img src="https://s3-alpha-sig.figma.com/img/2d66/f93e/c8211e269bd24a8e79c55679d087b5c8?Expires=1691366400&Signature=b-QRbI3PuVIOzsKCIZ4XgtDJsDaDpqSkl1VXyknnPqRfT4Gg~hzolS9KvaLWELCQjwVUv6lUbhKRmJ4XvATzvH21wlIDQI3lyfMTBJNIrz25x1yfTAcvINrGw5VxrhXyHQnP71q3r~1VbsByCAvtL4BJlWlAHU0urZmz1X~58YumDH2IYYK~SqbJ-Q9BnoM28vqk1AE19WOt9XXvPRZ9zu8dDtpRzevPwLZpjg7CeT6PaFhJck7a2pTv4v4SWSVxaFlNHLJEI7Y9Dc5kOboJaEbzZJQTEfmCQOOll-DWARDNboaVJcC~I~57UjF6qbaw3r8JxSMDSU4p3rV4-e5h8w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                    alt="profile image" *ngIf="userData?.image">
+                <img src="../../../assets/null-icon.jpg"
+                    alt="profile image" *ngIf="!userData?.image">
+            </div>
+            <div class="col-12 col-lg-9 userinformation">
+                <div class="username row">
+                    <div class="nameandbio col-6">
+                        <h2>{{userData.firstName+ " " + userData.lastName}}</h2>
+                        <p>{{userData.bio + "  "}}</p>
+                    </div>
+                    <div class="chat-option col-6">
+                        <button [routerLink]="['/chat', getRoomId(userData.email)]">Chat</button>
+                    </div>
+                </div>
+                <div class="userdata">
+                    <div class="about">
+                        <p>{{userData.about}}</p>
+                    </div>
+                    <div class=" mt-5">
+                        <p>{{userData.work }}</p>
+                        <p>{{userData.field }}</p>
+                    </div>
+                    <div class="payment-option" *ngIf="userData.payment">
+                        <div class="payment">
+                            <div class="text">
+                                <p>One to One session</p>
+                                <p>{{userData.payment}}</p>
+                            </div>
+                            <div class="payment-button">
+                                <button (click)="paymentSubmit()">PAY {{userData.payment}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

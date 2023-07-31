@@ -113,10 +113,10 @@ export class ProfessionalApprovedGuard implements CanActivate {
     return this.professionalService.isApproved().pipe(
       map((isApproved: boolean) => {
         if (isApproved) {
+          return true;
+        } else {
           this.router.navigate(['/professional/profile'])
           return false;
-        } else {
-          return true;
         }
       }),
     );

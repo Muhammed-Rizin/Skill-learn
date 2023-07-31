@@ -78,7 +78,6 @@ export class UsersComponent {
     const limit = event.pageSize;
     const totallength = event.length;
 
-    console.log(page, limit, totallength)
     this.store.dispatch(loadUsers({page, limit}))
   }
 }

@@ -45,6 +45,25 @@
                         <button class="col-4 edit" (click)="submit('Education')">Edit</button>
                     </div>
                     <div class="detail">
+                        <p class="col-4">Qualification</p>
+                        <input type="text" [(ngModel)]="userData.qualification" class="col-4" 
+                        [placeholder]="userData.qualification ? userData.qualification : 'Your qualification'">
+                        <button class="col-4 edit" (click)="submit('Qualification')">Edit</button>
+                    </div>
+                    <div class="detail">
+                        <p class="col-4">Field</p>
+                        <input type="text" [(ngModel)]="userData.field" class="col-4"
+                        [placeholder]="userData.field ? userData.field: 'Your field'" >
+                        
+                        <button class="col-4 edit" (click)="submit('Field')">Edit</button>
+                    </div>
+                    <div class="detail">
+                        <p class="col-4">Payment</p>
+                        <input type="number" [(ngModel)]="userData.payment"
+                        [placeholder]="userData.payment ? userData.payment : 'Your payment'" class="col-4">
+                        <button class="col-4 edit" (click)="submit('Payment')">Edit</button>
+                    </div>
+                    <div class="detail">
                         <p class="col-4">Email</p>
                         <p class="col-4">{{userData.email}}</p>
                         <button class="col-4 edit text-danger" *ngIf="!userData.emailVerified" (click)="sendVerifyUser()">Verify</button>
@@ -55,6 +74,21 @@
                         <input type="text" [(ngModel)]="userData.address" 
                         [placeholder]="userData.address ? userData.address : 'Your address'" class="col-4">
                         <button class="col-4 edit" (click)="submit('Address')">Edit</button>
+                    </div>
+                    <div class="detail">
+                        <p class="col-4">About</p>
+                        <input type="text" [(ngModel)]="userData.about" class="col-4"  
+                        [placeholder]="userData.about ? userData.about : 'Your about'">
+                        <button class="col-4 edit" (click)="submit('Address')">Edit</button>
+                    </div>
+
+                    <h4 class="mt-5">Experience</h4>
+                    <p class="validation">{{validation}}</p>
+                    <div class="detail">
+                        <p class="col-4">Work</p>
+                        <input type="text" [(ngModel)]="userData.work" class="col-4"
+                        [placeholder]="userData.work ? userData.work: 'Your work'">
+                        <button class="col-4 edit" (click)="submit('Work')">Edit</button>
                     </div>
                 </div>
             </div>

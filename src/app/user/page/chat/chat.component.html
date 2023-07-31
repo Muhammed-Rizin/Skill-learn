@@ -14,28 +14,28 @@
       </div>
       <div class="col-8">
         <ng-container *ngIf="chatHistory">
-          <div class="chathistory">
+          <div class="chathistory" #chatContainer>
             <div class="userheader">
               <div class="userDetails row">
-                <div class="col-lg-2 col-4">
+                <div class="col-lg-2 col-6">
                   <div class="imgAbt">
                     <img src="../../../assets/null-icon.jpg" alt="skill learn" class="image">
                   </div>
                 </div>
-                <div class="col-lg-10 col-8">
+                <div class="col-lg-10 col-6">
                   <p>{{getChattedUserName(chatHistory)}}</p>
                 </div>
               </div>
               <div class="call"></div>
             </div>
             <div class="messages" *ngFor="let message of chatHistory?.messages">
-              <div class="sendermessage p-3 mt-2" *ngIf="message.senderType !== 'User'">
+              <div class="sendermessage p-3 mt-2 mb-3" *ngIf="message.senderType !== 'User'">
                 <p class="themessage p-3" >
                   {{ message.text }}
                 </p>
                 
               </div>
-              <div class="sendermessage outgoing p-3 mt-2" *ngIf="message.senderType === 'User'">
+              <div class="sendermessage outgoing pe-3 mt-2" *ngIf="message.senderType === 'User'">
                 <p class="themessageuser p-3" >
                   {{ message.text }}
                 </p>
@@ -43,10 +43,10 @@
               
               
             </div>
-            <div class="sendmessage mt-5">
-              <input type="text" [(ngModel)]="message" placeholder="Type in text" />
-              <button (click)="sendMessage()">Send</button>
-            </div>
+          </div>
+          <div class="sendmessage sendmessage-div">
+            <input type="text" [(ngModel)]="message" placeholder="Send message" class="input-field"/>
+            <button (click)="sendMessage()" class="input-button"><img src="https://s3-alpha-sig.figma.com/img/2fa1/296d/e7e9e31c7ff99108d47b1561bba68529?Expires=1691971200&Signature=h1bokKSIUKt94M-zievN2mrWEAOX-sfurDTlGvfApFuUnG4TuSrYEbyZsot0RlQ~O8AI1kQU0C1xM6nDbstlVUmekUdkLD~~3ILxphEPj9m0HDF-5PEKY~gqqnaKLQLMtOtjgGWMBrgHA303aCKzH3pLUqX6mkD0guehYzo4S8OwlDOLSpABsDBghr9F4BYFyP0hibqHxVUb5WXzw06JE1tbGmQjkXlOKm4irZslnrr~icZ0te2K0Z4A4U4tvJynJRmJVzth82bxuS7kfBGQpzLgcCVGS4R1aTaqOlFssHD66O7WkwcaI7z6FcNLgmStzL8d7dZBvRX4DP7ojZjx9Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" alt=""></button>
           </div>
         </ng-container>
       </div>

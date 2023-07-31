@@ -1,19 +1,16 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
-import * as CryptoJS from 'crypto-js';
-
-import { ChatService } from 'src/app/services/chat/chat.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChatData } from '../../types/user.types';
+import { Observable } from 'rxjs';
+import { ChatService } from 'src/app/services/chat/chat.service';
+import { ProfessionalService } from 'src/app/services/professional/professional.service';
+import { ChatData } from 'src/app/user/types/user.types';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, OnDestroy{
+export class ChatComponent implements  OnInit, OnDestroy{
   secret = "crypto-js"
   CHAT_ROOM !: string
   message!: string
@@ -26,12 +23,12 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   constructor(
     private socketService: ChatService, 
-    private userSerivce : UserService, 
+    private userSerivce : ProfessionalService, 
     private router: ActivatedRoute) {}
   
   ngOnInit() {
     this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data})
-    this.userSerivce.getUserData().subscribe((data) => {this.userId = data._id, this.userEmail = data.email})
+    this.userSerivce.getProfessionalData().subscribe((data) => {this.userId = data._id, this.userEmail = data.email})
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userId as string);
       this.router.params.subscribe((params) => {
@@ -59,7 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     const toUserID = this.toUserId
     if(message.trim().length !== 0){
       this.socketService.sendMessage(
-        {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'User', receverType : 'Professional'},  
+        {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'Professional', receverType : 'User'},  
         cb => {
           console.log("ACKNOWLEDGEMENT ", cb);
         })
@@ -87,6 +84,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     const chattedUser = sender === chattedUserId
       ? chat.messages[0]?.sender?.email
       : chat.messages[0]?.recever?.email;
+
       this.toUserId = this.getChattedUserId(chat)
     return chattedUser || 'Unknown';
   }
@@ -114,6 +112,8 @@ export class ChatComponent implements OnInit, OnDestroy{
     const bytes = CryptoJS.AES.decrypt(roomId, this.secret);
     return bytes.toString(CryptoJS.enc.Utf8);
   }
+  
+
   @ViewChild('chatContainer') chatContainer!: ElementRef 
   ngAfterViewChecked(): void {
     this.scrollToBottom();

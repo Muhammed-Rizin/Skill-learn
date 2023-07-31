@@ -14,17 +14,21 @@ import { NewPasswordComponent } from './page/new-password/new-password.component
 import { ErrorPageComponent } from '../error/error-page/error-page.component';
 import { ChatComponent } from './page/chat/chat.component';
 import { FormsModule } from '@angular/forms';
+import { VerifyEmailComponent } from './page/verify-email/verify-email.component';
+import { ProfessionalProfileComponent } from './page/professional-profile/professional-profile.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent, canActivate : [ConsecutiveGuard, HomeGuard]},
   {path : 'home' , component : HomeComponent, canActivate : [ConsecutiveGuard]},
   {path : 'login' , component : LoginComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
   {path : 'sign_up', component : SignUpComponent, canActivate: [UserBackGuard, ConsecutiveGuard]},
   {path : 'explore', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard ]},
-  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserGuard]},
+  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserGuard, UserBlockedGuard]},
   {path : 'forgotpassword', component : ForgetpasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
   {path : 'newpassword', component : NewPasswordComponent, canActivate : [UserBackGuard, ConsecutiveGuard]},
-  {path : 'chat', component : ChatComponent, canActivate : [UserGuard, ConsecutiveGuard]},
-  {path : 'chat/:id', component : ChatComponent, canActivate : [UserGuard, ConsecutiveGuard]},
+  {path : 'chat', component : ChatComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
+  {path : 'chat/:id', component : ChatComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
+  {path : 'verifyemail', component : VerifyEmailComponent, canActivate : [UserGuard, ConsecutiveGuard,UserBlockedGuard]},
+  {path : 'viewprofile/:id', component : ProfessionalProfileComponent, canActivate : [UserGuard,UserBlockedGuard, ConsecutiveGuard]},
   {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 
@@ -38,7 +42,9 @@ const routes: Routes = [
     ProfileComponent,
     ForgetpasswordComponent,
     NewPasswordComponent,
-    ChatComponent
+    ChatComponent,
+    VerifyEmailComponent,
+    ProfessionalProfileComponent
   ],
   imports: [
     CommonModule,

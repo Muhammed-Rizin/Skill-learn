@@ -143,6 +143,7 @@
 
 .userlist {
   overflow-y: scroll;
+  cursor: pointer;
   height: 550px;
 }
 
@@ -218,6 +219,7 @@
   justify-content: space-between;
   padding: 0 1rem;
   align-items: center;
+
 }
 
 .sendMessage input {
@@ -299,7 +301,6 @@
   display: flex;
   justify-content: flex-end;
 }
-
 
 .input-field {
   width: 90%;
