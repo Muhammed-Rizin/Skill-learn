@@ -63,7 +63,7 @@ export class ProfessionalProfileComponent {
         if (response.razorpay_payment_id) {
           this.userService.paymentSuccess({amount : amount as number, from, to , paymentId : response.razorpay_payment_id})
           .subscribe((data) => {
-            // redirect to success
+            this.router.navigate(['/ordersuccess'])
           })
         } else {
           console.log("payment has failed")

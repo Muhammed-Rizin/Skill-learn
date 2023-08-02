@@ -9,6 +9,12 @@ const httpOptions = {
     'content-Type': 'application/json',
   }),
 };
+let imageHeader = new HttpHeaders();
+imageHeader = imageHeader.set('Accept', 'image/png, image/jpeg, image/gif');
+const options = {
+  headers: imageHeader,
+  responseType: 'blob' as 'json'
+};
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +78,14 @@ export class ProfessionalService {
 
   verifyEmail(token : string) {
     return this.http.get(`${this.apiUrl}/professional/verifyemail?token=${token}`, httpOptions)
+  }
+  submitFile(profile : FormData, id : string) {
+    console.log(profile, 'submt')
+    return this.http.post(`${this.apiUrl}/professional/uploadimage?id=${id}`,profile)
+  }
+
+  userImage(name : string | undefined) : Observable<Blob> {
+    return this.http.get<Blob>(`${this.apiUrl}/professional/file?name=${name}`, options)
+    // `http://localhost:5000/file/${name}`
   }
 }

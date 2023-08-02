@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { userData } from '../../types/user.types';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -11,14 +12,17 @@ export class ProfileComponent implements OnInit{
   userData!: userData
   actualData!: userData
   validation !: string
+  selectedFile!: File;
 
-  constructor(private userService : UserService ){
-    this.userService.getUserData().subscribe((data) => {
+  imageUrl !: string | Observable<string>
+  constructor(private _userService : UserService ){
+    this._userService.getUserData().subscribe((data) => {
       this.userData = data
       this.userData.bio = this.userData.bio?.trim()
       this.userData.location = this.userData.location?.trim()
       this.userData.address = this.userData.address?.trim()
       this.userData.image = this.userData.image?.trim()
+      this._userService.userImage(this.userData.image).subscribe((data) => {this.imageUrl =URL.createObjectURL(data), console.log('image',data)})
       this.actualData = Object.assign({}, this.userData)
     })
   }
@@ -36,12 +40,23 @@ export class ProfileComponent implements OnInit{
       ){ this.validation = `${field} cannot be empty`}
       else {
         this.validation = ''
-        this.userService.updateUser(this.userData).subscribe((data) => this.userData = data)
+        this._userService.updateUser(this.userData).subscribe((data) => this.userData = data)
       }
   }
 
   sendVerifyUser(){
-    this.userService.sendVerifyUser().subscribe()
+    this._userService.sendVerifyUser().subscribe()
   }
-  
+ 
+  onFileSelected(event : Event) {
+    const formData = new FormData()
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedFile = inputElement.files[0];
+      formData.append("profile", this.selectedFile, this.selectedFile.name)
+      this._userService.submitFile(formData, this.userData._id).subscribe((data) => {
+        window.location.reload()
+      })
+    }
+  }
 }

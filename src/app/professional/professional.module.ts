@@ -5,7 +5,7 @@ import { HomeComponent } from './page/home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConsecutiveGuard, ProfessionalApprovedGuard, ProfessionalBlockedGuard, ProfessionalGuard, professionalBackGuard } from '../guard/professional-guard.guard';
+import { ConsecutiveGuard, ProfessionalApprovedGuard, ProfessionalBlockedGuard, ProfessionalGuard, ProfessionalchatGuard, professionalBackGuard } from '../guard/professional-guard.guard';
 import { NavBarComponent } from './page/nav-bar/nav-bar.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './page/new-password/new-password.component';
@@ -16,14 +16,14 @@ import { VerifyEmailComponent } from './page/verify-email/verify-email.component
 
 const route : Routes = [
   {path : '', component : HomeComponent, 
-  canActivate :[ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+  canActivate :[ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard, ProfessionalchatGuard]},
   {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
   {path : 'sign-up', component : SignUpComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
   {path : 'forgotpassword', component : ForgotPasswordComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
   {path : 'newpassword', component : NewPasswordComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
   {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard]},
   {path : 'chat', component : ChatComponent, 
-  canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
   {path : 'chat/:id', component : ChatComponent, 
   canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
   {path : 'verifyemail', component : VerifyEmailComponent, 

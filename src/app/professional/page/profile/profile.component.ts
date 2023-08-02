@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { professionalData } from '../../types/professional.types';
 
@@ -11,9 +13,15 @@ export class ProfileComponent {
   userData!: professionalData
   actualData!: professionalData
   validation !: string
+  selectedFile!: File;
 
-  constructor(private professionalService : ProfessionalService ){
-    this.professionalService.getProfessionalData().subscribe((data) => {
+  imageUrl !: string | Observable<string>
+  constructor(
+    private _professionalService : ProfessionalService
+  ){}
+
+  ngOnInit(): void {
+    this._professionalService.getProfessionalData().subscribe((data) => {
       this.userData = data
       this.userData.bio = this.userData.bio?.trim()
       this.userData.location = this.userData.location?.trim()
@@ -24,11 +32,9 @@ export class ProfileComponent {
       this.userData.payment = this.userData.payment
       this.userData.work = this.userData.work?.trim()
       this.userData.about = this.userData.about?.trim()
+      this._professionalService.userImage(this.userData.image).subscribe((data) => {this.imageUrl =URL.createObjectURL(data)})
       this.actualData = Object.assign({}, this.userData)
     })
-  }
-
-  ngOnInit(): void {
   }
   submit( field : string){
     if(
@@ -45,11 +51,22 @@ export class ProfileComponent {
       ){ this.validation = `${field} cannot be empty`}
       else {
         this.validation = ''
-        this.professionalService.updateProfessional(this.userData).subscribe()
+        this._professionalService.updateProfessional(this.userData).subscribe()
       }
   }
 
   sendVerifyUser(){
-    this.professionalService.sendVerifyUser().subscribe()
+    this._professionalService.sendVerifyUser().subscribe()
+  }
+  onFileSelected(event : Event) {
+    const formData = new FormData()
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedFile = inputElement.files[0];
+      formData.append("profile", this.selectedFile, this.selectedFile.name)
+      this._professionalService.submitFile(formData, this.userData._id).subscribe((data) => {
+        window.location.reload()
+      })
+    }
   }
 }

@@ -1,1 +1,14 @@
-<app-nav-bar></app-nav-bar>
+<div class="body">
+    <app-nav-bar></app-nav-bar>
+    <div class="content row">
+        <div class="col-7 professionals row" *ngFor="let professional of professionalData">
+            <div class="col-12 professional mb-4" routerLink="/viewprofile/{{professional.email}}">
+                <p>{{professional.firstName | uppercase}}</p>
+                <p>{{professional.about}}</p>
+            </div>
+        </div>
+        <div class="col-5">
+             
+        </div>
+    </div>
+</div>

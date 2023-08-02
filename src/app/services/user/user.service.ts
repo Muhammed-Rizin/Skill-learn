@@ -10,6 +10,14 @@ const httpOptions = {
   }),
 };
 
+let imageHeader = new HttpHeaders();
+imageHeader = imageHeader.set('Accept', 'image/png, image/jpeg, image/gif');
+const options = {
+  headers: imageHeader,
+  responseType: 'blob' as 'json'
+};
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -80,5 +88,19 @@ export class UserService {
 
   paymentSuccess(data : Payment) {
     return this.http.post(`${this.apiUrl}/payment/conform`,{data}, httpOptions)
+  }
+
+  getProfessionals() : Observable<userData[]> {
+    return this.http.get<userData[]>(`${this.apiUrl}/user/professionalsdata`)
+  }
+
+  submitFile(profile : FormData, id : string) {
+    console.log(profile, 'submt')
+    return this.http.post(`${this.apiUrl}/user/uploadimage?id=${id}`,profile)
+  }
+
+  userImage(name : string | undefined) : Observable<Blob> {
+    return this.http.get<Blob>(`${this.apiUrl}/user/file?name=${name}`, options)
+    // `http://localhost:5000/file/${name}`
   }
 }

@@ -16,6 +16,7 @@ import { ChatComponent } from './page/chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { VerifyEmailComponent } from './page/verify-email/verify-email.component';
 import { ProfessionalProfileComponent } from './page/professional-profile/professional-profile.component';
+import { OrderSuccessComponent } from './page/order-success/order-success.component';
 const routes: Routes = [
   {path : '' , component : HomeComponent, canActivate : [ConsecutiveGuard, HomeGuard]},
   {path : 'home' , component : HomeComponent, canActivate : [ConsecutiveGuard]},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path : 'chat/:id', component : ChatComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
   {path : 'verifyemail', component : VerifyEmailComponent, canActivate : [UserGuard, ConsecutiveGuard,UserBlockedGuard]},
   {path : 'viewprofile/:id', component : ProfessionalProfileComponent, canActivate : [UserGuard,UserBlockedGuard, ConsecutiveGuard]},
+  {path : 'ordersuccess', component : OrderSuccessComponent, canActivate : [UserGuard,UserBlockedGuard, ConsecutiveGuard]},
   {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 
@@ -44,7 +46,8 @@ const routes: Routes = [
     NewPasswordComponent,
     ChatComponent,
     VerifyEmailComponent,
-    ProfessionalProfileComponent
+    ProfessionalProfileComponent,
+    OrderSuccessComponent
   ],
   imports: [
     CommonModule,

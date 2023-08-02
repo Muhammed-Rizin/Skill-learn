@@ -120,3 +120,11 @@
 .validation {
     color: red;
 }
+
+.user-email {
+    overflow-y: scroll;
+}
+
+.user-email::-webkit-scrollbar {
+    display: none;
+  }

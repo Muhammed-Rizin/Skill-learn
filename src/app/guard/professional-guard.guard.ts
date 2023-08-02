@@ -121,4 +121,15 @@ export class ProfessionalApprovedGuard implements CanActivate {
       }),
     );
   }
+
+}
+@Injectable({
+  providedIn:'root'
+})
+export class  ProfessionalchatGuard implements CanActivate{
+  constructor(private router : Router) {}
+  canActivate() {
+    this.router.navigate(['/professional/chat'])
+    return false
+  }
 }

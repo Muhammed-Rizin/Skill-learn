@@ -3,10 +3,11 @@
     <div class="container mt-2">
         <div class="userdetails row">
             <div class="col-12 col-lg-3 profileimage">
-                <img src="../../../../assets/null-icon.jpg"
-                    alt="profile image" *ngIf="userData?.image">
+                <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" name="profile"/>
+                <img src="{{imageUrl}}"
+                    alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()">
                 <img src="../../../assets/null-icon.jpg"
-                    alt="profile image" *ngIf="!userData?.image">
+                    alt="profile image" *ngIf="!userData?.image"  (click)="fileInput.click()">
             </div>
             <div class="col-12 col-lg-9 userinformation">
                 <div class="username">
@@ -46,7 +47,7 @@
                     </div>
                     <div class="detail">
                         <p class="col-4">Email</p>
-                        <p class="col-4">{{userData.email}}</p>
+                        <p class="col-4 user-email">{{userData.email}}</p>
                         <button class="col-4 edit text-danger" *ngIf="!userData.emailVerified" (click)="sendVerifyUser()">Verify</button>
                         <p class="col-4 edit text-success"  *ngIf="userData.emailVerified">verified</p>
                     </div>

@@ -27,7 +27,9 @@ export class VerifyEmailComponent implements OnInit{
       this.router.navigate(['/'])
     }else {
       this.professionalService.verifyEmail(token).subscribe(() => {
-        this.router.navigate(['/professional/profile'])
+      },
+      (error) => {
+        this.router.navigate(['/'])
       })
     }
   }

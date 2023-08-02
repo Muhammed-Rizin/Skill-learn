@@ -3,10 +3,11 @@
     <div class="container mt-2">
         <div class="userdetails row">
             <div class="col-12 col-lg-3 profileimage">
-                <img src="../../../../assets/null-icon.jpg"
-                    alt="profile image" *ngIf="userData?.image">
+                <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" name="profile"/>
+                <img src="{{imageUrl}}"
+                    alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()">
                 <img src="../../../assets/null-icon.jpg"
-                    alt="profile image" *ngIf="!userData?.image">
+                    alt="profile image" *ngIf="!userData?.image"  (click)="fileInput.click()">
             </div>
             <div class="col-12 col-lg-9 userinformation">
                 <div class="username">
