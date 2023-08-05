@@ -14,7 +14,6 @@ export class ProfileComponent implements OnInit{
   validation !: string
   selectedFile!: File;
 
-  imageUrl !: string | Observable<string>
   constructor(private _userService : UserService ){
     this._userService.getUserData().subscribe((data) => {
       this.userData = data
@@ -22,7 +21,6 @@ export class ProfileComponent implements OnInit{
       this.userData.location = this.userData.location?.trim()
       this.userData.address = this.userData.address?.trim()
       this.userData.image = this.userData.image?.trim()
-      this._userService.userImage(this.userData.image).subscribe((data) => {this.imageUrl =URL.createObjectURL(data), console.log('image',data)})
       this.actualData = Object.assign({}, this.userData)
     })
   }
@@ -48,15 +46,30 @@ export class ProfileComponent implements OnInit{
     this._userService.sendVerifyUser().subscribe()
   }
  
-  onFileSelected(event : Event) {
+  // onFileSelected(event : Event) {
+  //   const formData = new FormData()
+  //   const inputElement = event.target as HTMLInputElement;
+  //   if (inputElement.files && inputElement.files.length > 0) {
+  //     this.selectedFile = inputElement.files[0];
+  //     formData.append("profile", this.selectedFile, this.selectedFile.name)
+  //     this._userService.submitFile(formData, this.userData._id).subscribe((data) => {
+  //       window.location.reload()
+  //     })
+  //   }
+  // }
+  onFileSelected(e : Event) {
     const formData = new FormData()
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      this.selectedFile = inputElement.files[0];
-      formData.append("profile", this.selectedFile, this.selectedFile.name)
-      this._userService.submitFile(formData, this.userData._id).subscribe((data) => {
-        window.location.reload()
-      })
+    const inputElement = e.target as HTMLInputElement
+
+    if (inputElement.files) {
+      const file = inputElement.files[0];
+  
+      formData.append('image', file, file.name)
+      this._userService.submitFile(formData, this.userData._id).subscribe(
+        (data) => {},
+        (error) => {
+        }
+      );
     }
   }
 }

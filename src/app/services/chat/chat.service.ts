@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { ChatData } from 'src/app/user/types/user.types';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ChatService {
   constructor() { }
 
   setupSocketConnection(userId: string) {
-    this.socket = io("http://localhost:5000", { auth: { userId } });
+    this.socket = io(environment.apiUrl, { auth: { userId } });
   }
 
   disconnect() {

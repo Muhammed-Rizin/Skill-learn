@@ -4,7 +4,7 @@
         <div class="userdetails row">
             <div class="col-12 col-lg-3 profileimage">
                 <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" name="profile"/>
-                <img src="{{imageUrl}}"
+                <img src="{{userData.image}}"
                     alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()">
                 <img src="../../../assets/null-icon.jpg"
                     alt="profile image" *ngIf="!userData?.image"  (click)="fileInput.click()">

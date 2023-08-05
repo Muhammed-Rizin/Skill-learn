@@ -1,0 +1,24 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import { professionalData } from '../professional/types/professional.types';
+
+@Pipe({
+  name: 'professionalsSearch'
+})
+export class ProfessionalsSearchPipe implements PipeTransform {
+
+  transform(value: professionalData[], searchValue: string): professionalData[] {
+    if (value.length === 0 || !searchValue) {
+      return value;
+    }
+    const users: professionalData[] = [];
+    const pattern = new RegExp(searchValue, 'i');
+    for (const professional of value) {
+      if (pattern.test(professional['firstName'] + ' ' + professional['lastName']) || pattern.test(professional['field'])) {
+        users.push(professional);
+      }
+    }
+    return users;
+  }
+  
+
+}

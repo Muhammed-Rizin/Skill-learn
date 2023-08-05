@@ -5,10 +5,11 @@
         <div class="col-3 userlist" *ngIf="alreadyMessaged">
           <div class="users row mt-2" *ngFor="let chat of alreadyMessaged">
             <div class="userimage col-2">
-              <img src="../../../assets/null-icon.jpg" alt="skill learn" class="image">
-            </div>
-            <div class="username col-10" [routerLink]="['/professional/chat', getRoomId(getChattedUserEmail(chat))]">
-              <p>{{getChattedUserName(chat)}}</p>
+            <img [src]="getUserDetails(chat).image" alt="skill learn" class="image" *ngIf="getUserDetails(chat).image">
+            <img src="../../../../assets/null-icon.jpg" alt="skill learn" class="image" *ngIf="!getUserDetails(chat).image">
+          </div>
+            <div class="username col-10" [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
+              <p>{{getUserDetails(chat).firstName}}</p>
             </div>
           </div>
         </div>
@@ -22,11 +23,16 @@
                 <div class="userDetails row">
                   <div class="col-lg-2 col-6">
                     <div class="imgAbt">
-                      <img src="../../../assets/null-icon.jpg" alt="skill learn" class="image">
+                      <img 
+                      [src]="getUserDetails(chatHistory).image" alt="skill learn" class="image"
+                      *ngIf="getUserDetails(chatHistory).image">
+                      <img 
+                      src="../../../../assets/null-icon.jpg" alt="skill learn" class="image"
+                      *ngIf="!getUserDetails(chatHistory).image">
                     </div>
                   </div>
                   <div class="col-lg-10 col-6">
-                    <p>{{getChattedUserName(chatHistory)}}</p>
+                    <p>{{getUserDetails(chatHistory).firstName}}</p>
                   </div>
                 </div>
                 <div class="call"></div>

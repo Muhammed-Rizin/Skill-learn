@@ -10,17 +10,8 @@ import { SideBarComponent } from './page/side-bar/side-bar.component';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfessionalRequestsComponent } from './page/professional-requests/professional-requests.component';
 import { UsersComponent } from './page/users/users.component';
-import { AdminGuard, ConsecutiveGuard, adminBackGuard } from '../guard/admin-guard.guard';
-import { ErrorPageComponent } from '../error/error-page/error-page.component';
+import { AdminRoutingModule } from './admin-routing.module';
 
-const routes : Routes = [
-  {path : '', component : LoginComponent, canActivate : [ConsecutiveGuard, adminBackGuard]},
-  {path : 'dashboard', component : DashboardComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
-  {path : 'professionals/request', component : ProfessionalRequestsComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
-  {path : 'professionals', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
-  {path : 'users', component : UsersComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
-  {path : '**', pathMatch : 'full', component : ErrorPageComponent}
-]
 
 @NgModule({
   declarations: [
@@ -33,7 +24,7 @@ const routes : Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    AdminRoutingModule,
     ReactiveFormsModule,
     MatPaginatorModule
   ],

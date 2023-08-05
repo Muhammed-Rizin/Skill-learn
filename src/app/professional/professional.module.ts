@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
 import { LoginComponent } from './page/login/login.component';
 import { HomeComponent } from './page/home/home.component';
-import { RouterModule, Routes } from '@angular/router';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConsecutiveGuard, ProfessionalApprovedGuard, ProfessionalBlockedGuard, ProfessionalGuard, ProfessionalchatGuard, professionalBackGuard } from '../guard/professional-guard.guard';
 import { NavBarComponent } from './page/nav-bar/nav-bar.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './page/new-password/new-password.component';
@@ -13,22 +18,13 @@ import { ErrorPageComponent } from '../error/error-page/error-page.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { ChatComponent } from './page/chat/chat.component';
 import { VerifyEmailComponent } from './page/verify-email/verify-email.component';
+import { ProfessionalRoutingModule } from './professional-routing.module';
+import { TaskComponent } from './page/task/task.component';
+import { TaskCompletedComponent } from './page/task-completed/task-completed.component';
+import { TaskNewComponent } from './page/task-new/task-new.component';
 
 const route : Routes = [
-  {path : '', component : HomeComponent, 
-  canActivate :[ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard, ProfessionalchatGuard]},
-  {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
-  {path : 'sign-up', component : SignUpComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
-  {path : 'forgotpassword', component : ForgotPasswordComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
-  {path : 'newpassword', component : NewPasswordComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
-  {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard]},
-  {path : 'chat', component : ChatComponent, 
-canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-  {path : 'chat/:id', component : ChatComponent, 
-  canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-  {path : 'verifyemail', component : VerifyEmailComponent, 
-  canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard]},
-  {path : '**', pathMatch : 'full', component : ErrorPageComponent}
+  
 ]
 
 @NgModule({
@@ -42,12 +38,19 @@ canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, Pr
     ProfileComponent,
     ChatComponent,
     VerifyEmailComponent,
+    TaskComponent,
+    TaskCompletedComponent,
+    TaskNewComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(route),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ProfessionalRoutingModule,
+    MatInputModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatFormFieldModule,
   ],
   exports : [RouterModule]
 })

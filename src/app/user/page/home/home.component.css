@@ -1,4 +1,8 @@
-
+.content {
+    height: 100vh;
+    width: 100%;
+    background: #EAEAEA;
+}
 
 .heading {
     display: inline-flex;

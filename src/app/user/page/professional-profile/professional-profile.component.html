@@ -1,9 +1,9 @@
 <div class="body">
     <app-nav-bar></app-nav-bar>
     <div class="container mt-2">
-        <div class="userdetails row">
+        <div class="userdetails row" *ngIf="userData">
             <div class="col-12 col-lg-3 profileimage">
-                <img src="../../../assets/null-icon.jpg"
+                <img [src]="userData.image"
                     alt="profile image" *ngIf="userData?.image">
                 <img src="../../../assets/null-icon.jpg"
                     alt="profile image" *ngIf="!userData?.image">
@@ -23,7 +23,7 @@
                         <p>{{userData.about}}</p>
                     </div>
                     <div class=" mt-5">
-                        <p>{{userData.work }}</p>
+                        <p *ngIf="userData.work.trim()">Working in {{userData.work }}</p>
                         <p>{{userData.field }}</p>
                     </div>
                     <div class="payment-option" *ngIf="userData.payment">
@@ -33,7 +33,8 @@
                                 <p>{{userData.payment}}</p>
                             </div>
                             <div class="payment-button">
-                                <button (click)="paymentSubmit()">PAY {{userData.payment}}</button>
+                                <button *ngIf="!subscribed" (click)="paymentSubmit()">PAY {{userData.payment}}</button>
+                                <button *ngIf="subscribed">Subscribed</button>
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { professionalData, professionalType } from 'src/app/professional/types/professional.types';
-import { ChatData } from 'src/app/user/types/user.types';
+import { CompleteTask, Task, professionalData, professionalType } from 'src/app/professional/types/professional.types';
+import { ChatData, Payment, userData } from 'src/app/user/types/user.types';
+import { environment } from 'src/environment/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,7 +22,7 @@ const options = {
 })
 export class ProfessionalService {
 
-  apiUrl : string = 'http://localhost:5000'
+  apiUrl : string = environment.apiUrl
   constructor(private http : HttpClient) { }
 
   professionalRegister(data : professionalType) : Observable<professionalData>{
@@ -79,13 +80,24 @@ export class ProfessionalService {
   verifyEmail(token : string) {
     return this.http.get(`${this.apiUrl}/professional/verifyemail?token=${token}`, httpOptions)
   }
-  submitFile(profile : FormData, id : string) {
-    console.log(profile, 'submt')
-    return this.http.post(`${this.apiUrl}/professional/uploadimage?id=${id}`,profile)
+  submitFile(image : FormData, id : string) {
+    console.log(image)
+    return this.http.post(`${this.apiUrl}/professional/uploadimage?id=${id}`,image)
   }
 
-  userImage(name : string | undefined) : Observable<Blob> {
-    return this.http.get<Blob>(`${this.apiUrl}/professional/file?name=${name}`, options)
-    // `http://localhost:5000/file/${name}`
+  getSubscribers() : Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${this.apiUrl}/professional/getsubscribers`,httpOptions)
+  }
+
+  addTask(task : Task) {
+    return this.http.post(`${this.apiUrl}/professional/addtask`,{task}, httpOptions)
+  }
+
+  getInProgressTask() : Observable<CompleteTask[]> {
+    return this.http.get<CompleteTask[]>(`${this.apiUrl}/professional/inprogresstask`, httpOptions)
+  }
+
+  getCompletedTask() : Observable<CompleteTask[]> {
+    return this.http.get<CompleteTask[]>(`${this.apiUrl}/professional/completedtask`, httpOptions)
   }
 }

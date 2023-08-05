@@ -1,3 +1,5 @@
+import { userData } from "src/app/user/types/user.types"
+
 export interface professionalType {
     email ?: string | null
     password ?: string | null
@@ -26,18 +28,37 @@ export interface professionalData {
     blocked: boolean
     __v: number
     token : string
-    location ?: string
-    birthday ?: Date
-    bio ?: string
-    address ?: string
-    image ?: string
-    emailVerified ?: boolean
-    experience ?: string
-    payment ?: number
-    skills ?: string[]
-    field?: string
-    work?: string
-    qualification?: string
-    about?:string
+    location : string
+    bio : string
+    address : string
+    image : string
+    emailVerified : boolean
+    experience : string
+    payment : number
+    skills : string[]
+    field: string
+    work: string
+    qualification: string
+    about:string
+    emailToken: string
 }
   
+
+
+
+export interface Task {
+    user : String,
+    task : string,
+    description : string,
+    endtime : Date,
+}
+
+export interface CompleteTask {
+    _id : string
+    from : professionalData,
+    to : userData,
+    task : string,
+    description : string,
+    endtime : string,
+    completed : boolean
+}

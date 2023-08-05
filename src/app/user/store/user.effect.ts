@@ -5,6 +5,7 @@ import { catchError, map, mergeMap, of } from 'rxjs'
 import { UserService } from 'src/app/services/user/user.service'
 import { registerUserType, userData } from '../types/user.types'
 import { Router } from '@angular/router'
+import { professionalData } from 'src/app/professional/types/professional.types'
 
 @Injectable()
 export class UserEffects {
@@ -61,18 +62,6 @@ export class UserEffects {
         )
     })
 
-    getUserDetails$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType(UserActions.getUserDetails),
-            mergeMap((payload) => (
-                this.userService.getUserDetails(payload.token).pipe(
-                    map((user : userData) => UserActions.getUserDetailsSuccess({userData : user})),
-                    catchError(error => of(UserActions.getUserDetailsFailure({error : error})))
-                )
-            ))
-        )
-    })
-
     newPassword$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.newPassword),
@@ -87,6 +76,44 @@ export class UserEffects {
                     catchError(error => of(UserActions.newPasswordFailure({error : error})))
                 )
             )})
+        )
+    })
+
+
+    getUserDetailsByToken$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(UserActions.getUserDetailsByToken),
+            mergeMap((payload) => (
+                this.userService.getUserDetailsByToken(payload.token).pipe(
+                    map((user : userData) => UserActions.getUserDetailsByTokenSuccess({userData : user})),
+                    catchError(error => of(UserActions.getUserDetailsByTokenFailure({error : error})))
+                )
+            ))
+        )
+    })
+
+    getProfessionalData$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(UserActions.getProfessionalData),
+            mergeMap((payload) => {
+                console.log(payload.email)
+                return this.userService.getProfessionalDataByEmail(payload.email).pipe(
+                    map((user : professionalData) => UserActions.getProfessionalDataSuccess({userData : user})),
+                    catchError(error => of(UserActions.getProfessionalDataFailure({error : error})))
+                )
+            })
+        )
+    })
+
+    professionalList$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(UserActions.getProfessionals),
+            mergeMap(() => (
+                this.userService.getProfessionals().pipe(
+                    map((data ) => UserActions.getProfessionalsSuccess({professionals : data})),
+                    catchError(error => of(UserActions.getProfessionalsFailure({error : error})))
+                )
+            ))
         )
     })
     

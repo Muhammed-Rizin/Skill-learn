@@ -1,0 +1,30 @@
+<div class="body">
+    <app-nav-bar></app-nav-bar>
+    <div class="content">
+        <div class="navigate">
+            <div class="d-flex">
+                <a class="me-4 active" routerLink="/professional/tasks"> In progress</a>
+                <a routerLink="/professional/tasks/completed">Completed</a>
+            </div>
+            <button class="add" routerLink="/professional/tasks/new">Add </button>
+        </div>
+        <div class="tasks">
+            <div class="taskdetails mb-3" *ngFor="let task of tasks">
+                <div class="username">
+                    <p class="name">{{task.to.firstName + " " + task.to.lastName}}</p>
+                    <p class="date">{{task.endtime.toString().slice(0,10)}}</p>
+                    <p class="time">{{task.endtime.toString().slice(11,16)}}</p>
+                </div>
+                <div class="task">
+                    <p class="heading">{{task.task}}</p>
+                    <p class="description">{{task.description}}</p>
+                    <div class="done">
+                        <p class="completed heading" *ngIf="task.completed">Completed</p>
+                        <p class="not-completed heading" *ngIf="!task.completed">Not completed</p>
+                        <!-- <button class="done-btn">done</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

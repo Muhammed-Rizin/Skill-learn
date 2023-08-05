@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { ChatData } from 'src/app/user/types/user.types';
@@ -33,9 +35,11 @@ export class ChatComponent implements  OnInit, OnDestroy{
       this.socketService.setupSocketConnection(this.userId as string);
       this.router.params.subscribe((params) => {
         if(params['id']){
-          this.CHAT_ROOM = params['id']
+          this.CHAT_ROOM = this.decryptString(params['id'])
           this.socketService.join(this.CHAT_ROOM)
-          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data})
+          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {
+            this.chatHistory = data
+          })
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
@@ -64,6 +68,10 @@ export class ChatComponent implements  OnInit, OnDestroy{
     }
   }
 
+  getUserDetails(chat : ChatData) {
+    return chat.messages[0]?.recever?._id === this.userId ? chat.messages[0]?.sender  : chat.messages[0]?.recever
+  }
+
   getChattedUserName(chat: any): string {
     const sender = chat.messages[0]?.sender?._id;
     const recever = chat.messages[0]?.recever?._id;
@@ -89,12 +97,13 @@ export class ChatComponent implements  OnInit, OnDestroy{
     return chattedUser || 'Unknown';
   }
 
+
   getRoomId(email : string) {
     if (email) {
       if(email.length > this.userEmail?.toString().length ){
-        return `${this.userEmail}${email}`
+        return this.encryptString(`${this.userEmail}${email}`)
       }
-      return `${email}${this.userEmail}`
+      return this.encryptString(`${email}${this.userEmail}`)
     }
     return null
   }
@@ -120,6 +129,8 @@ export class ChatComponent implements  OnInit, OnDestroy{
   }
 
   private scrollToBottom(): void {
-    this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    if(this.chatContainer?.nativeElement){
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    }
   }
 }

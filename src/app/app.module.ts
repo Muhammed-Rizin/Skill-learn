@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
 import { ProfessionalModule } from './professional/professional.module';
-import { forgetpasswordReducer, getUserDetailsReducer, loginReducer, newPasswordReducer, registerReducer } from './user/store/user.reducer';
+import { ProfessionalDataReducer, forgetpasswordReducer, getUserDetailsByTokenReducer, loginReducer, newPasswordReducer, professionalsList, registerReducer } from './user/store/user.reducer';
 import { UserEffects } from './user/store/user.effect';
 import { ConsecutiveGuard, UserBackGuard, RegisterGuard } from './guard/user-guard.guard';
 import { adminLoginReducer, loadRequestedProfessionalsReducer, loadProfessionalsReducer, loadUsersReducer, loadTotalUserReducer, loadTotalProfessionalsReducer, loadTotalRequestProfessionalReducer } from './admin/store/admin.reducer';
@@ -30,7 +30,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -52,11 +53,13 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
       loadProfessionalState : loadProfessionalsReducer,
       loadRequestProfessionalState : loadRequestedProfessionalsReducer,
       userForgetPasswordState : forgetpasswordReducer,
-      userDetailsState : getUserDetailsReducer,
+      userDetailsState : getUserDetailsByTokenReducer,
       newPasswordState : newPasswordReducer,
       professionalForgotPasswordState : professionalForgetpasswordReducer,
       professionlaDetailsState : getProfessionalDetailsReducer,
-      professionalnewPasswordState : professionalNewPasswordReducer
+      professionalnewPasswordState : professionalNewPasswordReducer,
+      getProfessionalDataReducerInUser : ProfessionalDataReducer,
+      professionalListReducer : professionalsList
     }),
     EffectsModule.forRoot([UserEffects, adminEffects, professionalEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

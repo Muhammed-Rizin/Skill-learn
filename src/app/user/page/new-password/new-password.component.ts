@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { getUserDetails, newPassword } from '../../store/user.action';
+import { getUserDetailsByToken, newPassword } from '../../store/user.action';
 
 @Component({
   selector: 'app-new-password',
@@ -27,7 +27,7 @@ export class NewPasswordComponent implements OnInit{
 
     const token = this.token
 
-    this.store.dispatch(getUserDetails({token}))
+    this.store.dispatch(getUserDetailsByToken({token}))
   }
   submit(){
     const data = this.form.getRawValue()

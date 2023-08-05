@@ -32,7 +32,7 @@ export class ProfileComponent {
       this.userData.payment = this.userData.payment
       this.userData.work = this.userData.work?.trim()
       this.userData.about = this.userData.about?.trim()
-      this._professionalService.userImage(this.userData.image).subscribe((data) => {this.imageUrl =URL.createObjectURL(data)})
+      
       this.actualData = Object.assign({}, this.userData)
     })
   }
@@ -58,15 +58,20 @@ export class ProfileComponent {
   sendVerifyUser(){
     this._professionalService.sendVerifyUser().subscribe()
   }
-  onFileSelected(event : Event) {
+  onFileSelected(e : Event) {
     const formData = new FormData()
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      this.selectedFile = inputElement.files[0];
-      formData.append("profile", this.selectedFile, this.selectedFile.name)
-      this._professionalService.submitFile(formData, this.userData._id).subscribe((data) => {
-        window.location.reload()
-      })
+    const inputElement = e.target as HTMLInputElement
+    
+    if (inputElement.files) {
+      const file = inputElement.files[0];
+  
+      formData.append('image', file, file.name)
+
+      this._professionalService.submitFile(formData, this.userData._id).subscribe(
+        (data) => {},
+        (error) => {
+        }
+      );
     }
   }
 }

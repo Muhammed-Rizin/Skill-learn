@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, adminData, adminLogin } from 'src/app/admin/types/admin.types';
+import { environment } from 'src/environment/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ const httpOptions = {
 })
 
 export class AdminService {
-  apiUrl : string = 'http://localhost:5000'
+  apiUrl : string = environment.apiUrl
   constructor(
     private http : HttpClient
   ) {}

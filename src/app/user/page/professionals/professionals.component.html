@@ -1,14 +1,35 @@
 <div class="body">
     <app-nav-bar></app-nav-bar>
-    <div class="content row">
-        <div class="col-7 professionals row" *ngFor="let professional of professionalData">
-            <div class="col-12 professional mb-4" routerLink="/viewprofile/{{professional.email}}">
-                <p>{{professional.firstName | uppercase}}</p>
-                <p>{{professional.about}}</p>
+    <div *ngIf="loading$">Loading...</div>
+    <div class="content row" *ngIf="!loading$">
+        <div class="col-8 professionals ">
+            <ng-container *ngFor="let professional of professionals$ | professionalsSearch: searchValue">
+                <div class=" professional mb-4" routerLink="/viewprofile/{{professional.email}}">
+                    <div class="user-header">
+                        <div class="d-flex">
+                            <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional.image">
+                            <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional.image">
+                            <p class="user-name ms-1">{{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
+                        </div>
+                        <p class="user-bio">{{professional.bio}}</p>
+                    </div>
+                    <div class="user-botton">
+                        <p class="user-about">{{professional.about}}</p>
+                        <!-- <div class="review">
+                            <div class="rating-avarage">
+    
+                            </div>
+                            <p>Review Count</p>
+                        </div> -->
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="col-4">
+            <div class="search">
+               <img src="../../../../assets/searchicon.png" alt="">
+               <input type="text" [(ngModel)]="searchValue">
             </div>
-        </div>
-        <div class="col-5">
-             
-        </div>
+       </div>
     </div>
 </div>

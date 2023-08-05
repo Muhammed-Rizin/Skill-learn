@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 
@@ -7,6 +6,7 @@ import { ChatService } from 'src/app/services/chat/chat.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChatData } from '../../types/user.types';
+import { professionalData } from 'src/app/professional/types/professional.types';
 
 @Component({
   selector: 'app-chat',
@@ -30,27 +30,33 @@ export class ChatComponent implements OnInit, OnDestroy{
     private router: ActivatedRoute) {}
   
   ngOnInit() {
-    this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data})
+    this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data, console.log(this.alreadyMessaged)})
     this.userSerivce.getUserData().subscribe((data) => {this.userId = data._id, this.userEmail = data.email})
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userId as string);
       this.router.params.subscribe((params) => {
         if(params['id']){
-          this.CHAT_ROOM = params['id']
+          this.CHAT_ROOM = this.decryptString(params['id'])
           this.socketService.join(this.CHAT_ROOM)
-          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data})
+          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {
+            this.chatHistory = data
+          })
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
         this.chatHistory?.messages?.push(data.data?.messages[data.data?.messages?.length - 1])
       });
     }, 1000);
-
     
   }
 
   ngOnDestroy() {
     this.socketService.disconnect();
+  }
+
+
+  getUserDetails(chat : ChatData) {
+    return chat.messages[0]?.recever?._id === this.userId ? chat.messages[0]?.sender  : chat.messages[0]?.recever
   }
 
   sendMessage() {
@@ -67,36 +73,14 @@ export class ChatComponent implements OnInit, OnDestroy{
     }
   }
 
-  getChattedUserName(chat: any): string {
-    const sender = chat.messages[0]?.sender?._id;
-    const recever = chat.messages[0]?.recever?._id;
-
-    const chattedUserId = sender === this.userId ? recever : sender;
-    const chattedUser = sender === chattedUserId
-      ? chat.messages[0]?.sender?.firstName
-      : chat.messages[0]?.recever?.firstName;
-
-    return chattedUser || 'Unknown';
-  }
-
-  getChattedUserEmail(chat: any): string {
-    const sender = chat.messages[0]?.sender?._id;
-    const recever = chat.messages[0]?.recever?._id;
-
-    const chattedUserId = sender === this.userId ? recever : sender;
-    const chattedUser = sender === chattedUserId
-      ? chat.messages[0]?.sender?.email
-      : chat.messages[0]?.recever?.email;
-      this.toUserId = this.getChattedUserId(chat)
-    return chattedUser || 'Unknown';
-  }
-
   getRoomId(email : string) {
+    this.toUserId = email
+    console.log(email, this.toUserId)
     if (email) {
       if(email.length > this.userEmail?.toString().length ){
-        return `${this.userEmail}${email}`
+        return this.encryptString(`${this.userEmail}${email}`)
       }
-      return `${email}${this.userEmail}`
+      return this.encryptString(`${email}${this.userEmail}`)
     }
     return null
   }
@@ -114,6 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     const bytes = CryptoJS.AES.decrypt(roomId, this.secret);
     return bytes.toString(CryptoJS.enc.Utf8);
   }
+  
   @ViewChild('chatContainer') chatContainer!: ElementRef 
   ngAfterViewChecked(): void {
     this.scrollToBottom();
@@ -121,5 +106,10 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   private scrollToBottom(): void {
     this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+  }
+
+  isChatActive: boolean = true;
+  toggleChatHistory() {
+    this.isChatActive = !this.isChatActive;
   }
 }

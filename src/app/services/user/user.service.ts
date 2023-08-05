@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChatData, Payment, loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
 import { Observable } from 'rxjs';
-import { professionalData } from 'src/app/professional/types/professional.types';
+import { CompleteTask, professionalData } from 'src/app/professional/types/professional.types';
+import { environment } from 'src/environment/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,7 +24,7 @@ const options = {
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl : string = 'http://localhost:5000'
+  apiUrl : string = environment.apiUrl
   
   constructor(private http : HttpClient) { }
 
@@ -45,7 +46,7 @@ export class UserService {
   }
 
 
-  getUserDetails(token : string) : Observable<userData> {
+  getUserDetailsByToken(token : string) : Observable<userData> {
     return this.http.get<userData>(`${this.apiUrl}/user/forgetpassword/user_details?token=${token}`)
   }
 
@@ -61,7 +62,7 @@ export class UserService {
     return this.http.get<userData>(`${this.apiUrl}/user/userdata`)
   }
 
-  getUserDataByEmail(email :string) : Observable<professionalData> {
+  getProfessionalDataByEmail(email :string) : Observable<professionalData> {
     return this.http.get<professionalData>(`${this.apiUrl}/user/userdatabyemail?email=${email}`, httpOptions)
   }
 
@@ -90,17 +91,30 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/payment/conform`,{data}, httpOptions)
   }
 
-  getProfessionals() : Observable<userData[]> {
-    return this.http.get<userData[]>(`${this.apiUrl}/user/professionalsdata`)
+  getProfessionals() : Observable<professionalData[]> {
+    return this.http.get<professionalData[]>(`${this.apiUrl}/user/professionalsdata`)
   }
 
-  submitFile(profile : FormData, id : string) {
-    console.log(profile, 'submt')
-    return this.http.post(`${this.apiUrl}/user/uploadimage?id=${id}`,profile)
+  submitFile(image : FormData, id : string) {
+    console.log(image)
+    return this.http.post(`${this.apiUrl}/user/uploadimage?id=${id}`,image)
   }
 
-  userImage(name : string | undefined) : Observable<Blob> {
-    return this.http.get<Blob>(`${this.apiUrl}/user/file?name=${name}`, options)
-    // `http://localhost:5000/file/${name}`
+
+  subscribed(from : string, to : string) :Observable<Payment> {
+    return this.http.get<Payment>(`${this.apiUrl}/payment/subscribed?from=${from}&to=${to}`)
+  }
+
+  getInProgressTask() : Observable<CompleteTask[]> {
+    return this.http.get<CompleteTask[]>(`${this.apiUrl}/user/inprogresstask`, httpOptions)
+  }
+
+  getCompletedTask() : Observable<CompleteTask[]> {
+    return this.http.get<CompleteTask[]>(`${this.apiUrl}/user/completedtask`, httpOptions)
+  }
+
+  taskDone(taskid : string) {
+    return this.http.patch(`${this.apiUrl}/user/taskdone`,{taskid}, httpOptions)
   }
 }
+

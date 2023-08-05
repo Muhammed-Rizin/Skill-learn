@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { professionalData } from 'src/app/professional/types/professional.types';
+import { Store } from '@ngrx/store';
 
 declare let Razorpay : any
 
@@ -15,27 +16,50 @@ export class ProfessionalProfileComponent {
   actualData!: professionalData
   userEmail !: string
   userId !: string
+  subscribed : boolean = false
+  loading!: boolean
 
-  constructor(private userService : UserService, private route: ActivatedRoute, private router : Router){
+  constructor(
+    private userService : UserService, 
+    private route: ActivatedRoute, 
+    private router : Router,
+    private _store : Store
+  ){
     this.route.params.subscribe((params) => {
       if(params['id']){
-        this.userService.getUserDataByEmail(params['id']).subscribe(
+        this.userService.getProfessionalDataByEmail(params['id']).subscribe(
           (data) => {
-            this.userData = data
-            this.userData.bio = this.userData.bio?.trim()
-            this.userData.location = this.userData.location?.trim()
-            this.userData.address = this.userData.address?.trim()
-            this.userData.image = this.userData.image?.trim()
-            this.actualData = Object.assign({}, this.userData)
-        },(error) => {
-          this.router.navigate(['/'])
+            this.processUserData(data)
+            this.checkSubscriptionStatus()
         })
-
-        this.userService.getUserData().subscribe((data) => {this.userEmail = data.email, this.userId = data._id})
       }else {
         this.router.navigate(['/'])
       }
     })
+  }
+
+
+  processUserData(data : professionalData) {
+    this.userData = data
+    this.userData.bio = this.userData.bio?.trim()
+    this.userData.location = this.userData.location?.trim()
+    this.userData.address = this.userData.address?.trim()
+    this.userData.image = this.userData.image?.trim()
+  }
+
+  private checkSubscriptionStatus(): void {
+    this.userService.getUserData().subscribe((data) => {
+      this.userEmail = data.email;
+      this.userId = data._id;
+      this.userService.subscribed(this.userId, this.userData._id).subscribe((data) => {
+        if (data.createdAt) {
+          const createdAtDate = new Date(data.createdAt);
+          if (createdAtDate.getDate() + 30 <= Date.now()) {
+            this.subscribed = true;
+          }
+        }
+      });
+    });
   }
 
   getRoomId(email : string) {
@@ -74,5 +98,6 @@ export class ProfessionalProfileComponent {
     const razorpayInstance = new Razorpay(options);
     razorpayInstance.open();
   }
+  
   
 }
