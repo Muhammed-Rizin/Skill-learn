@@ -1,19 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
+import { userData } from '../../types/user.types';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
+  userData !: userData
   constructor(
     private router : Router, 
-    readonly userService : UserService,
+    readonly _userService : UserService,
     public dialog: MatDialog
-  ) {
+  ) {}
+  ngOnInit(): void {
+    this._userService.getUserData().subscribe((data) => {
+      this.userData = data
+    })
   }
   logOut(){
     const dialogRef = this.dialog.open(logoutDialog, {

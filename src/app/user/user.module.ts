@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+
 import { LoginComponent } from './page/login/login.component';
 import { HomeComponent } from './page/home/home.component';
 import { NavBarComponent } from './page/nav-bar/nav-bar.component';
@@ -20,6 +21,9 @@ import { UserRoutingModule } from './user-routing.module';
 import { ProfessionalsSearchPipe } from '../pipe/professionals-search.pipe';
 import { TaskComponent } from './page/task/task.component';
 import { TaskCompletedComponent } from './page/task-completed/task-completed.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
+import { ScheduledComponent } from './page/scheduled/scheduled.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +41,16 @@ import { TaskCompletedComponent } from './page/task-completed/task-completed.com
     OrderSuccessComponent,
     ProfessionalsSearchPipe,
     TaskComponent,
-    TaskCompletedComponent
+    TaskCompletedComponent,
+    ScheduledCompletedComponent,
+    ScheduledComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule
   ],
   exports : [RouterModule]
 })

@@ -19,25 +19,22 @@
             <a class="nav-link" routerLinkActive="home" routerLink="/tasks">Tasks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="home">Scheduled</a>
+            <a class="nav-link" routerLinkActive="home" routerLink="/schedule">Scheduled</a>
           </li>
         </ul>
-        <span class="navbar-text" *ngIf="userService.user()">
-            <ul class="navbar-nav me-5">
-                <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">   
-                        <img src="../../../assets/null-icon.jpg" alt="skill learn" class="icon">
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-                      <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
-                      <li><a class="dropdown-item" (click)="logOut()">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <span class="navbar-text" *ngIf="userData">
+            <button mat-button [matMenuTriggerFor]="menu">
+              <img [src]="userData.image" alt="skill learn" class="icon" *ngIf="userData.image">
+              <img src="../../../assets/null-icon.jpg" alt="skill learn" class="icon" *ngIf="!userData.image">
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item routerLink="/profile">Profile</button>
+              <button mat-menu-item  (click)="logOut()">Logout</button>
+            </mat-menu>
         </span>
-        <ng-container *ngIf="!userService.user()">
-          <button routerLink="/login" *ngIf="!userService.user()" class="me-2">Login</button>
-          <button routerLink="/sign_up" *ngIf="!userService.user()">Sign Up</button>
+        <ng-container *ngIf="!userData">
+          <button routerLink="/login" *ngIf="!userData" class="me-2">Login</button>
+          <button routerLink="/sign_up" *ngIf="!userData">Sign Up</button>
         </ng-container>
       </div>
     </div>

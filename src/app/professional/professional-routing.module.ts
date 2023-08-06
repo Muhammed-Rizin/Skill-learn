@@ -14,6 +14,9 @@ import { VerifyEmailComponent } from './page/verify-email/verify-email.component
 import { TaskComponent } from './page/task/task.component';
 import { TaskCompletedComponent } from './page/task-completed/task-completed.component';
 import { TaskNewComponent } from './page/task-new/task-new.component';
+import { ScheduledComponent } from './page/scheduled/scheduled.component';
+import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
+import { ScheduledNewComponent } from './page/scheduled-new/scheduled-new.component';
 
 const routes: Routes = [
     {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, professionalBackGuard]},
@@ -34,6 +37,10 @@ const routes: Routes = [
     {path : 'tasks', component : TaskComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
     {path : 'tasks/completed', component : TaskCompletedComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
     {path : 'tasks/new', component : TaskNewComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+
+    {path : 'schedule', component : ScheduledComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+    {path : 'schedule/completed', component : ScheduledCompletedComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+    {path : 'schedule/new', component : ScheduledNewComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
 
     {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];

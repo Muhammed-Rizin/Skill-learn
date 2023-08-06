@@ -19,6 +19,13 @@ export class TaskComponent {
       )
   }
 
+  getTime (time :string) {
+    const currentDate  = new Date(time)
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    return `${hours}:${minutes}`
+  }
+
   taskDone(taskId : string) {
     this._userService.taskDone(taskId).subscribe()
   }

@@ -18,4 +18,11 @@ export class TaskComponent implements OnInit{
         (data) => this.tasks = data
       )
   }
+
+  getTime (time :string) {
+    const currentDate  = new Date(time)
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    return `${hours}:${minutes}`
+  }
 }

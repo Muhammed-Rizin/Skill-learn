@@ -22,6 +22,10 @@ import { ProfessionalRoutingModule } from './professional-routing.module';
 import { TaskComponent } from './page/task/task.component';
 import { TaskCompletedComponent } from './page/task-completed/task-completed.component';
 import { TaskNewComponent } from './page/task-new/task-new.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { ScheduledComponent } from './page/scheduled/scheduled.component';
+import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
+import { ScheduledNewComponent } from './page/scheduled-new/scheduled-new.component';
 
 const route : Routes = [
   
@@ -41,6 +45,9 @@ const route : Routes = [
     TaskComponent,
     TaskCompletedComponent,
     TaskNewComponent,
+    ScheduledComponent,
+    ScheduledCompletedComponent,
+    ScheduledNewComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +57,7 @@ const route : Routes = [
     MatInputModule,
     MatSelectModule,
     MatChipsModule,
+    MatMenuModule,
     MatFormFieldModule,
   ],
   exports : [RouterModule]

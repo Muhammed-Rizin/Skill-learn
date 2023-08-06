@@ -8,6 +8,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -66,7 +67,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [ConsecutiveGuard, UserBackGuard, RegisterGuard, UserService, ProfessionalService, AdminService, {
     provide:HTTP_INTERCEPTORS,

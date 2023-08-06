@@ -9,7 +9,8 @@
 
 .icon {
     width: 30px;
-    border-radius: 200px;
+    height: 30px;
+    border-radius: 150%;
 }
 .dropdown-menu {
     width: 100px;

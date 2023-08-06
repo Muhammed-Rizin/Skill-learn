@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CompleteTask, Task, professionalData, professionalType } from 'src/app/professional/types/professional.types';
+import { CompleteSchedule, CompleteTask, Schedule, Task, professionalData, professionalType } from 'src/app/professional/types/professional.types';
 import { ChatData, Payment, userData } from 'src/app/user/types/user.types';
 import { environment } from 'src/environment/environment';
 
@@ -99,5 +99,17 @@ export class ProfessionalService {
 
   getCompletedTask() : Observable<CompleteTask[]> {
     return this.http.get<CompleteTask[]>(`${this.apiUrl}/professional/completedtask`, httpOptions)
+  }
+
+  scheduleMeeting(schedule  : Schedule) {
+    console.log(schedule);
+    return this.http.post(`${this.apiUrl}/professional/schedule`,{schedule}, httpOptions)
+  }
+
+  getInProgressMeeting() : Observable<CompleteSchedule[]> {
+    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/professional/inprogressmeeting`,httpOptions)
+  }
+  getCompletedMeeting() : Observable<CompleteSchedule[]> {
+    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/professional/completedmeeting`,httpOptions)
   }
 }

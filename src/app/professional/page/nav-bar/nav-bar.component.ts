@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
+import { professionalData } from '../../types/professional.types';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit{
+  userData !: professionalData
   constructor(
     private router : Router, 
     readonly professioanlService : ProfessionalService,
     public dialog: MatDialog
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.professioanlService.getProfessionalData().subscribe((data) => {
+      this.userData = data
+    })
   }
+
   logOut(){
     const dialogRef = this.dialog.open(logoutdialog, {
       width: '350px'

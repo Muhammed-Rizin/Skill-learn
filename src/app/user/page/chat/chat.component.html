@@ -1,63 +1,105 @@
 <div class="body">
+
   <app-nav-bar></app-nav-bar>
-  <div class="content p-5 pb-0">
-    <div class="row">
-      <div class="col-3 userlist">
-        <div class="users row mt-2" *ngFor="let chat of alreadyMessaged">
-          <div class="userimage col-2">
-            <img [src]="getUserDetails(chat).image" alt="skill learn" class="image" *ngIf="getUserDetails(chat).image">
-            <img class="image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!getUserDetails(chat).image">
+  <div class="container">
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper mt-3">
+
+      <!-- Row start -->
+      <div class="row">
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+          <div class="card m-0">
+
+            <!-- Row start -->
+            <div class="row no-gutters">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                <div class="users-container">
+
+                  <ul class="users" *ngFor="let chat of alreadyMessaged">
+                    <li class="person" data-chat="person1" 
+                    [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
+                      <div class="user">
+                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">
+                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat).image">
+                      </div>
+                      <p class="name-time">
+                        <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
+                        <!-- <span class="time">15/02/2019</span> -->
+                      </p>
+                    </li>
+                    <!-- <li class="person active-user" data-chat="person2">
+                      <div class="user">
+                        <img src="https://www.bootdey.com/img/Content/avatar/avatar2.png" >
+                        <span class="status away"></span>
+                      </div>
+                      <p class="name-time">
+                        <span class="name">Peter Gregor</span>
+                        <span class="time">12/02/2019</span>
+                      </p>
+                    </li> -->
+                    
+                  </ul>
+                  <p class="no-users"  *ngIf="!alreadyMessaged">Start a conversation</p>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="chatHistory">
+                <div class="selected-user">
+                  <img [src]="getUserDetails(chatHistory).image"  class="profile" *ngIf="getUserDetails(chatHistory).image">
+                  <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!getUserDetails(chatHistory).image">
+                  <span class="name">{{getUserDetails(chatHistory).firstName + " " + getUserDetails(chatHistory).lastName}}</span>
+                </div>
+
+                <div class="chat-container"  #chatContainer>
+                  <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
+
+                    <li class="chat-left" *ngIf="message.senderType === 'Professional'">
+                      <div class="chat-avatar">
+                        <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory).image">
+                        <img [src]="getUserDetails(chatHistory).image" *ngIf="getUserDetails(chatHistory).image">
+                        <div class="chat-name">{{getUserDetails(chatHistory).firstName}}</div>
+                      </div>
+                      <div class="chat-text">{{ message.text }}</div>
+                      <!-- <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div> -->
+                    </li>
+
+                    
+                    <li class="chat-right" *ngIf="message.senderType !== 'Professional'">
+                      <!-- <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div> -->
+                      <div class="chat-text">{{ message.text }}</div>
+                      <div class="chat-avatar">
+                        <img [src]="userData.image" *ngIf="userData.image">
+                        <img src="../../../../assets/null-icon.jpg" *ngIf="!userData.image">
+                        <div class="chat-name">{{userData.firstName}}</div>
+                      </div>
+                    </li>
+                    
+                  </ul>
+                  <!-- <div class="form-group mt-3 mb-0">
+                    <input type="text" class="form-control" rows="3" placeholder="Type your message here...">
+                  </div> -->
+                </div>
+                <div class="chat-form d-flex">
+                  <input type="text" [(ngModel)]="message" class="form-control" rows="3" placeholder="Type your message here...">
+                  <button (click)="sendMessage()" class="input-button"><img
+                      src="https://s3-alpha-sig.figma.com/img/2fa1/296d/e7e9e31c7ff99108d47b1561bba68529?Expires=1691971200&Signature=h1bokKSIUKt94M-zievN2mrWEAOX-sfurDTlGvfApFuUnG4TuSrYEbyZsot0RlQ~O8AI1kQU0C1xM6nDbstlVUmekUdkLD~~3ILxphEPj9m0HDF-5PEKY~gqqnaKLQLMtOtjgGWMBrgHA303aCKzH3pLUqX6mkD0guehYzo4S8OwlDOLSpABsDBghr9F4BYFyP0hibqHxVUb5WXzw06JE1tbGmQjkXlOKm4irZslnrr~icZ0te2K0Z4A4U4tvJynJRmJVzth82bxuS7kfBGQpzLgcCVGS4R1aTaqOlFssHD66O7WkwcaI7z6FcNLgmStzL8d7dZBvRX4DP7ojZjx9Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                      alt=""></button>
+                </div>
+              </div>
+            </div>
+            <!-- Row end -->
           </div>
-          <div class="username col-10" [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
-            
-            <p>{{getUserDetails(chat).firstName}}</p>
-          </div>
+
         </div>
+
       </div>
-      <div class="col-8">
-        <ng-container *ngIf="chatHistory">
-          <div class="chathistory" #chatContainer>
-            <div class="userheader">
-              <div class="userDetails row">
-                <div class="col-lg-2 col-6">
-                  <div class="imgAbt">
-                    <img 
-                    [src]="getUserDetails(chatHistory).image" alt="skill learn" class="image" *ngIf="getUserDetails(chatHistory).image">
-                    <img 
-                    src="../../../../assets/null-icon.jpg" alt="skill learn" class="image" *ngIf="!getUserDetails(chatHistory).image">
-                  </div>
-                  
-                </div>
-                <div class="col-lg-10 col-6">
-                  <p>{{getUserDetails(chatHistory).firstName}}</p>
-                </div>
-              </div>
-              <div class="call"></div>
-            </div>
-            <div class="messages" *ngFor="let message of chatHistory?.messages">
-              <div class="sendermessage p-3 mt-2 mb-3" *ngIf="message.senderType !== 'User'">
-                <p class="themessage p-3" >
-                  {{ message.text }}
-                </p>
-                
-              </div>
-              <div class="sendermessage outgoing pe-3 mt-2" *ngIf="message.senderType === 'User'">
-                <p class="themessageuser p-3" >
-                  {{ message.text }}
-                </p>
-              </div>
-              
-              
-            </div>
-          </div>
-          <div class="sendmessage sendmessage-div">
-            <input type="text" [(ngModel)]="message" placeholder="Send message" class="input-field"/>
-            <button (click)="sendMessage()" class="input-button">
-              <img src="https://s3-alpha-sig.figma.com/img/2fa1/296d/e7e9e31c7ff99108d47b1561bba68529?Expires=1691971200&Signature=h1bokKSIUKt94M-zievN2mrWEAOX-sfurDTlGvfApFuUnG4TuSrYEbyZsot0RlQ~O8AI1kQU0C1xM6nDbstlVUmekUdkLD~~3ILxphEPj9m0HDF-5PEKY~gqqnaKLQLMtOtjgGWMBrgHA303aCKzH3pLUqX6mkD0guehYzo4S8OwlDOLSpABsDBghr9F4BYFyP0hibqHxVUb5WXzw06JE1tbGmQjkXlOKm4irZslnrr~icZ0te2K0Z4A4U4tvJynJRmJVzth82bxuS7kfBGQpzLgcCVGS4R1aTaqOlFssHD66O7WkwcaI7z6FcNLgmStzL8d7dZBvRX4DP7ojZjx9Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" alt="">
-            </button>
-          </div>
-        </ng-container>
-      </div>
+      <!-- Row end -->
+
     </div>
+    <!-- Content wrapper end -->
+
   </div>
+
 </div>

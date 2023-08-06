@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChatData } from '../../types/user.types';
+import { ChatData, userData } from '../../types/user.types';
 import { professionalData } from 'src/app/professional/types/professional.types';
 
 @Component({
@@ -17,8 +17,7 @@ export class ChatComponent implements OnInit, OnDestroy{
   secret = "crypto-js"
   CHAT_ROOM !: string
   message!: string
-  userId !: string | Observable<String>
-  userEmail !: string
+  userData !: userData
   toUserId !: string
   chatHistory!: ChatData;
 
@@ -31,9 +30,9 @@ export class ChatComponent implements OnInit, OnDestroy{
   
   ngOnInit() {
     this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data, console.log(this.alreadyMessaged)})
-    this.userSerivce.getUserData().subscribe((data) => {this.userId = data._id, this.userEmail = data.email})
+    this.userSerivce.getUserData().subscribe((data) => {this.userData = data})
     setTimeout(() => {
-      this.socketService.setupSocketConnection(this.userId as string);
+      this.socketService.setupSocketConnection(this.userData._id as string);
       this.router.params.subscribe((params) => {
         if(params['id']){
           this.CHAT_ROOM = this.decryptString(params['id'])
@@ -56,12 +55,14 @@ export class ChatComponent implements OnInit, OnDestroy{
 
 
   getUserDetails(chat : ChatData) {
-    return chat.messages[0]?.recever?._id === this.userId ? chat.messages[0]?.sender  : chat.messages[0]?.recever
+    const data =  chat.messages[0]?.recever?._id === this.userData._id ? chat.messages[0]?.sender  : chat.messages[0]?.recever
+    this.toUserId = data._id
+    return data
   }
 
   sendMessage() {
     const message = this.message
-    const userId = this.userId
+    const userId = this.userData._id
     const toUserID = this.toUserId
     if(message.trim().length !== 0){
       this.socketService.sendMessage(
@@ -74,19 +75,17 @@ export class ChatComponent implements OnInit, OnDestroy{
   }
 
   getRoomId(email : string) {
-    this.toUserId = email
-    console.log(email, this.toUserId)
     if (email) {
-      if(email.length > this.userEmail?.toString().length ){
-        return this.encryptString(`${this.userEmail}${email}`)
+      if(email.length > this.userData.email?.toString().length ){
+        return this.encryptString(`${this.userData.email}${email}`)
       }
-      return this.encryptString(`${email}${this.userEmail}`)
+      return this.encryptString(`${email}${this.userData.email}`)
     }
     return null
   }
 
   getChattedUserId(chat: any): string {
-    const chattedUserIds = chat.users.filter((userId: string) => userId !== this.userId);
+    const chattedUserIds = chat.users.filter((userId: string) => userId !== this.userData._id);
     return chattedUserIds[0];
   }
 

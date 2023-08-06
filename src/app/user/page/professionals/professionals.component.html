@@ -4,17 +4,19 @@
     <div class="content row" *ngIf="!loading$">
         <div class="col-8 professionals ">
             <ng-container *ngFor="let professional of professionals$ | professionalsSearch: searchValue">
-                <div class=" professional mb-4" routerLink="/viewprofile/{{professional.email}}">
+                <div class=" professional mb-4">
                     <div class="user-header">
                         <div class="d-flex">
                             <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional.image">
                             <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional.image">
-                            <p class="user-name ms-1">{{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
+                            <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
+                                {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
                         </div>
                         <p class="user-bio">{{professional.bio}}</p>
                     </div>
                     <div class="user-botton">
-                        <p class="user-about">{{professional.about}}</p>
+                        <p class="user-about" *ngIf="professional.about.length >=200">{{professional.about.slice(0, 200)}}...</p>
+                        <p class="user-about" *ngIf="professional.about.length <200">{{professional.about}}</p>
                         <!-- <div class="review">
                             <div class="rating-avarage">
     

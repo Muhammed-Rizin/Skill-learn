@@ -17,6 +17,8 @@ import { ProfessionalProfileComponent } from './page/professional-profile/profes
 import { OrderSuccessComponent } from './page/order-success/order-success.component';
 import { TaskCompletedComponent } from './page/task-completed/task-completed.component';
 import { TaskComponent } from './page/task/task.component';
+import { ScheduledComponent } from './page/scheduled/scheduled.component';
+import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
 
 
 const routes: Routes = [
@@ -35,6 +37,8 @@ const routes: Routes = [
   {path : 'ordersuccess', component : OrderSuccessComponent, canActivate : [UserGuard,UserBlockedGuard, ConsecutiveGuard]},
   {path : 'tasks', component : TaskComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
   {path : 'tasks/completed', component : TaskCompletedComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
+  {path : 'schedule', component : ScheduledComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
+  {path : 'schedule/completed', component : ScheduledCompletedComponent, canActivate : [UserGuard, ConsecutiveGuard, UserBlockedGuard]},
   {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 

@@ -3,19 +3,20 @@
     <div class="content">
         <div class="navigate">
             <div class="d-flex">
-                <a class="me-4 " routerLink="/tasks"> In progress</a>
-                <a class="active" routerLink="/tasks/completed">Completed</a>
+                <a class="me-4" routerLink="/professional/schedule"> In progress</a>
+                <a class="active" routerLink="/professional/schedule/completed">Completed</a>
             </div>
+            <button class="add" routerLink="/professional/schedule/new">Add </button>
         </div>
-        <div class="tasks" *ngIf="tasks.length">
+        <div class="tasks">
             <div class="taskdetails mb-3" *ngFor="let task of tasks">
                 <div class="username">
-                    <p class="name">{{task.from.firstName + " " + task.from.lastName}}</p>
-                    <p class="date">{{task.endtime.toString().slice(0,10)}}</p>
-                    <p class="time">{{getTime(task.endtime)}}</p>
+                    <p class="name">{{task.to.firstName + " " + task.to.lastName}}</p>
+                    <p class="date">{{task.time.toString().slice(0,10)}}</p>
+                    <p class="time">{{getTime(task.time)}}</p>
                 </div>
                 <div class="task">
-                    <p class="heading">{{task.task}}</p>
+                    <p class="heading">{{task.topic}}</p>
                     <p class="description">{{task.description}}</p>
                     <div class="done">
                         <p class="completed heading" *ngIf="task.completed">Completed</p>
@@ -23,9 +24,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="no-task mt-3" *ngIf="!tasks.length">
-            <h1>Empty</h1>
         </div>
     </div>
 </div>

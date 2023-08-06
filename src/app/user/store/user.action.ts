@@ -35,5 +35,5 @@ export const getProfessionalDataFailure = createAction(`[User Component] Get pro
 
 // List professinals
 export const getProfessionals = createAction(`[User Component] Professionals `)
-export const getProfessionalsSuccess = createAction(`[User Component] Professionals `, props<{professionals : professionalData[]}>())
-export const getProfessionalsFailure = createAction(`[User Component] Professionals `, props<{error : any}>())
+export const getProfessionalsSuccess = createAction(`[User Component] Professionals success `, props<{professionals : professionalData[]}>())
+export const getProfessionalsFailure = createAction(`[User Component] Professionals failure `, props<{error : any}>())

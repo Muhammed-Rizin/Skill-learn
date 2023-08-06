@@ -13,7 +13,7 @@
                 <div class="username">
                     <p class="name">{{task.to.firstName + " " + task.to.lastName}}</p>
                     <p class="date">{{task.endtime.toString().slice(0,10)}}</p>
-                    <p class="time">{{task.endtime.toString().slice(11,16)}}</p>
+                    <p class="time">{{getTime(task.endtime)}}</p>
                 </div>
                 <div class="task">
                     <p class="heading">{{task.task}}</p>

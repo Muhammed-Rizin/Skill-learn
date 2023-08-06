@@ -1,0 +1,24 @@
+<div class="header">
+    <app-nav-bar></app-nav-bar>
+    <div class="body">
+        <div class="center-div">
+            <form [formGroup]="form" (submit)="submitForm()">
+                <div class="details">
+                    <label for="user-name">Select User:</label>
+                    <select name="user" id="user-name" formControlName="user">
+                        <ng-container *ngFor="let user of users">Volvo
+                            <option value="{{user._id}}">
+                                <p>{{ user.firstName + " " + user.lastName}}</p>
+                            </option>
+                        </ng-container>
+                    </select>
+                    <input type="text" placeholder="Topic" id="task" formControlName="topic">
+                    <input type="text" placeholder="Description" id="description" formControlName="description">
+                    <input type="date" id="date" formControlName="date">
+                    <input type="time" id="time" formControlName="time">
+                    <button type="submit" class="submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

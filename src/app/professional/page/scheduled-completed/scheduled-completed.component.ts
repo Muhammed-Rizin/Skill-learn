@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { CompleteSchedule } from '../../types/professional.types';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
-import { CompleteTask } from '../../types/professional.types';
 
 @Component({
-  selector: 'app-task-completed',
-  templateUrl: './task-completed.component.html',
-  styleUrls: ['./task-completed.component.css']
+  selector: 'app-scheduled-completed',
+  templateUrl: './scheduled-completed.component.html',
+  styleUrls: ['./scheduled-completed.component.css']
 })
-export class TaskCompletedComponent implements OnInit{
-  tasks !: CompleteTask[]
+export class ScheduledCompletedComponent implements OnInit {
+  tasks !: CompleteSchedule[]
   constructor(
     private readonly _professionalService : ProfessionalService
   ){}
 
   ngOnInit(): void {
-      this._professionalService.getCompletedTask().subscribe(
+      this._professionalService.getCompletedMeeting().subscribe(
         (data) => this.tasks = data
       )
   }

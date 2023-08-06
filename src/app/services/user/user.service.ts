@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChatData, Payment, loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
 import { Observable } from 'rxjs';
-import { CompleteTask, professionalData } from 'src/app/professional/types/professional.types';
+import { CompleteSchedule, CompleteTask, professionalData } from 'src/app/professional/types/professional.types';
 import { environment } from 'src/environment/environment';
 
 const httpOptions = {
@@ -116,5 +116,14 @@ export class UserService {
   taskDone(taskid : string) {
     return this.http.patch(`${this.apiUrl}/user/taskdone`,{taskid}, httpOptions)
   }
+
+
+  getInProgressMeeting() : Observable<CompleteSchedule[]> {
+    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/user/inprogressmeeting`,httpOptions)
+  }
+  getCompletedMeeting() : Observable<CompleteSchedule[]> {
+    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/user/completedmeeting`,httpOptions)
+  }
+  
 }
 

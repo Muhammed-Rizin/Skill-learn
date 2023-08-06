@@ -62,3 +62,20 @@ export interface CompleteTask {
     endtime : string,
     completed : boolean
 }
+
+export interface Schedule {
+    user : String,
+    topic : string,
+    description : string,
+    time : Date,
+}
+
+export interface CompleteSchedule {
+    _id : string
+    from : professionalData,
+    to : userData,
+    time : string,
+    topic : string,
+    description : string,
+    completed : boolean
+}
