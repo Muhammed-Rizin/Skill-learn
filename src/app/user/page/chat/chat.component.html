@@ -42,7 +42,7 @@
                     </li> -->
                     
                   </ul>
-                  <p class="no-users"  *ngIf="!alreadyMessaged">Start a conversation</p>
+                  <p class="no-users"  *ngIf=" !loading && !alreadyMessaged">Start a conversation </p>
                 </div>
               </div>
               <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="toUserData">

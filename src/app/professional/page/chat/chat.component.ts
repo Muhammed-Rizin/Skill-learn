@@ -19,6 +19,8 @@ export class ChatComponent implements  OnInit, OnDestroy{
   userData !: userData
   toUserId !: string
   chatHistory!: ChatData;
+  loading : boolean = true
+  chatHistoryLoading : boolean = true
 
   alreadyMessaged !: any
 
@@ -26,9 +28,9 @@ export class ChatComponent implements  OnInit, OnDestroy{
     private socketService: ChatService, 
     private userSerivce : ProfessionalService, 
     private router: ActivatedRoute) {}
-  
+    
   ngOnInit() {
-    this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data, console.log(data)})
+    this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data, this.loading = false})
     this.userSerivce.getProfessionalData().subscribe((data) => {this.userData = data})
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userData._id as string);
@@ -37,11 +39,13 @@ export class ChatComponent implements  OnInit, OnDestroy{
           this.CHAT_ROOM = this.decryptString(params['id'])
           this.socketService.join(this.CHAT_ROOM)
           this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {
-            this.chatHistory = data
+            this.chatHistory = data,
+            this.chatHistoryLoading = false
           })
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
+        console.log(data.text + ' hei');
         this.chatHistory?.messages?.push(data.data?.messages[data.data?.messages?.length - 1])
       });
     }, 1000);

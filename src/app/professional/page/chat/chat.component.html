@@ -2,22 +2,13 @@
 
   <app-nav-bar></app-nav-bar>
   <div class="container">
-
-    <!-- Content wrapper start -->
     <div class="content-wrapper mt-3">
-
-      <!-- Row start -->
       <div class="row">
-
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
           <div class="card m-0">
-
-            <!-- Row start -->
             <div class="row no-gutters">
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
                 <div class="users-container">
-
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
                     <li class="person" data-chat="person1" 
                     [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
@@ -32,7 +23,7 @@
                     </li>
                     <!-- <li class="person active-user" data-chat="person2">
                       <div class="user">
-                        <img src="https://www.bootdey.com/img/Content/avatar/avatar2.png" >
+                        <img src="" >
                         <span class="status away"></span>
                       </div>
                       <p class="name-time">
@@ -42,22 +33,22 @@
                     </li> -->
                     
                   </ul>
-                  <p class="no-users"  *ngIf="!alreadyMessaged">Start a conversation</p>
+                  <p class="no-users"  *ngIf="!loading && !alreadyMessaged.length">Start a conversation</p>
                 </div>
               </div>
               <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="chatHistory">
                 <div class="selected-user">
-                  <img [src]="getUserDetails(chatHistory).image"  class="profile" *ngIf="getUserDetails(chatHistory).image">
-                  <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!getUserDetails(chatHistory).image">
-                  <span class="name">{{getUserDetails(chatHistory).firstName + " " + getUserDetails(chatHistory).lastName}}</span>
+                  <div>
+                    <img [src]="getUserDetails(chatHistory).image"  class="profile" *ngIf="getUserDetails(chatHistory).image">
+                    <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!getUserDetails(chatHistory).image">
+                    <span class="name">{{getUserDetails(chatHistory).firstName + " " + getUserDetails(chatHistory).lastName}}</span>
+                  </div>
                   <div class="control-container">
                     <img [routerLink]="['/professional/video', getRoomId(getUserDetails(chatHistory).email)]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
                   </div>
                 </div>
-
                 <div class="chat-container"  #chatContainer>
                   <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
-
                     <li class="chat-left" *ngIf="message.senderType !== 'Professional'">
                       <div class="chat-avatar">
                         <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory).image">
@@ -67,8 +58,6 @@
                       <div class="chat-text">{{ message.text }}</div>
                       <!-- <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div> -->
                     </li>
-
-                    
                     <li class="chat-right" *ngIf="message.senderType === 'Professional'">
                       <!-- <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div> -->
                       <div class="chat-text">{{ message.text }}</div>
@@ -92,17 +81,10 @@
                 </div>
               </div>
             </div>
-            <!-- Row end -->
           </div>
-
         </div>
-
       </div>
-      <!-- Row end -->
-
     </div>
-    <!-- Content wrapper end -->
-
   </div>
 
 </div>
