@@ -1,6 +1,8 @@
 <div class="body">
     <app-nav-bar></app-nav-bar>
-    <div *ngIf="loading$">Loading...</div>
+    <div class="content"  *ngIf="loading$">
+        <div>Loading...</div>
+    </div>
     <div class="content row" *ngIf="!loading$">
         <div class="col-8 professionals ">
             <ng-container *ngFor="let professional of professionals$ | professionalsSearch: searchValue">

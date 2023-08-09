@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { professionalData, professionalType } from "../types/professional.types";
+import { CompleteSchedule, CompleteTask, professionalData, professionalType } from "../types/professional.types";
 
 export const professionalRegister = 
 createAction(`[Professional component] professional register`, props<{professionalData : professionalType}>())
@@ -28,3 +28,25 @@ export const newPassword = createAction('[Professional Component] New password',
 export const newPasswordSuccess = 
 createAction('[Professional Component] New password success', props<{professionalData : professionalData}>())
 export const newPasswordFailure = createAction('[Professional Component] New password failure', props<{error : any}>())
+
+
+// List inprogress tasks 
+export const getInprogressTask = createAction(`[Professional component] get inprogress task`)
+export const getInprogressTaskSuccess = createAction(`[Professional component] get inprogress task success`, props<{tasks : CompleteTask[]}>())
+export const getInprogressTaskFailure = createAction(`[Professional component] get inprogress task failure`, props<{error : any}>())
+
+// List completed tasks
+export const getCompletedTask = createAction(`[Professional component] get completed task`)
+export const getCompletedTaskSuccess = createAction(`[Professional component] get completed task success`, props<{tasks : CompleteTask[]}>())
+export const getCompletedTaskFailure = createAction(`[Professional component] get completed task failure`, props<{error : any}>())
+
+
+// List inprogress schedules 
+export const getInprogressSchedule = createAction(`[Professional component] get inprogress schedule`)
+export const getInprogressScheduleSuccess = createAction(`[Professional component] get inprogress schedule success`, props<{meeting : CompleteSchedule[]}>())
+export const getInprogressScheduleFailure = createAction(`[Professional component] get inprogress schedule failure`, props<{error : any}>())
+
+// List completed schedules
+export const getCompletedSchedule = createAction(`[Professional component] get completed schedule`)
+export const getCompletedScheduleSuccess = createAction(`[Professional component] get completed schedule success`, props<{meeting : CompleteSchedule[]}>())
+export const getCompletedScheduleFailure = createAction(`[Professional component] get completed schedule failure`, props<{error : any}>())

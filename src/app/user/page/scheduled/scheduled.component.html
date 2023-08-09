@@ -8,7 +8,10 @@
             </div>
             <!-- <button class="add" routerLink="/professional/schedule/new">Add </button> -->
         </div>
-        <div class="tasks">
+        <div class="tasks" *ngIf="loading$">
+            <p>Loading...</p>
+        </div>
+        <div class="tasks" *ngIf="!loading$">
             <div class="taskdetails mb-3" *ngFor="let task of tasks">
                 <div class="username">
                     <p class="name">{{task.from.firstName + " " + task.from.lastName}}</p>
@@ -25,6 +28,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="no-task mt-3" *ngIf="!tasks && !loading$">
+            <h1>Empty</h1>
         </div>
     </div>
 </div>

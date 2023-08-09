@@ -7,7 +7,10 @@
                 <a routerLink="/tasks/completed">Completed</a>
             </div>
         </div>
-        <div class="tasks" *ngIf="tasks.length">
+        <div class="tasks" *ngIf="loading$">
+            <p>Loading...</p>
+        </div>
+        <div class="tasks" *ngIf="!loading$">
             <div class="taskdetails mb-3" *ngFor="let task of tasks">
                 <div class="username">
                     <p class="name">{{task.from.firstName + " " + task.from.lastName}}</p>
@@ -24,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="no-task mt-3" *ngIf="!tasks.length">
+        <div class="no-task mt-3" *ngIf="!tasks && !loading$">
             <h1>Empty</h1>
         </div>
     </div>

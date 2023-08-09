@@ -12,10 +12,30 @@
                             </option>
                         </ng-container>
                     </select>
+                    <p class="validation" 
+                    *ngIf="form.get('user')?.touched && form.controls['user'].errors?.['required']">User is required</p>
+
                     <input type="text" placeholder="Topic" id="task" formControlName="topic">
+                    <p class="validation" 
+                    *ngIf="form.get('topic')?.touched && form.controls['topic'].errors?.['required']">Topic is required</p>
+                    <p class="validation" 
+                    *ngIf="form.get('topic')?.touched && form.controls['topic'].errors?.['minlength']">Minimum 5 characters required</p>
+
                     <input type="text" placeholder="Description" id="description" formControlName="description">
+                    <p class="validation" 
+                    *ngIf="form.get('description')?.touched && form.controls['description'].errors?.['required']">
+                    Description is required</p>
+                    <p class="validation" 
+                    *ngIf="form.get('description')?.touched && form.controls['description'].errors?.['minlength']">Minimum 10 characters required</p>
+
+                    
                     <input type="date" id="date" formControlName="date">
+                    <p class="validation" 
+                    *ngIf="form.get('date')?.touched && form.controls['date'].errors?.['required']">Date is required</p>
+                    
                     <input type="time" id="time" formControlName="time">
+                    <p class="validation"  
+                    *ngIf="form.get('time')?.touched && form.controls['time'].errors?.['required']">Time is required</p>
                     <button type="submit" class="submit">Add</button>
                 </div>
             </form>

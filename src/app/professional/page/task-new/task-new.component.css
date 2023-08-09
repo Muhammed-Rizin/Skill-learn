@@ -21,6 +21,10 @@
     padding: 2rem;
     /* Adjust padding as needed */
 }
+.validation {
+    color: red;
+    width: 100%;
+}
 
 
 #user-name {

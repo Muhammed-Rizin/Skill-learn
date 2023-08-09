@@ -24,6 +24,7 @@ import { TaskCompletedComponent } from './page/task-completed/task-completed.com
 import { MatMenuModule } from '@angular/material/menu';
 import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
 import { ScheduledComponent } from './page/scheduled/scheduled.component';
+import { VideoComponent } from './page/video/video.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ScheduledComponent } from './page/scheduled/scheduled.component';
     TaskComponent,
     TaskCompletedComponent,
     ScheduledCompletedComponent,
-    ScheduledComponent
+    ScheduledComponent,
+    VideoComponent
   ],
   imports: [
     CommonModule,

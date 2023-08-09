@@ -22,10 +22,10 @@ export class TaskNewComponent implements OnInit{
   ngOnInit(): void {
       this.form = this._formBuilder.group({
         user : ['', [Validators.required]],
-        task : ['', [Validators.required ,Validators.minLength(10)]],
-        description : ['', [Validators.required ,Validators.minLength(20)]],
-        endtime : [''],
-        enddate : [''],
+        task : ['', [Validators.required ,Validators.minLength(5)]],
+        description : ['', [Validators.required ,Validators.minLength(10)]],
+        endtime : ['',Validators.required],
+        enddate : ['',Validators.required],
       })
 
       this._professionalService.getSubscribers().subscribe(data => {
@@ -39,6 +39,7 @@ export class TaskNewComponent implements OnInit{
   }
 
   submitForm() {
+    console.log(this.form.valid)
     if(this.form.valid){
       const values = this.form.getRawValue()
 
@@ -51,8 +52,17 @@ export class TaskNewComponent implements OnInit{
         this._router.navigate(['/professional/tasks'])
       })
     }else {
-      // validation
+      this.markFormControlsAsTouched(this.form);
     }
+  }
+
+  markFormControlsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormControlsAsTouched(control);
+      }
+    });
   }
 }
 

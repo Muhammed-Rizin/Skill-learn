@@ -19,9 +19,10 @@ export class ChatComponent implements OnInit, OnDestroy{
   message!: string
   userData !: userData
   toUserId !: string
+  toUserData !: professionalData
   chatHistory!: ChatData;
 
-  alreadyMessaged !: any
+  alreadyMessaged !: ChatData[]
 
   constructor(
     private socketService: ChatService, 
@@ -29,21 +30,22 @@ export class ChatComponent implements OnInit, OnDestroy{
     private router: ActivatedRoute) {}
   
   ngOnInit() {
-    this.userSerivce.getChats().subscribe((data) =>  {this.alreadyMessaged = data, console.log(this.alreadyMessaged)})
-    this.userSerivce.getUserData().subscribe((data) => {this.userData = data})
+    this.userSerivce.getChats().subscribe((data) => this.alreadyMessaged = data)
+    this.userSerivce.getUserData().subscribe((data) => this.userData = data)
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userData._id as string);
       this.router.params.subscribe((params) => {
         if(params['id']){
           this.CHAT_ROOM = this.decryptString(params['id'])
           this.socketService.join(this.CHAT_ROOM)
-          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {
-            this.chatHistory = data
-          })
+          const toUserEmail = this.CHAT_ROOM.replace(this.userData.email, '')
+          this.userSerivce.getProfessionalDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
+          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data, console.log(data)})
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
-        this.chatHistory?.messages?.push(data.data?.messages[data.data?.messages?.length - 1])
+        // this.chatHistory.messages.push(data.data?.messages[data.data?.messages?.length - 1])
+        this.chatHistory = data.data
       });
     }, 1000);
     
@@ -63,7 +65,7 @@ export class ChatComponent implements OnInit, OnDestroy{
   sendMessage() {
     const message = this.message
     const userId = this.userData._id
-    const toUserID = this.toUserId
+    const toUserID = this.toUserData._id
     if(message.trim().length !== 0){
       this.socketService.sendMessage(
         {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'User', receverType : 'Professional'},  
@@ -110,5 +112,10 @@ export class ChatComponent implements OnInit, OnDestroy{
   isChatActive: boolean = true;
   toggleChatHistory() {
     this.isChatActive = !this.isChatActive;
+  }
+
+
+  startCall(){
+
   }
 }

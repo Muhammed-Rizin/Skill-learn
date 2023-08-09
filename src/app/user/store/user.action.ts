@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { registerUserType, userData } from "../types/user.types";
-import { professionalData } from "src/app/professional/types/professional.types";
+import { CompleteSchedule, CompleteTask, Task, professionalData } from "src/app/professional/types/professional.types";
 
 
 // User login
@@ -37,3 +37,23 @@ export const getProfessionalDataFailure = createAction(`[User Component] Get pro
 export const getProfessionals = createAction(`[User Component] Professionals `)
 export const getProfessionalsSuccess = createAction(`[User Component] Professionals success `, props<{professionals : professionalData[]}>())
 export const getProfessionalsFailure = createAction(`[User Component] Professionals failure `, props<{error : any}>())
+
+// List inprogress tasks 
+export const getInprogressTask = createAction(`[User component] get inprogress task`)
+export const getInprogressTaskSuccess = createAction(`[User component] get inprogress task success`, props<{tasks : CompleteTask[]}>())
+export const getInprogressTaskFailure = createAction(`[User component] get inprogress task failure`, props<{error : any}>())
+
+// List completed tasks
+export const getCompletedTask = createAction(`[User component] get completed task`)
+export const getCompletedTaskSuccess = createAction(`[User component] get completed task success`, props<{tasks : CompleteTask[]}>())
+export const getCompletedTaskFailure = createAction(`[User component] get completed task failure`, props<{error : any}>())
+
+// List inprogress schedules 
+export const getInprogressSchedule = createAction(`[User component] get inprogress schedule`)
+export const getInprogressScheduleSuccess = createAction(`[User component] get inprogress schedule success`, props<{meeting : CompleteSchedule[]}>())
+export const getInprogressScheduleFailure = createAction(`[User component] get inprogress schedule failure`, props<{error : any}>())
+
+// List completed schedules
+export const getCompletedSchedule = createAction(`[User component] get completed schedule`)
+export const getCompletedScheduleSuccess = createAction(`[User component] get completed schedule success`, props<{meeting : CompleteSchedule[]}>())
+export const getCompletedScheduleFailure = createAction(`[User component] get completed schedule failure`, props<{error : any}>())

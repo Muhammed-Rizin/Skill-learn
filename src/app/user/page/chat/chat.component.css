@@ -179,6 +179,20 @@
   }
 }
 
+.control-container {
+  background-color:transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.control-container img {
+  width: 30px;
+  height: 30px;
+  color: black;
+}
+
 .selected-user {
   width: 100%;
   padding: 0 15px;
@@ -188,6 +202,8 @@
   -webkit-border-radius: 0 3px 0 0;
   -moz-border-radius: 0 3px 0 0;
   border-radius: 0 3px 0 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .selected-user span {

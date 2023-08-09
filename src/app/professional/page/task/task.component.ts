@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfessionalService } from 'src/app/services/professional/professional.service';
+import { Store, select } from '@ngrx/store';
+
 import { CompleteTask } from '../../types/professional.types';
+import { selectInprogressTaskData, selectInprogressTaskLoading } from '../../store/professional.selector';
+import { getInprogressTask } from '../../store/professional.actions';
 
 @Component({
   selector: 'app-task',
@@ -9,14 +12,20 @@ import { CompleteTask } from '../../types/professional.types';
 })
 export class TaskComponent implements OnInit{
   tasks !: CompleteTask[]
+  loading$ : boolean = true
   constructor(
-    private readonly _professionalService : ProfessionalService
-  ){}
+    private readonly _store : Store
+  ){
+    this._store.pipe(select(selectInprogressTaskData)).subscribe((tasks)=> {
+      this.tasks = tasks
+    })
+    this._store.pipe(select(selectInprogressTaskLoading)).subscribe((loading)=> {
+      this.loading$ = loading
+    })
+  }
 
   ngOnInit(): void {
-      this._professionalService.getInProgressTask().subscribe(
-        (data) => this.tasks = data
-      )
+    this._store.dispatch(getInprogressTask())
   }
 
   getTime (time :string) {

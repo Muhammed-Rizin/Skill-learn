@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { professionalData } from 'src/app/professional/types/professional.types';
 import { Store } from '@ngrx/store';
+import * as CryptoJS from 'crypto-js';
+
+import { UserService } from 'src/app/services/user/user.service';
+import { professionalData } from 'src/app/professional/types/professional.types';
 
 declare let Razorpay : any
 
@@ -12,6 +14,7 @@ declare let Razorpay : any
   styleUrls: ['./professional-profile.component.css']
 })
 export class ProfessionalProfileComponent {
+  secret = "crypto-js"
   userData!: professionalData
   actualData!: professionalData
   userEmail !: string
@@ -65,11 +68,16 @@ export class ProfessionalProfileComponent {
   getRoomId(email : string) {
     if (email) {
       if(email.length > this.userEmail?.toString().length ){
-        return `${this.userEmail}${email}`
+        return this.encryptString(`${this.userEmail}${email}`)
       }
-      return `${email}${this.userEmail}`
+      return this.encryptString(`${email}${this.userEmail}`)
     }
     return null
+  }
+
+  
+  encryptString(roomId : string) {
+    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
   }
 
   paymentSubmit() {

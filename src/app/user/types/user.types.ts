@@ -1,4 +1,4 @@
-import { professionalData } from "src/app/professional/types/professional.types"
+import { CompleteSchedule, CompleteTask, Task, professionalData } from "src/app/professional/types/professional.types"
 
 
 export interface initialStateType {
@@ -97,4 +97,19 @@ export interface registerState {
     loaded : boolean
     error : any
     message ?: any
+}
+
+
+export interface taskInitialState {
+    tasks : CompleteTask[] | null
+    loading : boolean
+    loaded : boolean
+    error : any
+}
+
+export interface ScheduleInitialState {
+    meeting : CompleteSchedule[] | null
+    loading : boolean
+    loaded : boolean
+    error : any
 }

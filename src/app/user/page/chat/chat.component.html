@@ -45,14 +45,19 @@
                   <p class="no-users"  *ngIf="!alreadyMessaged">Start a conversation</p>
                 </div>
               </div>
-              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="chatHistory">
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="toUserData">
                 <div class="selected-user">
-                  <img [src]="getUserDetails(chatHistory).image"  class="profile" *ngIf="getUserDetails(chatHistory).image">
-                  <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!getUserDetails(chatHistory).image">
-                  <span class="name">{{getUserDetails(chatHistory).firstName + " " + getUserDetails(chatHistory).lastName}}</span>
+                  <div>
+                    <img [src]="toUserData.image"  class="profile" *ngIf="toUserData.image">
+                    <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!toUserData.image">
+                    <span class="name">{{toUserData.firstName + " " + toUserData.lastName}}</span>
+                  </div>
+                  <div class="control-container">
+                    <img [routerLink]="['/video', getRoomId(toUserData.email)]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
+                  </div>
                 </div>
 
-                <div class="chat-container"  #chatContainer>
+                <div class="chat-container"  #chatContainer *ngIf="chatHistory">
                   <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
 
                     <li class="chat-left" *ngIf="message.senderType === 'Professional'">
@@ -77,9 +82,9 @@
                     </li>
                     
                   </ul>
-                  <!-- <div class="form-group mt-3 mb-0">
-                    <input type="text" class="form-control" rows="3" placeholder="Type your message here...">
-                  </div> -->
+                </div>
+                <div class="chat-container"  #chatContainer *ngIf="!chatHistory">
+
                 </div>
                 <div class="chat-form d-flex">
                   <input type="text" [(ngModel)]="message" class="form-control" rows="3" placeholder="Type your message here...">

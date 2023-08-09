@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { ChatData } from 'src/app/user/types/user.types';
 import { environment } from 'src/environment/environment';
+import { ChatData } from 'src/app/user/types/user.types';
 
 @Injectable({
   providedIn: 'root'

@@ -89,4 +89,51 @@ export class professionalEffects {
         )
     })
 
+    
+    userInprogressTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.getInprogressTask),
+            mergeMap(() => (
+                this.professionalService.getInProgressTask().pipe(
+                    map((data ) => professionalActions.getInprogressTaskSuccess({tasks : data})),
+                    catchError(error => of(professionalActions.getInprogressTaskFailure({error : error})))
+                )
+            ))
+        )
+    })
+    userCompletedTask$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.getCompletedTask),
+            mergeMap(() => (
+                this.professionalService.getCompletedTask().pipe(
+                    map((data ) => professionalActions.getCompletedTaskSuccess({tasks : data})),
+                    catchError(error => of(professionalActions.getCompletedTaskFailure({error : error})))
+                )
+            ))
+        )
+    })
+
+
+    usersInprogressSchedule$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.getInprogressSchedule),
+            mergeMap(() => (
+                this.professionalService.getInProgressMeeting().pipe(
+                    map((data ) => professionalActions.getInprogressScheduleSuccess({meeting : data})),
+                    catchError(error => of(professionalActions.getInprogressScheduleFailure({error : error})))
+                )
+            ))
+        )
+    })
+    userCompletedSchedules$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(professionalActions.getCompletedSchedule),
+            mergeMap(() => (
+                this.professionalService.getCompletedMeeting().pipe(
+                    map((data ) => professionalActions.getCompletedScheduleSuccess({meeting : data})),
+                    catchError(error => of(professionalActions.getCompletedScheduleFailure({error : error})))
+                )
+            ))
+        )
+    })
 }

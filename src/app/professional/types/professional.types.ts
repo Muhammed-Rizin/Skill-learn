@@ -17,6 +17,20 @@ export interface State {
     message ?: any
 }
 
+export interface taskInitialState {
+    tasks : CompleteTask[] | null
+    loading : boolean
+    loaded : boolean
+    error : any
+}
+
+export interface ScheduleInitialState {
+    meeting : CompleteSchedule[] | null
+    loading : boolean
+    loaded : boolean
+    error : any
+}
+
 export interface professionalData {
     _id: string
     email: string

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CompleteSchedule } from '../../types/professional.types';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
+import { Store, select } from '@ngrx/store';
+import { selectCompletedScheduleData, selectCompletedScheduleLoading, selectInprogressScheduleData, selectInprogressScheduleLoading } from '../../store/professional.selector';
+import { getCompletedSchedule, getInprogressSchedule } from '../../store/professional.actions';
 
 @Component({
   selector: 'app-scheduled',
@@ -9,14 +12,20 @@ import { ProfessionalService } from 'src/app/services/professional/professional.
 })
 export class ScheduledComponent implements OnInit {
   tasks !: CompleteSchedule[]
+  loading$ !: boolean
   constructor(
-    private readonly _professionalService : ProfessionalService
-  ){}
+    private readonly _store : Store
+  ){
+    this._store.pipe(select(selectInprogressScheduleData)).subscribe((tasks)=> {
+      this.tasks = tasks
+    })
+    this._store.pipe(select(selectInprogressScheduleLoading)).subscribe((loading)=> {
+      this.loading$ = loading
+    })
+  }
 
   ngOnInit(): void {
-      this._professionalService.getInProgressMeeting().subscribe(
-        (data) => {this.tasks = data}
-      )
+    this._store.dispatch(getInprogressSchedule())
   }
 
   getTime (time :string) {

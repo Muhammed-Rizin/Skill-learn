@@ -21,10 +21,10 @@ export class ScheduledNewComponent implements OnInit {
   ngOnInit(): void {
       this.form = this._formBuilder.group({
         user : ['', [Validators.required]],
-        topic : ['', [Validators.required ,Validators.minLength(10)]],
-        description : ['', [Validators.required ,Validators.minLength(20)]],
-        time : [''],
-        date : [''],
+        topic : ['', [Validators.required ,Validators.minLength(5)]],
+        description : ['', [Validators.required ,Validators.minLength(10)]],
+        time : ['',Validators.required],
+        date : ['',Validators.required],
       })
 
       this._professionalService.getSubscribers().subscribe(data => {
@@ -38,6 +38,7 @@ export class ScheduledNewComponent implements OnInit {
   }
 
   submitForm() {
+    console.log(this.form.valid)
     if(this.form.valid){
       const values = this.form.getRawValue()
 
@@ -50,7 +51,16 @@ export class ScheduledNewComponent implements OnInit {
         this._router.navigate(['/professional/schedule'])
       })
     }else {
-      // validation
+      this.markFormControlsAsTouched(this.form);
     }
+  }
+
+  markFormControlsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormControlsAsTouched(control);
+      }
+    });
   }
 }

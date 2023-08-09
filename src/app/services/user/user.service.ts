@@ -66,9 +66,8 @@ export class UserService {
     return this.http.get<professionalData>(`${this.apiUrl}/user/userdatabyemail?email=${email}`, httpOptions)
   }
 
-  // type
-  getChats() : Observable<ChatData> {
-    return this.http.get<ChatData>(`${this.apiUrl}/user/getchats`, httpOptions)
+  getChats() : Observable<ChatData[]> {
+    return this.http.get<ChatData[]>(`${this.apiUrl}/user/getchats`, httpOptions)
   }
 
   getChatHistory(roomId : string) : Observable<ChatData> {

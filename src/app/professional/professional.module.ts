@@ -26,6 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ScheduledComponent } from './page/scheduled/scheduled.component';
 import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
 import { ScheduledNewComponent } from './page/scheduled-new/scheduled-new.component';
+import { VideoComponent } from './page/video/video.component';
 
 const route : Routes = [
   
@@ -48,6 +49,7 @@ const route : Routes = [
     ScheduledComponent,
     ScheduledCompletedComponent,
     ScheduledNewComponent,
+    VideoComponent,
   ],
   imports: [
     CommonModule,
