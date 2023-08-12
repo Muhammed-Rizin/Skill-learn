@@ -45,8 +45,9 @@ export class ChatComponent implements  OnInit, OnDestroy{
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
-        console.log(data.text + ' hei');
-        this.chatHistory?.messages?.push(data.data?.messages[data.data?.messages?.length - 1])
+        const newMessage = data.data?.messages[data.data?.messages?.length - 1]
+        console.log(newMessage);
+        this.chatHistory?.messages?.push(newMessage)
       });
     }, 1000);
 

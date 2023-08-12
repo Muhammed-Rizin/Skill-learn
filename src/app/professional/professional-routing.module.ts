@@ -23,6 +23,7 @@ import { ConsecutiveGuard } from '../guard/professional/professional-consecutive
 import { ProfessionalBlockedGuard } from '../guard/professional/professional-blocked.guard';
 import { ProfessionalApprovedGuard } from '../guard/professional/professional-approved.guard';
 import { ProfessionalchatGuard } from '../guard/professional/professional-chat.guard';
+import { PaymentListComponent } from './page/payment-list/payment-list.component';
 
 const routes: Routes = [
     {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
@@ -59,6 +60,8 @@ const routes: Routes = [
     {path : 'video/:id', component : VideoComponent, canActivate: 
       [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
 
+    {path : 'payment', component : PaymentListComponent, canActivate : 
+    [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
     {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 

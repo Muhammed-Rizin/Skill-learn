@@ -57,8 +57,13 @@ export interface Payment {
     createdAt?: Date
 }
 
-
-
+export interface PaymentData {
+    from : userData,
+    to : professionalData
+    paymentId: string
+    amount: number
+    createdAt : Date
+}
 
 
 
@@ -112,4 +117,23 @@ export interface ScheduleInitialState {
     loading : boolean
     loaded : boolean
     error : any
+}
+
+
+
+export interface addReview {
+    title : string
+    description : string
+    rating : number
+}
+
+
+export interface Review {
+    title : string,
+    description : string
+    rating : number
+    _id : string
+    user : userData 
+    professional : string
+    createdAt : string
 }

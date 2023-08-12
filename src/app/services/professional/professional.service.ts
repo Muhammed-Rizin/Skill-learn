@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CompleteSchedule, CompleteTask, Schedule, Task, professionalData, professionalType } from 'src/app/professional/types/professional.types';
-import { ChatData, Payment, userData } from 'src/app/user/types/user.types';
+import { ChatData, Payment, PaymentData, Review, userData } from 'src/app/user/types/user.types';
 import { environment } from 'src/environment/environment';
 
 const httpOptions = {
@@ -111,5 +111,13 @@ export class ProfessionalService {
   }
   getCompletedMeeting() : Observable<CompleteSchedule[]> {
     return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/professional/completedmeeting`,httpOptions)
+  }
+
+  getPayments() : Observable<PaymentData[]> {
+    return this.http.get<PaymentData[]>(`${this.apiUrl}/payment/professionalhistory`)
+  }
+
+  getReviews(id : string) : Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.apiUrl}/review/professionalreviews?id=${id}`, httpOptions)
   }
 }

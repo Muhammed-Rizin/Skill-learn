@@ -92,6 +92,33 @@
                         <button class="col-4 edit" (click)="submit('Work')">Edit</button>
                     </div>
                 </div>
+                <div class="review">
+                    <ng-container *ngFor="let review of reviews$ ">
+                        <div class="review-details">
+                            <div class="user-header">
+                                <div class="image">
+                                    <img [src]="review?.user?.image" alt="">
+                                </div>
+                                <div class="name">
+                                    <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>
+                                    <div class="rating">
+                                        <ngb-rating [max]="5" [rate]="review.rating"[readonly]="true"></ngb-rating>
+                                    </div>
+                                </div>
+                                <div class="date">
+                                    <p>{{review?.createdAt?.slice(0,10)}}</p>
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                <h2>Unforgettable Lessons: A Journey with Mr. Smith, an Inspirational Teacher</h2>
+                                <p>Ms. Suhail is an extraordinary teacher who has truly made a lasting impact on my educational journey. Her unwavering passion for teaching and commitment to student success are nothing short of inspiring.</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="pagination">
+                        <!-- pagination button  -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

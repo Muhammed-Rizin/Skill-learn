@@ -39,6 +39,46 @@
                         </div>
                     </div>
                 </div>
+                <div class="review">
+                    <div class="review-header">
+                        <h3>Review</h3>
+                        <button *ngIf="!addReview && subscribed" (click)="toggleReview()">Add</button>
+                        <button *ngIf="addReview && subscribed" (click)="toggleReview()">X</button>
+                    </div>
+                    <div class="add-review" *ngIf="addReview">
+                        <form [formGroup]="reviewForm" (submit)="reviewSubmit()">
+                            <ngb-rating [max]="5" formControlName="rating"></ngb-rating>
+                            <input type="text" formControlName="title" placeholder="Title" id="">
+                            <input type="text" formControlName="description" placeholder="Description" id="">
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <ng-container *ngFor="let review of reviews$ ">
+                        <div class="review-details">
+                            <div class="user-header">
+                                <div class="image">
+                                    <img [src]="review?.user?.image" alt="">
+                                </div>
+                                <div class="name">
+                                    <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>
+                                    <div class="rating">
+                                        <ngb-rating [max]="5" [rate]="review.rating"[readonly]="true"></ngb-rating>
+                                    </div>
+                                </div>
+                                <div class="date">
+                                    <p>{{review?.createdAt?.slice(0,10)}}</p>
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                <h2>Unforgettable Lessons: A Journey with Mr. Smith, an Inspirational Teacher</h2>
+                                <p>Ms. Suhail is an extraordinary teacher who has truly made a lasting impact on my educational journey. Her unwavering passion for teaching and commitment to student success are nothing short of inspiring.</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="pagination">
+                        <!-- pagination button  -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

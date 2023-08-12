@@ -21,20 +21,22 @@
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="home" routerLink="/schedule">Scheduled</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="home" routerLink="/payments">Payments</a>
+          </li>
         </ul>
-        <span class="navbar-text" *ngIf="userData">
+        <span class="navbar-text" *ngIf="user">
             <button mat-button [matMenuTriggerFor]="menu">
-              <img [src]="userData.image" alt="skill learn" class="icon" *ngIf="userData.image">
-              <img src="../../../assets/null-icon.jpg" alt="skill learn" class="icon" *ngIf="!userData.image">
+              <img src="../../../../assets/user-icon.svg" alt="skill learn" class="icon">
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item routerLink="/profile">Profile</button>
               <button mat-menu-item  (click)="logOut()">Logout</button>
             </mat-menu>
         </span>
-        <ng-container *ngIf="!userData">
-          <button routerLink="/login" *ngIf="!userData" class="me-2">Login</button>
-          <button routerLink="/sign_up" *ngIf="!userData">Sign Up</button>
+        <ng-container *ngIf="!user">
+          <button routerLink="/login"  class="me-2">Login</button>
+          <button routerLink="/sign_up">Sign Up</button>
         </ng-container>
       </div>
     </div>

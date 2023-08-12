@@ -25,6 +25,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
 import { ScheduledComponent } from './page/scheduled/scheduled.component';
 import { VideoComponent } from './page/video/video.component';
+import { PaymentListComponent } from './page/payment-list/payment-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -45,14 +47,16 @@ import { VideoComponent } from './page/video/video.component';
     TaskCompletedComponent,
     ScheduledCompletedComponent,
     ScheduledComponent,
-    VideoComponent
+    VideoComponent,
+    PaymentListComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MatMenuModule
+    MatMenuModule,
+    NgbModule
   ],
   exports : [RouterModule]
 })

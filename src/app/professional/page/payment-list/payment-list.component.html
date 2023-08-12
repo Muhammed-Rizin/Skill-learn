@@ -1,0 +1,35 @@
+<div class="content">
+    <app-nav-bar></app-nav-bar>
+    <div class="body">
+        <div *ngIf="loading">Loading...</div>
+        
+        <h3 *ngIf="!loading &&!paymentHistory?.length">Empty</h3>
+        <div class="table-div table-responsive" *ngIf="paymentHistory?.length">
+          <table class="table" >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of paymentHistory; let i = index">
+                <td>{{i +1}}</td>
+                <td>{{payment?.createdAt?.toString()?.slice(0,10)}}</td>
+                <td class="name" routerLink="/professional/viewprofile/{{payment?.to?.email}}">
+                  {{payment?.from?.firstName + ' ' + payment?.from?.lastName}}
+                </td>
+                <td>{{payment?.amount}}</td>
+                <td>
+                  <p *ngIf="status(payment.createdAt)">Active</p>
+                  <p *ngIf="!status(payment.createdAt)">Expired</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { professionalData } from '../../types/professional.types';
+import { Review } from 'src/app/user/types/user.types';
 
 @Component({
   selector: 'app-profile',
@@ -11,9 +12,9 @@ import { professionalData } from '../../types/professional.types';
 })
 export class ProfileComponent {
   userData!: professionalData
-  actualData!: professionalData
   validation !: string
   selectedFile!: File;
+  reviews$!: Review[]
 
   imageUrl !: string | Observable<string>
   constructor(
@@ -33,7 +34,10 @@ export class ProfileComponent {
       this.userData.work = this.userData.work?.trim()
       this.userData.about = this.userData.about?.trim()
       
-      this.actualData = Object.assign({}, this.userData)
+      this._professionalService.getReviews(data._id).subscribe(reviews => {
+        console.log(reviews)
+        this.reviews$ = reviews
+      })
     })
   }
   submit( field : string){

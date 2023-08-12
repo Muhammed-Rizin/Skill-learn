@@ -10,16 +10,14 @@ import { userData } from '../../types/user.types';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  userData !: userData
+  user !: boolean
   constructor(
     private router : Router, 
     readonly _userService : UserService,
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
-    this._userService.getUserData().subscribe((data) => {
-      this.userData = data
-    })
+    this.user = localStorage.getItem('userjwt') ? true : false
   }
   logOut(){
     const dialogRef = this.dialog.open(logoutDialog, {

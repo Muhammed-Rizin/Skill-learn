@@ -23,6 +23,7 @@ import { HomeGuard } from '../guard/user/user-home.guard';
 import { UserAvailable } from '../guard/user/user.guard';
 import { UserAuthentication } from '../guard/user/user-authentication.guard';
 import { UserBlockedGuard } from '../guard/user/user-blocked.guard';
+import { PaymentListComponent } from './page/payment-list/payment-list.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,8 @@ const routes: Routes = [
 
   {path : 'schedule', component : ScheduledComponent, canActivate : [UserAuthentication, ConsecutiveGuard, UserBlockedGuard]},
   {path : 'schedule/completed', component : ScheduledCompletedComponent, canActivate : [UserAuthentication, ConsecutiveGuard, UserBlockedGuard]},
+
+  {path : 'payments', component : PaymentListComponent, canActivate : [UserAuthentication, ConsecutiveGuard, UserBlockedGuard]},
 
   {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];

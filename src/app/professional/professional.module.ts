@@ -27,6 +27,8 @@ import { ScheduledComponent } from './page/scheduled/scheduled.component';
 import { ScheduledCompletedComponent } from './page/scheduled-completed/scheduled-completed.component';
 import { ScheduledNewComponent } from './page/scheduled-new/scheduled-new.component';
 import { VideoComponent } from './page/video/video.component';
+import { PaymentListComponent } from './page/payment-list/payment-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const route : Routes = [
   
@@ -50,6 +52,7 @@ const route : Routes = [
     ScheduledCompletedComponent,
     ScheduledNewComponent,
     VideoComponent,
+    PaymentListComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +64,7 @@ const route : Routes = [
     MatChipsModule,
     MatMenuModule,
     MatFormFieldModule,
+    NgbModule
   ],
   exports : [RouterModule]
 })

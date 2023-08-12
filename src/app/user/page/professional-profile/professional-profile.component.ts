@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CryptoJS from 'crypto-js';
 
 import { UserService } from 'src/app/services/user/user.service';
 import { professionalData } from 'src/app/professional/types/professional.types';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Review } from '../../types/user.types';
 
 declare let Razorpay : any
 
@@ -13,7 +15,7 @@ declare let Razorpay : any
   templateUrl: './professional-profile.component.html',
   styleUrls: ['./professional-profile.component.css']
 })
-export class ProfessionalProfileComponent {
+export class ProfessionalProfileComponent implements OnInit{
   secret = "crypto-js"
   userData!: professionalData
   actualData!: professionalData
@@ -22,11 +24,16 @@ export class ProfessionalProfileComponent {
   subscribed : boolean = false
   loading!: boolean
 
+  addReview: boolean = false
+  reviewForm!: FormGroup
+  reviews$!: Review[]
+
   constructor(
     private userService : UserService, 
     private route: ActivatedRoute, 
     private router : Router,
-    private _store : Store
+    private _store : Store,
+    private _formBuilder : FormBuilder
   ){
     this.route.params.subscribe((params) => {
       if(params['id']){
@@ -34,11 +41,23 @@ export class ProfessionalProfileComponent {
           (data) => {
             this.processUserData(data)
             this.checkSubscriptionStatus()
+            this.userService.getReviews(data._id).subscribe(reviews => {
+              console.log(reviews)
+              this.reviews$ = reviews
+            })
         })
       }else {
         this.router.navigate(['/'])
       }
     })
+  }
+
+  ngOnInit(): void {
+    this.reviewForm = this._formBuilder.group({
+      title : ['', [Validators.required, Validators.minLength(5)]],
+      description : ['', [Validators.required, Validators.minLength(10)]],
+      rating : ['', Validators.required]
+    })   
   }
 
 
@@ -55,6 +74,7 @@ export class ProfessionalProfileComponent {
       this.userEmail = data.email;
       this.userId = data._id;
       this.userService.subscribed(this.userId, this.userData._id).subscribe((data) => {
+        console.log(data , 'subscribed')
         if (data.createdAt) {
           const createdAtDate = new Date(data.createdAt);
           if (createdAtDate.getDate() + 30 <= Date.now()) {
@@ -107,5 +127,26 @@ export class ProfessionalProfileComponent {
     razorpayInstance.open();
   }
   
-  
+  toggleReview () {
+    this.addReview = !this.addReview
+  }
+
+  reviewSubmit() {
+    if(this.reviewForm.valid){
+      console.log(this.reviewForm.getRawValue())
+      const data = this.reviewForm.getRawValue()
+      this.userService.addReview(data,this.userData._id).subscribe()
+    }else {
+      this.markFormControlsAsTouched(this.reviewForm)
+    }
+  }
+
+  markFormControlsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormControlsAsTouched(control);
+      }
+    });
+  }
 }

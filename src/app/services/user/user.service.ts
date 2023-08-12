@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ChatData, Payment, loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
+import { ChatData, Payment, PaymentData, Review, addReview, loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
 import { Observable } from 'rxjs';
 import { CompleteSchedule, CompleteTask, professionalData } from 'src/app/professional/types/professional.types';
 import { environment } from 'src/environment/environment';
+import { FormGroup } from '@angular/forms';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -124,5 +125,17 @@ export class UserService {
     return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/user/completedmeeting`,httpOptions)
   }
   
+  getPayments() : Observable<PaymentData[]> {
+    return this.http.get<PaymentData[]>(`${this.apiUrl}/payment/userhistory`, httpOptions)
+  }
+
+  addReview(data : addReview, id : string) {
+    console.log(data, `${this.apiUrl}/review/addreview`)
+    return this.http.post(`${this.apiUrl}/review/addreview`, {data, id}, httpOptions)
+  }
+
+  getReviews(id : string) : Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.apiUrl}/review/getreviews?id=${id}`, httpOptions)
+  }
 }
 

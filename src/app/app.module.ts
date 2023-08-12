@@ -26,6 +26,7 @@ import { getProfessionalDetailsReducer, getcompletedSchedule, getcompletedTask, 
 import { professionalEffects } from './professional/store/professional.effects';
 import { ErrorPageComponent } from './error/error-page/error-page.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     MatSlideToggleModule,
     MatButtonModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    NgbModule
   ],
   providers: [UserService, ProfessionalService, AdminService, {
     provide:HTTP_INTERCEPTORS,
