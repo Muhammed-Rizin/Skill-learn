@@ -27,6 +27,7 @@ export interface userData {
     image : string
     emailVerified : boolean
     emailToken : string
+    notificationToken : string
 }
   
 

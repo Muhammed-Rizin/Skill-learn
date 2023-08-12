@@ -120,4 +120,8 @@ export class ProfessionalService {
   getReviews(id : string) : Observable<Review[]> {
     return this.http.get<Review[]>(`${this.apiUrl}/review/professionalreviews?id=${id}`, httpOptions)
   }
+
+  addNotificationToken(token : string) {
+    return this.http.patch(`${this.apiUrl}/professional/setnotification`,{token}, httpOptions)
+  }
 }

@@ -6,6 +6,7 @@ import * as CryptoJS from 'crypto-js';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { ChatData, userData } from 'src/app/user/types/user.types';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-chat',
@@ -27,6 +28,7 @@ export class ChatComponent implements  OnInit, OnDestroy{
   constructor(
     private socketService: ChatService, 
     private userSerivce : ProfessionalService, 
+    private _notificationService : NotificationService,
     private router: ActivatedRoute) {}
     
   ngOnInit() {
@@ -47,6 +49,12 @@ export class ChatComponent implements  OnInit, OnDestroy{
       this.socketService.subscribeToMessages((err, data) => {
         const newMessage = data.data?.messages[data.data?.messages?.length - 1]
         console.log(newMessage);
+        const nofificationToken = newMessage.recever.notificationToken
+        this._notificationService.pushNotification(
+          newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
+          newMessage.text,
+          nofificationToken
+          )
         this.chatHistory?.messages?.push(newMessage)
       });
     }, 1000);

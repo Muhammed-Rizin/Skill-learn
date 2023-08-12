@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChatData, userData } from '../../types/user.types';
 import { professionalData } from 'src/app/professional/types/professional.types';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-chat',
@@ -29,6 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy{
   constructor(
     private socketService: ChatService, 
     private userSerivce : UserService, 
+    private _notificationService : NotificationService,
     private router: ActivatedRoute) {}
   
   ngOnInit() {
@@ -46,6 +48,14 @@ export class ChatComponent implements OnInit, OnDestroy{
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
+        const newMessage = data.data?.messages[data.data?.messages?.length - 1]
+        console.log(newMessage);
+        const nofificationToken = newMessage.recever.notificationToken
+        this._notificationService.pushNotification(
+          newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
+          newMessage.text,
+          nofificationToken
+          )
         this.chatHistory = data.data
       });
     }, 1000);

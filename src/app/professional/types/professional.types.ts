@@ -55,6 +55,7 @@ export interface professionalData {
     qualification: string
     about:string
     emailToken: string
+    notificationToken : string
 }
   
 

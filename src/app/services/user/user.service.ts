@@ -137,5 +137,10 @@ export class UserService {
   getReviews(id : string) : Observable<Review[]> {
     return this.http.get<Review[]>(`${this.apiUrl}/review/getreviews?id=${id}`, httpOptions)
   }
+
+
+  addNotificationToken(token : string) {
+    return this.http.patch(`${this.apiUrl}/user/setnotification`,{token}, httpOptions)
+  }
 }
 

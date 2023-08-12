@@ -50,6 +50,21 @@ export class AuthInterceptor implements HttpInterceptor {
         )
       )
       
+    }else if (request.url.includes('/fcm')){
+      console.log(request.url)
+      return next.handle(request).pipe(
+        tap(
+          (event : HttpEvent<any>)=>{},
+          (error : any) => {
+            if(error instanceof HttpErrorResponse){
+              if(error.status === 401){
+                localStorage.removeItem('professional_token')
+                this.router.navigate(['/professional'])
+              }
+            }
+          } 
+        )
+      )
     }else {
       const token = localStorage.getItem('userjwt')
       request = request.clone({headers : request.headers.set('authorization', 'Bearer ' + token)})

@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
+import { initializeApp } from 'firebase/app';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,8 @@ import { professionalEffects } from './professional/store/professional.effects';
 import { ErrorPageComponent } from './error/error-page/error-page.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environment/environment';
+import { NotificationService } from './services/notification/notification.service';
 
 @NgModule({
   declarations: [
@@ -81,11 +84,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatMenuModule,
     NgbModule
   ],
-  providers: [UserService, ProfessionalService, AdminService, {
+  providers: [UserService, ProfessionalService, AdminService, NotificationService, {
     provide:HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    initializeApp(environment.firebase);
+  }
+ }
