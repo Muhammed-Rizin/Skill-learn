@@ -13,4 +13,6 @@ export const environment = {
         measurementId: "G-BWDHQ97TXT",
         vapidKey:"BKMpvvCBV-DNQ54AUe1fGzx9-YyjjF6BDQpaBfof5KD4TiD-p46jb3GD3C5kh0EoPTxncPawiekkOEOMXoHGTlw"
     },
+
+    Authorization: "key=AAAAAf8L1ds:APA91bFammQuCkC0HssuSEUd2Fhf74BDT5YXfQElUbjSfF7FX0QCXHCtW-FLhRQ992w0iDrWg6N4BZwqI1UBO116RChBNQcgQPG2UDT2lWUryFd3E6G2YlVfLHxRULq7YxqDjd-egihZ"
 };

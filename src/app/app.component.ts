@@ -3,6 +3,9 @@ import { getMessaging, getToken, onMessage } from '@firebase/messaging';
 import { environment } from 'src/environment/environment';
 import { UserService } from './services/user/user.service';
 import { ProfessionalService } from './services/professional/professional.service';
+import { NotificationService } from './services/notification/notification.service';
+import { msgType } from './user/types/user.types';
+
 
 @Component({
   selector: 'app-root',
@@ -10,11 +13,12 @@ import { ProfessionalService } from './services/professional/professional.servic
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  message: any = null;
+  message: msgType | null = null;
 
   constructor(
     private _userService : UserService,
-    private _professionalService : ProfessionalService
+    private _professionalService : ProfessionalService,
+    private _notifcation : NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +30,16 @@ export class AppComponent implements OnInit {
       this.professionalRequestPermission();
     }
     this.listen();
+
+
+    this._notifcation.status.subscribe((msg) => {
+      if(msg === null){
+        this.showToast = false
+      }else { 
+        this.showToast = true
+        this.message = msg
+      }
+    })
   }
   
   userRequestPermission() {
@@ -69,9 +83,11 @@ export class AppComponent implements OnInit {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
-      this.message = payload;
+      this._notifcation.showToast(payload.notification as msgType)
     });
-
-    // change into in app message
   }
+
+
+  showToast : boolean = false
+
 }

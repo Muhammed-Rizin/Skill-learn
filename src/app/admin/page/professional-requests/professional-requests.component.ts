@@ -4,6 +4,7 @@ import { selectLoadingRequestProfessionals, selectLoadingTotalRequestProfessiona
 import { approveProfessionals, loadRequestProfessionals, loadTotalRequestProfessionals, rejectProfessionals } from '../../store/admin.actions';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Professional } from '../../types/admin.types';
 
 @Component({
   selector: 'app-professional-requests',
@@ -11,10 +12,8 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./professional-requests.component.css']
 })
 export class ProfessionalRequestsComponent {
-  professionals$ : any | null 
-  loading$: any;
-  professioanlLength$ : any | null
-  professionalsLoading$ : any | null
+  professionals$ !: Professional[]
+  loading$!: boolean;
   page : number = 1
   limit : number = 5
 
@@ -22,18 +21,11 @@ export class ProfessionalRequestsComponent {
     private store : Store,
     public dialog: MatDialog
   ){
-    this.store.pipe(select(selectRequestProfessional)).subscribe((professionals: any) => {
-      this.professionals$ = professionals;
+    this.store.pipe(select(selectRequestProfessional)).subscribe((professionals) => {
+      this.professionals$ = professionals as Professional[];
     });
-    this.store.pipe(select(selectLoadingTotalRequestProfessionals)).subscribe((users: any) => {
-      this.loading$ = users;
-    });
-    this.store.pipe(select(selectTotalRequestProfessional)).subscribe((users: any) => {
-      this.professioanlLength$ = users?.length;
-    });
-
-    this.store.pipe(select(selectLoadingRequestProfessionals)).subscribe((users: any) => {
-      this.professionalsLoading$ = users;
+    this.store.pipe(select(selectLoadingTotalRequestProfessionals)).subscribe((loading) => {
+      this.loading$ = loading;
     });
   }
 

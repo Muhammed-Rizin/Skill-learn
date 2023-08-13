@@ -23,7 +23,7 @@ export class ChatComponent implements  OnInit, OnDestroy{
   loading : boolean = true
   chatHistoryLoading : boolean = true
 
-  alreadyMessaged !: any
+  alreadyMessaged !: ChatData[]
 
   constructor(
     private socketService: ChatService, 
@@ -53,7 +53,8 @@ export class ChatComponent implements  OnInit, OnDestroy{
         this._notificationService.pushNotification(
           newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
           newMessage.text,
-          nofificationToken
+          nofificationToken,
+          newMessage.sender.image
           )
         this.chatHistory?.messages?.push(newMessage)
       });
@@ -95,11 +96,6 @@ export class ChatComponent implements  OnInit, OnDestroy{
       return this.encryptString(`${email}${this.userData.email}`)
     }
     return null
-  }
-
-  getChattedUserId(chat: any): string {
-    const chattedUserIds = chat.users.filter((userId: string) => userId !== this.userData._id);
-    return chattedUserIds[0];
   }
 
   encryptString(roomId : string) {

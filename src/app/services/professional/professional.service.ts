@@ -10,12 +10,6 @@ const httpOptions = {
     'content-Type': 'application/json',
   }),
 };
-let imageHeader = new HttpHeaders();
-imageHeader = imageHeader.set('Accept', 'image/png, image/jpeg, image/gif');
-const options = {
-  headers: imageHeader,
-  responseType: 'blob' as 'json'
-};
 
 @Injectable({
   providedIn: 'root'
@@ -65,8 +59,8 @@ export class ProfessionalService {
     return this.http.get<professionalData>(`${this.apiUrl}/professional/userdatabyemail?email=${email}`, httpOptions)
   }
 
-  getChats() : Observable<ChatData> {
-    return this.http.get<ChatData>(`${this.apiUrl}/professional/getchats`, httpOptions)
+  getChats() : Observable<ChatData[]> {
+    return this.http.get<ChatData[]>(`${this.apiUrl}/professional/getchats`, httpOptions)
   }
 
   getChatHistory(roomId : string) : Observable<ChatData> {

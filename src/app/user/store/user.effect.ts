@@ -18,9 +18,9 @@ export class UserEffects {
 
     loginUser$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(UserActions.loginUser),
+            ofType(UserActions.loginUseraction),
             mergeMap((payload) => 
-                this.userService.userLogin(payload).pipe(
+                this.userService.userLogin(payload.data).pipe(
                     map((users : userData) => {
                         localStorage.setItem('userjwt',users.token)
                         this.router.navigate(['/'])
@@ -34,8 +34,8 @@ export class UserEffects {
     registerUser$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.registerUser),
-            mergeMap((payload ) => (
-                this.userService.userRegister(payload).pipe(
+            mergeMap((payload) => (
+                this.userService.userRegister(payload.userData).pipe(
                     map((users : userData) => {
                         localStorage.setItem('userjwt', users.token)
                         this.router.navigate(['/'])

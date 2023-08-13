@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { adminLogin } from '../../store/admin.actions';
+import { adminLoginAction } from '../../store/admin.actions';
 import { Observable, map } from 'rxjs';
 import { selectError, selectLoading } from '../../store/admin.selector';
+import { adminLogin } from '../../types/admin.types';
 
 @Component({
   selector: 'app-login',
@@ -21,15 +22,15 @@ export class LoginComponent implements OnInit{
   ){
     this.error$ = this.store.pipe(
       select(selectError),
-      map((doc: any) => (this.error$ = doc))
+      map((doc: string) => (this.error$ = doc))
     );
     this.error$?.subscribe((doc) => doc)
 
     this.loading$ = this.store.pipe(
       select(selectLoading),
-      map((doc: any) => (this.loading$ = doc))
+      map((doc: boolean) => (this.loading$ = doc))
     );
-    this.loading$?.subscribe((doc: boolean) => doc);
+    this.loading$?.subscribe((doc) => doc);
   }
 
   ngOnInit(): void {
@@ -39,9 +40,9 @@ export class LoginComponent implements OnInit{
       })
   }
   submit(){
-    const data = this.form.getRawValue()
+    const data: adminLogin = this.form.getRawValue()
     if(this.form.valid){
-      this.store.dispatch(adminLogin(data))
+      this.store.dispatch(adminLoginAction({formData: data}))
     }else {
       this.markFormControlsAsTouched(this.form);
     }

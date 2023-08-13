@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
 
 import { VideoService } from 'src/app/services/video/video.service';
 import { professionalData } from 'src/app/professional/types/professional.types';
-import { userData } from '../../types/user.types';
+import { sendMessageType, userData } from '../../types/user.types';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -90,16 +90,16 @@ export class VideoComponent  implements OnInit, OnDestroy{
     this.localVideo.nativeElement.srcObject = this.localStream;
   }
 
-  handleMessage(message: any) {
-    if (message.type == 'offer') {
+  handleMessage(message: sendMessageType) {
+    if (message.offer !== undefined) {
       this.createAnswer(message.offer)
     }
 
-    if (message.type == 'answer') {
+    if (message.answer !== undefined) {
       this.addAnswer(message.answer)
     }
 
-    if (message.type == 'candidate') {
+    if (message.candidate !== undefined) {
       if (this.peerConnection) {
         this.peerConnection.addIceCandidate(message.candidate)
       }
@@ -161,7 +161,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
     this.videoService.sendmessage({ type: 'answer', answer: answer }, this.roomId)
   }
 
-  async addAnswer(answer: any) {
+  async addAnswer(answer: RTCSessionDescriptionInit) {
     if (!this.peerConnection.currentRemoteDescription) {
       this.peerConnection.setRemoteDescription(answer)
     }

@@ -1,13 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
 import { ScheduleInitialState, State, taskInitialState } from "../types/professional.types";
 import * as professionalActions from './professional.actions'
-import { state } from "@angular/animations";
 
 export const initialState : State = {
     user : null,
     loaded : false,
     loading : false,
-    error : null
+    error : null,
+    message : null
 }
 
 export const TaskInitialState : taskInitialState = {

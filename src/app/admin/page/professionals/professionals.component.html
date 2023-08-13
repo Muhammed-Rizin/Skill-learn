@@ -5,9 +5,9 @@
             <a class="me-4 active" routerLink="/admin/professionals" > ALL</a>
             <a routerLink="/admin/professionals/request"> Request</a>
         </div>
-        <div *ngIf="loading$ || professionalsLoading$">Loading...</div>
+        <div *ngIf="loading$">Loading...</div>
         <mat-paginator  *ngIf="!loading$ && professionals$.length !== 0" 
-          [length]="professioanlLength$"
+          [length]=" professionals$.length "
           [pageSize]="5"
           [pageSizeOptions]="[5, 10, 25, 100]"
           (page)="pageChange($event)"
@@ -15,7 +15,7 @@
         </mat-paginator>
         <div class="table-div table-responsive " *ngIf="!loading$">
           <h3 *ngIf="professionals$.length === 0">No professionals found</h3>
-            <table class="table" *ngIf="professionalsLoading$ || professionals$.length !== 0">
+            <table class="table" *ngIf="professionals$.length !== 0">
                 <thead>
                   <tr>
                     <th>#</th>

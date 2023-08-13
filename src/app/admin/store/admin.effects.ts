@@ -16,9 +16,9 @@ export class adminEffects {
 
     login$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(adminActions.adminLogin),
+            ofType(adminActions.adminLoginAction),
             mergeMap((payload) => 
-                this.adminService.adminLogin(payload).pipe(
+                this.adminService.adminLogin(payload.formData).pipe(
                     map((adminData : adminData) => {
                         localStorage.setItem('admin_jwt',adminData.token)
                         this.router.navigate(['/admin/dashboard'])
@@ -35,7 +35,7 @@ export class adminEffects {
             ofType(adminActions.loadTotalUsers),
             mergeMap(() => 
                 this.adminService.getTotalUsers().pipe(
-                    map((users : User[]) => adminActions.loadTotalUsersSuccess({user : users})),
+                    map((users) => adminActions.loadTotalUsersSuccess({user : users})),
                     catchError(error => of(adminActions.loadTotalUsersFailure({error})))
                 )
             )
@@ -47,7 +47,7 @@ export class adminEffects {
             ofType(adminActions.loadTotalProfessionals),
             mergeMap(() => 
                 this.adminService.getTotalProfessionals().pipe(
-                    map((Professionals : User[]) => adminActions.loadTotalProfessionalsSuccess({user : Professionals})),
+                    map((Professionals) => adminActions.loadTotalProfessionalsSuccess({user : Professionals})),
                     catchError(error => of(adminActions.loadTotalProfessionalsFailure({error})))
                 )
             )
@@ -59,7 +59,7 @@ export class adminEffects {
             ofType(adminActions.loadTotalRequestProfessionals),
             mergeMap(() => 
                 this.adminService.getTotalRequestProfessionals().pipe(
-                    map((Professionals : User[]) => adminActions.loadTotalRequestProfessionalsSuccess({user : Professionals})),
+                    map((Professionals) => adminActions.loadTotalRequestProfessionalsSuccess({user : Professionals})),
                     catchError(error => of(adminActions.loadTotalRequestProfessionalsFailure({error})))
                 )
             )
@@ -71,7 +71,7 @@ export class adminEffects {
             ofType(adminActions.loadUsers),
             mergeMap((payload) => {
                 return this.adminService.getUsers(payload.page, payload.limit).pipe(
-                    map((users : User[]) => adminActions.loadUsersSuccess({user : users})),
+                    map((users) => adminActions.loadUsersSuccess({user : users})),
                     catchError(error => of(adminActions.loadUsersFailure({error})))
                 )
             }
@@ -84,7 +84,7 @@ export class adminEffects {
             ofType(adminActions.userBlocking),
             mergeMap((paylod) => {
                 return this.adminService.blockUser(paylod.id).pipe(
-                    map((user : User[]) => adminActions.userBlockingSuccess({user : user})),
+                    map((user) => adminActions.userBlockingSuccess({user : user})),
                     catchError(error => of(adminActions.userBlockingFailure({error: error})))
                 )
             })
@@ -96,7 +96,7 @@ export class adminEffects {
             ofType(adminActions.userunBlocking),
             mergeMap((paylod) => {
                 return this.adminService.unblockUser(paylod.id).pipe(
-                    map((user : User[]) => adminActions.userunBlockingSuccess({user : user})),
+                    map((user) => adminActions.userunBlockingSuccess({user : user})),
                     catchError(error => of(adminActions.userunBlockingFailure({error: error})))
                 )
             })
@@ -108,7 +108,7 @@ export class adminEffects {
             ofType(adminActions.loadProfessionals),
             mergeMap((payload) => 
                 this.adminService.getProfessionals(payload.page, payload.limit).pipe(
-                    map((Professionals : User[]) => adminActions.loadProfessionalsSuccess({user : Professionals})),
+                    map((Professionals) => adminActions.loadProfessionalsSuccess({user : Professionals})),
                     catchError(error => of(adminActions.loadProfessionalsFailure({error})))
                 )
             )
@@ -120,7 +120,7 @@ export class adminEffects {
             ofType(adminActions.loadRequestProfessionals),
             mergeMap((payload) => 
                 this.adminService.getRequestProfessionals(payload.page, payload.limit).pipe(
-                    map((Professionals : User[]) => adminActions.loadRequestProfessionalsSuccess({user : Professionals})),
+                    map((Professionals) => adminActions.loadRequestProfessionalsSuccess({user : Professionals})),
                     catchError(error => of(adminActions.loadRequestProfessionalsFailure({error})))
                 )
             )
@@ -132,7 +132,7 @@ export class adminEffects {
             ofType(adminActions.approveProfessionals),
             mergeMap((paylod) => {
                 return this.adminService.approveProfessionals(paylod.id).pipe(
-                    map((user : User[]) => adminActions.approveProfessionalsSuccess({user : user})),
+                    map((user) => adminActions.approveProfessionalsSuccess({user : user})),
                     catchError(error => of(adminActions.approveProfessionalsFailure({error: error})))
                 )
             })
@@ -144,7 +144,7 @@ export class adminEffects {
             ofType(adminActions.rejectProfessionals),
             mergeMap((paylod) => {
                 return this.adminService.rejectProfessionals(paylod.id).pipe(
-                    map((user : User[]) => adminActions.rejectProfessionalsSuccess({user : user})),
+                    map((user) => adminActions.rejectProfessionalsSuccess({user : user})),
                     catchError(error => of(adminActions.rejectProfessionalsFailure({error: error})))
                 )
             })
@@ -156,7 +156,7 @@ export class adminEffects {
             ofType(adminActions.professionalBlocking),
             mergeMap((paylod) => {
                 return this.adminService.blockProfessionals(paylod.id).pipe(
-                    map((user : User[]) => adminActions.professionalBlockingSuccess({user : user})),
+                    map((user) => adminActions.professionalBlockingSuccess({user : user})),
                     catchError(error => of(adminActions.professionalBlockingFailure({error: error})))
                 )
             })
@@ -168,7 +168,7 @@ export class adminEffects {
             ofType(adminActions.professionalunBlocking),
             mergeMap((paylod) => {
                 return this.adminService.unblockProfessionals(paylod.id).pipe(
-                    map((user : User[]) => adminActions.professionalunBlockingSuccess({user : user})),
+                    map((user) => adminActions.professionalunBlockingSuccess({user : user})),
                     catchError(error => of(adminActions.professionalunBlockingFailure({error: error})))
                 )
             })

@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { registerUser } from '../../store/user.action';
 import { Observable, map } from 'rxjs';
 import { selectRegisterError, selectRegisterUserData } from '../../store/user.selector';
-import { userData } from '../../types/user.types';
+import { registerUserType, userData } from '../../types/user.types';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,25 +18,18 @@ export class SignUpComponent implements OnInit{
   educationForm !: FormGroup
 
   error$ : Observable<String> | string
-  data$ : Observable<userData> | string
 
   pageCount : number = 1
-  data : any = {}
+  data!: registerUserType
   constructor(
     private formBuilder : FormBuilder,
     private store : Store
   ){
     this.error$ = this.store.pipe(
       select(selectRegisterError),
-      map((doc: any) => (this.error$ = doc))
+      map((doc: string) => (this.error$ = doc))
     );
     this.error$?.subscribe((doc) => doc)
-
-    this.data$ = this.store.pipe(
-      select(selectRegisterUserData),
-      map((doc: any) => (this.data$ = doc))
-    );
-    this.data$?.subscribe((doc: userData) => doc);
   }
 
   ngOnInit(): void {
@@ -94,7 +87,8 @@ export class SignUpComponent implements OnInit{
   submit() {
     if(this.educationForm.valid){
       this.data['education'] = this.educationForm.value.education
-      this.store.dispatch(registerUser(this.data))
+      const data = this.data
+      this.store.dispatch(registerUser({userData : data}))
     }
   }
 

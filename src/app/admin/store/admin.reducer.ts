@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { initialStateType } from "../types/admin.types";
+import { User, initialStateType } from "../types/admin.types";
 import * as adminActions from './admin.actions'
 
 export const initialState : initialStateType =  {
@@ -12,7 +12,7 @@ export const initialState : initialStateType =  {
 
 export const adminLoginReducer = createReducer(
     initialState,
-    on(adminActions.adminLogin, (state, {formData}) => ({...state, loading : true, })),
+    on(adminActions.adminLoginAction, (state, {formData}) => ({...state, loading : true, })),
     on(adminActions.adminLoginSuccess, (state, {adminData}) => ({...state, loading : false, loaded : true, user : adminData})),
     on(adminActions.adminLoginFailure, (state, {error}) => ({...state, loading : false, error}))
 )
@@ -20,7 +20,7 @@ export const adminLoginReducer = createReducer(
 export const loadTotalUserReducer = createReducer(
     initialState,
     on(adminActions.loadTotalUsers, state => ({...state, loading : true})),
-    on(adminActions.loadTotalUsersSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user})),
+    on(adminActions.loadTotalUsersSuccess, (state, {user}) => ({...state , loaded : true, loading : false, user : user as User[ ]})),
     on(adminActions.loadTotalUsersFailure, (state, {error}) => ({...state, loading : false, error})),
 )
 

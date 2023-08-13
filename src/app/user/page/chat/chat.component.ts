@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     private router: ActivatedRoute) {}
   
   ngOnInit() {
-    this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = data, this.loading = false  })
+    this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = data, this.loading = false , console.log(data) })
     this.userSerivce.getUserData().subscribe((data) => this.userData = data)
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userData._id as string);
@@ -54,7 +54,8 @@ export class ChatComponent implements OnInit, OnDestroy{
         this._notificationService.pushNotification(
           newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
           newMessage.text,
-          nofificationToken
+          nofificationToken,
+          newMessage.sender.image
           )
         this.chatHistory = data.data
       });

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User, adminData, adminLogin } from 'src/app/admin/types/admin.types';
+import { Professional, User, adminData, adminLogin } from 'src/app/admin/types/admin.types';
 import { environment } from 'src/environment/environment';
 
 const httpOptions = {
@@ -32,24 +32,24 @@ export class AdminService {
     return this.http.get<User[]>(`${this.apiUrl}/admin/get_totalusers`, httpOptions)
   }
 
-  getTotalProfessionals() : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/get_totalprofessionals`, httpOptions)
+  getTotalProfessionals() : Observable<Professional[]> {
+    return this.http.get<Professional[]>(`${this.apiUrl}/admin/get_totalprofessionals`, httpOptions)
   }
 
-  getTotalRequestProfessionals() : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/totalprofessional_requests`, httpOptions)
+  getTotalRequestProfessionals() : Observable<Professional[]> {
+    return this.http.get<Professional[]>(`${this.apiUrl}/admin/totalprofessional_requests`, httpOptions)
   }
 
   getUsers(page : number, limit : number) : Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/admin/get_users?page=${page}&limit=${limit}`, httpOptions)
   }
 
-  getProfessionals(page : number, limit : number) : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/get_professionals?page=${page}&limit=${limit}`, httpOptions)
+  getProfessionals(page : number, limit : number) : Observable<Professional[]> {
+    return this.http.get<Professional[]>(`${this.apiUrl}/admin/get_professionals?page=${page}&limit=${limit}`, httpOptions)
   }
 
-  getRequestProfessionals(page : number, limit : number) : Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/admin/professional_requests?page=${page}&limit=${limit}`, httpOptions)
+  getRequestProfessionals(page : number, limit : number) : Observable<Professional[]> {
+    return this.http.get<Professional[]>(`${this.apiUrl}/admin/professional_requests?page=${page}&limit=${limit}`, httpOptions)
   }
 
   blockUser(id : string) : Observable<User[]> {
@@ -60,19 +60,19 @@ export class AdminService {
     return this.http.patch<User[]>(`${this.apiUrl}/admin/unblockUser`, {id : id}, httpOptions)
   }
 
-  approveProfessionals(id : string) : Observable<User[]>{
-    return this.http.patch<User[]>(`${this.apiUrl}/admin/approveprofessionals`, {id : id}, httpOptions)
+  approveProfessionals(id : string) : Observable<Professional[]>{
+    return this.http.patch<Professional[]>(`${this.apiUrl}/admin/approveprofessionals`, {id : id}, httpOptions)
   }
-  rejectProfessionals(id : string) : Observable<User[]> {
-    return this.http.patch<User[]>(`${this.apiUrl}/admin/rejectprofessionals`, {id : id}, httpOptions)
-  }
-
-  blockProfessionals(id : string) : Observable<User[]> {
-    return this.http.patch<User[]>(`${this.apiUrl}/admin/blockprofessionals`, {id : id}, httpOptions)
+  rejectProfessionals(id : string) : Observable<Professional[]> {
+    return this.http.patch<Professional[]>(`${this.apiUrl}/admin/rejectprofessionals`, {id : id}, httpOptions)
   }
 
-  unblockProfessionals(id : string) : Observable<User[]> {
-    return this.http.patch<User[]>(`${this.apiUrl}/admin/unblockprofessionals`, {id : id}, httpOptions)
+  blockProfessionals(id : string) : Observable<Professional[]> {
+    return this.http.patch<Professional[]>(`${this.apiUrl}/admin/blockprofessionals`, {id : id}, httpOptions)
+  }
+
+  unblockProfessionals(id : string) : Observable<Professional[]> {
+    return this.http.patch<Professional[]>(`${this.apiUrl}/admin/unblockprofessionals`, {id : id}, httpOptions)
   }
   
 }

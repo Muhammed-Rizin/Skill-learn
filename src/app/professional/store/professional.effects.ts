@@ -17,7 +17,7 @@ export class professionalEffects {
         return this.actions$.pipe(
             ofType(professionalActions.professionalRegister),
             mergeMap((payload) => (
-                this.professionalService.professionalRegister(payload).pipe(
+                this.professionalService.professionalRegister(payload.professionalData).pipe(
                     map((data : professionalData) => {
                         localStorage.setItem('professional_token', data.token)
                         this.router.navigate(['/professional'])
@@ -33,7 +33,7 @@ export class professionalEffects {
         return this.actions$.pipe(
             ofType(professionalActions.professionalLogin),
             mergeMap((payload) => 
-                this.professionalService.professionalLogin(payload).pipe(
+                this.professionalService.professionalLogin(payload.professionalData).pipe(
                     map((data : professionalData) => {
                         localStorage.setItem('professional_token',data.token)
                         this.router.navigate(['/professional'])

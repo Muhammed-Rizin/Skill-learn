@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { loadTotalProfessionals, loadTotalRequestProfessionals, loadTotalUsers } from '../../store/admin.actions';
 import { selectLoadingTotalUsers, selectTotalProfessional, selectTotalRequestProfessional, selectTotalUsers } from '../../store/admin.selector';
+import { Professional, User } from '../../types/admin.types';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,27 +10,29 @@ import { selectLoadingTotalUsers, selectTotalProfessional, selectTotalRequestPro
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit{
+  users$ !: User[] | null 
+  professionals$!: Professional[] | null 
+  requestProfessionals$!: Professional[] | null
+  loading$!: boolean
+  
   constructor(
     private store : Store
   ){
-    this.store.pipe(select(selectTotalUsers)).subscribe((users: any) => {
-      this.users$ = users;
+    this.store.pipe(select(selectTotalUsers)).subscribe((users) => {
+      this.users$ = users as User[];
     });
 
-    this.store.pipe(select(selectTotalProfessional)).subscribe((professionals: any) => {
-      this.professionals$ = professionals;
+    this.store.pipe(select(selectTotalProfessional)).subscribe((professionals) => {
+      this.professionals$ = professionals as Professional[];
     });
-    this.store.pipe(select(selectTotalRequestProfessional)).subscribe((professionals: any) => {
-      this.requestProfessionals$ = professionals;
+    this.store.pipe(select(selectTotalRequestProfessional)).subscribe((professionals) => {
+      this.requestProfessionals$ = professionals as Professional[];
     });
-    this.store.pipe(select(selectLoadingTotalUsers)).subscribe((professionals: any) => {
-      this.loading$ = professionals;
+    this.store.pipe(select(selectLoadingTotalUsers)).subscribe((loading) => {
+      this.loading$ = loading 
     });
   }
-  users$ : any | null 
-  professionals$ : any | null 
-  requestProfessionals$ : any | null
-  loading$ = this.store.select(selectLoadingTotalUsers)
+
   
   ngOnInit(): void {
     this.store.dispatch(loadTotalUsers())

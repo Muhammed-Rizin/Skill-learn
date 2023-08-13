@@ -16,26 +16,19 @@ export class LoginComponent {
   form !: FormGroup
   
   error$ : Observable<String> | string
-  data$ : Observable<professionalData> | string
   loading$: Observable<boolean> | boolean;
   constructor (
-    readonly formBuilder : FormBuilder, private store : Store,private router : Router
+    readonly formBuilder : FormBuilder, private store : Store
   ){
     this.error$ = this.store.pipe(
       select(selectLoginError),
-      map((doc: any) => (this.error$ = doc))
+      map((doc: string) => (this.error$ = doc))
     );
     this.error$?.subscribe((doc) => doc)
 
-    this.data$ = this.store.pipe(
-      select(selectLoginUserData),
-      map((doc: any) => (this.data$ = doc))
-    );
-    this.data$?.subscribe((doc: professionalData) => doc);
-
     this.loading$ = this.store.pipe(
       select(selectLoginLoading),
-      map((doc: any) => (this.loading$ = doc))
+      map((doc: boolean) => (this.loading$ = doc))
     );
     this.loading$?.subscribe((doc: boolean) => doc);
   }
@@ -50,7 +43,7 @@ export class LoginComponent {
   submit(){
     const data = this.form.getRawValue()
     if(this.form.valid){
-      this.store.dispatch(professionalLogin(data))
+      this.store.dispatch(professionalLogin({professionalData : data}))
     }else {
       this.markFormControlsAsTouched(this.form);
     }

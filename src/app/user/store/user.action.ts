@@ -1,10 +1,10 @@
 import { createAction, props } from "@ngrx/store";
-import { registerUserType, userData } from "../types/user.types";
+import { loginUser, registerUserType, userData } from "../types/user.types";
 import { CompleteSchedule, CompleteTask, Task, professionalData } from "src/app/professional/types/professional.types";
 
 
 // User login
-export const loginUser = createAction(`[User Component] Login User`, props<{formData : FormData}>())
+export const loginUseraction = createAction(`[User Component] Login User`, props<{data : loginUser}>())
 export const loginUserSuccess = createAction(`[User Component] Login User Success`, props<{userData : userData}>())
 export const loginUserFailure = createAction(`[User Component] Login User Failure`, props<{error : any}>())
 

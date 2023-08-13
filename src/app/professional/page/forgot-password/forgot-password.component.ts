@@ -13,7 +13,7 @@ import { forgotEmailProfessional } from '../../store/professional.actions';
 export class ForgotPasswordComponent implements OnInit{
   form !: FormGroup
   message$ : Observable<string> | string 
-  loading$ : Observable<string> | string 
+  loading$ : Observable<boolean> | boolean 
   error$ : Observable<string> | string 
 
   constructor( 
@@ -22,21 +22,21 @@ export class ForgotPasswordComponent implements OnInit{
     ){
       this.message$ = this.store.pipe(
         select(selectForgotPasswordMessage),
-        map((doc: any) => (this.message$ = doc, this.error$ = ''))
+        map((doc: string) => (this.message$ = doc, this.error$ = ''))
       );
       this.message$?.subscribe((doc: string) => doc);
 
       this.error$ = this.store.pipe(
         select(selectForgotPasswordError),
-        map((doc: any) => (this.error$ = doc, this.message$ = ''))
+        map((doc: string) => (this.error$ = doc, this.message$ = ''))
       );
       this.error$?.subscribe((doc: string) => doc);
 
       this.loading$ = this.store.pipe(
         select(selectForgotPasswordLoading),
-        map((doc: any) => (this.loading$ = doc))
+        map((doc: boolean) => (this.loading$ = doc))
       );
-      this.loading$?.subscribe((doc: string) => doc);
+      this.loading$?.subscribe((doc: boolean) => doc);
     }
 
   ngOnInit(): void {

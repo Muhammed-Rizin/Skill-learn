@@ -4,6 +4,7 @@ import { selectLoadingProfessionals, selectLoadingTotalProfessionals, selectProf
 import { loadProfessionals, loadTotalProfessionals, professionalBlocking, professionalunBlocking } from '../../store/admin.actions';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { Professional } from '../../types/admin.types';
 
 @Component({
   selector: 'app-professionals',
@@ -11,10 +12,8 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./professionals.component.css']
 })
 export class ProfessionalsComponent implements OnInit{
-  professionals$ : any | null 
-  loading$: any | null;
-  professioanlLength$ : any | null
-  professionalsLoading$ : any | null
+  professionals$ !: Professional[] 
+  loading$!: boolean
   page : number 
   limit : number 
 
@@ -22,19 +21,11 @@ export class ProfessionalsComponent implements OnInit{
     private store : Store,
     public dialog: MatDialog
   ){
-    this.store.pipe(select(selectProfessional)).subscribe((professionals: any) => {
-      this.professionals$ = professionals;
+    this.store.pipe(select(selectProfessional)).subscribe((professionals) => {
+      this.professionals$ = professionals as Professional[];
     });
-    this.store.pipe(select(selectLoadingTotalProfessionals)).subscribe((users: any) => {
-      this.loading$ = users;
-    });
-
-    this.store.pipe(select(selectTotalProfessional)).subscribe((users: any) => {
-      this.professioanlLength$ = users?.length;
-    });
-
-    this.store.pipe(select(selectLoadingProfessionals)).subscribe((users: any) => {
-      this.professionalsLoading$ = users;
+    this.store.pipe(select(selectLoadingTotalProfessionals)).subscribe((loading) => {
+      this.loading$ = loading;
     });
     this.page = 1
     this.limit = 5

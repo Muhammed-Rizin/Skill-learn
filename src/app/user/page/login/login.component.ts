@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { loginUser } from '../../store/user.action';
+import { loginUseraction } from '../../store/user.action';
 import { Observable, map } from 'rxjs';
 import { selectError, selectLoading, selectUserData } from '../../store/user.selector';
 import { Router } from '@angular/router';
-import { userData } from '../../types/user.types';
+import { loginUser, userData } from '../../types/user.types';
 
 @Component({
   selector: 'app-login',
@@ -16,26 +16,19 @@ export class LoginComponent {
   form !: FormGroup
   
   error$ : Observable<String> | string
-  data$ : Observable<userData> | string
   loading$ : Observable<boolean> | boolean
   constructor (
     readonly formBuilder : FormBuilder, private store : Store,private router : Router
   ){
     this.error$ = this.store.pipe(
       select(selectError),
-      map((doc: any) => (this.error$ = doc))
+      map((doc: string) => (this.error$ = doc))
     );
     this.error$?.subscribe((doc) => doc)
 
-    this.data$ = this.store.pipe(
-      select(selectUserData),
-      map((doc: any) => (this.data$ = doc))
-    );
-    this.data$?.subscribe((doc: userData) => doc);
-
     this.loading$ = this.store.pipe(
       select(selectLoading),
-      map((doc: any) => (this.loading$ = doc))
+      map((doc: boolean) => (this.loading$ = doc))
     );
     this.loading$?.subscribe((doc: boolean) => doc);
   }
@@ -48,9 +41,9 @@ export class LoginComponent {
   }
 
   submit(){
-    const data = this.form.getRawValue()
+    const data : loginUser = this.form.getRawValue()
     if(this.form.valid){
-      this.store.dispatch(loginUser(data))
+      this.store.dispatch(loginUseraction({data} ))
     }else {
       this.markFormControlsAsTouched(this.form);
     }

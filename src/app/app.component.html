@@ -1,1 +1,11 @@
+<div class="toast-container" *ngIf="showToast">
+    <div class="toast-content">
+      <img [src]="message?.icon" alt="User Image" class="image" *ngIf="message?.icon">
+      <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.icon">
+      <div class="user-info">
+        <span class="name">{{message?.title}}</span>
+        <span class="message">{{message?.body}}</span>
+      </div>
+    </div>
+  </div>
 <router-outlet></router-outlet>

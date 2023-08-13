@@ -12,13 +12,6 @@ const httpOptions = {
   }),
 };
 
-let imageHeader = new HttpHeaders();
-imageHeader = imageHeader.set('Accept', 'image/png, image/jpeg, image/gif');
-const options = {
-  headers: imageHeader,
-  responseType: 'blob' as 'json'
-};
-
 
 
 @Injectable({

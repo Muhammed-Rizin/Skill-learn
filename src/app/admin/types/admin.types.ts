@@ -6,36 +6,66 @@ export interface adminData {
     token : string
 }
 
-export interface adminLogin {
-    email ?: string | null
-    password ?: string | null
-    type ?: string
-}
 
 export interface initialStateType {
-    user : User | null | User[]
+    user : User | User[] | adminLogin | Professional[] | null 
     loading : boolean
     loaded : boolean
     error : any
 }
 
+export interface adminLogin {
+    email : string
+    password : string
+}
+
+
 export interface User {
     _id: string
-    email ?: string
-    password ?: string
-    firstName ?: string
-    lastName ?: string
-    education ?: string
-    google ?: boolean
-    blocked ?: boolean
-    __v ?: number
-    token  ?: string
-    location ?: string
-    birthday ?: Date
-    bio ?: string
-    address ?: string
-    image ?: string
-    emailVerified ?: boolean
-    approved ?: boolean
-    rejected ?: boolean
+    email : string
+    password : string
+    firstName : string
+    lastName : string
+    education : string
+    google : boolean
+    blocked : boolean
+    __v : number
+    token  : string
+    location : string
+    birthday : Date
+    bio : string
+    address : string
+    image : string
+    emailVerified : boolean
+    approved : boolean
+    rejected : boolean
+}
+
+export interface Professional {
+    _id: string
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    education: string
+    google: boolean
+    blocked: boolean
+    __v: number
+    token: string
+    location: string
+    bio: string
+    address: string
+    image: string
+    emailVerified: boolean
+    experience: string
+    payment: number
+    skills: string[]
+    field: string
+    work: string
+    qualification: string
+    about: string
+    emailToken: string
+    notificationToken: string
+    approved : boolean
+    rejected : boolean
 }

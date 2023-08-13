@@ -2,13 +2,33 @@ import { CompleteSchedule, CompleteTask, Task, professionalData } from "src/app/
 
 
 export interface initialStateType {
-    user : userData | professionalData | null | userData[] | professionalData[]
-    loading : boolean,
-    loaded : boolean,
-    error : any
+    user: userData | professionalData | userData[] | professionalData[] | loginUser | registerUserType | null
+    loading: boolean,
+    loaded: boolean,
+    error: any
 }
 
+export interface taskInitialState {
+    tasks: CompleteTask[] | null
+    loading: boolean
+    loaded: boolean
+    error: any
+}
 
+export interface ScheduleInitialState {
+    meeting: CompleteSchedule[] | null
+    loading: boolean
+    loaded: boolean
+    error: any
+}
+
+export interface newPassword {
+    user : registerUserType | null
+    loading : boolean
+    loaded : boolean
+    error : any
+    message : any
+}
 
 export interface userData {
     _id: string
@@ -20,35 +40,46 @@ export interface userData {
     google: boolean
     blocked: boolean
     __v: number
-    token : string
-    location : string
-    bio : string
-    address : string
-    image : string
-    emailVerified : boolean
-    emailToken : string
-    notificationToken : string
+    token: string
+    location: string
+    bio: string
+    address: string
+    image: string
+    emailVerified: boolean
+    emailToken: string
+    notificationToken: string
 }
-  
+
+export interface loginUser {
+    email: string | null
+    password: string | null
+}
+
+export interface registerUserType {
+    email: string | null
+    password: string | null
+    firstName: String | null
+    lastName: String | null
+    education: String | null
+}
 
 export interface ChatData {
-  _id: string
-  roomId: string
-  __v: number
-  messages: Message[]
-  users: string[]
+    _id: string
+    roomId: string
+    __v: number
+    messages: Message[]
+    users: string[]
 }
-  
+
 export interface Message {
-  text: string
-  sender: userData | professionalData
-  senderType: string
-  recever: userData | professionalData
-  recevertype: string
-  time: string
-  _id: string
+    text: string
+    sender: userData | professionalData
+    senderType: string
+    recever: userData | professionalData
+    recevertype: string
+    time: string
+    _id: string
 }
-  
 
 export interface Payment {
     from: string | userData
@@ -59,82 +90,36 @@ export interface Payment {
 }
 
 export interface PaymentData {
-    from : userData,
-    to : professionalData
+    from: userData,
+    to: professionalData
     paymentId: string
     amount: number
-    createdAt : Date
+    createdAt: Date
 }
-
-
-
-
-
-
-
-
-
-
-export interface loginUser {
-    email ?: string | null
-    password ?: string | null
-    type ?: string
-}
-
-export interface loginState {
-    user : loginUser | null
-    loading : boolean
-    loaded : boolean
-    error : any
-}  
-
-export interface registerUserType {
-    email ?: string | null
-    password ?: string | null
-    firstName ?: String | null
-    lastName ?: String | null
-    education ?: String | null
-    type ?: String | null
-}
-
-export interface registerState {
-    user : registerUserType | null
-    loading : boolean
-    loaded : boolean
-    error : any
-    message ?: any
-}
-
-
-export interface taskInitialState {
-    tasks : CompleteTask[] | null
-    loading : boolean
-    loaded : boolean
-    error : any
-}
-
-export interface ScheduleInitialState {
-    meeting : CompleteSchedule[] | null
-    loading : boolean
-    loaded : boolean
-    error : any
-}
-
 
 
 export interface addReview {
-    title : string
-    description : string
-    rating : number
+    title: string
+    description: string
+    rating: number
 }
 
-
 export interface Review {
-    title : string,
-    description : string
-    rating : number
-    _id : string
-    user : userData 
-    professional : string
-    createdAt : string
+    title: string,
+    description: string
+    rating: number
+    _id: string
+    user: userData
+    professional: string
+    createdAt: string
+}
+
+export interface msgType {
+    icon: string,
+    body: string,
+    title: string
+}
+
+export type sendMessageType = {
+    type: string, candidate?: RTCIceCandidate, answer?: RTCSessionDescriptionInit, offer?: RTCSessionDescriptionInit
 }

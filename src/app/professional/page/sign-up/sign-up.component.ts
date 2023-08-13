@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
-import { professionalData } from '../../types/professional.types';
+import { professionalData, professionalType } from '../../types/professional.types';
 import { professionalRegister } from '../../store/professional.actions';
 import { selectRegisterError, selectRegisterLoading, selectRegisterUserData } from '../../store/professional.selector';
 
@@ -18,30 +18,23 @@ export class SignUpComponent {
   educationForm !: FormGroup
 
   error$ : Observable<String> | string
-  data$ : Observable<professionalData> | string
   loading$ : Observable<boolean> | boolean
 
   pageCount : number = 1
-  data : any = {}
+  data !: professionalType
   constructor(
     private formBuilder : FormBuilder,
     private store : Store
   ){
     this.error$ = this.store.pipe(
       select(selectRegisterError),
-      map((doc: any) => (this.error$ = doc))
+      map((doc: string) => (this.error$ = doc))
     );
     this.error$?.subscribe((doc) => doc)
 
-    this.data$ = this.store.pipe(
-      select(selectRegisterUserData),
-      map((doc: any) => (this.data$ = doc))
-    );
-    this.data$?.subscribe((doc: professionalData) => doc);
-
     this.loading$ = this.store.pipe(
       select(selectRegisterLoading),
-      map((doc: any) => (this.loading$ = doc))
+      map((doc: boolean) => (this.loading$ = doc))
     );
     this.loading$?.subscribe((doc: boolean) => doc);
   }
@@ -101,7 +94,8 @@ export class SignUpComponent {
   submit() {
     if(this.educationForm.valid){
       this.data['education'] = this.educationForm.value.education
-      this.store.dispatch(professionalRegister(this.data))
+      const data = this.data
+      this.store.dispatch(professionalRegister({professionalData : data}))
     }
   }
 

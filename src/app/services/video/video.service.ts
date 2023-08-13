@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
+import { sendMessageType } from 'src/app/professional/types/professional.types';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
@@ -32,13 +33,13 @@ export class VideoService {
     }
   }
 
-  sendmessage(message : any, roomId : string){
+  sendmessage(message : sendMessageType, roomId : string){
     console.log(message)
     this.socket.emit('send-message', {message, roomId})
   }
 
 
-  receiveMessage = (cb : (err : any, data : any) => void) => {
+  receiveMessage = (cb : (err : any, data : sendMessageType) => void) => {
     this.socket.on('receive-message', (data) => {
       cb(null, data)
     })
