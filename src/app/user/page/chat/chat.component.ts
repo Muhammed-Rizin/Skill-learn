@@ -48,6 +48,8 @@ export class ChatComponent implements OnInit, OnDestroy{
           const toUserEmail = this.CHAT_ROOM.replace(this.userData.email, '')
           this.userSerivce.getProfessionalDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
           this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data, console.log(data)})
+          // request to change useread status
+          this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
@@ -62,6 +64,8 @@ export class ChatComponent implements OnInit, OnDestroy{
           )
         this.chatHistory = data.data
         this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = this.sortData(data)})
+          // request to change useread status
+        this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
       });
     }, 1000);
     
@@ -133,10 +137,4 @@ export class ChatComponent implements OnInit, OnDestroy{
   private scrollToBottom(): void {
     this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
   }
-
-  isChatActive: boolean = true;
-  toggleChatHistory() {
-    this.isChatActive = !this.isChatActive;
-  }
-
 }

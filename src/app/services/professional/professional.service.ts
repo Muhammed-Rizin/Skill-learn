@@ -67,6 +67,10 @@ export class ProfessionalService {
     return this.http.get<ChatData>(`${this.apiUrl}/professional/getchathistory?roomid=${roomId}`, httpOptions)
   }
 
+  updateReadStatus(roomId : string){
+    return this.http.patch(`${this.apiUrl}/professional/messageseen?roomid=${roomId}`, httpOptions)
+  }
+
   sendVerifyUser(){
     return this.http.get(`${this.apiUrl}/professional/sendverifymail`, httpOptions)
   }

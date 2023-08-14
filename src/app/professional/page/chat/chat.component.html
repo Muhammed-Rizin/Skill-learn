@@ -19,7 +19,8 @@
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
-                        <!-- <span class="time">15/02/2019</span> -->
+                        <span class="time"
+                        [ngClass]="{'unseen' : !chat.professionalRead, 'seen' : chat.professionalRead}">{{chat.messages[chat.messages.length - 1].text}}</span>
                       </p>
                     </li>
                     <li class="person" *ngIf="chatHistory"
@@ -31,7 +32,8 @@
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
-                        <!-- <span class="time">15/02/2019</span> -->
+                        <span class="time"
+                        [ngClass]="{'unseen' : !chat.professionalRead, 'seen' : chat.professionalRead}">{{chat.messages[chat.messages.length - 1].text}}</span>
                       </p>
                     </li>
                     <!-- <li class="person active-user" data-chat="person2">

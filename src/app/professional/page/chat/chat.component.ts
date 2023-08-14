@@ -43,10 +43,8 @@ export class ChatComponent implements  OnInit, OnDestroy{
         if(params['id']){
           this.CHAT_ROOM = this.decryptString(params['id'])
           this.socketService.join(this.CHAT_ROOM)
-          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {
-            this.chatHistory = data,
-            this.chatHistoryLoading = false
-          })
+          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data,this.chatHistoryLoading = false})
+          this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
         }
       })
       this.socketService.subscribeToMessages((err, data) => {
@@ -61,6 +59,7 @@ export class ChatComponent implements  OnInit, OnDestroy{
           )
         this.chatHistory?.messages?.push(newMessage)
         this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = this.sortData(data)})
+        this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
       });
     }, 1000);
 

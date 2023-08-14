@@ -72,6 +72,8 @@ export interface ChatData {
     __v: number
     messages: Message[]
     users: string[]
+    userRead: boolean
+    professionalRead: boolean
 }
 
 export interface Message {

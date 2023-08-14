@@ -78,6 +78,7 @@
   padding: 10px 1rem;
   cursor: pointer;
   border-bottom: 1px solid #f0f4f8;
+  display: flex;
 }
 
 .users .person:hover {
@@ -149,14 +150,13 @@
 .users .person p.name-time {
   font-weight: 600;
   font-size: .85rem;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
 }
 
 .users .person p.name-time .time {
-  font-weight: 400;
-  font-size: .7rem;
-  text-align: right;
-  color: #8796af;
+  text-align: left;
+
 }
 
 @media (max-width: 767px) {
@@ -180,7 +180,7 @@
 }
 
 .control-container {
-  background-color:transparent;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -422,4 +422,20 @@ ul {
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.unseen {
+  color: #1FA855;
+  font-family: 'Ubuntu';
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.seen {
+  color: #8796af;
+  font-family: 'Ubuntu';
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 700;
 }

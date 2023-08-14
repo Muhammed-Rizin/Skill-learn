@@ -68,6 +68,10 @@ export class UserService {
     return this.http.get<ChatData>(`${this.apiUrl}/user/getchathistory?roomid=${roomId}`, httpOptions)
   }
 
+  updateReadStatus(roomId : string){
+    return this.http.patch(`${this.apiUrl}/user/messageseen?roomid=${roomId}`, httpOptions)
+  }
+
   updateUser(data: userData) : Observable<userData> {
     return this.http.patch<userData>(`${this.apiUrl}/user/updateuser`,{data}, httpOptions)
   }
@@ -130,7 +134,6 @@ export class UserService {
   getReviews(id : string, page : number) : Observable<{data : Review[], total : number}> {
     return this.http.get<{data : Review[], total : number}>(`${this.apiUrl}/review/getreviews?id=${id}&page=${page}`, httpOptions)
   }
-
 
   addNotificationToken(token : string) {
     return this.http.patch(`${this.apiUrl}/user/setnotification`,{token}, httpOptions)
