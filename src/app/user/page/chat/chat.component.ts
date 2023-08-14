@@ -32,9 +32,12 @@ export class ChatComponent implements OnInit, OnDestroy{
     private userSerivce : UserService, 
     private _notificationService : NotificationService,
     private router: ActivatedRoute) {}
-  
+
   ngOnInit() {
-    this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = data, this.loading = false , console.log(data) })
+    this.userSerivce.getChats().subscribe((data) => {
+      this.alreadyMessaged = this.sortData(data)
+      this.loading = false;
+    })
     this.userSerivce.getUserData().subscribe((data) => this.userData = data)
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userData._id as string);
@@ -58,6 +61,7 @@ export class ChatComponent implements OnInit, OnDestroy{
           newMessage.sender.image
           )
         this.chatHistory = data.data
+        this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = this.sortData(data)})
       });
     }, 1000);
     
@@ -65,6 +69,15 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.socketService.disconnect();
+  }
+
+  sortData(data : ChatData[]){
+    return data.sort((a,b) => {
+      return (
+        new Date(b?.messages[b.messages.length - 1]?.time).getTime() - 
+        new Date(a?.messages[a.messages.length - 1]?.time).getTime()
+      )
+    })
   }
 
 

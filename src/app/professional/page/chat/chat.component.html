@@ -10,7 +10,20 @@
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
                 <div class="users-container">
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
-                    <li class="person" data-chat="person1" 
+                    <li class="person" 
+                    *ngIf="!chatHistory"
+                    [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
+                      <div class="user">
+                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">
+                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat).image">
+                      </div>
+                      <p class="name-time">
+                        <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
+                        <!-- <span class="time">15/02/2019</span> -->
+                      </p>
+                    </li>
+                    <li class="person" *ngIf="chatHistory"
+                    [ngClass]="{'active-user' : getUserDetails(chatHistory)._id ==  getUserDetails(chat)._id}" data-chat="person1" 
                     [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
                       <div class="user">
                         <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">

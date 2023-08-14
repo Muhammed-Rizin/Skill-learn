@@ -15,6 +15,12 @@ export class ProfileComponent {
   validation !: string
   selectedFile!: File;
   reviews$!: Review[]
+  loading: boolean = true
+
+  pageCount : number = 1
+  limit : number = 5
+  totalPage !: number 
+  total!: number
 
   imageUrl !: string | Observable<string>
   constructor(
@@ -34,9 +40,11 @@ export class ProfileComponent {
       this.userData.work = this.userData.work?.trim()
       this.userData.about = this.userData.about?.trim()
       
-      this._professionalService.getReviews(data._id).subscribe(reviews => {
-        console.log(reviews)
-        this.reviews$ = reviews
+      this._professionalService.getReviews(data._id, this.pageCount).subscribe(reviews => {
+        this.reviews$ = reviews.data
+        this.total = reviews.total
+        this.totalPage = Math.ceil(reviews.total / this.limit)
+        this.loading = false
       })
     })
   }
@@ -77,5 +85,21 @@ export class ProfileComponent {
         }
       );
     }
+  }
+
+  nextPage() {
+    const page = this.pageCount + 1
+    this._professionalService.getReviews(this.userData._id, page).subscribe(reviews => {
+      this.reviews$ = reviews.data
+      this.pageCount ++ 
+    })
+  }
+
+  prevPage(){
+    const page = this.pageCount - 1
+    this._professionalService.getReviews(this.userData._id, page).subscribe(reviews => {
+      this.reviews$ = reviews.data
+      this.pageCount --
+    })
   }
 }

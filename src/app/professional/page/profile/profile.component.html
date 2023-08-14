@@ -92,9 +92,12 @@
                         <button class="col-4 edit" (click)="submit('Work')">Edit</button>
                     </div>
                 </div>
-                <div class="review">
+                <div class="review mt-3">
+                    <div class="review-header">
+                        <h3>Review</h3>
+                    </div>
                     <ng-container *ngFor="let review of reviews$ ">
-                        <div class="review-details">
+                        <div class="review-details mt-2">
                             <div class="user-header">
                                 <div class="image">
                                     <img [src]="review?.user?.image" alt="">
@@ -110,13 +113,21 @@
                                 </div>
                             </div>
                             <div class="review-content">
-                                <h2>Unforgettable Lessons: A Journey with Mr. Smith, an Inspirational Teacher</h2>
-                                <p>Ms. Suhail is an extraordinary teacher who has truly made a lasting impact on my educational journey. Her unwavering passion for teaching and commitment to student success are nothing short of inspiring.</p>
+                                <h2>{{review.title}}</h2>
+                                <p>{{review.description}}</p>
                             </div>
                         </div>
                     </ng-container>
-                    <div class="pagination">
-                        <!-- pagination button  -->
+                    <div class="pagination mt-3" *ngIf="reviews$">
+                        <div class="next-page me-2" *ngIf="pageCount > 1">
+                            <button (click)="prevPage()">Prev</button>
+                        </div>
+                        <div class="page-count">
+                            <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
+                        </div>
+                        <div class="next-page" *ngIf="pageCount !== totalPage">
+                            <button (click)="nextPage()">Next</button>
+                        </div>
                     </div>
                 </div>
             </div>

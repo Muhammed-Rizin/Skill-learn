@@ -14,7 +14,8 @@ export interface State {
     loading: boolean
     loaded: boolean
     error: any,
-    message: any
+    message: any,
+    total : number,
 }
 
 export interface taskInitialState {
@@ -22,6 +23,7 @@ export interface taskInitialState {
     loading: boolean
     loaded: boolean
     error: any
+    total : number
 }
 
 export interface ScheduleInitialState {
@@ -29,6 +31,7 @@ export interface ScheduleInitialState {
     loading: boolean
     loaded: boolean
     error: any
+    total : number
 }
 
 export interface professionalData {

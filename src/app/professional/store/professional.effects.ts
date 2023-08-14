@@ -93,9 +93,9 @@ export class professionalEffects {
     userInprogressTask$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(professionalActions.getInprogressTask),
-            mergeMap(() => (
-                this.professionalService.getInProgressTask().pipe(
-                    map((data ) => professionalActions.getInprogressTaskSuccess({tasks : data})),
+            mergeMap((payload) => (
+                this.professionalService.getInProgressTask(payload.page).pipe(
+                    map((data ) => professionalActions.getInprogressTaskSuccess({tasks : data.data, total : data.total})),
                     catchError(error => of(professionalActions.getInprogressTaskFailure({error : error})))
                 )
             ))
@@ -104,9 +104,9 @@ export class professionalEffects {
     userCompletedTask$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(professionalActions.getCompletedTask),
-            mergeMap(() => (
-                this.professionalService.getCompletedTask().pipe(
-                    map((data ) => professionalActions.getCompletedTaskSuccess({tasks : data})),
+            mergeMap((payload) => (
+                this.professionalService.getCompletedTask(payload.page).pipe(
+                    map((data ) => professionalActions.getCompletedTaskSuccess({tasks : data.data, total : data.total})),
                     catchError(error => of(professionalActions.getCompletedTaskFailure({error : error})))
                 )
             ))
@@ -117,9 +117,9 @@ export class professionalEffects {
     usersInprogressSchedule$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(professionalActions.getInprogressSchedule),
-            mergeMap(() => (
-                this.professionalService.getInProgressMeeting().pipe(
-                    map((data ) => professionalActions.getInprogressScheduleSuccess({meeting : data})),
+            mergeMap((payload) => (
+                this.professionalService.getInProgressMeeting(payload.page).pipe(
+                    map((data ) => professionalActions.getInprogressScheduleSuccess({meeting : data.data, total : data.total})),
                     catchError(error => of(professionalActions.getInprogressScheduleFailure({error : error})))
                 )
             ))
@@ -128,9 +128,9 @@ export class professionalEffects {
     userCompletedSchedules$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(professionalActions.getCompletedSchedule),
-            mergeMap(() => (
-                this.professionalService.getCompletedMeeting().pipe(
-                    map((data ) => professionalActions.getCompletedScheduleSuccess({meeting : data})),
+            mergeMap((payload) => (
+                this.professionalService.getCompletedMeeting(payload.page).pipe(
+                    map((data ) => professionalActions.getCompletedScheduleSuccess({meeting : data.data, total : data.total})),
                     catchError(error => of(professionalActions.getCompletedScheduleFailure({error : error})))
                 )
             ))

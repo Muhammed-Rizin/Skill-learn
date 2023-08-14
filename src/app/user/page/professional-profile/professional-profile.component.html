@@ -1,7 +1,8 @@
 <div class="body">
     <app-nav-bar></app-nav-bar>
     <div class="container mt-2">
-        <div class="userdetails row" *ngIf="userData">
+        <div *ngIf="loading">Loading...</div>
+        <div class="userdetails row" *ngIf="userData && !loading">
             <div class="col-12 col-lg-3 profileimage">
                 <img [src]="userData.image"
                     alt="profile image" *ngIf="userData?.image">
@@ -13,6 +14,10 @@
                     <div class="nameandbio col-6">
                         <h2>{{userData.firstName+ " " + userData.lastName}}</h2>
                         <p>{{userData.bio + "  "}}</p>
+                        <!-- <div class="avg-review" *ngIf="reviews$">
+                            <ngb-rating [max]="5" [rate]="averageReview()"[readonly]="true" class="average-review"></ngb-rating>
+                            <span>{{total + ' '}} reviews</span>
+                        </div> -->
                     </div>
                     <div class="chat-option col-6">
                         <button [routerLink]="['/chat', getRoomId(userData.email)]">Chat</button>
@@ -54,15 +59,16 @@
                         </form>
                     </div>
                     <ng-container *ngFor="let review of reviews$ ">
-                        <div class="review-details">
+                        <div class="review-details mt-3">
                             <div class="user-header">
                                 <div class="image">
-                                    <img [src]="review?.user?.image" alt="">
+                                    <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image">
+                                    <img src="../../../assets/null-icon.jpg" alt="" *ngIf="!review?.user?.image">
                                 </div>
                                 <div class="name">
                                     <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>
                                     <div class="rating">
-                                        <ngb-rating [max]="5" [rate]="review.rating"[readonly]="true"></ngb-rating>
+                                        <ngb-rating class="review-star" [max]="5" [rate]="review.rating"[readonly]="true"></ngb-rating>
                                     </div>
                                 </div>
                                 <div class="date">
@@ -70,13 +76,21 @@
                                 </div>
                             </div>
                             <div class="review-content">
-                                <h2>Unforgettable Lessons: A Journey with Mr. Smith, an Inspirational Teacher</h2>
-                                <p>Ms. Suhail is an extraordinary teacher who has truly made a lasting impact on my educational journey. Her unwavering passion for teaching and commitment to student success are nothing short of inspiring.</p>
+                                <h2>{{review.title}}</h2>
+                                <p>{{review.description}}</p>
                             </div>
                         </div>
                     </ng-container>
-                    <div class="pagination">
-                        <!-- pagination button  -->
+                    <div class="pagination mt-3" *ngIf="reviews$">
+                        <div class="next-page me-2" *ngIf="pageCount > 1">
+                            <button (click)="prevPage()">Prev</button>
+                        </div>
+                        <div class="page-count">
+                            <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
+                        </div>
+                        <div class="next-page" *ngIf="pageCount !== totalPage">
+                            <button (click)="nextPage()">Next</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -87,12 +87,12 @@ export class ProfessionalService {
     return this.http.post(`${this.apiUrl}/professional/addtask`,{task}, httpOptions)
   }
 
-  getInProgressTask() : Observable<CompleteTask[]> {
-    return this.http.get<CompleteTask[]>(`${this.apiUrl}/professional/inprogresstask`, httpOptions)
+  getInProgressTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
+    return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/professional/inprogresstask?page=${page}`, httpOptions)
   }
 
-  getCompletedTask() : Observable<CompleteTask[]> {
-    return this.http.get<CompleteTask[]>(`${this.apiUrl}/professional/completedtask`, httpOptions)
+  getCompletedTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
+    return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/professional/completedtask?page=${page}`, httpOptions)
   }
 
   scheduleMeeting(schedule  : Schedule) {
@@ -100,19 +100,19 @@ export class ProfessionalService {
     return this.http.post(`${this.apiUrl}/professional/schedule`,{schedule}, httpOptions)
   }
 
-  getInProgressMeeting() : Observable<CompleteSchedule[]> {
-    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/professional/inprogressmeeting`,httpOptions)
+  getInProgressMeeting(page : number) : Observable<{data : CompleteSchedule[], total : number}> {
+    return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/professional/inprogressmeeting?page=${page}`,httpOptions)
   }
-  getCompletedMeeting() : Observable<CompleteSchedule[]> {
-    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/professional/completedmeeting`,httpOptions)
+  getCompletedMeeting(page : number) : Observable<{data : CompleteSchedule[], total : number}> {
+    return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/professional/completedmeeting?page=${page}`,httpOptions)
   }
 
   getPayments() : Observable<PaymentData[]> {
     return this.http.get<PaymentData[]>(`${this.apiUrl}/payment/professionalhistory`)
   }
 
-  getReviews(id : string) : Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.apiUrl}/review/professionalreviews?id=${id}`, httpOptions)
+  getReviews(id : string, page : number) : Observable<{data : Review[], total : number}> {
+    return this.http.get<{data : Review[], total : number}>(`${this.apiUrl}/review/professionalreviews?id=${id}&page=${page}`, httpOptions)
   }
 
   addNotificationToken(token : string) {

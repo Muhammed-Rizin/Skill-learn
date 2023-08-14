@@ -84,12 +84,11 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/payment/conform`,{data}, httpOptions)
   }
 
-  getProfessionals() : Observable<professionalData[]> {
-    return this.http.get<professionalData[]>(`${this.apiUrl}/user/professionalsdata`)
+  getProfessionals(page : number) : Observable<{data : professionalData[], totalProfessional : number}> {
+    return this.http.get<{data : professionalData[], totalProfessional : number}>(`${this.apiUrl}/user/professionalsdata?page=${page}`)
   }
 
   submitFile(image : FormData, id : string) {
-    console.log(image)
     return this.http.post(`${this.apiUrl}/user/uploadimage?id=${id}`,image)
   }
 
@@ -98,12 +97,13 @@ export class UserService {
     return this.http.get<Payment>(`${this.apiUrl}/payment/subscribed?from=${from}&to=${to}`)
   }
 
-  getInProgressTask() : Observable<CompleteTask[]> {
-    return this.http.get<CompleteTask[]>(`${this.apiUrl}/user/inprogresstask`, httpOptions)
+  getInProgressTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
+    console.log(page)
+    return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/user/inprogresstask?page=${page}`, httpOptions)
   }
 
-  getCompletedTask() : Observable<CompleteTask[]> {
-    return this.http.get<CompleteTask[]>(`${this.apiUrl}/user/completedtask`, httpOptions)
+  getCompletedTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
+    return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/user/completedtask?page=${page}`, httpOptions)
   }
 
   taskDone(taskid : string) {
@@ -111,11 +111,11 @@ export class UserService {
   }
 
 
-  getInProgressMeeting() : Observable<CompleteSchedule[]> {
-    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/user/inprogressmeeting`,httpOptions)
+  getInProgressMeeting(page : number) : Observable<{data : CompleteSchedule[], total : number}> {
+    return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/user/inprogressmeeting?page=${page}`,httpOptions)
   }
-  getCompletedMeeting() : Observable<CompleteSchedule[]> {
-    return this.http.get<CompleteSchedule[]>(`${this.apiUrl}/user/completedmeeting`,httpOptions)
+  getCompletedMeeting(page : number) : Observable<{data : CompleteSchedule[], total : number}> {
+    return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/user/completedmeeting?page=${page}`,httpOptions)
   }
   
   getPayments() : Observable<PaymentData[]> {
@@ -127,8 +127,8 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/review/addreview`, {data, id}, httpOptions)
   }
 
-  getReviews(id : string) : Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.apiUrl}/review/getreviews?id=${id}`, httpOptions)
+  getReviews(id : string, page : number) : Observable<{data : Review[], total : number}> {
+    return this.http.get<{data : Review[], total : number}>(`${this.apiUrl}/review/getreviews?id=${id}&page=${page}`, httpOptions)
   }
 
 

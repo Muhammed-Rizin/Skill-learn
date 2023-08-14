@@ -7,21 +7,24 @@ export const initialState : State = {
     loaded : false,
     loading : false,
     error : null,
-    message : null
+    message : null,
+    total : 0
 }
 
 export const TaskInitialState : taskInitialState = {
     tasks : null,
     loading : false,
     loaded : false,
-    error : null
+    error : null,
+    total : 0
 }
 
 export const scheduleInitialState : ScheduleInitialState = {
     meeting: null,
     loading: false,
     loaded: false,
-    error: undefined
+    error: undefined,
+    total : 0
 }
 
 export const professionalRegisterReducer = createReducer(
@@ -65,28 +68,36 @@ export const professionalNewPasswordReducer = createReducer(
 
 export const getinprogressTask = createReducer(
     TaskInitialState,
-    on(professionalActions.getInprogressTask, (state) => ({...state, loading : true})),
-    on(professionalActions.getInprogressTaskSuccess, (state, {tasks}) => ({...state, loading : false, loaded : true, tasks : tasks})),
+    on(professionalActions.getInprogressTask, (state, {page}) => ({...state, loading : true})),
+    on(professionalActions.getInprogressTaskSuccess, (state, {tasks, total}) => (
+        {...state, loading : false, loaded : true, tasks : tasks, total: total}
+    )),
     on(professionalActions.getInprogressTaskFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )
 
 export const getcompletedTask = createReducer(
     TaskInitialState,
-    on(professionalActions.getCompletedTask, (state) => ({...state, loading : true})),
-    on(professionalActions.getCompletedTaskSuccess, (state, {tasks}) => ({...state, loading : false, loaded : true, tasks : tasks})),
+    on(professionalActions.getCompletedTask, (state, {page}) => ({...state, loading : true})),
+    on(professionalActions.getCompletedTaskSuccess, (state, {tasks, total}) => (
+        {...state, loading : false, loaded : true, tasks : tasks, total: total}
+    )),
     on(professionalActions.getCompletedTaskFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )
 
 export const getinprogressSchedule = createReducer(
     scheduleInitialState,
-    on(professionalActions.getInprogressSchedule, (state) => ({...state, loading : true})),
-    on(professionalActions.getInprogressScheduleSuccess, (state, {meeting}) => ({...state, loading : false, loaded : true, meeting     : meeting})),
+    on(professionalActions.getInprogressSchedule, (state, {page}) => ({...state, loading : true})),
+    on(professionalActions.getInprogressScheduleSuccess, (state, {meeting, total}) => (
+        {...state, loading : false, loaded : true, meeting: meeting, total: total}
+    )),
     on(professionalActions.getInprogressScheduleFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )
 
 export const getcompletedSchedule = createReducer(
     scheduleInitialState,
-    on(professionalActions.getCompletedSchedule, (state) => ({...state, loading : true})),
-    on(professionalActions.getCompletedScheduleSuccess, (state, {meeting}) => ({...state, loading : false, loaded : true, meeting : meeting})),
+    on(professionalActions.getCompletedSchedule, (state, {page}) => ({...state, loading : true})),
+    on(professionalActions.getCompletedScheduleSuccess, (state, {meeting, total}) => (
+        {...state, loading : false, loaded : true, meeting : meeting, total: total}
+    )),
     on(professionalActions.getCompletedScheduleFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )

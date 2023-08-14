@@ -108,9 +108,9 @@ export class UserEffects {
     professionalList$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.getProfessionals),
-            mergeMap(() => (
-                this.userService.getProfessionals().pipe(
-                    map((data ) => UserActions.getProfessionalsSuccess({professionals : data})),
+            mergeMap((payload) => (
+                this.userService.getProfessionals(payload.page).pipe(
+                    map((data ) => UserActions.getProfessionalsSuccess({professionals : data.data, total : data.totalProfessional})),
                     catchError(error => of(UserActions.getProfessionalsFailure({error : error})))
                 )
             ))
@@ -120,9 +120,9 @@ export class UserEffects {
     userInprogressTask$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.getInprogressTask),
-            mergeMap(() => (
-                this.userService.getInProgressTask().pipe(
-                    map((data ) => UserActions.getInprogressTaskSuccess({tasks : data})),
+            mergeMap((payload) => (
+                this.userService.getInProgressTask(payload.page).pipe(
+                    map((data ) => UserActions.getInprogressTaskSuccess({tasks : data.data, total : data.total})),
                     catchError(error => of(UserActions.getInprogressTaskFailure({error : error})))
                 )
             ))
@@ -131,9 +131,9 @@ export class UserEffects {
     userCompletedTask$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.getCompletedTask),
-            mergeMap(() => (
-                this.userService.getCompletedTask().pipe(
-                    map((data ) => UserActions.getCompletedTaskSuccess({tasks : data})),
+            mergeMap((payload) => (
+                this.userService.getCompletedTask(payload.page).pipe(
+                    map((data ) => UserActions.getCompletedTaskSuccess({tasks : data.data, total : data.total})),
                     catchError(error => of(UserActions.getCompletedTaskFailure({error : error})))
                 )
             ))
@@ -144,9 +144,10 @@ export class UserEffects {
     usersInprogressSchedule$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.getInprogressSchedule),
-            mergeMap(() => (
-                this.userService.getInProgressMeeting().pipe(
-                    map((data ) => UserActions.getInprogressScheduleSuccess({meeting : data})),
+            mergeMap((payload) => (
+                this.userService.getInProgressMeeting(payload.page).pipe(
+                    map((data ) => {console.log(data)
+                        return UserActions.getInprogressScheduleSuccess({meeting : data.data, total : data.total})}),
                     catchError(error => of(UserActions.getInprogressScheduleFailure({error : error})))
                 )
             ))
@@ -155,9 +156,9 @@ export class UserEffects {
     userCompletedSchedules$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(UserActions.getCompletedSchedule),
-            mergeMap(() => (
-                this.userService.getCompletedMeeting().pipe(
-                    map((data ) => UserActions.getCompletedScheduleSuccess({meeting : data})),
+            mergeMap((payload) => (
+                this.userService.getCompletedMeeting(payload.page).pipe(
+                    map((data ) => UserActions.getCompletedScheduleSuccess({meeting : data.data, total : data.total})),
                     catchError(error => of(UserActions.getCompletedScheduleFailure({error : error})))
                 )
             ))

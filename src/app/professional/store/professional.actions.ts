@@ -31,22 +31,26 @@ export const newPasswordFailure = createAction('[Professional Component] New pas
 
 
 // List inprogress tasks 
-export const getInprogressTask = createAction(`[Professional component] get inprogress task`)
-export const getInprogressTaskSuccess = createAction(`[Professional component] get inprogress task success`, props<{tasks : CompleteTask[]}>())
+export const getInprogressTask = createAction(`[Professional component] get inprogress task`, props<{page: number}>())
+export const getInprogressTaskSuccess = 
+createAction(`[Professional component] get inprogress task success`, props<{tasks : CompleteTask[], total: number}>())
 export const getInprogressTaskFailure = createAction(`[Professional component] get inprogress task failure`, props<{error : any}>())
 
 // List completed tasks
-export const getCompletedTask = createAction(`[Professional component] get completed task`)
-export const getCompletedTaskSuccess = createAction(`[Professional component] get completed task success`, props<{tasks : CompleteTask[]}>())
+export const getCompletedTask = createAction(`[Professional component] get completed task`, props<{page: number}>())
+export const getCompletedTaskSuccess = 
+createAction(`[Professional component] get completed task success`, props<{tasks : CompleteTask[], total: number}>())
 export const getCompletedTaskFailure = createAction(`[Professional component] get completed task failure`, props<{error : any}>())
 
 
 // List inprogress schedules 
-export const getInprogressSchedule = createAction(`[Professional component] get inprogress schedule`)
-export const getInprogressScheduleSuccess = createAction(`[Professional component] get inprogress schedule success`, props<{meeting : CompleteSchedule[]}>())
+export const getInprogressSchedule = createAction(`[Professional component] get inprogress schedule`, props<{page: number}>())
+export const getInprogressScheduleSuccess = 
+createAction(`[Professional component] get inprogress schedule success`, props<{meeting : CompleteSchedule[], total: number}>())
 export const getInprogressScheduleFailure = createAction(`[Professional component] get inprogress schedule failure`, props<{error : any}>())
 
 // List completed schedules
-export const getCompletedSchedule = createAction(`[Professional component] get completed schedule`)
-export const getCompletedScheduleSuccess = createAction(`[Professional component] get completed schedule success`, props<{meeting : CompleteSchedule[]}>())
+export const getCompletedSchedule = createAction(`[Professional component] get completed schedule`, props<{page: number}>())
+export const getCompletedScheduleSuccess = 
+createAction(`[Professional component] get completed schedule success`, props<{meeting : CompleteSchedule[], total: number}>())
 export const getCompletedScheduleFailure = createAction(`[Professional component] get completed schedule failure`, props<{error : any}>())

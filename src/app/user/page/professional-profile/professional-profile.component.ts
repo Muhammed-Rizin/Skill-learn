@@ -22,11 +22,16 @@ export class ProfessionalProfileComponent implements OnInit{
   userEmail !: string
   userId !: string
   subscribed : boolean = false
-  loading!: boolean
+  loading: boolean = true
 
   addReview: boolean = false
   reviewForm!: FormGroup
   reviews$!: Review[]
+
+  pageCount : number = 1
+  limit : number = 5
+  totalPage !: number 
+  total!: number
 
   constructor(
     private userService : UserService, 
@@ -41,9 +46,11 @@ export class ProfessionalProfileComponent implements OnInit{
           (data) => {
             this.processUserData(data)
             this.checkSubscriptionStatus()
-            this.userService.getReviews(data._id).subscribe(reviews => {
-              console.log(reviews)
-              this.reviews$ = reviews
+            this.userService.getReviews(data._id, this.pageCount).subscribe(reviews => {
+              this.reviews$ = reviews.data
+              this.total = reviews.total
+              this.totalPage = Math.ceil(reviews.total / this.limit)
+              this.loading = false
             })
         })
       }else {
@@ -58,6 +65,11 @@ export class ProfessionalProfileComponent implements OnInit{
       description : ['', [Validators.required, Validators.minLength(10)]],
       rating : ['', Validators.required]
     })   
+  }
+
+  averageReview() {
+    const sum = this.reviews$.reduce((a, b) => a + b.rating, 0)
+    return sum / this.total
   }
 
 
@@ -135,7 +147,9 @@ export class ProfessionalProfileComponent implements OnInit{
     if(this.reviewForm.valid){
       console.log(this.reviewForm.getRawValue())
       const data = this.reviewForm.getRawValue()
-      this.userService.addReview(data,this.userData._id).subscribe()
+      this.userService.addReview(data,this.userData._id).subscribe((data) =>{
+        window.location.reload()
+      })
     }else {
       this.markFormControlsAsTouched(this.reviewForm)
     }
@@ -148,5 +162,21 @@ export class ProfessionalProfileComponent implements OnInit{
         this.markFormControlsAsTouched(control);
       }
     });
+  }
+
+  nextPage() {
+    const page = this.pageCount + 1
+    this.userService.getReviews(this.userData._id, page).subscribe(reviews => {
+      this.reviews$ = reviews.data
+      this.pageCount ++ 
+    })
+  }
+
+  prevPage(){
+    const page = this.pageCount - 1
+    this.userService.getReviews(this.userData._id, page).subscribe(reviews => {
+      this.reviews$ = reviews.data
+      this.pageCount --
+    })
   }
 }

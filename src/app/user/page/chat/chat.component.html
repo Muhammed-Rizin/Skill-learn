@@ -2,24 +2,16 @@
 
   <app-nav-bar></app-nav-bar>
   <div class="container">
-
-    <!-- Content wrapper start -->
     <div class="content-wrapper mt-3">
-
-      <!-- Row start -->
       <div class="row">
-
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
           <div class="card m-0">
-
-            <!-- Row start -->
             <div class="row no-gutters">
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
                 <div class="users-container">
-
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
-                    <li class="person" data-chat="person1" 
+                    <li class="person" 
+                    *ngIf="!chatHistory"
                     [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
                       <div class="user">
                         <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">
@@ -27,7 +19,19 @@
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
-                        <!-- <span class="time">15/02/2019</span> -->
+                        <span class="time">{{chat.messages[chat.messages.length - 1].text}}</span>
+                      </p>
+                    </li>
+                    <li class="person" *ngIf="chatHistory"
+                    [ngClass]="{'active-user' : getUserDetails(chatHistory)._id ==  getUserDetails(chat)._id}" data-chat="person1" 
+                    [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
+                      <div class="user">
+                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">
+                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat).image">
+                      </div>
+                      <p class="name-time">
+                        <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
+                        <span class="time">{{chat.messages[chat.messages.length - 1].text}}</span>
                       </p>
                     </li>
                     <!-- <li class="person active-user" data-chat="person2">

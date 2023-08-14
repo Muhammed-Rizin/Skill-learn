@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompleteSchedule } from '../../types/professional.types';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { Store, select } from '@ngrx/store';
-import { selectCompletedScheduleData, selectCompletedScheduleLoading } from '../../store/professional.selector';
+import { selectCompletedScheduleData, selectCompletedScheduleLoading, selectCompletedTotalSchedule } from '../../store/professional.selector';
 import { getCompletedSchedule } from '../../store/professional.actions';
 
 @Component({
@@ -13,6 +13,11 @@ import { getCompletedSchedule } from '../../store/professional.actions';
 export class ScheduledCompletedComponent implements OnInit {
   tasks !: CompleteSchedule[]
   loading$ !: boolean
+    
+  pageCount : number = 1
+  limit : number = 5
+  totalPage !: number 
+
   constructor(
     private readonly _store : Store
   ){
@@ -22,10 +27,14 @@ export class ScheduledCompletedComponent implements OnInit {
     this._store.pipe(select(selectCompletedScheduleLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
+    this._store.pipe(select(selectCompletedTotalSchedule)).subscribe((total)=> {
+      this.totalPage = Math.ceil(total / this.limit)
+    })
   }
 
   ngOnInit(): void {
-    this._store.dispatch(getCompletedSchedule())
+    const page = this.pageCount
+    this._store.dispatch(getCompletedSchedule({page}))
   }
 
   getTime (time :string) {
@@ -33,5 +42,18 @@ export class ScheduledCompletedComponent implements OnInit {
     const hours = currentDate.getHours();
     const minutes = currentDate.getMinutes();
     return `${hours}:${minutes}`
+  }
+
+  
+  nextPage() {
+    this.pageCount ++ 
+    const page = this.pageCount
+    this._store.dispatch(getCompletedSchedule({page}))
+  }
+
+  prevPage(){
+    this.pageCount --
+    const page = this.pageCount
+    this._store.dispatch(getCompletedSchedule({page}))
   }
 }

@@ -19,7 +19,7 @@
               <tr *ngFor="let payment of paymentHistory; let i = index">
                 <td>{{i +1}}</td>
                 <td>{{payment?.createdAt?.toString()?.slice(0,10)}}</td>
-                <td class="name" routerLink="/professional/viewprofile/{{payment?.to?.email}}">
+                <td>
                   {{payment?.from?.firstName + ' ' + payment?.from?.lastName}}
                 </td>
                 <td>{{payment?.amount}}</td>

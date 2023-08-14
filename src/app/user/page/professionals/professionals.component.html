@@ -28,6 +28,17 @@
                     </div>
                 </div>
             </ng-container>
+            <div class="pagination">
+                <div class="next-page me-2" *ngIf="pageCount > 1">
+                    <button (click)="prevPage()">Prev</button>
+                </div>
+                <div class="page-count">
+                    <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
+                </div>
+                <div class="next-page" *ngIf="pageCount !== totalPage">
+                    <button (click)="nextPage()">Next</button>
+                </div>
+            </div>
         </div>
         <div class="col-4">
             <div class="search">

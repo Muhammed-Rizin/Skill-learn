@@ -3,7 +3,7 @@ import { ProfessionalService } from 'src/app/services/professional/professional.
 import { CompleteTask } from '../../types/professional.types';
 import { Store, select } from '@ngrx/store';
 import { getCompletedTask } from '../../store/professional.actions';
-import { selectCompletedTaskData, selectCompletedTaskLoading } from '../../store/professional.selector';
+import { selectCompletedTaskData, selectCompletedTaskLoading, selectCompletedTotalTask } from '../../store/professional.selector';
 
 @Component({
   selector: 'app-task-completed',
@@ -13,6 +13,11 @@ import { selectCompletedTaskData, selectCompletedTaskLoading } from '../../store
 export class TaskCompletedComponent implements OnInit{
   tasks !: CompleteTask[]
   loading$ !: boolean
+        
+  pageCount : number = 1
+  limit : number = 5
+  totalPage !: number 
+
   constructor(
     private readonly _store: Store
   ){
@@ -22,10 +27,14 @@ export class TaskCompletedComponent implements OnInit{
     this._store.pipe(select(selectCompletedTaskLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
+    this._store.pipe(select(selectCompletedTotalTask)).subscribe((total)=> {
+      this.totalPage = Math.ceil(total / this.limit)
+    })
   }
 
   ngOnInit(): void {
-    this._store.dispatch(getCompletedTask())
+    const page = this.pageCount
+    this._store.dispatch(getCompletedTask({page}))
   }
 
   getTime (time :string) {
@@ -33,5 +42,17 @@ export class TaskCompletedComponent implements OnInit{
     const hours = currentDate.getHours();
     const minutes = currentDate.getMinutes();
     return `${hours}:${minutes}`
+  }
+
+  nextPage() {
+    this.pageCount ++ 
+    const page = this.pageCount
+    this._store.dispatch(getCompletedTask({page}))
+  }
+
+  prevPage(){
+    this.pageCount --
+    const page = this.pageCount
+    this._store.dispatch(getCompletedTask({page}))
   }
 }

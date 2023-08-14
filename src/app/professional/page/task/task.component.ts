@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { CompleteTask } from '../../types/professional.types';
-import { selectInprogressTaskData, selectInprogressTaskLoading } from '../../store/professional.selector';
+import { selectInprogressTaskData, selectInprogressTaskLoading, selectInprogressTotalTask } from '../../store/professional.selector';
 import { getInprogressTask } from '../../store/professional.actions';
 
 @Component({
@@ -13,6 +13,11 @@ import { getInprogressTask } from '../../store/professional.actions';
 export class TaskComponent implements OnInit{
   tasks !: CompleteTask[]
   loading$ : boolean = true
+      
+  pageCount : number = 1
+  limit : number = 5
+  totalPage !: number 
+
   constructor(
     private readonly _store : Store
   ){
@@ -22,10 +27,14 @@ export class TaskComponent implements OnInit{
     this._store.pipe(select(selectInprogressTaskLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
+    this._store.pipe(select(selectInprogressTotalTask)).subscribe((total)=> {
+      this.totalPage = Math.ceil(total / this.limit)
+    })
   }
 
   ngOnInit(): void {
-    this._store.dispatch(getInprogressTask())
+    const page = this.pageCount
+    this._store.dispatch(getInprogressTask({page}))
   }
 
   getTime (time :string) {
@@ -33,5 +42,17 @@ export class TaskComponent implements OnInit{
     const hours = currentDate.getHours();
     const minutes = currentDate.getMinutes();
     return `${hours}:${minutes}`
+  }
+
+  nextPage() {
+    this.pageCount ++ 
+    const page = this.pageCount
+    this._store.dispatch(getInprogressTask({page}))
+  }
+
+  prevPage(){
+    this.pageCount --
+    const page = this.pageCount
+    this._store.dispatch(getInprogressTask({page}))
   }
 }

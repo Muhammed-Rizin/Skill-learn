@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CompleteSchedule } from '../../types/professional.types';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { Store, select } from '@ngrx/store';
-import { selectCompletedScheduleData, selectCompletedScheduleLoading, selectInprogressScheduleData, selectInprogressScheduleLoading } from '../../store/professional.selector';
-import { getCompletedSchedule, getInprogressSchedule } from '../../store/professional.actions';
+import { selectInprogressScheduleData, selectInprogressScheduleLoading, selectInprogressTotalSchedule } from '../../store/professional.selector';
+import { getInprogressSchedule } from '../../store/professional.actions';
 
 @Component({
   selector: 'app-scheduled',
@@ -13,6 +13,11 @@ import { getCompletedSchedule, getInprogressSchedule } from '../../store/profess
 export class ScheduledComponent implements OnInit {
   tasks !: CompleteSchedule[]
   loading$ !: boolean
+  
+  pageCount : number = 1
+  limit : number = 5
+  totalPage !: number 
+
   constructor(
     private readonly _store : Store
   ){
@@ -22,10 +27,14 @@ export class ScheduledComponent implements OnInit {
     this._store.pipe(select(selectInprogressScheduleLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
+    this._store.pipe(select(selectInprogressTotalSchedule)).subscribe((total)=> {
+      this.totalPage = Math.ceil(total / this.limit)
+    })
   }
 
   ngOnInit(): void {
-    this._store.dispatch(getInprogressSchedule())
+    const page = this.pageCount
+    this._store.dispatch(getInprogressSchedule({page}))
   }
 
   getTime (time :string) {
@@ -33,5 +42,17 @@ export class ScheduledComponent implements OnInit {
     const hours = currentDate.getHours();
     const minutes = currentDate.getMinutes();
     return `${hours}:${minutes}`
+  }
+
+  nextPage() {
+    this.pageCount ++ 
+    const page = this.pageCount
+    this._store.dispatch(getInprogressSchedule({page}))
+  }
+
+  prevPage(){
+    this.pageCount --
+    const page = this.pageCount
+    this._store.dispatch(getInprogressSchedule({page}))
   }
 }
