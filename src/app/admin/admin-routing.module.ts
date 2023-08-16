@@ -11,13 +11,17 @@ import { ErrorPageComponent } from '../error/error-page/error-page.component';
 import { ConsecutiveGuard } from '../guard/admin/admin-consecutive.guard';
 import { AdminGuard } from '../guard/admin/admin.guard';
 import { AdminAuthentication } from '../guard/admin/admin-authentication.guard';
+import { ServerErrorComponent } from '../error/server-error/server-error.component';
 
 const routes: Routes = [
     {path : '', component : LoginComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
     {path : 'dashboard', component : DashboardComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
-    {path : 'professionals/request', component : ProfessionalRequestsComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
-    {path : 'professionals', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
+
     {path : 'users', component : UsersComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
+    {path : 'professionals', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
+    {path : 'professionals/request', component : ProfessionalRequestsComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
+
+    {path : 'server-error', component : ServerErrorComponent},
     {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 

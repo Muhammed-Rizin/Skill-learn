@@ -21,7 +21,13 @@ export class SignUpComponent {
   loading$ : Observable<boolean> | boolean
 
   pageCount : number = 1
-  data !: professionalType
+  data : professionalType = {
+    email: null,
+    password: null,
+    firstName: null,
+    lastName: null,
+    education: null
+  }
   constructor(
     private formBuilder : FormBuilder,
     private store : Store

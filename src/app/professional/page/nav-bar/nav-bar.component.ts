@@ -10,7 +10,6 @@ import { professionalData } from '../../types/professional.types';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit{
-  userData !: professionalData
   constructor(
     private router : Router, 
     readonly professioanlService : ProfessionalService,
@@ -18,9 +17,6 @@ export class NavBarComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.professioanlService.getProfessionalData().subscribe((data) => {
-      this.userData = data
-    })
   }
 
   logOut(){

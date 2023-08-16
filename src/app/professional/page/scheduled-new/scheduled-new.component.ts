@@ -29,10 +29,15 @@ export class ScheduledNewComponent implements OnInit {
 
       this._professionalService.getSubscribers().subscribe(data => {
         data.filter((value) => {
-          const createdAtDate = new Date(value.createdAt as Date);
-            if (createdAtDate.getDate() + 30 <= Date.now()) {
-              this.users.push(value.from as userData)
-            }
+          const createdAtDate = new Date(value.createdAt as Date)
+          const currentDate = new Date();
+      
+          const timeDifference = currentDate.getTime() - createdAtDate.getTime();
+          const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+        
+          if (timeDifference <= oneWeekInMillis) {
+            this.users.push(value.from as userData)
+          }
         })
       })
   }

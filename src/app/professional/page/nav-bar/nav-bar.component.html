@@ -19,16 +19,15 @@
             <a class="nav-link" routerLinkActive="home" routerLink="/professional/payment">Payments</a>
           </li>
         </ul>
-        <span class="navbar-text" >
+        <span class="navbar-text">
           <button mat-button [matMenuTriggerFor]="menu">
-            <img [src]="userData.image" alt="skill learn" class="icon" *ngIf="userData.image">
-            <img src="../../../assets/null-icon.jpg" alt="skill learn" class="icon" *ngIf="!userData.image">
+            <img src="../../../../assets/user-icon.svg" alt="skill learn" class="icon">
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/professional/profile">Profile</button>
             <button mat-menu-item  (click)="logOut()">Logout</button>
           </mat-menu>
-        </span>
+      </span>
       </div>
     </div>
   </nav>

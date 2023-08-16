@@ -22,11 +22,16 @@ export class PaymentListComponent implements OnInit{
       )
   }
 
-  status(value : Date ) : boolean {
-    const createdAtDate = new Date(value)
-    if (createdAtDate.getDate() + 30 <= Date.now()) {
-      return true
+  status(value: Date): boolean {
+    const createdAtDate = new Date(value);
+    const currentDate = new Date();
+
+    const timeDifference = currentDate.getTime() - createdAtDate.getTime();
+    const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+
+    if (timeDifference <= oneWeekInMillis) {
+        return true;
     }
-    return false
+    return false; 
   }
 }

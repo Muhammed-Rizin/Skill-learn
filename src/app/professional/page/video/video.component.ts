@@ -6,6 +6,7 @@ import { VideoService } from 'src/app/services/video/video.service';
 import { professionalData, sendMessageType } from '../../types/professional.types';
 import { userData } from 'src/app/user/types/user.types';
 import * as CryptoJS from 'crypto-js';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-video',
@@ -17,7 +18,8 @@ export class VideoComponent {
     private videoService : VideoService,
     private router : Router,
     private route : ActivatedRoute,
-    private userService : ProfessionalService
+    private userService : ProfessionalService,
+    private _notificationService : NotificationService,
   ){}
 
   localStream !: MediaStream
@@ -62,7 +64,16 @@ export class VideoComponent {
           this.videoService.join(this.roomId)
           const toUserEmail = this.roomId.replace(this.userData.email, '')
           this.videoService.newUserJoined(this.roomId, toUserEmail, this.userData.email)
-          this.userService.getUserDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
+          this.userService.getUserDataByEmail(toUserEmail).subscribe((data) => {
+            this.toUserData = data
+            this._notificationService.pushCall(
+              data.firstName +' '+ data.lastName, 
+              "Calliing",
+              data.notificationToken,
+              data.image,
+              this.roomId
+            )
+          })
         }
       })
       this.videoService.socket.on('user-disconnected', () => {

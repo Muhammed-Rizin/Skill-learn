@@ -118,7 +118,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div class="pagination mt-3" *ngIf="reviews$">
+                    <div class="pagination mt-3" *ngIf="reviews$.length">
                         <div class="next-page me-2" *ngIf="pageCount > 1">
                             <button (click)="prevPage()">Prev</button>
                         </div>

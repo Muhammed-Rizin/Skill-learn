@@ -30,11 +30,13 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environment/environment';
 import { NotificationService } from './services/notification/notification.service';
+import { ServerErrorComponent } from './error/server-error/server-error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    ServerErrorComponent,
     
   ],
   imports: [

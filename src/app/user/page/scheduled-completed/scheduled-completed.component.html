@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pagination">
+            <div class="pagination" *ngIf="tasks.length && !loading$">
                 <div class="next-page me-2" *ngIf="pageCount > 1">
                     <button (click)="prevPage()">Prev</button>
                 </div>

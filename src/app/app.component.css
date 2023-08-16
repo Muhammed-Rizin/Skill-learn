@@ -10,7 +10,12 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px 0px 8px 8px;
     display: block;
+    z-index: 10000 !important;
+    pointer-events: all !important;
 }
+/* image {
+    width: 0px;
+} */
 
 .toast-content {
     display: flex;
@@ -56,3 +61,32 @@
         transform: translateY(0);
     }
 }
+
+
+.call-buttons {
+    display: flex;
+    cursor: pointer;
+  }
+
+  .call-button {
+    border: none;
+    border-radius: 5px;
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .accept-button {
+    background-color: #32cd32;
+    color: white;
+  }
+
+  .reject-button {
+    background-color: #ff4500;
+    color: white;
+  }
+
+  .call-button:hover {
+    background-color: #ddd;
+  }

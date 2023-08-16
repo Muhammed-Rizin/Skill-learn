@@ -120,11 +120,19 @@ export interface Review {
 }
 
 export interface msgType {
+    notification : notification,
+    data : data | any
+}
+
+export interface data {
+    roomId : string
+}
+
+export interface notification {
     icon: string,
     body: string,
     title: string
 }
-
 export type sendMessageType = {
     type: string, candidate?: RTCIceCandidate, answer?: RTCSessionDescriptionInit, offer?: RTCSessionDescriptionInit
 }

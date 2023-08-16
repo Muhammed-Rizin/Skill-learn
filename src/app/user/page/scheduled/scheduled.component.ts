@@ -39,10 +39,10 @@ export class ScheduledComponent implements OnInit{
   }
 
   getTime (time :string) {
-    const currentDate  = new Date(time)
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    return `${hours}:${minutes}`
+    const currentDate = new Date(time);
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 
   nextPage() {

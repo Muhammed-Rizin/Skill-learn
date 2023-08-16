@@ -1,11 +1,29 @@
 <div class="toast-container" *ngIf="showToast">
-    <div class="toast-content">
-      <img [src]="message?.icon" alt="User Image" class="image" *ngIf="message?.icon">
-      <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.icon">
+    <div class="toast-content" *ngIf="!message?.data">
+      <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon">
+      <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon">
       <div class="user-info">
-        <span class="name">{{message?.title}}</span>
-        <span class="message">{{message?.body}}</span>
+        <span class="name">{{message?.notification?.title}}</span>
+        <span class="message">{{message?.notification?.body}}</span>
+      </div>
+    </div>
+
+    <div class="toast-container" *ngIf="message?.data?.roomId">
+      <div class="toast-content">
+        <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon">
+        <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon">
+        <div class="user-info">
+          <span class="name">{{message?.notification?.title}}</span>
+          <span class="message">{{message?.notification?.body}}</span>
+        </div>
+        <div class="call-buttons">
+          <button class="call-button accept-button me-2" 
+          [routerLink]="['/video', encryptString(message?.data?.roomId)]" (click)="accept()"> Accept</button>
+          <button class="call-button reject-button" (click)="reject()">Reject</button>
+        </div>
       </div>
     </div>
   </div>
+
+  
 <router-outlet></router-outlet>

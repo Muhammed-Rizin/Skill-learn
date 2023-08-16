@@ -24,6 +24,7 @@ import { UserAvailable } from '../guard/user/user.guard';
 import { UserAuthentication } from '../guard/user/user-authentication.guard';
 import { UserBlockedGuard } from '../guard/user/user-blocked.guard';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
+import { ServerErrorComponent } from '../error/server-error/server-error.component';
 
 
 const routes: Routes = [
@@ -55,6 +56,7 @@ const routes: Routes = [
 
   {path : 'payments', component : PaymentListComponent, canActivate : [UserAuthentication, ConsecutiveGuard, UserBlockedGuard]},
 
+  {path : 'server-error', component : ServerErrorComponent},
   {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 

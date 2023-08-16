@@ -86,15 +86,25 @@ export class ProfessionalProfileComponent implements OnInit{
       this.userEmail = data.email;
       this.userId = data._id;
       this.userService.subscribed(this.userId, this.userData._id).subscribe((data) => {
-        console.log(data , 'subscribed')
         if (data.createdAt) {
-          const createdAtDate = new Date(data.createdAt);
-          if (createdAtDate.getDate() + 30 <= Date.now()) {
-            this.subscribed = true;
-          }
+          this.subscribed = this.status(data.createdAt)
         }
       });
     });
+  }
+
+
+  status(value: Date): boolean {
+    const createdAtDate = new Date(value);
+    const currentDate = new Date();
+
+    const timeDifference = currentDate.getTime() - createdAtDate.getTime();
+    const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+
+    if (timeDifference <= oneWeekInMillis) {
+        return true;
+    }
+    return false; 
   }
 
   getRoomId(email : string) {

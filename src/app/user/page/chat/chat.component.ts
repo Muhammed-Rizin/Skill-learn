@@ -38,37 +38,20 @@ export class ChatComponent implements OnInit, OnDestroy{
       this.alreadyMessaged = this.sortData(data)
       this.loading = false;
     })
+
     this.userSerivce.getUserData().subscribe((data) => this.userData = data)
+    
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userData._id as string);
+      
+      this.socketService.subscribeToMessages((err, data) => this.handleMessage(data));
+
       this.router.params.subscribe((params) => {
         if(params['id']){
-          this.CHAT_ROOM = this.decryptString(params['id'])
-          this.socketService.join(this.CHAT_ROOM)
-          const toUserEmail = this.CHAT_ROOM.replace(this.userData.email, '')
-          this.userSerivce.getProfessionalDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
-          this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data, console.log(data)})
-          // request to change useread status
-          this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
+          this.handleRoom(params['id'])
         }
       })
-      this.socketService.subscribeToMessages((err, data) => {
-        const newMessage = data.data?.messages[data.data?.messages?.length - 1]
-        console.log(newMessage);
-        const nofificationToken = newMessage.recever.notificationToken
-        this._notificationService.pushNotification(
-          newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
-          newMessage.text,
-          nofificationToken,
-          newMessage.sender.image
-          )
-        this.chatHistory = data.data
-        this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = this.sortData(data)})
-          // request to change useread status
-        this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
-      });
     }, 1000);
-    
   }
 
   ngOnDestroy() {
@@ -84,6 +67,45 @@ export class ChatComponent implements OnInit, OnDestroy{
     })
   }
 
+  handleRoom(roomId : string) {
+    this.CHAT_ROOM = this.decryptString(roomId)
+
+    this.socketService.join(this.CHAT_ROOM)
+
+    const toUserEmail = this.CHAT_ROOM.replace(this.userData.email, '')
+    this.userSerivce.getProfessionalDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
+
+    this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data})
+    this.updateStatus(this.CHAT_ROOM)
+  }
+
+  handleMessage(data : { sender: string, text: string, recever: string, data: ChatData }) {
+    const newMessage = data.data?.messages[data.data?.messages?.length - 1]
+        console.log(newMessage);
+        const nofificationToken = newMessage.recever.notificationToken
+        this._notificationService.pushNotification(
+          newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
+          newMessage.text,
+          nofificationToken,
+          newMessage.sender.image
+          )
+        this.chatHistory = data.data
+        this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = this.sortData(data)})
+        this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
+  }
+
+  updateStatus(roomId : string) {
+    this.userSerivce.updateReadStatus(roomId).subscribe((data) => {
+      console.log(this.alreadyMessaged?.length)
+      this.alreadyMessaged.forEach((value) =>{
+        if(value.roomId == roomId){
+          console.log(value.roomId, value.userRead)
+          value.userRead = true
+          console.log(value.roomId, value.userRead)
+        }
+      })
+    })
+  }
 
   getUserDetails(chat : ChatData) {
     const data =  chat.messages[0]?.recever?._id === this.userData._id ? chat.messages[0]?.sender  : chat.messages[0]?.recever
@@ -135,6 +157,8 @@ export class ChatComponent implements OnInit, OnDestroy{
   }
 
   private scrollToBottom(): void {
-    this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    if(this.chatContainer) {
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer?.nativeElement?.scrollHeight;
+    }
   }
 }

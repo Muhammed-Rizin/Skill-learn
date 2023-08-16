@@ -5,46 +5,51 @@
     </div>
     <div class="content row" *ngIf="!loading$">
         <div class="col-8 professionals ">
-            <ng-container *ngFor="let professional of professionals$ | professionalsSearch: searchValue">
-                <div class=" professional mb-4">
-                    <div class="user-header">
-                        <div class="d-flex">
-                            <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional.image">
-                            <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional.image">
-                            <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
-                                {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
-                        </div>
-                        <p class="user-bio">{{professional.bio}}</p>
-                    </div>
-                    <div class="user-botton">
-                        <p class="user-about" *ngIf="professional.about.length >=200">{{professional.about.slice(0, 200)}}...</p>
-                        <p class="user-about" *ngIf="professional.about.length <200">{{professional.about}}</p>
-                        <!-- <div class="review">
-                            <div class="rating-avarage">
-    
-                            </div>
-                            <p>Review Count</p>
-                        </div> -->
-                    </div>
-                </div>
-            </ng-container>
-            <div class="pagination">
-                <div class="next-page me-2" *ngIf="pageCount > 1">
-                    <button (click)="prevPage()">Prev</button>
-                </div>
-                <div class="page-count">
-                    <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
-                </div>
-                <div class="next-page" *ngIf="pageCount !== totalPage">
-                    <button (click)="nextPage()">Next</button>
-                </div>
-            </div>
         </div>
         <div class="col-4">
             <div class="search">
                <img src="../../../../assets/searchicon.png" alt="">
                <input type="text" [(ngModel)]="searchValue">
             </div>
-       </div>
+        </div>
+        <div class="row">
+            <div class="professionals col-12 col-lg-8 mt-2">
+                <ng-container *ngFor="let professional of professionals$ | professionalsSearch: searchValue">
+                    <div class=" professional mb-4">
+                        <div class="user-header">
+                            <div class="d-flex">
+                                <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional.image">
+                                <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional.image">
+                                <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
+                                    {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
+                            </div>
+                            <p class="user-bio">{{professional.bio}}</p>
+                        </div>
+                        <div class="user-botton">
+                            <p class="user-about" *ngIf="professional.about.length >=200">{{professional.about.slice(0, 200)}}...</p>
+                            <p class="user-about" *ngIf="professional.about.length <200">{{professional.about}}</p>
+                            <!-- <div class="review">
+                                <div class="rating-avarage">
+        
+                                </div>
+                                <p>Review Count</p>
+                            </div> -->
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="pagination" *ngIf="professionals$.length && !loading$">
+                    <div class="next-page me-2" *ngIf="pageCount > 1">
+                        <button (click)="prevPage()">Prev</button>
+                    </div>
+                    <div class="page-count">
+                        <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
+                    </div>
+                    <div class="next-page" *ngIf="pageCount !== totalPage">
+                        <button (click)="nextPage()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

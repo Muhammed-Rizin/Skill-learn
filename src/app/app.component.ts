@@ -4,7 +4,9 @@ import { environment } from 'src/environment/environment';
 import { UserService } from './services/user/user.service';
 import { ProfessionalService } from './services/professional/professional.service';
 import { NotificationService } from './services/notification/notification.service';
-import { msgType } from './user/types/user.types';
+import { data, msgType, notification } from './user/types/user.types';
+import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -14,11 +16,13 @@ import { msgType } from './user/types/user.types';
 })
 export class AppComponent implements OnInit {
   message: msgType | null = null;
+  secret = "crypto-js"
 
   constructor(
     private _userService : UserService,
     private _professionalService : ProfessionalService,
-    private _notifcation : NotificationService
+    private _notifcation : NotificationService,
+    private _router : Router,
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +37,7 @@ export class AppComponent implements OnInit {
 
 
     this._notifcation.status.subscribe((msg) => {
+      console.log(msg)
       if(msg === null){
         this.showToast = false
       }else { 
@@ -82,12 +87,27 @@ export class AppComponent implements OnInit {
   listen() {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
-      this._notifcation.showToast(payload.notification as msgType)
+      const data : msgType= {
+        notification : payload.notification as notification,
+        data : payload.data
+      }
+      this._notifcation.showToast(data)
     });
+  }
+
+  accept() {
+    this.showToast = false
+  }
+  reject() {
+    this.showToast = false
   }
 
 
   showToast : boolean = false
 
+  
+  
+  encryptString(roomId : string) {
+    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
+  }
 }

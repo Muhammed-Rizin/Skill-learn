@@ -6,7 +6,6 @@ export interface professionalType {
     firstName: String | null
     lastName: String | null
     education: String | null
-    type: String | null
 }
 
 export interface State {

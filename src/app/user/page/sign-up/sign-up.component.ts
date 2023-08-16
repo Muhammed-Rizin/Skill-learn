@@ -20,7 +20,13 @@ export class SignUpComponent implements OnInit{
   error$ : Observable<String> | string
 
   pageCount : number = 1
-  data!: registerUserType
+  data : registerUserType = {
+    email: null,
+    password: null,
+    firstName: null,
+    lastName: null,
+    education: null
+  }
   constructor(
     private formBuilder : FormBuilder,
     private store : Store
@@ -52,7 +58,8 @@ export class SignUpComponent implements OnInit{
     if(this.pageCount === 1){
       if(this.emailForm.valid){
         const emailData = this.emailForm.getRawValue()
-        this.data['email'] = emailData.email
+        console.log(emailData)
+        this.data.email = emailData.email || ''
         this.pageCount++
       }else {
         this.markFormControlsAsTouched(this.emailForm);

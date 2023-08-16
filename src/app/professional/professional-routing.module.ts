@@ -24,6 +24,7 @@ import { ProfessionalBlockedGuard } from '../guard/professional/professional-blo
 import { ProfessionalApprovedGuard } from '../guard/professional/professional-approved.guard';
 import { ProfessionalchatGuard } from '../guard/professional/professional-chat.guard';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
+import { ServerErrorComponent } from '../error/server-error/server-error.component';
 
 const routes: Routes = [
     {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
@@ -62,6 +63,7 @@ const routes: Routes = [
 
     {path : 'payment', component : PaymentListComponent, canActivate : 
     [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+    {path : 'server-error', component : ServerErrorComponent},
     {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 
