@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./server-error.component.css']
 })
 export class ServerErrorComponent {
-
+  back(){
+    localStorage.removeItem('server-error')
+    window.location.reload()
+  }
 }

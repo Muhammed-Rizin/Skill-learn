@@ -79,7 +79,6 @@ export class ProfessionalService {
     return this.http.get(`${this.apiUrl}/professional/verifyemail?token=${token}`, httpOptions)
   }
   submitFile(image : FormData, id : string) {
-    console.log(image)
     return this.http.post(`${this.apiUrl}/professional/uploadimage?id=${id}`,image)
   }
 
@@ -100,7 +99,6 @@ export class ProfessionalService {
   }
 
   scheduleMeeting(schedule  : Schedule) {
-    console.log(schedule);
     return this.http.post(`${this.apiUrl}/professional/schedule`,{schedule}, httpOptions)
   }
 
@@ -111,8 +109,8 @@ export class ProfessionalService {
     return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/professional/completedmeeting?page=${page}`,httpOptions)
   }
 
-  getPayments() : Observable<PaymentData[]> {
-    return this.http.get<PaymentData[]>(`${this.apiUrl}/payment/professionalhistory`)
+  getPayments(page :number, limit : number) : Observable<{data : PaymentData[], total : number}> {
+    return this.http.get<{data : PaymentData[], total : number}>(`${this.apiUrl}/payment/professionalhistory?page=${page}&limit=${limit}`)
   }
 
   getReviews(id : string, page : number) : Observable<{data : Review[], total : number}> {

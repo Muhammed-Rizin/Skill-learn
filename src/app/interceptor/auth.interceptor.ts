@@ -51,7 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
       )
       
     }else if (request.url.includes('/fcm')){
-      console.log(request.url)
       return next.handle(request).pipe(
         tap(
           (event : HttpEvent<any>)=>{},

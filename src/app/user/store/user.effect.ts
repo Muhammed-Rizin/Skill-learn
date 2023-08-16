@@ -96,7 +96,6 @@ export class UserEffects {
         return this.actions$.pipe(
             ofType(UserActions.getProfessionalData),
             mergeMap((payload) => {
-                console.log(payload.email)
                 return this.userService.getProfessionalDataByEmail(payload.email).pipe(
                     map((user : professionalData) => UserActions.getProfessionalDataSuccess({userData : user})),
                     catchError(error => of(UserActions.getProfessionalDataFailure({error : error})))
@@ -146,7 +145,7 @@ export class UserEffects {
             ofType(UserActions.getInprogressSchedule),
             mergeMap((payload) => (
                 this.userService.getInProgressMeeting(payload.page).pipe(
-                    map((data ) => {console.log(data)
+                    map((data ) => {
                         return UserActions.getInprogressScheduleSuccess({meeting : data.data, total : data.total})}),
                     catchError(error => of(UserActions.getInprogressScheduleFailure({error : error})))
                 )

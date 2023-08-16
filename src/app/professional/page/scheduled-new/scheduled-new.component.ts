@@ -43,7 +43,6 @@ export class ScheduledNewComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.form.valid)
     if(this.form.valid){
       const values = this.form.getRawValue()
 
@@ -52,9 +51,17 @@ export class ScheduledNewComponent implements OnInit {
       endTime.setHours(Number(endTimeParts[0]), Number(endTimeParts[1]), 0, 0);
 
       values.time = endTime
-      this._professionalService.scheduleMeeting(values).subscribe((data) => {
+      this._professionalService.scheduleMeeting(values).subscribe(
+        (data) => {
         this._router.navigate(['/professional/schedule'])
-      })
+        },
+        (err) => {
+          if(err.status == 500) {
+            localStorage.setItem('server-error' , 'server-error')
+            this._router.navigate(['/professional/server-error'])
+          }
+        }
+      )
     }else {
       this.markFormControlsAsTouched(this.form);
     }

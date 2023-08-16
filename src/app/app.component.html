@@ -18,7 +18,7 @@
         </div>
         <div class="call-buttons">
           <button class="call-button accept-button me-2" 
-          [routerLink]="['/video', encryptString(message?.data?.roomId)]" (click)="accept()"> Accept</button>
+          [routerLink]="['/video', encryptString(message?.data?.roomId || '')]" (click)="accept()"> Accept</button>
           <button class="call-button reject-button" (click)="reject()">Reject</button>
         </div>
       </div>

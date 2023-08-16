@@ -24,6 +24,7 @@ div.content {
         width: 100%;
     }
 }
+
 a {
     text-decoration: none;
     color: #6B7280;
@@ -74,7 +75,8 @@ thead {
     line-height: 21px;
 }
 
-tbody, a {
+tbody,
+a {
     color: #797979;
     font-family: 'Inter';
     font-size: 12px;
@@ -142,7 +144,9 @@ div.content {
     padding: 1px 16px;
 }
 
-a.logout:hover { cursor: pointer; }
+a.logout:hover {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 700px) {
     .sidebar {
@@ -176,27 +180,27 @@ a.logout:hover { cursor: pointer; }
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .custom-dialog-title {
+}
+
+.custom-dialog-title {
     /* Customize the title styles */
     font-size: 24px;
     margin-bottom: 10px;
-  }
-  
-  .custom-dialog-content {
+}
+
+.custom-dialog-content {
     /* Customize the content styles */
     font-size: 16px;
     margin-bottom: 20px;
-  }
-  
-  .custom-dialog-actions {
+}
+
+.custom-dialog-actions {
     /* Customize the actions container styles */
     display: flex;
     justify-content: flex-end;
-  }
-  
-  .custom-dialog-button {
+}
+
+.custom-dialog-button {
     /* Customize the button styles */
     margin-left: 10px;
     padding: 8px 16px;
@@ -206,16 +210,35 @@ a.logout:hover { cursor: pointer; }
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-  }
-  
-  .custom-dialog-button:hover {
+}
+
+.custom-dialog-button:hover {
     /* Customize the button hover styles */
     background-color: #0056b3;
-  }
-  
-  .custom-dialog-button:focus {
+}
+
+.custom-dialog-button:focus {
     /* Customize the button focus styles */
     outline: none;
     box-shadow: 0 0 0 2px #007bff;
-  }
-  
+}
+
+
+.status {
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.active-button {
+    color: #00a65a;
+    background-color: #c9f7e7;
+}
+
+.expired {
+    color: #f39c12;
+    background-color: #f5e79e;
+}

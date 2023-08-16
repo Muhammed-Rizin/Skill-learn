@@ -15,8 +15,8 @@
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
                     <li class="person" *ngIf="!chatHistory" [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
                       <div class="user">
-                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">
-                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat).image">
+                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
+                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
@@ -29,8 +29,8 @@
                     [ngClass]="{'active-user' : getUserDetails(chatHistory)._id ==  getUserDetails(chat)._id}" data-chat="person1" 
                     [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
                       <div class="user">
-                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat).image">
-                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat).image">
+                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
+                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
@@ -60,8 +60,8 @@
 
                     <li class="chat-left" *ngIf="message.senderType === 'Professional'">
                       <div class="chat-avatar">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory).image">
-                        <img [src]="getUserDetails(chatHistory).image" *ngIf="getUserDetails(chatHistory).image">
+                        <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
+                        <img [src]="getUserDetails(chatHistory).image" *ngIf="getUserDetails(chatHistory)?.image?.trim()">
                         <div class="chat-name">{{getUserDetails(chatHistory).firstName}}</div>
                       </div>
                       <div class="chat-text">{{ message.text }}</div>
@@ -71,8 +71,8 @@
                     <li class="chat-right" *ngIf="message.senderType !== 'Professional'">
                       <div class="chat-text">{{ message.text }}</div>
                       <div class="chat-avatar">
-                        <img [src]="userData.image" *ngIf="userData.image">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!userData.image">
+                        <img [src]="userData.image" *ngIf="userData?.image?.trim()">
+                        <img src="../../../../assets/null-icon.jpg" *ngIf="!userData?.image?.trim()">
                         <div class="chat-name">{{userData.firstName}}</div>
                       </div>
                     </li>

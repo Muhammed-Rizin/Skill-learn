@@ -14,9 +14,10 @@ import { Professional } from '../../types/admin.types';
 export class ProfessionalsComponent implements OnInit{
   professionals$ !: Professional[] 
   loading$!: boolean
+  total!: number
+  
   page : number 
   limit : number 
-
   constructor(
     private store : Store,
     public dialog: MatDialog
@@ -27,6 +28,11 @@ export class ProfessionalsComponent implements OnInit{
     this.store.pipe(select(selectLoadingTotalProfessionals)).subscribe((loading) => {
       this.loading$ = loading;
     });
+
+    this.store.pipe(select(selectTotalProfessional)).subscribe((loading) => {
+      this.total = (loading as Professional[]).length
+    });
+    
     this.page = 1
     this.limit = 5
   }

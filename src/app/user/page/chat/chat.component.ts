@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChatData, userData } from '../../types/user.types';
 import { professionalData } from 'src/app/professional/types/professional.types';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -31,15 +31,34 @@ export class ChatComponent implements OnInit, OnDestroy{
     private socketService: ChatService, 
     private userSerivce : UserService, 
     private _notificationService : NotificationService,
-    private router: ActivatedRoute) {}
+    private router: ActivatedRoute,
+    private _router : Router
+  ) {}
 
   ngOnInit() {
-    this.userSerivce.getChats().subscribe((data) => {
-      this.alreadyMessaged = this.sortData(data)
-      this.loading = false;
-    })
+    this.userSerivce.getChats().subscribe(
+      (data) => {
+        this.alreadyMessaged = this.sortData(data)
+        this.loading = false;
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      })
 
-    this.userSerivce.getUserData().subscribe((data) => this.userData = data)
+    this.userSerivce.getUserData().subscribe(
+      (data) =>{
+        this.userData = data
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      }
+    )
     
     setTimeout(() => {
       this.socketService.setupSocketConnection(this.userData._id as string);
@@ -73,35 +92,61 @@ export class ChatComponent implements OnInit, OnDestroy{
     this.socketService.join(this.CHAT_ROOM)
 
     const toUserEmail = this.CHAT_ROOM.replace(this.userData.email, '')
-    this.userSerivce.getProfessionalDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
+    this.userSerivce.getProfessionalDataByEmail(toUserEmail).subscribe(
+      (data) => {
+        this.toUserData = data
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      }
+    )
 
-    this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe((data) => {this.chatHistory = data})
+    this.userSerivce.getChatHistory(this.CHAT_ROOM).subscribe(
+      (data) => {
+        this.chatHistory = data
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      }
+    )
     this.updateStatus(this.CHAT_ROOM)
   }
 
   handleMessage(data : { sender: string, text: string, recever: string, data: ChatData }) {
     const newMessage = data.data?.messages[data.data?.messages?.length - 1]
-        console.log(newMessage);
-        const nofificationToken = newMessage.recever.notificationToken
-        this._notificationService.pushNotification(
-          newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
-          newMessage.text,
-          nofificationToken,
-          newMessage.sender.image
-          )
-        this.chatHistory = data.data
-        this.userSerivce.getChats().subscribe((data) => {this.alreadyMessaged = this.sortData(data)})
-        this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
+    const nofificationToken = newMessage.recever.notificationToken
+    this._notificationService.pushNotification(
+      newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
+      newMessage.text,
+      nofificationToken,
+      newMessage.sender.image
+      )
+    this.chatHistory = data.data
+    this.userSerivce.getChats().subscribe(
+      (data) => {
+        this.alreadyMessaged = this.sortData(data)
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      }
+    )
+    this.userSerivce.updateReadStatus(this.CHAT_ROOM).subscribe()
   }
 
   updateStatus(roomId : string) {
     this.userSerivce.updateReadStatus(roomId).subscribe((data) => {
-      console.log(this.alreadyMessaged?.length)
       this.alreadyMessaged.forEach((value) =>{
         if(value.roomId == roomId){
-          console.log(value.roomId, value.userRead)
           value.userRead = true
-          console.log(value.roomId, value.userRead)
         }
       })
     })
@@ -136,12 +181,6 @@ export class ChatComponent implements OnInit, OnDestroy{
     }
     return null
   }
-
-  getChattedUserId(chat: any): string {
-    const chattedUserIds = chat.users.filter((userId: string) => userId !== this.userData._id);
-    return chattedUserIds[0];
-  }
-
   encryptString(roomId : string) {
     return CryptoJS.AES.encrypt(roomId, this.secret).toString();
   }

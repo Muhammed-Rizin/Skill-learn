@@ -18,8 +18,8 @@
                     <div class=" professional mb-4">
                         <div class="user-header">
                             <div class="d-flex">
-                                <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional.image">
-                                <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional.image">
+                                <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional?.image?.trim()">
+                                <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional?.image?.trim()">
                                 <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
                                     {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
                             </div>

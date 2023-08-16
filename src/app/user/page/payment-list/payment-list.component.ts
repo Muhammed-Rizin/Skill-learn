@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { Payment, PaymentData } from '../../types/user.types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-list',
@@ -10,16 +11,33 @@ import { Payment, PaymentData } from '../../types/user.types';
 export class PaymentListComponent implements OnInit{
   paymentHistory !: PaymentData[]
   loading : boolean = true
+
+  pageCount : number = 1
+  limit : number = 10
+  totalPage !: number 
+
   constructor(
-    private userService : UserService
+    private userService : UserService,
+    private _router : Router
   ){}
   ngOnInit(): void {
-      this.userService.getPayments().subscribe(
-        (data) => {
-          this.paymentHistory = data
-          this.loading = false
+    this.handlePaymentData()
+  }
+
+  handlePaymentData() {
+    this.userService.getPayments(this.pageCount, this.limit).subscribe(
+      (data) => {
+        this.paymentHistory = data.data
+        this.totalPage = Math.ceil(data.total / this.limit)
+        this.loading = false
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
         }
-      )
+      }
+    )
   }
 
   status(value: Date): boolean {
@@ -33,5 +51,15 @@ export class PaymentListComponent implements OnInit{
         return true;
     }
     return false; 
+  }
+
+  nextPage() {
+    this.pageCount ++ 
+    this.handlePaymentData()
+  }
+
+  prevPage() {
+    this.pageCount--
+    this.handlePaymentData()
   }
 }

@@ -40,11 +40,17 @@ export class TaskNewComponent implements OnInit{
             this.users.push(value.from as userData)
           }
         })
-      })
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/professional/server-error'])
+        }
+      }
+      )
   }
 
   submitForm() {
-    console.log(this.form.valid)
     if(this.form.valid){
       const values = this.form.getRawValue()
 
@@ -53,9 +59,17 @@ export class TaskNewComponent implements OnInit{
       endTime.setHours(Number(endTimeParts[0]), Number(endTimeParts[1]), 0, 0);
 
       values.endtime = endTime
-      this._professionalService.addTask(values).subscribe((data) => {
-        this._router.navigate(['/professional/tasks'])
-      })
+      this._professionalService.addTask(values).subscribe(
+        (data) => {
+          this._router.navigate(['/professional/tasks'])
+        },
+        (err) => {
+          if(err.status == 500) {
+            localStorage.setItem('server-error' , 'server-error')
+            this._router.navigate(['/professional/server-error'])
+          }
+        }
+      )
     }else {
       this.markFormControlsAsTouched(this.form);
     }

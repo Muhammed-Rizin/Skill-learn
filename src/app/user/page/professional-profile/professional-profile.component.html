@@ -52,7 +52,7 @@
                     </div>
                     <div class="add-review" *ngIf="addReview">
                         <form [formGroup]="reviewForm" (submit)="reviewSubmit()">
-                            <ngb-rating [max]="5" formControlName="rating"></ngb-rating>
+                            <ngb-rating class="review-star" [max]="5" formControlName="rating"></ngb-rating>
                             <input type="text" formControlName="title" placeholder="Title" id="">
                             <input type="text" formControlName="description" placeholder="Description" id="">
                             <button type="submit">Submit</button>

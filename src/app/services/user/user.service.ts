@@ -102,7 +102,6 @@ export class UserService {
   }
 
   getInProgressTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
-    console.log(page)
     return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/user/inprogresstask?page=${page}`, httpOptions)
   }
 
@@ -122,12 +121,11 @@ export class UserService {
     return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/user/completedmeeting?page=${page}`,httpOptions)
   }
   
-  getPayments() : Observable<PaymentData[]> {
-    return this.http.get<PaymentData[]>(`${this.apiUrl}/payment/userhistory`, httpOptions)
+  getPayments(page : number, limit : number) : Observable<{data : PaymentData[], total : number}> {
+    return this.http.get<{data : PaymentData[], total : number}>(`${this.apiUrl}/payment/userhistory?page=${page}&limit=${limit}`, httpOptions)
   }
 
   addReview(data : addReview, id : string) {
-    console.log(data, `${this.apiUrl}/review/addreview`)
     return this.http.post(`${this.apiUrl}/review/addreview`, {data, id}, httpOptions)
   }
 

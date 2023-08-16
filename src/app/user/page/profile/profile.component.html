@@ -1,13 +1,14 @@
 <div class="body">
     <app-nav-bar></app-nav-bar>
     <div class="container mt-2">
-        <div class="userdetails row">
+        <div *ngIf="loading">Loading...</div>
+        <div class="userdetails row" *ngIf="!loading">
             <div class="col-12 col-lg-3 profileimage">
                 <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" name="profile"/>
                 <img src="{{userData.image}}"
-                    alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()">
+                    alt="profile image" *ngIf="userData?.image?.trim()"  (click)="fileInput.click()">
                 <img src="../../../assets/null-icon.jpg"
-                    alt="profile image" *ngIf="!userData?.image"  (click)="fileInput.click()">
+                    alt="profile image" *ngIf="!userData?.image?.trim()"  (click)="fileInput.click()">
             </div>
             <div class="col-12 col-lg-9 userinformation">
                 <div class="username">

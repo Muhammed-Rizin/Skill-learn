@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class VerifyEmailComponent implements OnInit{
   constructor(
     private userSerivice : UserService,
-    private router : Router,
+    private _router : Router,
     private route : ActivatedRoute
   ){}
 
@@ -24,13 +24,16 @@ export class VerifyEmailComponent implements OnInit{
     );
     const token = this.token
     if(this.token.length === 0){
-      this.router.navigate(['/'])
+      this._router.navigate(['/'])
     }else {
       this.userSerivice.verifyEmail(token).subscribe(() => {
         
       },
-      (error) => {
-        this.router.navigate(['/'])
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
       })
     }
   }

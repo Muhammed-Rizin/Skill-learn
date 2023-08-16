@@ -16,6 +16,7 @@ export class ProfessionalRequestsComponent {
   loading$!: boolean;
   page : number = 1
   limit : number = 5
+  total !: number;
 
   constructor(
     private store : Store,
@@ -26,6 +27,10 @@ export class ProfessionalRequestsComponent {
     });
     this.store.pipe(select(selectLoadingTotalRequestProfessionals)).subscribe((loading) => {
       this.loading$ = loading;
+    });
+
+    this.store.pipe(select(selectTotalRequestProfessional)).subscribe((loading) => {
+      this.total = (loading as Professional[]).length 
     });
   }
 

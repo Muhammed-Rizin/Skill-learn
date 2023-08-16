@@ -58,7 +58,6 @@ export class SignUpComponent implements OnInit{
     if(this.pageCount === 1){
       if(this.emailForm.valid){
         const emailData = this.emailForm.getRawValue()
-        console.log(emailData)
         this.data.email = emailData.email || ''
         this.pageCount++
       }else {

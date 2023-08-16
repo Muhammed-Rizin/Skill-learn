@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { userData } from '../../types/user.types';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,17 +13,29 @@ export class ProfileComponent implements OnInit{
   userData!: userData
   actualData!: userData
   validation !: string
+  loading : boolean = true
   selectedFile!: File;
 
-  constructor(private _userService : UserService ){
-    this._userService.getUserData().subscribe((data) => {
-      this.userData = data
-      this.userData.bio = this.userData.bio?.trim()
-      this.userData.location = this.userData.location?.trim()
-      this.userData.address = this.userData.address?.trim()
-      this.userData.image = this.userData.image?.trim()
-      this.actualData = Object.assign({}, this.userData)
-    })
+  constructor(
+    private _userService : UserService,
+    private _router : Router
+  ){
+    this._userService.getUserData().subscribe(
+      (data) => {
+        this.userData = data
+        this.userData.bio = this.userData.bio?.trim()
+        this.userData.location = this.userData.location?.trim()
+        this.userData.address = this.userData.address?.trim()
+        this.userData.image = this.userData.image?.trim()
+        this.actualData = Object.assign({}, this.userData)
+        this.loading = false
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      })
   }
 
   ngOnInit(): void {
@@ -38,7 +51,17 @@ export class ProfileComponent implements OnInit{
       ){ this.validation = `${field} cannot be empty`}
       else {
         this.validation = ''
-        this._userService.updateUser(this.userData).subscribe((data) => this.userData = data)
+        this._userService.updateUser(this.userData).subscribe(
+          (data) => {
+            this.userData = data
+          },
+          (err) => {
+            if(err.status == 500) {
+              localStorage.setItem('server-error' , 'server-error')
+              this._router.navigate(['/server-error'])
+            }
+          }
+        )
       }
   }
 
@@ -46,17 +69,6 @@ export class ProfileComponent implements OnInit{
     this._userService.sendVerifyUser().subscribe()
   }
  
-  // onFileSelected(event : Event) {
-  //   const formData = new FormData()
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     this.selectedFile = inputElement.files[0];
-  //     formData.append("profile", this.selectedFile, this.selectedFile.name)
-  //     this._userService.submitFile(formData, this.userData._id).subscribe((data) => {
-  //       window.location.reload()
-  //     })
-  //   }
-  // }
   onFileSelected(e : Event) {
     const formData = new FormData()
     const inputElement = e.target as HTMLInputElement
@@ -64,10 +76,15 @@ export class ProfileComponent implements OnInit{
     if (inputElement.files) {
       const file = inputElement.files[0];
   
+      console.log(file)
       formData.append('image', file, file.name)
       this._userService.submitFile(formData, this.userData._id).subscribe(
         (data) => {},
-        (error) => {
+        (err) => {
+          if(err.status == 500) {
+            localStorage.setItem('server-error' , 'server-error')
+            this._router.navigate(['/server-error'])
+          }
         }
       );
     }

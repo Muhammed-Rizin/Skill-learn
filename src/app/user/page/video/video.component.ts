@@ -54,7 +54,17 @@ export class VideoComponent  implements OnInit, OnDestroy{
   @ViewChild('leave') leave !: ElementRef;
 
   async ngOnInit() {
-    this.userService.getUserData().subscribe((data) => {this.userData = data, console.log(data)})
+    this.userService.getUserData().subscribe(
+      (data) => {
+        this.userData = data
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this.router.navigate(['/server-error'])
+        }
+      }
+    )
     setTimeout(() => {
     this.videoService.setupSocketConnection(this.userData._id)
       this.route.params.subscribe((params) => {
@@ -63,11 +73,20 @@ export class VideoComponent  implements OnInit, OnDestroy{
           this.videoService.join(this.roomId)
           const toUserEmail = this.roomId.replace(this.userData.email, '')
           this.videoService.newUserJoined(this.roomId, toUserEmail, this.userData.email)
-          this.userService.getProfessionalDataByEmail(toUserEmail).subscribe((data) => this.toUserData = data)
+          this.userService.getProfessionalDataByEmail(toUserEmail).subscribe(
+            (data) => {
+              this.toUserData = data
+            },
+            (err) => {
+              if(err.status == 500) {
+                localStorage.setItem('server-error' , 'server-error')
+                this.router.navigate(['/server-error'])
+              }
+            }
+          )
         }
       })
       this.videoService.socket.on('user-disconnected', () => {
-        console.log('user disconnected')
         this.handleUserLeft()
       })
       this.init()
@@ -77,12 +96,10 @@ export class VideoComponent  implements OnInit, OnDestroy{
 
   async init() {
     this.videoService.memberJoined((err, memberId) => {
-      console.log('new member', memberId)
       this.createOffer()
     })
 
     this.videoService.receiveMessage((err, data) => {
-      console.log(data.type, ':', data)
       this.handleMessage(data)
     })
     
@@ -105,11 +122,6 @@ export class VideoComponent  implements OnInit, OnDestroy{
       }
     }
   }
-
-  // handleJoin(memberID  : string) {
-  //   console.log(memberID)
-  // }
-
   async createPeerConnection() {
     this.peerConnection = new RTCPeerConnection(this.servers);
 
@@ -135,8 +147,6 @@ export class VideoComponent  implements OnInit, OnDestroy{
     };
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
-        console.log('icecandidate', event.candidate);
-
         this.videoService.sendmessage({ type: 'candidate', candidate: event.candidate }, this.roomId)
       }
     };
@@ -176,7 +186,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
       this.video.nativeElement.style.backgroundColor = 'rgb(255, 80, 80)'
     } else {
       videoTrack.enabled = true
-      this.video.nativeElement.style.backgroundColor = 'rgb(179, 102, 249, .9)'
+      this.video.nativeElement.style.backgroundColor = 'rgb(72, 170, 255)'
     }
   }
 
@@ -189,7 +199,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
       this.audio.nativeElement.style.backgroundColor = 'rgb(255, 80, 80)'
     } else {
       audioTrack.enabled = true
-      this.audio.nativeElement.style.backgroundColor = 'rgb(179, 102, 249, .9)'
+      this.audio.nativeElement.style.backgroundColor = 'rgb(72, 170, 255)'
     }
   }
 

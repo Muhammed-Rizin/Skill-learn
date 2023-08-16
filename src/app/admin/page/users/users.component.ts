@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { selectLoadingTotalUsers, selectLoadingUsers, selectTotalUsers, selectUsers } from '../../store/admin.selector';
 import { loadTotalUsers, loadUsers, userBlocking, userunBlocking } from '../../store/admin.actions';
 import { PageEvent } from '@angular/material/paginator';
-import { User } from '../../types/admin.types';
+import { Professional, User } from '../../types/admin.types';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +17,7 @@ export class UsersComponent {
   loading$ !: boolean
   page : number 
   limit : number 
+  total !: number
   
   constructor(
     private store : Store,
@@ -25,8 +26,13 @@ export class UsersComponent {
     this.store.pipe(select(selectUsers)).subscribe((users) => {
       this.users$ = users as User[];
     });
+
     this.store.pipe(select(selectLoadingTotalUsers)).subscribe((loading) => {
       this.loading$ = loading;
+    });
+
+    this.store.pipe(select(selectTotalUsers)).subscribe((loading) => {
+      this.total = (loading as Professional[]).length;
     });
     
     this.page = 1

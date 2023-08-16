@@ -10,7 +10,7 @@ import { ProfessionalService } from 'src/app/services/professional/professional.
 export class VerifyEmailComponent implements OnInit{
   constructor(
     private professionalService : ProfessionalService,
-    private router : Router,
+    private _router : Router,
     private route : ActivatedRoute
   ){}
 
@@ -24,12 +24,15 @@ export class VerifyEmailComponent implements OnInit{
     );
     const token = this.token
     if(this.token.length === 0){
-      this.router.navigate(['/'])
+      this._router.navigate(['/'])
     }else {
       this.professionalService.verifyEmail(token).subscribe(() => {
       },
-      (error) => {
-        this.router.navigate(['/'])
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/professional/server-error'])
+        }
       })
     }
   }

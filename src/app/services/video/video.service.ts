@@ -22,7 +22,6 @@ export class VideoService {
   }
 
   newUserJoined(room : string, to : string, from : string){
-    console.log(room, to, from)
     this.socket.emit('new-call', {room, to, from})
   }
 
@@ -34,7 +33,6 @@ export class VideoService {
   }
 
   sendmessage(message : sendMessageType, roomId : string){
-    console.log(message)
     this.socket.emit('send-message', {message, roomId})
   }
 

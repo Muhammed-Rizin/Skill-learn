@@ -29,7 +29,7 @@ export class ProfessionalProfileComponent implements OnInit{
   reviews$!: Review[]
 
   pageCount : number = 1
-  limit : number = 5
+  limit : number = 2
   totalPage !: number 
   total!: number
 
@@ -52,7 +52,14 @@ export class ProfessionalProfileComponent implements OnInit{
               this.totalPage = Math.ceil(reviews.total / this.limit)
               this.loading = false
             })
-        })
+          },
+          (err) => {
+            if(err.status == 500) {
+              localStorage.setItem('server-error' , 'server-error')
+              this.router.navigate(['/server-error'])
+            }
+          }
+        )
       }else {
         this.router.navigate(['/'])
       }
@@ -85,11 +92,19 @@ export class ProfessionalProfileComponent implements OnInit{
     this.userService.getUserData().subscribe((data) => {
       this.userEmail = data.email;
       this.userId = data._id;
-      this.userService.subscribed(this.userId, this.userData._id).subscribe((data) => {
-        if (data.createdAt) {
-          this.subscribed = this.status(data.createdAt)
+      this.userService.subscribed(this.userId, this.userData._id).subscribe(
+        (data) => {
+          if (data.createdAt) {
+            this.subscribed = this.status(data.createdAt)
+          }
+        },
+        (err) => {
+          if(err.status == 500) {
+            localStorage.setItem('server-error' , 'server-error')
+            this.router.navigate(['/server-error'])
+          }
         }
-      });
+      );
     });
   }
 
@@ -136,9 +151,17 @@ export class ProfessionalProfileComponent implements OnInit{
       handler: (response: any) => {
         if (response.razorpay_payment_id) {
           this.userService.paymentSuccess({amount : amount as number, from, to , paymentId : response.razorpay_payment_id})
-          .subscribe((data) => {
-            this.router.navigate(['/ordersuccess'])
-          })
+          .subscribe(
+            (data) => {
+              this.router.navigate(['/ordersuccess'])
+            },
+            (err) => {
+              if(err.status == 500) {
+                localStorage.setItem('server-error' , 'server-error')
+                this.router.navigate(['/server-error'])
+              }
+            }
+          )
         } else {
           console.log("payment has failed")
         }
@@ -155,11 +178,18 @@ export class ProfessionalProfileComponent implements OnInit{
 
   reviewSubmit() {
     if(this.reviewForm.valid){
-      console.log(this.reviewForm.getRawValue())
       const data = this.reviewForm.getRawValue()
-      this.userService.addReview(data,this.userData._id).subscribe((data) =>{
-        window.location.reload()
-      })
+      this.userService.addReview(data,this.userData._id).subscribe(
+        (data) =>{
+          window.location.reload()
+        },
+        (err) => {
+          if(err.status == 500) {
+            localStorage.setItem('server-error' , 'server-error')
+            this.router.navigate(['/server-error'])
+          }
+        }
+      )
     }else {
       this.markFormControlsAsTouched(this.reviewForm)
     }

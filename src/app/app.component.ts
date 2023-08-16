@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if(localStorage.getItem('userjwt')){
-      console.log('hi')
       this.userRequestPermission();
     }
     if(localStorage.getItem('professional_token')){
@@ -37,7 +36,6 @@ export class AppComponent implements OnInit {
 
 
     this._notifcation.status.subscribe((msg) => {
-      console.log(msg)
       if(msg === null){
         this.showToast = false
       }else { 
@@ -69,7 +67,6 @@ export class AppComponent implements OnInit {
     const messaging = getMessaging();
     getToken(messaging, { vapidKey: environment.firebase.vapidKey }).then(
       (currentToken) => {
-        console.log(currentToken)
         if (currentToken) {
           if(localStorage.getItem('notification') !== currentToken){
             this._professionalService.addNotificationToken(currentToken).subscribe(data => {})
@@ -89,7 +86,7 @@ export class AppComponent implements OnInit {
     onMessage(messaging, (payload) => {
       const data : msgType= {
         notification : payload.notification as notification,
-        data : payload.data
+        data : payload.data as {roomId : string}
       }
       this._notifcation.showToast(data)
     });

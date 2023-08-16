@@ -7,7 +7,7 @@
         </div>
         <div *ngIf="loading$">Loading...</div>
         <mat-paginator  *ngIf="!loading$ && professionals$.length !== 0" 
-          [length]=" professionals$.length "
+          [length]=" total "
           [pageSize]="5"
           [pageSizeOptions]="[5, 10, 25, 100]"
           (page)="pageChange($event)"
@@ -30,19 +30,19 @@
                 <tbody>
                   <tr *ngFor="let professional of professionals$; let i = index">
                     <th scope="row">{{(page -1) * limit + i+1}}</th>
-                    <td>{{professional.firstName}}</td>
-                    <td>{{professional.email}}</td>
+                    <td>{{professional.firstName.trim()}}</td>
+                    <td>{{professional.email.trim()}}</td>
                     <td>
-                        <p *ngIf="professional.location">{{professional.location}}</p>
-                        <p class="text-danger" *ngIf="!professional.location">Not provided</p>
+                        <p *ngIf="professional.location.trim()">{{professional.location.trim()}}</p>
+                        <p class="text-danger" *ngIf="!professional.location.trim()">Not provided</p>
                     </td>
                     <td>
-                        <p *ngIf="professional.education">{{professional.education}}</p>
-                        <p class="text-danger" *ngIf="!professional.education">Not provided</p>
+                        <p *ngIf="professional.education.trim()">{{professional.education.trim()}}</p>
+                        <p class="text-danger" *ngIf="!professional.education.trim()">Not provided</p>
                     </td>
                     <td>
-                        <p *ngIf="professional.emailVerified">verified</p>
-                        <p class="text-danger" *ngIf="!professional.emailVerified">Not verified</p>
+                        <p *ngIf="professional.emailVerified" class="status active-button">verified</p>
+                        <p class="status expired" *ngIf="!professional.emailVerified">Not verified</p>
                     </td>
                     <td>
                         <button (click)="unblock(professional._id, professional.firstName)" *ngIf="professional.blocked">Unblock</button>

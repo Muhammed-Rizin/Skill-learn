@@ -121,7 +121,7 @@ export interface Review {
 
 export interface msgType {
     notification : notification,
-    data : data | any
+    data : data 
 }
 
 export interface data {

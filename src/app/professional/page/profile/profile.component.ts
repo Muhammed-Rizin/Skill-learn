@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { professionalData } from '../../types/professional.types';
 import { Review } from 'src/app/user/types/user.types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,17 +19,19 @@ export class ProfileComponent {
   loading: boolean = true
 
   pageCount : number = 1
-  limit : number = 5
+  limit : number = 2
   totalPage !: number 
   total!: number
 
   imageUrl !: string | Observable<string>
   constructor(
-    private _professionalService : ProfessionalService
+    private _professionalService : ProfessionalService,
+    private _router : Router
   ){}
 
   ngOnInit(): void {
-    this._professionalService.getProfessionalData().subscribe((data) => {
+    this._professionalService.getProfessionalData().subscribe(
+      (data) => {
       this.userData = data
       this.userData.bio = this.userData.bio?.trim()
       this.userData.location = this.userData.location?.trim()
@@ -46,7 +49,14 @@ export class ProfileComponent {
         this.totalPage = Math.ceil(reviews.total / this.limit)
         this.loading = false
       })
-    })
+    },
+    (err) => {
+      if(err.status == 500) {
+        localStorage.setItem('server-error' , 'server-error')
+        this._router.navigate(['/professional/server-error'])
+      }
+    }
+  )
   }
   submit( field : string){
     if(
@@ -81,7 +91,11 @@ export class ProfileComponent {
 
       this._professionalService.submitFile(formData, this.userData._id).subscribe(
         (data) => {},
-        (error) => {
+        (err) => {
+          if(err.status == 500) {
+            localStorage.setItem('server-error' , 'server-error')
+            this._router.navigate(['/professional/server-error'])
+          }
         }
       );
     }

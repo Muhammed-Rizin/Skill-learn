@@ -2,7 +2,7 @@
 <div class="content">
   <div class="body">
     <div *ngIf="loading$">Loading...</div>
-    <mat-paginator *ngIf="!loading$ && users$.length !== 0" [length]="users$.length" [pageSize]="5"
+    <mat-paginator *ngIf="!loading$ && users$.length !== 0" [length]="total" [pageSize]="5"
       [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChange($event)" aria-label="Select page">
     </mat-paginator>
     <div class="table-div table-responsive" *ngIf="!loading$">
@@ -23,19 +23,19 @@
         <tbody>
           <tr *ngFor="let user of users$; let i = index">
             <th scope="row">{{(page -1) * limit + i+1}}</th>
-            <td>{{user.firstName}}</td>
-            <td>{{user.email}}</td>
+            <td>{{user.firstName.trim()}}</td>
+            <td>{{user.email.trim()}}</td>
             <td>
-              <p *ngIf="user.location">{{user.location}}</p>
-              <p class="text-danger" *ngIf="!user.location">Not provided</p>
+              <p *ngIf="user.location.trim()">{{user.location.trim()}}</p>
+              <p class="text-danger" *ngIf="!user.location.trim()">Not provided</p>
             </td>
             <td>
-              <p *ngIf="user.education">{{user.education}}</p>
+              <p *ngIf="user.education.trim()">{{user.education.trim()}}</p>
               <p class="text-danger" *ngIf="!user.education">Not provided</p>
             </td>
             <td>
-              <p *ngIf="user.emailVerified">verified</p>
-              <p class="text-danger" *ngIf="!user.emailVerified">Not verified</p>
+              <p *ngIf="user.emailVerified" class="status active">verified</p>
+              <p class="text-danger" *ngIf="!user.emailVerified" class="status expired">Not verified</p>
             </td>
             <td>
               <button (click)="unblock(user._id, user.firstName)" *ngIf="user.blocked">Unblock</button>

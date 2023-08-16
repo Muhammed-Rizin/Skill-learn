@@ -33,7 +33,6 @@ export class NotificationService {
   }
 
   pushNotification(title : string, body : string, to : string, image : string) {
-    console.log('notification on process')
     const data = {
       notification : {
         title : title,
@@ -42,12 +41,10 @@ export class NotificationService {
       },
       to : to
     }
-      console.log(data)
     this.http.post('https://fcm.googleapis.com/fcm/send',data, httpOptions).subscribe()
   }
 
   pushCall(title : string , body : string, to : string, image : string, roomid : string){
-    console.log('notification on process')
     const data = {
       notification : {
         title : title,
@@ -59,7 +56,6 @@ export class NotificationService {
       },
       to : to
     }
-    console.log(data)
     this.http.post('https://fcm.googleapis.com/fcm/send',data, httpOptions).subscribe()
   }
 }
