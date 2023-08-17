@@ -41,10 +41,6 @@ a:hover {
     color: black;
 }
 
-.active {
-    border-bottom: 1.6px solid #00A4BD;
-}
-
 .body {
     padding: 6rem 1rem 6rem 1rem;
 }

@@ -62,8 +62,8 @@
                         <div class="review-details mt-3">
                             <div class="user-header">
                                 <div class="image">
-                                    <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image">
-                                    <img src="../../../assets/null-icon.jpg" alt="" *ngIf="!review?.user?.image">
+                                    <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image?.trim()">
+                                    <img src="../../../../assets/null-icon.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
                                 </div>
                                 <div class="name">
                                     <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>
