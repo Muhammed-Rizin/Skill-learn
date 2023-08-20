@@ -27,6 +27,7 @@ import { ScheduledComponent } from './page/scheduled/scheduled.component';
 import { VideoComponent } from './page/video/video.component';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     FormsModule,
     MatMenuModule,
-    NgbModule
+    NgbModule,
+    MatProgressBarModule
   ],
   exports : [RouterModule]
 })

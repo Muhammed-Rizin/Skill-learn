@@ -31,6 +31,10 @@ export class ProfessionalService {
   }
 
 
+  checkEmail(email : string): Observable<{message : string}> {
+    return this.http.get<{message : string}>(`${this.apiUrl}/professional/checkemail?email=${email}`, httpOptions)
+  }
+
   getProfessionalDetails(token : string) : Observable<professionalData> {
     return this.http.get<professionalData>(`${this.apiUrl}/professional/forgetpassword/professional_details?token=${token}`, httpOptions)
   }
@@ -63,8 +67,10 @@ export class ProfessionalService {
     return this.http.get<ChatData[]>(`${this.apiUrl}/professional/getchats`, httpOptions)
   }
 
-  getChatHistory(roomId : string) : Observable<ChatData> {
-    return this.http.get<ChatData>(`${this.apiUrl}/professional/getchathistory?roomid=${roomId}`, httpOptions)
+  getChatHistory(roomId : string, page : number, limit : number) : Observable<{chatData : ChatData, total : number}> {
+    return this.http.get<{chatData : ChatData, total : number}>(
+      `${this.apiUrl}/professional/getchathistory?roomid=${roomId}&page=${page}&limit=${limit}`
+      , httpOptions)
   }
 
   updateReadStatus(roomId : string){
@@ -119,5 +125,9 @@ export class ProfessionalService {
 
   addNotificationToken(token : string) {
     return this.http.patch(`${this.apiUrl}/professional/setnotification`,{token}, httpOptions)
+  }
+
+  meetingDone(id : string) {
+    return this.http.patch(`${this.apiUrl}/professional/meetingdone`,{id}, httpOptions)
   }
 }

@@ -181,7 +181,7 @@ export class ProfessionalProfileComponent implements OnInit{
       const data = this.reviewForm.getRawValue()
       this.userService.addReview(data,this.userData._id).subscribe(
         (data) =>{
-          window.location.reload()
+         window.location.reload()
         },
         (err) => {
           if(err.status == 500) {

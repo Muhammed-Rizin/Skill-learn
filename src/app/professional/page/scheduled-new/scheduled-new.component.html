@@ -1,4 +1,5 @@
-<div class="header">
+<mat-progress-bar mode="indeterminate" *ngIf=" loading$"></mat-progress-bar>
+<div class="header" *ngIf="!loading$">
     <app-nav-bar></app-nav-bar>
     <div class="body">
         <div class="center-div">

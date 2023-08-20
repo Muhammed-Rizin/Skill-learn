@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class TaskNewComponent implements OnInit{
   form !: FormGroup
   users : userData[] = []
+  loading$ : boolean = true
   constructor(
     private _formBuilder : FormBuilder,
     private _professionalService : ProfessionalService,
@@ -40,6 +41,7 @@ export class TaskNewComponent implements OnInit{
             this.users.push(value.from as userData)
           }
         })
+        this.loading$ = false
       },
       (err) => {
         if(err.status == 500) {

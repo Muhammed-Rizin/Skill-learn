@@ -31,6 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environment/environment';
 import { NotificationService } from './services/notification/notification.service';
 import { ServerErrorComponent } from './error/server-error/server-error.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { ServerErrorComponent } from './error/server-error/server-error.componen
     MatButtonModule,
     MatDialogModule,
     MatMenuModule,
-    NgbModule
+    NgbModule,
+    MatProgressBarModule
   ],
   providers: [UserService, ProfessionalService, AdminService, NotificationService, {
     provide:HTTP_INTERCEPTORS,

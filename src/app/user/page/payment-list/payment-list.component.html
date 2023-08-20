@@ -1,9 +1,9 @@
-<div class="body">
+<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
+<div class="body" *ngIf="!loading">
     <app-nav-bar></app-nav-bar>
     <div class="content">
-        <div *ngIf="loading">Loading...</div>
 
-        <h3 *ngIf="!loading && !paymentHistory?.length" class="empty-message">Empty</h3>
+        <h3 *ngIf="!paymentHistory?.length" class="empty-message">Empty</h3>
         <div class="table-div table-responsive" *ngIf="paymentHistory?.length">
             <table class="table">
                 <thead>

@@ -90,7 +90,9 @@ export class ProfileComponent {
       formData.append('image', file, file.name)
 
       this._professionalService.submitFile(formData, this.userData._id).subscribe(
-        (data) => {},
+        (data) => {
+          window.location.reload()
+        },
         (err) => {
           if(err.status == 500) {
             localStorage.setItem('server-error' , 'server-error')

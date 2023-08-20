@@ -1,8 +1,8 @@
-<div class="body">
+<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
+<div class="body" *ngIf="!loading">
     <app-nav-bar></app-nav-bar>
     <div class="container mt-2">
-        <div *ngIf="loading">Loading...</div>
-        <div class="userdetails row" *ngIf="!loading">
+        <div class="userdetails row" >
             <div class="col-12 col-lg-3 profileimage">
                 <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" name="profile"/>
                 <img [src]="userData.image"

@@ -9,28 +9,35 @@
             <div class="email">
                 <p>Email</p>
                 <input type="email" formControlName="email" class="email-input">
-                <p class="validation" *ngIf="form.get('email')?.touched && form.controls['email'].errors?.['required']">Email is required</p>
-                <p class="validation" *ngIf="form.get('email')?.touched && form.controls['email'].errors?.['email']">Enter valid email</p>
+                <p class="validation" *ngIf="form.get('email')?.touched && form.controls['email'].errors?.['required']">
+                    Email is required</p>
+                <p class="validation" *ngIf="form.get('email')?.touched && form.controls['email'].errors?.['email']">
+                    Enter valid email</p>
             </div>
             <div class="password">
                 <p>Password</p>
-                <input type="password" formControlName="password" class="email-input">
-                <p class="validation" *ngIf="form.get('password')?.touched && form.controls['password'].errors?.['required']">password is required</p>
-                <p class="validation" *ngIf="form.get('password')?.touched && form.controls['password'].errors?.['minlength']">Minimum 8 charecters required</p>
+                <input type="password" formControlName="password" class="password-input">
+                <p class="validation"
+                    *ngIf="form.get('password')?.touched && form.controls['password'].errors?.['required']">Password is
+                    required</p>
+                <p class="validation"
+                    *ngIf="form.get('password')?.touched && form.controls['password'].errors?.['minlength']">Minimum 8
+                    characters required</p>
             </div>
             <div class="forget-password mt-4">
-                <a routerLink="/professional/forgotpassword">Forgot password?</a>
+                <a routerLink="/forgotpassword">Forgot password?</a>
             </div>
             <div class="login-button mt-5">
-                <button type="submit" *ngIf="!loading$">Login with Email</button>
+                <button type="submit" *ngIf="!loading$">Login</button>
                 <button type="submit" *ngIf="loading$">Loading...</button>
                 <div class="or">
-                    <hr><span>Or</span><hr>
+                    <hr><span>Or</span>
+                    <hr>
                 </div>
             </div>
         </form>
         <div class="google-button">
-
+            <!-- Google login button here -->
         </div>
         <p class="sign-up">Don't have an account? <a routerLink="/professional/sign-up">Sign up</a></p>
     </div>

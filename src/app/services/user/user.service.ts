@@ -30,6 +30,10 @@ export class UserService {
     return localStorage.getItem('userjwt') ? true : false
   }
 
+  checkEmail(email : string): Observable<{message : string}> {
+    return this.http.get<{message : string}>(`${this.apiUrl}/user/checkemail?email=${email}`, httpOptions)
+  }
+
 
   userRegister(data : registerUserType) : Observable<userData>{
     return this.http.post<userData>(`${this.apiUrl}/user/register`, data, httpOptions)
@@ -64,8 +68,10 @@ export class UserService {
     return this.http.get<ChatData[]>(`${this.apiUrl}/user/getchats`, httpOptions)
   }
 
-  getChatHistory(roomId : string) : Observable<ChatData> {
-    return this.http.get<ChatData>(`${this.apiUrl}/user/getchathistory?roomid=${roomId}`, httpOptions)
+  getChatHistory(roomId : string, page : number, limit : number) : Observable<{chatData : ChatData, total : number}> {
+    return this.http.get<{chatData : ChatData, total : number}>(
+      `${this.apiUrl}/user/getchathistory?roomid=${roomId}&page=${page}&limit=${limit}`
+      , httpOptions)
   }
 
   updateReadStatus(roomId : string){

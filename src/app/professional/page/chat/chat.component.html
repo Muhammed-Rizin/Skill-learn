@@ -1,8 +1,9 @@
-<div class="body">
+<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
+<div class="body" *ngIf=" !loading && alreadyMessaged">
   <app-nav-bar></app-nav-bar>
-  <div class="preloader" *ngIf=" loading">
+  <!-- <div class="preloader" *ngIf=" loading">
     <div class="loader"></div>
-  </div>
+  </div> -->
   <div class="container">
     <div class="content-wrapper mt-3">
       <div class="row">
@@ -56,15 +57,23 @@
               <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="chatHistory">
                 <div class="selected-user">
                   <div>
-                    <img [src]="getUserDetails(chatHistory).image"  class="profile" *ngIf="getUserDetails(chatHistory)?.image?.trim()">
-                    <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
-                    <span class="name">{{getUserDetails(chatHistory).firstName + " " + getUserDetails(chatHistory).lastName}}</span>
+                    <img [src]="toUserData.image"  class="profile" *ngIf="toUserData?.image?.trim()">
+                    <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!toUserData?.image?.trim()">
+                    <span class="name">{{toUserData.firstName + " " + toUserData.lastName}}</span>
                   </div>
                   <div class="control-container">
-                    <img [routerLink]="['/professional/video', getRoomId(getUserDetails(chatHistory).email)]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
+                    <img [routerLink]="['/professional/video', getRoomId(toUserData.email)]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
                   </div>
                 </div>
-                <div class="chat-container"  #chatContainer>
+
+                <div class="chat-container"  #chatContainer >
+                  <div class="load-more">
+                    <button class="load-more-button" (click)="moreChat()" *ngIf="totalPages !== page && !chatLoading">
+                      Show More Messages
+                    </button>
+                    <p class="loading-text" *ngIf="chatLoading">Loading...</p>
+                  </div>
+
                   <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
                     <li class="chat-left" *ngIf="message.senderType !== 'Professional'">
                       <div class="chat-avatar">
@@ -79,9 +88,9 @@
                       <!-- <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div> -->
                       <div class="chat-text">{{ message.text }}</div>
                       <div class="chat-avatar">
-                        <img [src]="userData.image" *ngIf="userData?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!userData?.image?.trim()">
-                        <div class="chat-name">{{userData.firstName}}</div>
+                        <img [src]="professionalData.image" *ngIf="professionalData?.image?.trim()">
+                        <img src="../../../../assets/null-icon.jpg" *ngIf="!professionalData?.image?.trim()">
+                        <div class="chat-name">{{professionalData.firstName}}</div>
                       </div>
                     </li>
                     

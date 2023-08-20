@@ -10,8 +10,8 @@
 
     <div class="toast-container" *ngIf="message?.data?.roomId">
       <div class="toast-content">
-        <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon">
-        <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon">
+        <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon?.trim()">
+        <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon?.trim()">
         <div class="user-info">
           <span class="name">{{message?.notification?.title}}</span>
           <span class="message">{{message?.notification?.body}}</span>

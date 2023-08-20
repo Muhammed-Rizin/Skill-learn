@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { professionalData, professionalType } from '../../types/professional.types';
 import { professionalRegister } from '../../store/professional.actions';
 import { selectRegisterError, selectRegisterLoading, selectRegisterUserData } from '../../store/professional.selector';
+import { ProfessionalService } from 'src/app/services/professional/professional.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,6 +17,13 @@ export class SignUpComponent {
   passwordForm !: FormGroup
   userNameForm !: FormGroup
   educationForm !: FormGroup
+
+  loading : boolean = false
+  characters : boolean = false
+  lowerCase : boolean = false
+  upperCase : boolean = false
+  oneNumber : boolean = false
+  error !: string
 
   error$ : Observable<String> | string
   loading$ : Observable<boolean> | boolean
@@ -30,7 +38,8 @@ export class SignUpComponent {
   }
   constructor(
     private formBuilder : FormBuilder,
-    private store : Store
+    private store : Store,
+    private professionalService : ProfessionalService
   ){
     this.error$ = this.store.pipe(
       select(selectRegisterError),
@@ -50,7 +59,7 @@ export class SignUpComponent {
         email : ['', [Validators.required, Validators.email]]
       })
       this.passwordForm = this.formBuilder.group({
-        password : ['', [Validators.minLength(8), Validators.required]]
+        password : ['', Validators.required]
       })
       this.userNameForm = this.formBuilder.group({
         firstName : ['', Validators.required],
@@ -63,22 +72,11 @@ export class SignUpComponent {
   next(){
     // Email 
     if(this.pageCount === 1){
-      if(this.emailForm.valid){
-        const emailData = this.emailForm.getRawValue()
-        this.data['email'] = emailData.email
-        this.pageCount++
-      }else {
-        this.markFormControlsAsTouched(this.emailForm);
-      }
+      this.emailSubmit()
     }
     // Password
     else if(this.pageCount === 2){
-      if(this.passwordForm.valid){
-        this.data['password'] = this.passwordForm.value.password
-        this.pageCount++
-      }else {
-        this.markFormControlsAsTouched(this.passwordForm)
-      }
+      this.passwordSubmit()
     }
 
     // UserName 
@@ -91,10 +89,77 @@ export class SignUpComponent {
         this.markFormControlsAsTouched(this.userNameForm)
       }
     }
+    this.error$ = ""
+  }
+
+  passwordSubmit() {
+    console.log('hi', this.error$ as string, this.oneNumber && this.upperCase && this.lowerCase && this.characters)
+    if(this.oneNumber && this.upperCase && this.lowerCase && this.characters){
+      this.data['password'] = this.passwordForm.value.password
+      this.pageCount++
+      this.error = ""
+    }else {
+      this.error = "Password must be strong"
+      this.markFormControlsAsTouched(this.passwordForm)
+    }
+  }
+
+  passwordCheck(){
+    const password = this.passwordForm.value.password
+
+    if (password.length > 8) {
+      this.characters = true
+    }else {
+      this.characters = false
+    }
+    if (/[A-Z]/.test(password)) {
+      this.upperCase = true
+    }else {
+      this.upperCase = false
+    }
+    if (/[a-z]/.test(password)) {
+      this.lowerCase = true
+    }else {
+      this.lowerCase = false
+    }
+    if (/\d/.test(password)) {
+      this.oneNumber = true
+    }else {
+      this.oneNumber = false
+    }
+
+    if(this.oneNumber && this.upperCase && this.lowerCase && this.characters){
+      this.error = ""
+    }
+  }
+
+  emailSubmit() {
+    if(this.emailForm.valid){
+      this.loading = true
+      const emailData = this.emailForm.getRawValue()
+      this.professionalService.checkEmail(emailData.email).subscribe(
+        (res) => {
+          this.data.email = emailData?.email || ''
+          this.pageCount++
+          this.loading = false
+          console.log('i')
+        },
+        (err) => {
+          if(err.status === 400) {
+            this.error$ = err.error.message
+            this.loading = false
+          }
+        }
+      )
+
+    }else {
+      this.markFormControlsAsTouched(this.emailForm);
+    }
   }
 
   back(){
     this.pageCount--
+    this.error$ = ""
   }
 
   submit() {
@@ -102,6 +167,7 @@ export class SignUpComponent {
       this.data['education'] = this.educationForm.value.education
       const data = this.data
       this.store.dispatch(professionalRegister({professionalData : data}))
+      this.error$ = ""
     }
   }
 

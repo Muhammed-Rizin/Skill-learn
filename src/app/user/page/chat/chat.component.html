@@ -1,12 +1,12 @@
-<div class="body">
-
+<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
+<div class="body" *ngIf=" !loading && alreadyMessaged">
   <app-nav-bar></app-nav-bar>
-  <div class="preloader" *ngIf=" loading">
+  <!-- <div class="preloader" *ngIf=" loading">
     <div class="loader"></div>
-  </div>
+  </div> -->
   <div class="container" >
     <div class="content-wrapper mt-3">
-      <div class="row" *ngIf=" !loading && alreadyMessaged">
+      <div class="row" >
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="card m-0">
             <div class="row no-gutters">
@@ -54,10 +54,19 @@
                     
                   </div>
                 </div>
+                
+                <!-- <mat-progress-bar mode="indeterminate" *ngIf="chatHistoryLoading"></mat-progress-bar> -->
 
-                <div class="chat-container"  #chatContainer *ngIf="chatHistory">
+                <div class="chat-container"  #chatContainer >
+                  
+                  <div class="load-more">
+                    <button class="load-more-button" (click)="onScroll()" *ngIf="totalPages !== page && !chatLoading">
+                      Show More Messages
+                    </button>
+                    <p class="loading-text" *ngIf="chatLoading">Loading...</p>
+                  </div>
+
                   <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
-
                     <li class="chat-left" *ngIf="message.senderType === 'Professional'">
                       <div class="chat-avatar">
                         <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">

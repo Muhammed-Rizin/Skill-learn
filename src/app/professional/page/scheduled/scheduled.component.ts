@@ -4,6 +4,7 @@ import { ProfessionalService } from 'src/app/services/professional/professional.
 import { Store, select } from '@ngrx/store';
 import { selectInprogressScheduleData, selectInprogressScheduleLoading, selectInprogressTotalSchedule } from '../../store/professional.selector';
 import { getInprogressSchedule } from '../../store/professional.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scheduled',
@@ -19,7 +20,9 @@ export class ScheduledComponent implements OnInit {
   totalPage !: number 
 
   constructor(
-    private readonly _store : Store
+    private readonly _store : Store,
+    private readonly _professionalService : ProfessionalService,
+    private readonly _router : Router
   ){
     this._store.pipe(select(selectInprogressScheduleData)).subscribe((tasks)=> {
       this.tasks = tasks
@@ -54,5 +57,20 @@ export class ScheduledComponent implements OnInit {
     this.pageCount --
     const page = this.pageCount
     this._store.dispatch(getInprogressSchedule({page}))
+  }
+
+  taskDone(id : string) {
+    this._professionalService.meetingDone(id).subscribe(
+      (data)=> {
+        const page = this.pageCount
+        this._store.dispatch(getInprogressSchedule({page}))
+      },
+      (err) => {
+        if(err.status == 500) {
+          localStorage.setItem('server-error' , 'server-error')
+          this._router.navigate(['/server-error'])
+        }
+      }
+    )
   }
 }

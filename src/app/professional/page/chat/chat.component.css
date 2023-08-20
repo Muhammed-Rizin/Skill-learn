@@ -491,3 +491,25 @@ ul {
   border-color: transparent #128C7E transparent transparent !important;
 }
 
+
+.load-more {
+  text-align: center;
+}
+
+.load-more-button {
+  background-color: transparent;
+  color: #999;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+  color: black;
+}
+
+.loading-text {
+  color: #999;
+  font-size: 14px;
+}

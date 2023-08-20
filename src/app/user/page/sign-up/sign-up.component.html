@@ -8,6 +8,7 @@
             </div>
             <form [formGroup]="emailForm" (submit)="next()">
                 <div class="email">
+                    <p class="validation">{{error$}}</p>
                     <p>Email</p>
                     <input type="email" class="email-input" formControlName="email">
                     <p class="validation" 
@@ -15,8 +16,9 @@
                     <p class="validation" 
                     *ngIf="emailForm.get('email')?.touched && emailForm.controls['email'].errors?.['email']">Enter valid email</p>
                 </div>
-                <div class="login-button mt-5">
-                    <button type="submit">Create account</button>
+                <div class="login-button">
+                    <button type="submit" *ngIf="!loading">Create Account</button>
+                    <button type="submit" *ngIf="loading">Loading...</button>
                     <div class="or mt-5">
                         <hr><span>Or</span><hr>
                     </div>
@@ -28,47 +30,37 @@
         </div>
     </div>
 </ng-container>
-<!-- <ng-container *ngIf="pageCount === 2">
-    <div class="body">
-        <div class="center-div">
-            <div class="heading">
-                <h1>Enter OTP</h1>
-            </div>
-            <form [formGroup]="otpForm" (submit)="next()">
-                <div class="email">
-                    <p>OTP</p>
-                    <input type="number" class="email-input number-input" formControlName="otp">
-                    <p class="validation" 
-                    *ngIf="otpForm.get('otp')?.touched && otpForm.controls['otp'].errors?.['required']">Enter OTP</p>
-                   
-                </div>
-                <div class="login-button mt-5">
-                    <button type="submit">Login with Email</button>
-                    <div class="or mt-5">
-                        <hr><span>Or</span><hr>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</ng-container> -->
 <ng-container *ngIf="pageCount === 2">
     <div class="body">
         <div class="center-div">
-            <!-- <a (click)="back()" class="back-button">Back</a> -->
+            <a (click)="back()" class="back-button">Back</a>
             <div class="heading">
                 <h1>Create your password</h1>
             </div>
             <form [formGroup]="passwordForm" (submit)="next()">
                 <div class="email">
                     <p>password</p>
-                    <input type="password" class="email-input" formControlName="password">
-                    <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['required']">password is required</p>
-                <p class="validation" *ngIf="passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['minlength']">Minimum 8 charecters required</p>
+                    <input type="password" class="email-input" (keyup)="passwordCheck()" formControlName="password">
+                    <p class="validation" *ngIf=" !error &&passwordForm.get('password')?.touched && passwordForm.controls['password'].errors?.['required']">password is required</p>
+                <p class="validation">{{error}}</p>
                 </div>
-                <div class="charecter-limit mt-5">
-                    <div></div>
-                    <p class="w-100">At least 8 characters</p>
+                <div class="strength-check  mb-3 mt-2">
+                    <div class="charecter-limit">
+                        <div class="valid" [ngClass]="{'active' : characters}"></div>
+                        <p class="">At least 8 characters</p>
+                    </div>
+                    <div class="charecter-limit">
+                        <div class="valid" [ngClass]="{'active' : upperCase}"></div>
+                        <p class="">One lowercase character</p>
+                    </div>
+                    <div class="charecter-limit">
+                        <div class="valid" [ngClass]="{'active' : lowerCase}"></div>
+                        <p class="">One uppercase character</p>
+                    </div>
+                    <div class="charecter-limit">
+                        <div class="valid" [ngClass]="{'active' : oneNumber}"></div>
+                        <p class="">One number</p>
+                    </div>
                 </div>
                 <div class="otp-button ">
                     <button type="submit">Next</button>
@@ -78,7 +70,6 @@
     </div>
 </ng-container>
 <ng-container *ngIf="pageCount === 3">
-    <!-- <app-user-name></app-user-name> -->
     <div class="body">
         <div class="center-div">
             <a (click)="back()" class="back-button">Back</a>
@@ -114,7 +105,7 @@
             </div>
             <form [formGroup]="educationForm" (submit)="submit()">
                 <div class="inputs">
-                    <p class="validation">{{error$}}</p>
+
                     <div class="email">
                         <p>higher level of education</p>
                         <input type="text" class="email-input" formControlName="education">
@@ -125,7 +116,8 @@
                     
                 </div>
                 <div class="otp-button mt-5">
-                    <button type="submit">Next</button>
+                    <button type="submit" *ngIf="!loading">Next</button>
+                    <button type="submit" *ngIf="loading">Loading...</button>
                 </div>
             </form>
         </div>

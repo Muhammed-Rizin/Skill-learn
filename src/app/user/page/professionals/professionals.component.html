@@ -1,9 +1,7 @@
-<div class="body">
+<mat-progress-bar mode="indeterminate" *ngIf=" loading$"></mat-progress-bar>
+<div class="body" *ngIf="!loading$">
     <app-nav-bar></app-nav-bar>
-    <div class="content"  *ngIf="loading$">
-        <div>Loading...</div>
-    </div>
-    <div class="content row" *ngIf="!loading$">
+    <div class="content row" >
         <div class="col-8 professionals ">
         </div>
         <div class="col-4">

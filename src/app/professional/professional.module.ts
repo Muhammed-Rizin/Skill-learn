@@ -29,6 +29,7 @@ import { ScheduledNewComponent } from './page/scheduled-new/scheduled-new.compon
 import { VideoComponent } from './page/video/video.component';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const route : Routes = [
   
@@ -64,7 +65,8 @@ const route : Routes = [
     MatChipsModule,
     MatMenuModule,
     MatFormFieldModule,
-    NgbModule
+    NgbModule,
+    MatProgressBarModule
   ],
   exports : [RouterModule]
 })

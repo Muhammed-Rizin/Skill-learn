@@ -1,4 +1,5 @@
-<div class="body">
+<mat-progress-bar mode="indeterminate" *ngIf=" loading$"></mat-progress-bar>
+<div class="body" *ngIf="!loading$">
     <app-nav-bar></app-nav-bar>
     <div class="content">
         <div class="navigate">
@@ -8,10 +9,7 @@
             </div>
             <button class="add" routerLink="/professional/schedule/new">Add </button>
         </div>
-        <div class="tasks" *ngIf="loading$">
-            <p>Loading...</p>
-        </div>
-        <div class="tasks" *ngIf="!loading$">
+        <div class="tasks">
             <div class="taskdetails mb-3" *ngFor="let task of tasks">
                 <div class="username">
                     <p class="name">{{task.to.firstName + " " + task.to.lastName}}</p>
@@ -22,9 +20,10 @@
                     <p class="heading">{{task.topic}}</p>
                     <p class="description">{{task.description}}</p>
                     <div class="done">
+                        <div class="done">
                         <p class="completed heading" *ngIf="task.completed">Completed</p>
-                        <p class="not-completed heading" *ngIf="!task.completed">Not completed</p>
-                        <!-- <button class="done-btn">done</button> -->
+                        <button class="done-btn" (click)="taskDone(task._id)" *ngIf="!task.completed">done</button>
+                    </div>
                     </div>
                 </div>
             </div>

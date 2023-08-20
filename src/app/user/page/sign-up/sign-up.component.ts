@@ -5,6 +5,7 @@ import { registerUser } from '../../store/user.action';
 import { Observable, map } from 'rxjs';
 import { selectRegisterError, selectRegisterUserData } from '../../store/user.selector';
 import { registerUserType, userData } from '../../types/user.types';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,20 +17,30 @@ export class SignUpComponent implements OnInit{
   passwordForm !: FormGroup
   userNameForm !: FormGroup
   educationForm !: FormGroup
+  
+  
+  characters : boolean = false
+  lowerCase : boolean = false
+  upperCase : boolean = false
+  oneNumber : boolean = false
+
 
   error$ : Observable<String> | string
+  error !: string
+  loading!: boolean 
 
   pageCount : number = 1
-  data : registerUserType = {
-    email: null,
-    password: null,
-    firstName: null,
-    lastName: null,
-    education: null
+  data : registerUserType ={
+    email : null,
+    password : null,
+    firstName : null,
+    lastName : null,
+    education : null,
   }
   constructor(
     private formBuilder : FormBuilder,
-    private store : Store
+    private store : Store,
+    private _userService : UserService
   ){
     this.error$ = this.store.pipe(
       select(selectRegisterError),
@@ -43,7 +54,7 @@ export class SignUpComponent implements OnInit{
         email : ['', [Validators.required, Validators.email]]
       })
       this.passwordForm = this.formBuilder.group({
-        password : ['', [Validators.minLength(8), Validators.required]]
+        password : ['', Validators.required]
       })
       this.userNameForm = this.formBuilder.group({
         firstName : ['', Validators.required],
@@ -56,22 +67,11 @@ export class SignUpComponent implements OnInit{
   next(){
     // Email 
     if(this.pageCount === 1){
-      if(this.emailForm.valid){
-        const emailData = this.emailForm.getRawValue()
-        this.data.email = emailData.email || ''
-        this.pageCount++
-      }else {
-        this.markFormControlsAsTouched(this.emailForm);
-      }
+      this.emailSubmit()
     }
     // Password
     else if(this.pageCount === 2){
-      if(this.passwordForm.valid){
-        this.data['password'] = this.passwordForm.value.password
-        this.pageCount++
-      }else {
-        this.markFormControlsAsTouched(this.passwordForm)
-      }
+      this.passwordSubmit()
     }
 
     // UserName 
@@ -84,17 +84,63 @@ export class SignUpComponent implements OnInit{
         this.markFormControlsAsTouched(this.userNameForm)
       }
     }
+
+    this.error$ = ""
+  }
+
+  passwordSubmit() {
+    console.log('hi', this.error$ as string, this.oneNumber && this.upperCase && this.lowerCase && this.characters)
+    if(this.oneNumber && this.upperCase && this.lowerCase && this.characters){
+      this.data['password'] = this.passwordForm.value.password
+      this.pageCount++
+      this.error = ""
+    }else {
+      this.error = "Password must be strong"
+      this.markFormControlsAsTouched(this.passwordForm)
+    }
+  }
+
+  passwordCheck(){
+    const password = this.passwordForm.value.password
+
+    if (password.length > 8) {
+      this.characters = true
+    }else {
+      this.characters = false
+    }
+    if (/[A-Z]/.test(password)) {
+      this.upperCase = true
+    }else {
+      this.upperCase = false
+    }
+    if (/[a-z]/.test(password)) {
+      this.lowerCase = true
+    }else {
+      this.lowerCase = false
+    }
+    if (/\d/.test(password)) {
+      this.oneNumber = true
+    }else {
+      this.oneNumber = false
+    }
+
+    if(this.oneNumber && this.upperCase && this.lowerCase && this.characters){
+      this.error = ""
+    }
   }
 
   back(){
     this.pageCount--
+    this.error$ = ""
   }
 
   submit() {
     if(this.educationForm.valid){
       this.data['education'] = this.educationForm.value.education
       const data = this.data
+      this.loading = true
       this.store.dispatch(registerUser({userData : data}))
+      this.error$ = ""
     }
   }
 
@@ -105,5 +151,29 @@ export class SignUpComponent implements OnInit{
         this.markFormControlsAsTouched(control);
       }
     });
+  }
+
+  emailSubmit() {
+    if(this.emailForm.valid){
+      this.loading = true
+      const emailData = this.emailForm.getRawValue()
+      this._userService.checkEmail(emailData.email).subscribe(
+        (res) => {
+          this.data.email = emailData?.email || ''
+          this.pageCount++
+          this.loading = false
+          console.log('i')
+        },
+        (err) => {
+          if(err.status === 400) {
+            this.error$ = err.error.message
+            this.loading = false
+          }
+        }
+      )
+
+    }else {
+      this.markFormControlsAsTouched(this.emailForm);
+    }
   }
 }

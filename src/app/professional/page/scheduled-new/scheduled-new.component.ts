@@ -12,6 +12,8 @@ import { userData } from 'src/app/user/types/user.types';
 export class ScheduledNewComponent implements OnInit {
   form !: FormGroup
   users : userData[] = []
+  loading$ : boolean = true
+
   constructor(
     private _formBuilder : FormBuilder,
     private _professionalService : ProfessionalService,
@@ -39,6 +41,7 @@ export class ScheduledNewComponent implements OnInit {
             this.users.push(value.from as userData)
           }
         })
+        this.loading$ = false
       })
   }
 
@@ -53,7 +56,7 @@ export class ScheduledNewComponent implements OnInit {
       values.time = endTime
       this._professionalService.scheduleMeeting(values).subscribe(
         (data) => {
-        this._router.navigate(['/professional/schedule'])
+          this._router.navigate(['/professional/schedule'])
         },
         (err) => {
           if(err.status == 500) {
