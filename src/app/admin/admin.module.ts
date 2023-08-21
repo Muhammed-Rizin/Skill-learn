@@ -11,6 +11,7 @@ import { ProfessionalsComponent } from './page/professionals/professionals.compo
 import { ProfessionalRequestsComponent } from './page/professional-requests/professional-requests.component';
 import { UsersComponent } from './page/users/users.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AdminRoutingModule } from './admin-routing.module';
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressBarModule
   ],
   exports : [RouterModule]
 })

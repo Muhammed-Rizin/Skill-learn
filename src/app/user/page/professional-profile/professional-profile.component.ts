@@ -58,6 +58,9 @@ export class ProfessionalProfileComponent implements OnInit{
               localStorage.setItem('server-error' , 'server-error')
               this.router.navigate(['/server-error'])
             }
+            if(err.status == 404){
+              this.router.navigate(['/not-found'])
+            }
           }
         )
       }else {

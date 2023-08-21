@@ -233,3 +233,21 @@ a.logout:hover {
     color: #f39c12;
     background-color: #f5e79e;
 }
+
+
+.empty-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Adjust the height as needed */
+}
+
+.empty-message h3 {
+    color: #6B7280;
+    font-family: 'Roboto';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+}

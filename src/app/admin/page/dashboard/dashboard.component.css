@@ -1,10 +1,19 @@
-div.content {
-    margin-left: 200px;
+.body {
+    width: 100%;
+    height: auto;
+    display: flex;
+
+}
+.content {
     color: #374151;
     font-size: 20px;
     line-height: 20px;
-    width: calc(100% - 200px);
-    height: 100vh;
+    width: inherit;
+    padding: 1rem 0 1rem 1rem;
+}
+.row {
+    padding: 0;
+    margin: 0;
 }
 
 @media screen and (max-width: 700px) {
@@ -32,6 +41,8 @@ p {
     font-weight: 500;
     line-height: 16px;
     /* 72.727% */
+    padding: 0;
+    margin: 0;
 }
 
 .users {

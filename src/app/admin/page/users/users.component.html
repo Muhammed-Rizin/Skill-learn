@@ -1,14 +1,15 @@
-<app-side-bar></app-side-bar>
-<div class="content">
-  <div class="body">
-    <div *ngIf="loading$">Loading...</div>
-    <mat-paginator *ngIf="!loading$ && users$.length !== 0" [length]="total" [pageSize]="5"
+<mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
+<app-side-bar *ngIf="!loading$ "></app-side-bar >
+<div class="content" *ngIf="!loading$ ">
+  <div class="empty-message" *ngIf="users$.length === 0">
+      <h3>No users found</h3>
+    </div>
+  <div class="body"  *ngIf="users$.length !== 0">
+    <mat-paginator [length]="total" [pageSize]="5"
       [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChange($event)" aria-label="Select page">
     </mat-paginator>
-    <div class="table-div table-responsive" *ngIf="!loading$">
-
-      <h3 *ngIf="users$.length === 0">No user found</h3>
-      <table class="table" *ngIf="users$.length !== 0">
+    <div class="table-div table-responsive">
+      <table class="table" >
         <thead>
           <tr>
             <th>#</th>

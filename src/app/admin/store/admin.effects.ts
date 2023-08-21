@@ -84,7 +84,7 @@ export class adminEffects {
             ofType(adminActions.userBlocking),
             mergeMap((paylod) => {
                 return this.adminService.blockUser(paylod.id).pipe(
-                    map((user) => adminActions.userBlockingSuccess({user : user})),
+                    map((id) => adminActions.userBlockingSuccess({id : id})),
                     catchError(error => of(adminActions.userBlockingFailure({error: error})))
                 )
             })
@@ -96,7 +96,7 @@ export class adminEffects {
             ofType(adminActions.userunBlocking),
             mergeMap((paylod) => {
                 return this.adminService.unblockUser(paylod.id).pipe(
-                    map((user) => adminActions.userunBlockingSuccess({user : user})),
+                    map((id) => adminActions.userunBlockingSuccess({id : id})),
                     catchError(error => of(adminActions.userunBlockingFailure({error: error})))
                 )
             })
@@ -132,7 +132,7 @@ export class adminEffects {
             ofType(adminActions.approveProfessionals),
             mergeMap((paylod) => {
                 return this.adminService.approveProfessionals(paylod.id).pipe(
-                    map((user) => adminActions.approveProfessionalsSuccess({user : user})),
+                    map((id) => adminActions.approveProfessionalsSuccess({id : id.id})),
                     catchError(error => of(adminActions.approveProfessionalsFailure({error: error})))
                 )
             })
@@ -144,7 +144,7 @@ export class adminEffects {
             ofType(adminActions.rejectProfessionals),
             mergeMap((paylod) => {
                 return this.adminService.rejectProfessionals(paylod.id).pipe(
-                    map((user) => adminActions.rejectProfessionalsSuccess({user : user})),
+                    map((id) => adminActions.rejectProfessionalsSuccess({id : id})),
                     catchError(error => of(adminActions.rejectProfessionalsFailure({error: error})))
                 )
             })
@@ -156,7 +156,7 @@ export class adminEffects {
             ofType(adminActions.professionalBlocking),
             mergeMap((paylod) => {
                 return this.adminService.blockProfessionals(paylod.id).pipe(
-                    map((user) => adminActions.professionalBlockingSuccess({user : user})),
+                    map((id) => adminActions.professionalBlockingSuccess({id : id})),
                     catchError(error => of(adminActions.professionalBlockingFailure({error: error})))
                 )
             })
@@ -168,7 +168,7 @@ export class adminEffects {
             ofType(adminActions.professionalunBlocking),
             mergeMap((paylod) => {
                 return this.adminService.unblockProfessionals(paylod.id).pipe(
-                    map((user) => adminActions.professionalunBlockingSuccess({user : user})),
+                    map((id) => adminActions.professionalunBlockingSuccess({id : id})),
                     catchError(error => of(adminActions.professionalunBlockingFailure({error: error})))
                 )
             })

@@ -8,7 +8,7 @@ export interface adminData {
 
 
 export interface initialStateType {
-    user : User | User[] | adminLogin | Professional[] | null 
+    user : User | User[] | adminLogin | Professional[] | null | string
     loading : boolean
     loaded : boolean
     error : any

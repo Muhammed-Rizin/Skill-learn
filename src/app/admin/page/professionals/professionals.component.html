@@ -1,21 +1,23 @@
-<app-side-bar></app-side-bar>
-<div class="content">
+<mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
+<app-side-bar *ngIf="!loading$ "></app-side-bar >
+<div class="content" *ngIf="!loading$ ">
     <div class="body">
         <div class="navigate mb-5">
             <a class="me-4 active" routerLink="/admin/professionals" > ALL</a>
             <a routerLink="/admin/professionals/request"> Request</a>
         </div>
-        <div *ngIf="loading$">Loading...</div>
-        <mat-paginator  *ngIf="!loading$ && professionals$.length !== 0" 
-          [length]=" total "
+        <div class="empty-message" *ngIf="professionals$.length === 0">
+          <h3>No users found</h3>
+        </div>
+        <mat-paginator  *ngIf="professionals$.length !== 0" 
+          [length]="total"
           [pageSize]="5"
           [pageSizeOptions]="[5, 10, 25, 100]"
           (page)="pageChange($event)"
           aria-label="Select page">
         </mat-paginator>
-        <div class="table-div table-responsive " *ngIf="!loading$">
-          <h3 *ngIf="professionals$.length === 0">No professionals found</h3>
-            <table class="table" *ngIf="professionals$.length !== 0">
+        <div class="table-div table-responsive" *ngIf="professionals$.length !== 0" >
+            <table class="table">
                 <thead>
                   <tr>
                     <th>#</th>

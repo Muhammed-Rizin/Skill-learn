@@ -150,7 +150,7 @@ export class ChatComponent implements  OnInit, OnDestroy{
           this.chatHistory = data.chatData
 
           this.loading = false
-          this.totalPages = data.total
+          this.totalPages =  Math.ceil(data.total / this.limit)
           
           setTimeout(() => {
             this.scrollToBottom()
@@ -162,6 +162,9 @@ export class ChatComponent implements  OnInit, OnDestroy{
         if(err.status == 500) {
           localStorage.setItem('server-error' , 'server-error')
           this._router.navigate(['/professional/server-error'])
+        }
+        if(err.status == 404){
+          this._router.navigate(['/not-found'])
         }
       }
     )

@@ -30,12 +30,12 @@ export const loadUsersFailure = createAction(`[Admin component] Load user failur
 
 // Block user
 export const userBlocking = createAction(`[Admin component] User block`, props<{id : string}>())
-export const userBlockingSuccess = createAction(`[Admin component] User block success`, props<{user : User[]}>())
+export const userBlockingSuccess = createAction(`[Admin component] User block success`, props<{id : string}>())
 export const userBlockingFailure = createAction(`[Admin component] User block failure`, props<{error : any}>())
 
 // Unblock user
 export const userunBlocking = createAction(`[Admin component] User unblock`, props<{id : string}>())
-export const userunBlockingSuccess = createAction(`[Admin component] User unblock success`, props<{user : User[]}>())
+export const userunBlockingSuccess = createAction(`[Admin component] User unblock success`, props<{id : string}>())
 export const userunBlockingFailure = createAction(`[Admin component] User unblock failure`, props<{error : any}>())
 
 // Load professionals
@@ -50,21 +50,21 @@ export const loadRequestProfessionalsFailure = createAction(`[Admin component] L
 
 // Approve Professionals
 export const approveProfessionals = createAction(`[Admin component] Approve professionals`, props<{id : string}>())
-export const approveProfessionalsSuccess = createAction(`[Admin component] Approve professionals success`, props<{user : Professional[]}>())
+export const approveProfessionalsSuccess = createAction(`[Admin component] Approve professionals success`, props<{id : string}>())
 export const approveProfessionalsFailure = createAction(`[Admin component] Approve professionals failure`, props<{error : any}>())
 
 // Reject Professionals
 export const rejectProfessionals = createAction(`[Admin component] reject professionals`, props<{id : string}>())
-export const rejectProfessionalsSuccess = createAction(`[Admin component] reject professionals success`, props<{user : Professional[]}>())
+export const rejectProfessionalsSuccess = createAction(`[Admin component] reject professionals success`, props<{id : string}>())
 export const rejectProfessionalsFailure = createAction(`[Admin component] reject professionals failure`, props<{error : any}>())
 
 
 // Block professional
 export const professionalBlocking = createAction(`[Admin component] professional block`, props<{id : string}>())
-export const professionalBlockingSuccess = createAction(`[Admin component] professional block success`, props<{user : Professional[]}>())
+export const professionalBlockingSuccess = createAction(`[Admin component] professional block success`, props<{id : string}>())
 export const professionalBlockingFailure = createAction(`[Admin component] professional block failure`, props<{error : any}>())
 
 // Unblock professional
 export const professionalunBlocking = createAction(`[Admin component] professional unblock`, props<{id : string}>())
-export const professionalunBlockingSuccess = createAction(`[Admin component] professional unblock success`, props<{user :Professional[]}>())
+export const professionalunBlockingSuccess = createAction(`[Admin component] professional unblock success`, props<{id : string}>())
 export const professionalunBlockingFailure = createAction(`[Admin component] professional unblock failure`, props<{error : any}>())
