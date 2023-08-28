@@ -163,9 +163,8 @@ export class ChatComponent implements  OnInit, OnDestroy{
           localStorage.setItem('server-error' , 'server-error')
           this._router.navigate(['/professional/server-error'])
         }
-        if(err.status == 404){
-          this._router.navigate(['/not-found'])
-        }
+        this.chatLoading = false
+        this.loading = false
       }
     )
   }

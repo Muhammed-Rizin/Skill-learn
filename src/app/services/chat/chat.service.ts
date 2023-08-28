@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 import { ChatData } from 'src/app/user/types/user.types';
 
 @Injectable({

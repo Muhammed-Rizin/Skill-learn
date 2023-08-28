@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CompleteSchedule, CompleteTask, Schedule, Task, professionalData, professionalType } from 'src/app/professional/types/professional.types';
 import { ChatData, Payment, PaymentData, Review, userData } from 'src/app/user/types/user.types';
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -77,8 +77,8 @@ export class ProfessionalService {
     return this.http.patch(`${this.apiUrl}/professional/messageseen?roomid=${roomId}`, httpOptions)
   }
 
-  sendVerifyUser(){
-    return this.http.get(`${this.apiUrl}/professional/sendverifymail`, httpOptions)
+  sendVerifyUser(): Observable<{message : string}>{
+    return this.http.get<{message : string}>(`${this.apiUrl}/professional/sendverifymail`, httpOptions)
   }
 
   verifyEmail(token : string) {

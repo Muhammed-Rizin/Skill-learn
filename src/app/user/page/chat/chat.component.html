@@ -88,9 +88,6 @@
                     
                   </ul>
                 </div>
-                <div class="chat-container"  #chatContainer *ngIf="!chatHistory">
-
-                </div>
                 <div class="chat-form d-flex">
                   <input type="text" [(ngModel)]="message" class="form-control" rows="3" placeholder="Type your message here...">
                   <button (click)="sendMessage()" class="input-button"><img

@@ -36,7 +36,7 @@ const routes: Routes = [
     {path : 'profile', component : ProfileComponent, canActivate : 
       [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard]},
     {path : 'verifyemail', component : VerifyEmailComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard]},
+      [ConsecutiveGuard]},
     
     {path : '', component: HomeComponent, canActivate :
       [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard, ProfessionalchatGuard]},

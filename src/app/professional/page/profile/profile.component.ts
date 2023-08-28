@@ -24,6 +24,8 @@ export class ProfileComponent {
   total!: number
 
   imageUrl !: string | Observable<string>
+  message!: string;
+
   constructor(
     private _professionalService : ProfessionalService,
     private _router : Router
@@ -78,7 +80,18 @@ export class ProfileComponent {
   }
 
   sendVerifyUser(){
-    this._professionalService.sendVerifyUser().subscribe()
+    this.loading = true
+    this._professionalService.sendVerifyUser().subscribe((data) => {
+      this.message = data.message
+      this.loading = false
+    },
+    (err) => {
+      if(err.status == 500) {
+        localStorage.setItem('server-error' , 'server-error')
+        this._router.navigate(['/professional/server-error'])
+      }
+    }
+    )
   }
   onFileSelected(e : Event) {
     const formData = new FormData()

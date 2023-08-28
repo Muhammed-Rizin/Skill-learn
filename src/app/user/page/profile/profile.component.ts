@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit{
   validation !: string
   loading : boolean = true
   selectedFile!: File;
+  message !: string;
 
   constructor(
     private _userService : UserService,
@@ -66,7 +67,17 @@ export class ProfileComponent implements OnInit{
   }
 
   sendVerifyUser(){
-    this._userService.sendVerifyUser().subscribe()
+    this.loading = true
+    this._userService.sendVerifyUser().subscribe((data) => {
+      this.loading = false
+      this.message = data.message
+    },
+    (err) => {
+      if(err.status == 500) {
+        localStorage.setItem('server-error' , 'server-error')
+        this._router.navigate(['/server-error'])
+      }
+    })
   }
  
   onFileSelected(e : Event) {
@@ -76,10 +87,11 @@ export class ProfileComponent implements OnInit{
     if (inputElement.files) {
       const file = inputElement.files[0];
   
-      console.log(file)
       formData.append('image', file, file.name)
       this._userService.submitFile(formData, this.userData._id).subscribe(
-        (data) => {},
+        (data) => {
+          window.location.reload()
+        },
         (err) => {
           if(err.status == 500) {
             localStorage.setItem('server-error' , 'server-error')

@@ -28,7 +28,7 @@ import { professionalEffects } from './professional/store/professional.effects';
 import { ErrorPageComponent } from './error/error-page/error-page.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 import { NotificationService } from './services/notification/notification.service';
 import { ServerErrorComponent } from './error/server-error/server-error.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';

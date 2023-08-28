@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChatData, Payment, PaymentData, Review, addReview, loginUser, registerUserType, userData } from 'src/app/user/types/user.types';
 import { Observable } from 'rxjs';
 import { CompleteSchedule, CompleteTask, professionalData } from 'src/app/professional/types/professional.types';
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 import { FormGroup } from '@angular/forms';
 
 const httpOptions = {
@@ -82,8 +82,8 @@ export class UserService {
     return this.http.patch<userData>(`${this.apiUrl}/user/updateuser`,{data}, httpOptions)
   }
 
-  sendVerifyUser(){
-    return this.http.get(`${this.apiUrl}/user/sendverifymail`, httpOptions)
+  sendVerifyUser(): Observable<{message : string}>{
+    return this.http.get<{message : string}>(`${this.apiUrl}/user/sendverifymail`, httpOptions)
   }
 
   verifyEmail(token : string) {

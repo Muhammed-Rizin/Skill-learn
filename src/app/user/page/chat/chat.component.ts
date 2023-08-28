@@ -161,9 +161,10 @@ export class ChatComponent implements OnInit, OnDestroy{
           localStorage.setItem('server-error' , 'server-error')
           this._router.navigate(['/server-error'])
         }
-        if(err.status == 404){
-          this._router.navigate(['/not-found'])
-        }
+        this.chatLoading = false
+        this.loading = false
+        this.totalPages = 0
+        this.page = 0
       }
     )
   }
@@ -173,6 +174,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     this.sendNotification(newMessage)
 
     this.chatHistory = data.data
+    this.updateStatus(this.CHAT_ROOM)
     
     setTimeout(() => {
       this.scrollToBottom()

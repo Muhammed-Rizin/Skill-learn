@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getMessaging, getToken, onMessage } from '@firebase/messaging';
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 import { UserService } from './services/user/user.service';
 import { ProfessionalService } from './services/professional/professional.service';
 import { NotificationService } from './services/notification/notification.service';

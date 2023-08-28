@@ -10,6 +10,8 @@ import { professionalData } from '../../types/professional.types';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit{
+  approved : boolean = false
+
   constructor(
     private router : Router, 
     readonly professioanlService : ProfessionalService,
@@ -17,6 +19,13 @@ export class NavBarComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.professioanlService.isApproved().subscribe((data) => {
+      this.approved = !data
+    }, 
+    (err) => {
+      
+    })
+
   }
 
   logOut(){
