@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent {
   userData!: professionalData
+  actualData !: professionalData
   validation !: string
   selectedFile!: File;
   reviews$!: Review[]
@@ -44,6 +45,7 @@ export class ProfileComponent {
       this.userData.payment = this.userData.payment
       this.userData.work = this.userData.work?.trim()
       this.userData.about = this.userData.about?.trim()
+      this.actualData = Object.assign({}, this.userData) 
       
       this._professionalService.getReviews(data._id, this.pageCount).subscribe(reviews => {
         this.reviews$ = reviews.data
@@ -75,7 +77,9 @@ export class ProfileComponent {
       ){ this.validation = `${field} cannot be empty`}
       else {
         this.validation = ''
-        this._professionalService.updateProfessional(this.userData).subscribe()
+        this._professionalService.updateProfessional(this.userData).subscribe((data) => {
+          window.location.reload()
+        })
       }
   }
 

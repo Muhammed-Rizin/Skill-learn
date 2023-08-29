@@ -22,30 +22,35 @@
                     <div class="detail">
                         <p class="col-4">First Name</p>
                         <input type="text" [(ngModel)]="userData.firstName" class="col-4">
-                        <button class="col-4 edit" (click)="submit('First name')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('First name')" 
+                        *ngIf="userData.firstName != actualData.firstName">Save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Last Name</p>
                         <input type="text" [(ngModel)]="userData.lastName" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Last name')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Last name')"
+                        *ngIf="userData.lastName != actualData.lastName">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Location</p>
                         <input type="text" [(ngModel)]="userData.location" class="col-4" 
                         [placeholder]="userData.location ? userData.location: 'Your location'">
-                        <button class="col-4 edit" (click)="submit('Location')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Location')"
+                        *ngIf="userData.location != actualData.location">Save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Bio</p>
                         <input type="text" [(ngModel)]="userData.bio" class="col-4" 
                         [placeholder]="userData.bio ? userData.bio : 'Your bio'">
-                        <button class="col-4 edit" (click)="submit('Bio')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Bio')" 
+                        *ngIf="userData.bio != actualData.bio">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Education</p>
                         <input type="text" [(ngModel)]="userData.education" class="col-4"
                         [placeholder]="userData.education ? userData.education : 'Your education'">
-                        <button class="col-4 edit" (click)="submit('Education')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Education')"
+                        *ngIf="userData.education != actualData.education">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Email</p>
@@ -57,7 +62,8 @@
                         <p class="col-4">Address</p>
                         <input type="text" [(ngModel)]="userData.address" 
                         [placeholder]="userData.address ? userData.address : 'Your address'" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Address')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Address')"
+                        *ngIf="userData.address != actualData.address">save</button>
                     </div>
                 </div>
             </div>

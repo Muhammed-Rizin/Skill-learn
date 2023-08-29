@@ -22,49 +22,57 @@
                     <div class="detail">
                         <p class="col-4">First Name</p>
                         <input type="text" [(ngModel)]="userData.firstName" class="col-4">
-                        <button class="col-4 edit" (click)="submit('First name')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('First name')"
+                        *ngIf="userData.firstName != actualData.firstName">Save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Last Name</p>
                         <input type="text" [(ngModel)]="userData.lastName" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Last name')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Last name')"
+                        *ngIf="userData.lastName != actualData.lastName">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Location</p>
                         <input type="text" [(ngModel)]="userData.location" class="col-4" 
                         [placeholder]="userData.location ? userData.location: 'Your location'">
-                        <button class="col-4 edit" (click)="submit('Location')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Location')"
+                        *ngIf="userData.location != actualData.location">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Bio</p>
                         <input type="text" [(ngModel)]="userData.bio" class="col-4" 
                         [placeholder]="userData.bio ? userData.bio : 'Your bio'">
-                        <button class="col-4 edit" (click)="submit('Bio')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Bio')"
+                        *ngIf="userData.bio != actualData.bio">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Education</p>
                         <input type="text" [(ngModel)]="userData.education" class="col-4"
                         [placeholder]="userData.education ? userData.education : 'Your education'">
-                        <button class="col-4 edit" (click)="submit('Education')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Education')"
+                        *ngIf="userData.education != actualData.education">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Qualification</p>
                         <input type="text" [(ngModel)]="userData.qualification" class="col-4" 
                         [placeholder]="userData.qualification ? userData.qualification : 'Your qualification'">
-                        <button class="col-4 edit" (click)="submit('Qualification')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Qualification')"
+                        *ngIf="userData.qualification != actualData.qualification">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Field</p>
                         <input type="text" [(ngModel)]="userData.field" class="col-4"
                         [placeholder]="userData.field ? userData.field: 'Your field'" >
                         
-                        <button class="col-4 edit" (click)="submit('Field')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Field')"
+                        *ngIf="userData.field != actualData.field">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Payment</p>
                         <input type="number" [(ngModel)]="userData.payment"
                         [placeholder]="userData.payment ? userData.payment : 'Your payment'" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Payment')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Payment')"
+                        *ngIf="userData.payment != actualData.payment">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">Email</p>
@@ -76,13 +84,15 @@
                         <p class="col-4">Address</p>
                         <input type="text" [(ngModel)]="userData.address" 
                         [placeholder]="userData.address ? userData.address : 'Your address'" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Address')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Address')"
+                        *ngIf="userData.address != actualData.address">save</button>
                     </div>
                     <div class="detail">
                         <p class="col-4">About</p>
                         <input type="text" [(ngModel)]="userData.about" class="col-4"  
                         [placeholder]="userData.about ? userData.about : 'Your about'">
-                        <button class="col-4 edit" (click)="submit('Address')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Address')"
+                        *ngIf="userData.about != actualData.about">save</button>
                     </div>
 
                     <h4 class="mt-5">Experience</h4>
@@ -91,7 +101,8 @@
                         <p class="col-4">Work</p>
                         <input type="text" [(ngModel)]="userData.work" class="col-4"
                         [placeholder]="userData.work ? userData.work: 'Your work'">
-                        <button class="col-4 edit" (click)="submit('Work')">Edit</button>
+                        <button class="col-4 edit" (click)="submit('Work')"
+                        *ngIf="userData.work != actualData.work">save</button>
                     </div>
                 </div>
                 <div class="review mt-3">

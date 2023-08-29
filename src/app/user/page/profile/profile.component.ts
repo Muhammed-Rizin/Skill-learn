@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit{
         this._userService.updateUser(this.userData).subscribe(
           (data) => {
             this.userData = data
+            window.location.reload()
           },
           (err) => {
             if(err.status == 500) {
