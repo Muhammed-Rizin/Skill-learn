@@ -177,3 +177,28 @@
         width: 100%;
     }
 }
+
+.no-task {
+    text-align: center;
+    width: 58.33333333%;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.no-task h1 {
+    color: #374151;
+    font-family: 'Roboto';
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.no-task p {
+    color: #9CA3AF;
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}

@@ -4,7 +4,13 @@
   <!-- <div class="preloader" *ngIf=" loading">
     <div class="loader"></div>
   </div> -->
-  <div class="container" >
+  <div class="chat-container" *ngIf="!alreadyMessaged.length && !toUserData">
+    <div class="empty-message">
+      <p>No messages to display</p>
+      <p>Start a conversation to get connected!</p>
+    </div>
+  </div>
+  <div class="container" *ngIf="alreadyMessaged.length || toUserData">
     <div class="content-wrapper mt-3">
       <div class="row" >
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

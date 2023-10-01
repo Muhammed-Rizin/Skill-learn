@@ -3,7 +3,7 @@
     <app-nav-bar></app-nav-bar>
     <div class="content">
 
-        <h3 *ngIf="!paymentHistory?.length" class="empty-message">Empty</h3>
+        <h3 *ngIf="!paymentHistory?.length" class="empty-message">No Payment History Found</h3>
         <div class="table-div table-responsive" *ngIf="paymentHistory?.length">
             <table class="table">
                 <thead>

@@ -1,4 +1,4 @@
-<div class="content">
+<!-- <div class="content">
     <app-nav-bar></app-nav-bar>
     <div class="items p-5">
         <div class="heading row">
@@ -6,7 +6,7 @@
                 your learning journey</h1>
     
             <p class="discription col-12 col-lg-8 mt-4">
-                Unlock the power of personalized learning with Learniverse in just a
+                Unlock the power of personalized learning with skilllearn in just a
     few clicks. Craft your own courses, access top-notch resources, and
     tailor your learning to match your unique goals.
             </p>
@@ -17,4 +17,73 @@
             Get started
         </button>
     </div>
+</div> -->
+
+
+<div class="content">
+    <app-nav-bar></app-nav-bar>
+    <div class="d-flex">
+
+        <section class="section1">
+            <div class="select-role">
+                <div class="tabs" *ngIf="!user">
+                    <a (click)="toMentee()" class="role" [ngClass]="{'active' : !mentor}">Mentee</a>
+                    <a (click)="toMentor()" class="role" [ngClass]="{'active' : mentor}">Mentor</a>
+                </div>
+                <div class="text-content" *ngIf="!mentor">
+    
+                    <h1>Learn and grow with help from world-class mentors for free</h1>
+                    <p>
+                        Unlock the power of personalized learning with skilllearn in just a
+    few clicks
+                    </p>
+    
+                    <button routerLink="/explore" class="redirect">
+                        Find my mentor
+                    </button>
+                </div>
+                <div class="text-content" *ngIf="mentor">
+    
+                    <h1>Your next chapter, made possible by mentoring</h1>
+                    <p>Build confidence as a leader, grow your network, and define your legacy</p>
+    
+                    <button routerLink="/professional" class="redirect">
+                        Become a mentor
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section >
+            
+        </section>
+    </div>
+    <section class="section2">
+        <div class="text-content2">
+            <h1>At your fingertips: Skill Learn, your dedicated career mentor.</h1>
+            <p>Want to ace your next job interview? Successfully build your startup? Itching to learn high-demand skills? Work smart with Skill Learn, your online mentor and guide to offer expert advice and create a beautiful path to match your zeal. Become unstoppable using Skill Learn.</p>
+        </div>
+        <div class="features">
+            <div class="item">
+                <h3>Find your mentor</h3>
+                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1694582246/mc-logo.svg_bkvlze.png" alt="">
+                <p>Explore our growing catalogue of
+                    experienced mentors until you find the
+                    perfect fit.</p>
+            </div>
+            <div class="item">
+                <h3>Level up your skills</h3>
+                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1694582003/mc-rocket.svg_o0d7af.svg" alt="">
+                <p>From personal chats to hands-on
+                    support, each mentor offers different
+                    services to help you skyrocket your
+                    career.</p>
+            </div>
+        </div>
+        <div class="more">
+            <button routerLink="/explore" class="redirect">
+                Find my mentor
+            </button>
+            <a routerLink="/professional" *ngIf="!user">Become a mentor</a>
+        </div>
+    </section>
 </div>
