@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ProfessionalService } from 'src/app/services/professional/professional.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CompleteTask } from '../../types/professional.types';
 import { Store, select } from '@ngrx/store';
 import { getCompletedTask } from '../../store/professional.actions';
 import { selectCompletedTaskData, selectCompletedTaskLoading, selectCompletedTotalTask } from '../../store/professional.selector';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-completed',
   templateUrl: './task-completed.component.html',
   styleUrls: ['./task-completed.component.css']
 })
-export class TaskCompletedComponent implements OnInit{
+export class TaskCompletedComponent implements OnInit, OnDestroy{
   tasks !: CompleteTask[]
   loading$ !: boolean
         
@@ -18,16 +18,20 @@ export class TaskCompletedComponent implements OnInit{
   limit : number = 5
   totalPage !: number 
 
+  taskSubscription : Subscription
+  loadingSubscription : Subscription
+  totalSubscription : Subscription
+  
   constructor(
     private readonly _store: Store
   ){
-    this._store.pipe(select(selectCompletedTaskData)).subscribe((tasks)=> {
+    this.taskSubscription = this._store.pipe(select(selectCompletedTaskData)).subscribe((tasks)=> {
       this.tasks = tasks
     })
-    this._store.pipe(select(selectCompletedTaskLoading)).subscribe((loading)=> {
+    this.loadingSubscription = this._store.pipe(select(selectCompletedTaskLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
-    this._store.pipe(select(selectCompletedTotalTask)).subscribe((total)=> {
+    this.totalSubscription = this._store.pipe(select(selectCompletedTotalTask)).subscribe((total)=> {
       this.totalPage = Math.ceil(total / this.limit)
     })
   }
@@ -35,6 +39,12 @@ export class TaskCompletedComponent implements OnInit{
   ngOnInit(): void {
     const page = this.pageCount
     this._store.dispatch(getCompletedTask({page}))
+  }
+
+  ngOnDestroy(): void {
+    this.taskSubscription.unsubscribe()
+    this.loadingSubscription.unsubscribe()
+    this.totalSubscription.unsubscribe()
   }
 
   getTime (time :string) {

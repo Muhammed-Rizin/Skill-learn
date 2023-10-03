@@ -32,12 +32,12 @@ export class LoginComponent implements OnInit{
     );
     this.loading$?.subscribe((doc) => doc);
   }
-
+  
   ngOnInit(): void {
-      this.form = this.formBuilder.group({
-        email : ['', [Validators.required, Validators.email]],
-        password : ['', [Validators.required]]
-      })
+    this.form = this.formBuilder.group({
+      email : ['', [Validators.required, Validators.email]],
+      password : ['', [Validators.required]]
+    })
   }
   submit(){
     const data: adminLogin = this.form.getRawValue()

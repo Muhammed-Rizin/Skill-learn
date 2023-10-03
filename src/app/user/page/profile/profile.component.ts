@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { userData } from '../../types/user.types';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit, OnDestroy{
   userData!: userData
   actualData!: userData
   validation !: string
@@ -17,11 +17,17 @@ export class ProfileComponent implements OnInit{
   selectedFile!: File;
   message !: string;
 
+  userDataSubscription : Subscription
+  updateUSerSubscription !: Subscription
+  sendVerifyUserSubscription !: Subscription
+  submitFileSubscription !: Subscription
+
+
   constructor(
     private _userService : UserService,
     private _router : Router
   ){
-    this._userService.getUserData().subscribe(
+    this.userDataSubscription = this._userService.getUserData().subscribe(
       (data) => {
         this.userData = data
         this.userData.bio = this.userData.bio?.trim()
@@ -52,7 +58,7 @@ export class ProfileComponent implements OnInit{
       ){ this.validation = `${field} cannot be empty`}
       else {
         this.validation = ''
-        this._userService.updateUser(this.userData).subscribe(
+        this.updateUSerSubscription = this._userService.updateUser(this.userData).subscribe(
           (data) => {
             this.userData = data
             window.location.reload()
@@ -69,7 +75,7 @@ export class ProfileComponent implements OnInit{
 
   sendVerifyUser(){
     this.loading = true
-    this._userService.sendVerifyUser().subscribe((data) => {
+    this.sendVerifyUserSubscription = this._userService.sendVerifyUser().subscribe((data) => {
       this.loading = false
       this.message = data.message
     },
@@ -89,7 +95,7 @@ export class ProfileComponent implements OnInit{
       const file = inputElement.files[0];
   
       formData.append('image', file, file.name)
-      this._userService.submitFile(formData, this.userData._id).subscribe(
+      this.submitFileSubscription = this._userService.submitFile(formData, this.userData._id).subscribe(
         (data) => {
           window.location.reload()
         },
@@ -101,5 +107,12 @@ export class ProfileComponent implements OnInit{
         }
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.userDataSubscription.unsubscribe()
+    this.updateUSerSubscription.unsubscribe()
+    this.sendVerifyUserSubscription.unsubscribe()
+    this.submitFileSubscription.unsubscribe()
   }
 }

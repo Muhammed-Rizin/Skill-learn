@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { professionalData } from 'src/app/professional/types/professional.types';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+
+import { professionalData } from 'src/app/professional/types/professional.types';
 import { getProfessionals } from '../../store/user.action';
 import { selectProfessionalsData, selectProfessionalsLoading, selectProfessionalsTotal } from '../../store/user.selector';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-professionals',
   templateUrl: './professionals.component.html',
   styleUrls: ['./professionals.component.css']
 })
-export class ProfessionalsComponent implements OnInit{
+export class ProfessionalsComponent implements OnInit, OnDestroy{
 
   professionals$!: professionalData[]
   loading$!: boolean
@@ -19,16 +21,20 @@ export class ProfessionalsComponent implements OnInit{
   limit : number = 5
   totalPage !: number 
 
+  professionalSubscription : Subscription
+  totalPageSubscription : Subscription
+  loadingSubscription : Subscription
+
   constructor(
     private _store : Store
   ){
-    this._store.pipe(select(selectProfessionalsData)).subscribe((professionals: professionalData[]) => {
+    this.professionalSubscription = this._store.pipe(select(selectProfessionalsData)).subscribe((professionals: professionalData[]) => {
       this.professionals$ = professionals
     });
-    this._store.pipe(select(selectProfessionalsTotal)).subscribe((total) => {
+    this.totalPageSubscription = this._store.pipe(select(selectProfessionalsTotal)).subscribe((total) => {
       this.totalPage = Math.ceil(total as number / this.limit)
     })
-    this._store.pipe(select(selectProfessionalsLoading)).subscribe((loading: boolean) => {
+    this.loadingSubscription = this._store.pipe(select(selectProfessionalsLoading)).subscribe((loading: boolean) => {
       this.loading$ = loading
     });
   }
@@ -47,5 +53,11 @@ export class ProfessionalsComponent implements OnInit{
     this.pageCount --
     const page = this.pageCount
     this._store.dispatch(getProfessionals({page}))
+  }
+
+  ngOnDestroy(): void {
+    this.professionalSubscription.unsubscribe()
+    this.totalPageSubscription.unsubscribe()
+    this.loadingSubscription.unsubscribe()
   }
 }

@@ -1,35 +1,41 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { selectLoadingProfessionals, selectLoadingTotalProfessionals, selectProfessional, selectTotalProfessional } from '../../store/admin.selector';
+import { selectLoadingTotalProfessionals, selectProfessional, selectTotalProfessional } from '../../store/admin.selector';
 import { loadProfessionals, loadTotalProfessionals, professionalBlocking, professionalunBlocking } from '../../store/admin.actions';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Professional } from '../../types/admin.types';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-professionals',
   templateUrl: './professionals.component.html',
   styleUrls: ['./professionals.component.css']
 })
-export class ProfessionalsComponent implements OnInit{
+export class ProfessionalsComponent implements OnInit, OnDestroy{
   professionals$ !: Professional[] 
   loading$!: boolean
   total!: number
   
   page : number 
   limit : number 
+
+  professionalSubscription : Subscription
+  loadingSubscription : Subscription
+  totalSubscription : Subscription
+
   constructor(
     private store : Store,
     public dialog: MatDialog
   ){
-    this.store.pipe(select(selectProfessional)).subscribe((professionals) => {
+    this.professionalSubscription = this.store.pipe(select(selectProfessional)).subscribe((professionals) => {
       this.professionals$ = professionals as Professional[];
     });
-    this.store.pipe(select(selectLoadingTotalProfessionals)).subscribe((loading) => {
+    this.loadingSubscription = this.store.pipe(select(selectLoadingTotalProfessionals)).subscribe((loading) => {
       this.loading$ = loading;
     });
 
-    this.store.pipe(select(selectTotalProfessional)).subscribe((loading) => {
+    this.totalSubscription = this.store.pipe(select(selectTotalProfessional)).subscribe((loading) => {
       this.total = (loading as Professional[]).length
     });
     
@@ -40,6 +46,12 @@ export class ProfessionalsComponent implements OnInit{
   ngOnInit(): void {
     this.store.dispatch(loadProfessionals({page : 1, limit : 5}))
     this.store.dispatch(loadTotalProfessionals())
+  }
+
+  ngOnDestroy(): void {
+    this.professionalSubscription.unsubscribe()
+    this.loadingSubscription.unsubscribe()
+    this.totalSubscription.unsubscribe()
   }
 
   block(id : string, name : string){

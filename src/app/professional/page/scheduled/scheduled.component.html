@@ -10,7 +10,7 @@
             <button class="add" routerLink="/professional/schedule/new">Add </button>
         </div>
         <div class="tasks">
-            <div class="taskdetails mb-3" *ngFor="let task of tasks">
+            <div class="taskdetails mb-3" *ngFor="let task of meetings">
                 <div class="username">
                     <p class="name">{{task.to.firstName + " " + task.to.lastName}}</p>
                     <p class="date">{{task.time.toString().slice(0,10)}}</p>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pagination" *ngIf="tasks.length && !loading$">
+            <div class="pagination" *ngIf="meetings.length && !loading$">
                 <div class="next-page me-2" *ngIf="pageCount > 1">
                     <button (click)="prevPage()">Prev</button>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="no-task mt-3" *ngIf="!tasks.length && !loading$">
+        <div class="no-task mt-3" *ngIf="!meetings.length && !loading$">
             <h1>No In-Progress Meetings</h1>
             <p>There are currently no meetings in progress.</p>
         </div>        

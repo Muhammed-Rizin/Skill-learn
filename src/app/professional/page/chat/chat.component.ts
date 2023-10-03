@@ -7,6 +7,7 @@ import { ProfessionalService } from 'src/app/services/professional/professional.
 import { ChatData, userData } from 'src/app/user/types/user.types';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { professionalData } from '../../types/professional.types';
+import { environment }  from 'src/environments/environment'
 
 @Component({
   selector: 'app-chat',
@@ -14,15 +15,12 @@ import { professionalData } from '../../types/professional.types';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements  OnInit, OnDestroy{
-  secret = "crypto-js"
-  
-  alreadyMessaged !: ChatData[]
-
+  secret = environment.crypto_secret
   CHAT_ROOM !: string
   message!: string
-
   toUserId !: string
   
+  alreadyMessaged !: ChatData[]
   professionalData !: professionalData
   toUserData !: userData
   chatHistory!: ChatData;

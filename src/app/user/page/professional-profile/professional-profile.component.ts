@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CryptoJS from 'crypto-js';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'src/app/services/user/user.service';
 import { professionalData } from 'src/app/professional/types/professional.types';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Review } from '../../types/user.types';
+import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
 
 declare let Razorpay : any
 
@@ -15,8 +17,8 @@ declare let Razorpay : any
   templateUrl: './professional-profile.component.html',
   styleUrls: ['./professional-profile.component.css']
 })
-export class ProfessionalProfileComponent implements OnInit{
-  secret = "crypto-js"
+export class ProfessionalProfileComponent implements OnInit, OnDestroy{
+  secret = environment.crypto_secret
   userData!: professionalData
   actualData!: professionalData
   userEmail !: string
@@ -33,20 +35,27 @@ export class ProfessionalProfileComponent implements OnInit{
   totalPage !: number 
   total!: number
 
+  professionalDataSubscription !: Subscription
+  reviewsSubscription !: Subscription
+  userDataSubscription !: Subscription
+  prevPageSubscription !: Subscription
+  nextPageSubscription !: Subscription
+  addReviewSubscription !: Subscription
+  subscribedSubscription !: Subscription
+
   constructor(
     private userService : UserService, 
     private route: ActivatedRoute, 
     private router : Router,
-    private _store : Store,
     private _formBuilder : FormBuilder
   ){
     this.route.params.subscribe((params) => {
       if(params['id']){
-        this.userService.getProfessionalDataByEmail(params['id']).subscribe(
+        this.professionalDataSubscription = this.userService.getProfessionalDataByEmail(params['id']).subscribe(
           (data) => {
             this.processUserData(data)
             this.checkSubscriptionStatus()
-            this.userService.getReviews(data._id, this.pageCount).subscribe(reviews => {
+            this.reviewsSubscription = this.userService.getReviews(data._id, this.pageCount).subscribe(reviews => {
               this.reviews$ = reviews.data
               this.total = reviews.total
               this.totalPage = Math.ceil(reviews.total / this.limit)
@@ -92,10 +101,10 @@ export class ProfessionalProfileComponent implements OnInit{
   }
 
   private checkSubscriptionStatus(): void {
-    this.userService.getUserData().subscribe((data) => {
+    this.userDataSubscription = this.userService.getUserData().subscribe((data) => {
       this.userEmail = data.email;
       this.userId = data._id;
-      this.userService.subscribed(this.userId, this.userData._id).subscribe(
+      this.subscribedSubscription = this.userService.subscribed(this.userId, this.userData._id).subscribe(
         (data) => {
           if (data.createdAt) {
             this.subscribed = this.status(data.createdAt)
@@ -182,7 +191,7 @@ export class ProfessionalProfileComponent implements OnInit{
   reviewSubmit() {
     if(this.reviewForm.valid){
       const data = this.reviewForm.getRawValue()
-      this.userService.addReview(data,this.userData._id).subscribe(
+      this.addReviewSubscription = this.userService.addReview(data,this.userData._id).subscribe(
         (data) =>{
          window.location.reload()
         },
@@ -209,7 +218,7 @@ export class ProfessionalProfileComponent implements OnInit{
 
   nextPage() {
     const page = this.pageCount + 1
-    this.userService.getReviews(this.userData._id, page).subscribe(reviews => {
+    this.nextPageSubscription = this.userService.getReviews(this.userData._id, page).subscribe(reviews => {
       this.reviews$ = reviews.data
       this.pageCount ++ 
     })
@@ -217,9 +226,19 @@ export class ProfessionalProfileComponent implements OnInit{
 
   prevPage(){
     const page = this.pageCount - 1
-    this.userService.getReviews(this.userData._id, page).subscribe(reviews => {
+    this.prevPageSubscription = this.userService.getReviews(this.userData._id, page).subscribe(reviews => {
       this.reviews$ = reviews.data
       this.pageCount --
     })
+  }
+
+  ngOnDestroy(): void {
+    this.professionalDataSubscription.unsubscribe()
+    this.reviewsSubscription.unsubscribe()
+    this.userDataSubscription.unsubscribe()
+    this.prevPageSubscription.unsubscribe()
+    this.nextPageSubscription.unsubscribe()
+    this.addReviewSubscription.unsubscribe()
+    this.subscribedSubscription.unsubscribe()
   }
 }

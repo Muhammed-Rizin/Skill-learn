@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { professionalData } from '../../types/professional.types';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit, OnDestroy {
   userData!: professionalData
   actualData !: professionalData
   validation !: string
@@ -27,13 +27,21 @@ export class ProfileComponent {
   imageUrl !: string | Observable<string>
   message!: string;
 
+  dataSubcription !: Subscription
+  reviewSubscription !: Subscription
+  fileSubmitSubscription !: Subscription
+  sendVerifyUserSubscription !: Subscription
+  nextPageSubscription !: Subscription
+  prevPageSubscription !: Subscription
+  selectFileSubscription !: Subscription
+
   constructor(
     private _professionalService : ProfessionalService,
     private _router : Router
   ){}
 
   ngOnInit(): void {
-    this._professionalService.getProfessionalData().subscribe(
+    this.dataSubcription = this._professionalService.getProfessionalData().subscribe(
       (data) => {
       this.userData = data
       this.userData.bio = this.userData.bio?.trim()
@@ -47,7 +55,7 @@ export class ProfileComponent {
       this.userData.about = this.userData.about?.trim()
       this.actualData = Object.assign({}, this.userData) 
       
-      this._professionalService.getReviews(data._id, this.pageCount).subscribe(reviews => {
+      this.reviewSubscription = this._professionalService.getReviews(data._id, this.pageCount).subscribe(reviews => {
         this.reviews$ = reviews.data
         this.total = reviews.total
         this.totalPage = Math.ceil(reviews.total / this.limit)
@@ -77,7 +85,7 @@ export class ProfileComponent {
       ){ this.validation = `${field} cannot be empty`}
       else {
         this.validation = ''
-        this._professionalService.updateProfessional(this.userData).subscribe((data) => {
+        this.fileSubmitSubscription = this._professionalService.updateProfessional(this.userData).subscribe((data) => {
           window.location.reload()
         })
       }
@@ -85,7 +93,7 @@ export class ProfileComponent {
 
   sendVerifyUser(){
     this.loading = true
-    this._professionalService.sendVerifyUser().subscribe((data) => {
+    this.sendVerifyUserSubscription = this._professionalService.sendVerifyUser().subscribe((data) => {
       this.message = data.message
       this.loading = false
     },
@@ -106,7 +114,7 @@ export class ProfileComponent {
   
       formData.append('image', file, file.name)
 
-      this._professionalService.submitFile(formData, this.userData._id).subscribe(
+      this.selectFileSubscription = this._professionalService.submitFile(formData, this.userData._id).subscribe(
         (data) => {
           window.location.reload()
         },
@@ -122,7 +130,7 @@ export class ProfileComponent {
 
   nextPage() {
     const page = this.pageCount + 1
-    this._professionalService.getReviews(this.userData._id, page).subscribe(reviews => {
+    this.nextPageSubscription = this._professionalService.getReviews(this.userData._id, page).subscribe(reviews => {
       this.reviews$ = reviews.data
       this.pageCount ++ 
     })
@@ -130,9 +138,19 @@ export class ProfileComponent {
 
   prevPage(){
     const page = this.pageCount - 1
-    this._professionalService.getReviews(this.userData._id, page).subscribe(reviews => {
+    this.prevPageSubscription = this._professionalService.getReviews(this.userData._id, page).subscribe(reviews => {
       this.reviews$ = reviews.data
       this.pageCount --
     })
+  }
+
+  ngOnDestroy(): void {
+    this.dataSubcription.unsubscribe()
+    this.reviewSubscription.unsubscribe()
+    this.fileSubmitSubscription.unsubscribe()
+    this.sendVerifyUserSubscription.unsubscribe()
+    this.nextPageSubscription.unsubscribe()
+    this.prevPageSubscription.unsubscribe()
+    this.selectFileSubscription.unsubscribe()  
   }
 }

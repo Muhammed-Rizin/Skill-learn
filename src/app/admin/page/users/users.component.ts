@@ -1,37 +1,42 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { selectLoadingTotalUsers, selectLoadingUsers, selectTotalUsers, selectUsers } from '../../store/admin.selector';
+import { selectLoadingTotalUsers, selectTotalUsers, selectUsers } from '../../store/admin.selector';
 import { loadTotalUsers, loadUsers, userBlocking, userunBlocking } from '../../store/admin.actions';
 import { PageEvent } from '@angular/material/paginator';
 import { Professional, User } from '../../types/admin.types';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit, OnDestroy {
   users$ !: User[] 
   loading$ !: boolean
   page : number 
   limit : number 
   total !: number
+
+  userSubscription : Subscription
+  loadingSubscription : Subscription
+  totalSubscription : Subscription
   
   constructor(
     private store : Store,
     public dialog: MatDialog
   ){
-    this.store.pipe(select(selectUsers)).subscribe((users) => {
+    this.userSubscription = this.store.pipe(select(selectUsers)).subscribe((users) => {
       this.users$ = users as User[];
     });
 
-    this.store.pipe(select(selectLoadingTotalUsers)).subscribe((loading) => {
+    this.loadingSubscription = this.store.pipe(select(selectLoadingTotalUsers)).subscribe((loading) => {
       this.loading$ = loading;
     });
 
-    this.store.pipe(select(selectTotalUsers)).subscribe((loading) => {
+    this.totalSubscription = this.store.pipe(select(selectTotalUsers)).subscribe((loading) => {
       this.total = (loading as Professional[]).length;
     });
     
@@ -42,6 +47,11 @@ export class UsersComponent {
   ngOnInit(): void {
     this.store.dispatch(loadUsers({page : 1, limit : 5}))
     this.store.dispatch(loadTotalUsers())
+  }
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe()
+    this.loadingSubscription.unsubscribe()
+    this.totalSubscription.unsubscribe()
   }
 
   unblock(id : string, name : string){

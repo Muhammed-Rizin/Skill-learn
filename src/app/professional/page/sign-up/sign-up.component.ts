@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { professionalData, professionalType } from '../../types/professional.types';
 import { professionalRegister } from '../../store/professional.actions';
 import { selectRegisterError, selectRegisterLoading, selectRegisterUserData } from '../../store/professional.selector';
@@ -12,7 +12,7 @@ import { ProfessionalService } from 'src/app/services/professional/professional.
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit, OnDestroy {
   emailForm !: FormGroup
   passwordForm !: FormGroup
   userNameForm !: FormGroup
@@ -27,6 +27,8 @@ export class SignUpComponent {
 
   error$ : Observable<String> | string
   loading$ : Observable<boolean> | boolean
+
+  formSubmitSubscriptiion !: Subscription
 
   pageCount : number = 1
   data : professionalType = {
@@ -69,6 +71,11 @@ export class SignUpComponent {
         education : ['', Validators.required]
       })
   }
+
+  ngOnDestroy(): void {
+      this.formSubmitSubscriptiion.unsubscribe()
+  }
+
   next(){
     // Email 
     if(this.pageCount === 1){
@@ -137,7 +144,7 @@ export class SignUpComponent {
     if(this.emailForm.valid){
       this.loading = true
       const emailData = this.emailForm.getRawValue()
-      this.professionalService.checkEmail(emailData.email).subscribe(
+      this.formSubmitSubscriptiion = this.professionalService.checkEmail(emailData.email).subscribe(
         (res) => {
           this.data.email = emailData?.email || ''
           this.pageCount++

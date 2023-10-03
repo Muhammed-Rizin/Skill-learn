@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { CompleteTask } from '../../types/professional.types';
 import { selectInprogressTaskData, selectInprogressTaskLoading, selectInprogressTotalTask } from '../../store/professional.selector';
 import { getInprogressTask } from '../../store/professional.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task',
@@ -18,16 +19,20 @@ export class TaskComponent implements OnInit{
   limit : number = 5
   totalPage !: number 
 
+  taskSubscription : Subscription
+  loadingSubscription : Subscription
+  totalSubscription : Subscription
+
   constructor(
     private readonly _store : Store
   ){
-    this._store.pipe(select(selectInprogressTaskData)).subscribe((tasks)=> {
+    this.taskSubscription = this._store.pipe(select(selectInprogressTaskData)).subscribe((tasks)=> {
       this.tasks = tasks
     })
-    this._store.pipe(select(selectInprogressTaskLoading)).subscribe((loading)=> {
+    this.loadingSubscription = this._store.pipe(select(selectInprogressTaskLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
-    this._store.pipe(select(selectInprogressTotalTask)).subscribe((total)=> {
+    this.totalSubscription = this._store.pipe(select(selectInprogressTotalTask)).subscribe((total)=> {
       this.totalPage = Math.ceil(total / this.limit)
     })
   }
@@ -35,6 +40,12 @@ export class TaskComponent implements OnInit{
   ngOnInit(): void {
     const page = this.pageCount
     this._store.dispatch(getInprogressTask({page}))
+  }
+
+  ngOnDestroy(): void {
+    this.taskSubscription.unsubscribe()
+    this.loadingSubscription.unsubscribe()
+    this.totalSubscription.unsubscribe()
   }
 
   getTime (time :string) {

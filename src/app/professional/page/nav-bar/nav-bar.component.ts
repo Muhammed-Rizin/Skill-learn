@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { professionalData } from '../../types/professional.types';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit{
+export class NavBarComponent implements OnInit, OnDestroy{
   approved : boolean = false
+
+  approvedSubscription !: Subscription
 
   constructor(
     private router : Router, 
@@ -19,13 +22,20 @@ export class NavBarComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.professioanlService.isApproved().subscribe((data) => {
+    this.approvedSubscription = this.professioanlService.isApproved().subscribe((data) => {
       this.approved = !data
     }, 
     (err) => {
-      
+      if(err.status == 500) {
+        localStorage.setItem('server-error' , 'server-error')
+        this.router.navigate(['/professional/server-error'])
+      }
     })
 
+  }
+
+  ngOnDestroy(): void {
+    this.approvedSubscription.unsubscribe()
   }
 
   logOut(){

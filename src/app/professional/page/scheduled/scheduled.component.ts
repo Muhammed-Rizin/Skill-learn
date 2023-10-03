@@ -1,36 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CompleteSchedule } from '../../types/professional.types';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { Store, select } from '@ngrx/store';
 import { selectInprogressScheduleData, selectInprogressScheduleLoading, selectInprogressTotalSchedule } from '../../store/professional.selector';
 import { getInprogressSchedule } from '../../store/professional.actions';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-scheduled',
   templateUrl: './scheduled.component.html',
   styleUrls: ['./scheduled.component.css']
 })
-export class ScheduledComponent implements OnInit {
-  tasks !: CompleteSchedule[]
+export class ScheduledComponent implements OnInit, OnDestroy{
+  meetings !: CompleteSchedule[]
   loading$ !: boolean
   
   pageCount : number = 1
   limit : number = 5
-  totalPage !: number 
+  totalPage !: number
+  
+  scheduleSubscription : Subscription
+  loadingSubscription : Subscription
+  totalSubscription : Subscription
+  taskDoneSubscription !: Subscription
 
   constructor(
     private readonly _store : Store,
     private readonly _professionalService : ProfessionalService,
     private readonly _router : Router
   ){
-    this._store.pipe(select(selectInprogressScheduleData)).subscribe((tasks)=> {
-      this.tasks = tasks
+    this.scheduleSubscription = this._store.pipe(select(selectInprogressScheduleData)).subscribe((meetings)=> {
+      this.meetings = meetings
     })
-    this._store.pipe(select(selectInprogressScheduleLoading)).subscribe((loading)=> {
+    this.loadingSubscription = this._store.pipe(select(selectInprogressScheduleLoading)).subscribe((loading)=> {
       this.loading$ = loading
     })
-    this._store.pipe(select(selectInprogressTotalSchedule)).subscribe((total)=> {
+    this.totalSubscription = this._store.pipe(select(selectInprogressTotalSchedule)).subscribe((total)=> {
       this.totalPage = Math.ceil(total / this.limit)
     })
   }
@@ -38,6 +44,13 @@ export class ScheduledComponent implements OnInit {
   ngOnInit(): void {
     const page = this.pageCount
     this._store.dispatch(getInprogressSchedule({page}))
+  }
+
+  ngOnDestroy(): void {
+    this.scheduleSubscription.unsubscribe()
+    this.loadingSubscription.unsubscribe()
+    this.totalSubscription.unsubscribe()
+    this.taskDoneSubscription.unsubscribe()
   }
 
   getTime (time :string) {
@@ -60,7 +73,7 @@ export class ScheduledComponent implements OnInit {
   }
 
   taskDone(id : string) {
-    this._professionalService.meetingDone(id).subscribe(
+    this.taskDoneSubscription = this._professionalService.meetingDone(id).subscribe(
       (data)=> {
         const page = this.pageCount
         this._store.dispatch(getInprogressSchedule({page}))

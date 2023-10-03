@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { PaymentData } from 'src/app/user/types/user.types';
 
@@ -8,13 +9,15 @@ import { PaymentData } from 'src/app/user/types/user.types';
   templateUrl: './payment-list.component.html',
   styleUrls: ['./payment-list.component.css']
 })
-export class PaymentListComponent implements OnInit{
+export class PaymentListComponent implements OnInit, OnDestroy{
   paymentHistory !: PaymentData[]
   loading : boolean = true
 
   pageCount : number = 1
   limit : number = 10
   totalPage !: number 
+
+  paymentHistorySubscription !: Subscription
 
   constructor(
     private professionalService : ProfessionalService,
@@ -25,7 +28,7 @@ export class PaymentListComponent implements OnInit{
   }
 
   handlePaymentData(){
-    this.professionalService.getPayments(this.pageCount, this.limit).subscribe(
+    this.paymentHistorySubscription = this.professionalService.getPayments(this.pageCount, this.limit).subscribe(
       (data) => {
         this.paymentHistory = data.data
         this.totalPage = Math.ceil(data.total / this.limit)
@@ -61,5 +64,9 @@ export class PaymentListComponent implements OnInit{
   prevPage() {
     this.pageCount--
     this.handlePaymentData()
+  }
+
+  ngOnDestroy(): void {
+    this.paymentHistorySubscription.unsubscribe()
   }
 }
