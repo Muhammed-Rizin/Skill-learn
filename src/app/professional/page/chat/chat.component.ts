@@ -175,6 +175,8 @@ export class ChatComponent implements  OnInit, OnDestroy{
         }
       })
     })
+
+    this._notificationService.updateNotification(this.professionalData._id, roomId).subscribe()
   }
 
   handleMessage() {
@@ -201,7 +203,10 @@ export class ChatComponent implements  OnInit, OnDestroy{
       newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
       newMessage.text,
       nofificationToken,
-      newMessage.sender.image
+      newMessage.sender.image,
+      this.CHAT_ROOM,
+      this.toUserId,
+      newMessage.sender._id
     )
   }
 

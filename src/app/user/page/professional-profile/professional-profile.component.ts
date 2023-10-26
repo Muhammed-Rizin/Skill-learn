@@ -34,6 +34,9 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   limit : number = 2
   totalPage !: number 
   total!: number
+  averageReview !: number
+
+  userLogined : boolean = localStorage.getItem('userjwt') ? true : false
 
   professionalDataSubscription !: Subscription
   reviewsSubscription !: Subscription
@@ -54,12 +57,15 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
         this.professionalDataSubscription = this.userService.getProfessionalDataByEmail(params['id']).subscribe(
           (data) => {
             this.processUserData(data)
-            this.checkSubscriptionStatus()
+            if(this.userLogined) {
+              this.checkSubscriptionStatus()
+            }
             this.reviewsSubscription = this.userService.getReviews(data._id, this.pageCount).subscribe(reviews => {
               this.reviews$ = reviews.data
               this.total = reviews.total
               this.totalPage = Math.ceil(reviews.total / this.limit)
               this.loading = false
+              this.averageReview = reviews.average
             })
           },
           (err) => {
@@ -84,11 +90,6 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
       description : ['', [Validators.required, Validators.minLength(10)]],
       rating : ['', Validators.required]
     })   
-  }
-
-  averageReview() {
-    const sum = this.reviews$.reduce((a, b) => a + b.rating, 0)
-    return sum / this.total
   }
 
 
@@ -233,12 +234,12 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.professionalDataSubscription.unsubscribe()
-    this.reviewsSubscription.unsubscribe()
-    this.userDataSubscription.unsubscribe()
-    this.prevPageSubscription.unsubscribe()
-    this.nextPageSubscription.unsubscribe()
-    this.addReviewSubscription.unsubscribe()
-    this.subscribedSubscription.unsubscribe()
+    this.professionalDataSubscription?.unsubscribe()
+    this.reviewsSubscription?.unsubscribe()
+    this.userDataSubscription?.unsubscribe()
+    this.prevPageSubscription?.unsubscribe()
+    this.nextPageSubscription?.unsubscribe()
+    this.addReviewSubscription?.unsubscribe()
+    this.subscribedSubscription?.unsubscribe()
   }
 }

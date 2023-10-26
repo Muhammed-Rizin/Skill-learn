@@ -23,13 +23,45 @@
           Your not approved by admin 
         </ul>
         <span class="navbar-text">
-          <button mat-button [matMenuTriggerFor]="menu">
+          <!-- <button mat-button [matMenuTriggerFor]="menu">
             <img src="../../../../assets/user-icon.svg" alt="skill learn" class="icon">
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/professional/profile">Profile</button>
             <button mat-menu-item  (click)="logOut()">Logout</button>
-          </mat-menu>
+          </mat-menu> -->
+
+          <div class="profile-notification">
+            <button mat-button [matMenuTriggerFor]="notification" *ngIf="notifications.length">
+              <button mat-fab color="warn" aria-label="Example icon button with a home icon">
+                <mat-icon [matBadge]="notifications.length" matBadgeColor="warn" class="notification-icon">notifications</mat-icon>
+              </button>
+            </button>
+            <button mat-fab color="warn" aria-label="Example icon button with a home icon" *ngIf="!notifications.length">
+              <mat-icon [matBadge]="notifications.length" matBadgeColor="warn" class="notification-icon">notifications</mat-icon>
+            </button>
+            <mat-menu #notification="matMenu" class="items">
+              <ng-container *ngFor="let item of notifications">
+                <div mat-menu-item class="toast-container" >
+                  <div  class="toast-content">
+                    <img src="../../../../assets/user-icon.svg" alt="User Image" class="image" *ngIf="!item.icon">
+                    <img [src]="item.icon" alt="User Image" class="image" *ngIf="item.icon">
+                    <div class="user-info">
+                      <span class="name">{{item.title}}</span>
+                      <span class="message">{{item.body}}</span>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </mat-menu>
+            <button mat-button [matMenuTriggerFor]="menu">
+              <img src="../../../../assets/user-icon.svg" alt="skill learn" class="icon">
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item routerLink="/professional/profile">Profile</button>
+              <button mat-menu-item  (click)="logOut()">Logout</button>
+            </mat-menu>
+          </div>
       </span>
       </div>
     </div>

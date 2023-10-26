@@ -63,8 +63,8 @@ export class ScheduledCompletedComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.meetingSubscription.unsubscribe()
-    this.loadingSubscription.unsubscribe()
-    this.totalPageSubscription.unsubscribe()
+    this.meetingSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
+    this.totalPageSubscription?.unsubscribe()
   }
 }

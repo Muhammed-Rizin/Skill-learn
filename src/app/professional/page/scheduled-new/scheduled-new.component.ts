@@ -50,8 +50,8 @@ ngOnInit(): void {
 }
 
 ngOnDestroy(): void {
-    this.subscribers.unsubscribe()
-    this.schedule.unsubscribe()
+    this.subscribers?.unsubscribe()
+    this.schedule?.unsubscribe()
 }
 
 submitForm() {

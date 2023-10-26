@@ -47,10 +47,10 @@ export class ScheduledComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.scheduleSubscription.unsubscribe()
-    this.loadingSubscription.unsubscribe()
-    this.totalSubscription.unsubscribe()
-    this.taskDoneSubscription.unsubscribe()
+    this.scheduleSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
+    this.totalSubscription?.unsubscribe()
+    this.taskDoneSubscription?.unsubscribe()
   }
 
   getTime (time :string) {

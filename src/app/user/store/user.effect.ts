@@ -108,8 +108,8 @@ export class UserEffects {
         return this.actions$.pipe(
             ofType(UserActions.getProfessionals),
             mergeMap((payload) => (
-                this.userService.getProfessionals(payload.page).pipe(
-                    map((data ) => UserActions.getProfessionalsSuccess({professionals : data.data, total : data.totalProfessional})),
+                this.userService.getProfessionals().pipe(
+                    map((data ) => UserActions.getProfessionalsSuccess({professionals : data.data})),
                     catchError(error => of(UserActions.getProfessionalsFailure({error : error})))
                 )
             ))

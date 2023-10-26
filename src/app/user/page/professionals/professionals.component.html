@@ -12,30 +12,33 @@
         </div>
         <div class="row">
             <div class="professionals col-12 col-lg-8 mt-2">
-                <ng-container *ngFor="let professional of professionals$ | professionalsSearch: searchValue">
+                <ng-container 
+                *ngFor="let professional of professionals$ | professionalsSearch: searchValue : totalProfessionals$ : skip : endIndex">
                     <div class=" professional mb-4">
                         <div class="user-header">
                             <div class="d-flex">
                                 <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional?.image?.trim()">
                                 <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional?.image?.trim()">
-                                <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
-                                    {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
+                                <div class="name-review">
+                                    <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
+                                        {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
+                                    <div class="review">
+                                        <div class="rating-avarage">
+                                            <ngb-rating [max]="5" [rate]="professional.averageRating || 0"[readonly]="true" class="average-review"></ngb-rating>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <p class="user-bio">{{professional.bio}}</p>
                         </div>
                         <div class="user-botton">
                             <p class="user-about" *ngIf="professional.about.length >=200">{{professional.about.slice(0, 200)}}...</p>
                             <p class="user-about" *ngIf="professional.about.length <200">{{professional.about}}</p>
-                            <!-- <div class="review">
-                                <div class="rating-avarage">
-        
-                                </div>
-                                <p>Review Count</p>
-                            </div> -->
+                            
                         </div>
                     </div>
                 </ng-container>
-                <div class="pagination" *ngIf="professionals$.length && !loading$">
+                <div class="pagination" *ngIf="professionals$ && professionals$?.length !== 0 && !loading$ && !searchValue">
                     <div class="next-page me-2" *ngIf="pageCount > 1">
                         <button (click)="prevPage()">Prev</button>
                     </div>

@@ -42,9 +42,9 @@ export class TaskCompletedComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.taskSubscription.unsubscribe()
-    this.loadingSubscription.unsubscribe()
-    this.totalSubscription.unsubscribe()
+    this.taskSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
+    this.totalSubscription?.unsubscribe()
   }
 
   getTime (time :string) {

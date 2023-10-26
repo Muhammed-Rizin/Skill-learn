@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ProfessionalService } from 'src/app/services/professional/professional.service';
 import { professionalData } from '../../types/professional.types';
 import { Subscription } from 'rxjs';
+import { notification } from 'src/app/user/types/user.types';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,11 +16,13 @@ export class NavBarComponent implements OnInit, OnDestroy{
   approved : boolean = false
 
   approvedSubscription !: Subscription
+  notifications : notification[] = []
 
   constructor(
     private router : Router, 
     readonly professioanlService : ProfessionalService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _notificationService : NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -31,11 +35,13 @@ export class NavBarComponent implements OnInit, OnDestroy{
         this.router.navigate(['/professional/server-error'])
       }
     })
-
+    this._notificationService.getNotification().subscribe(
+      data => this.notifications = data.notifications
+    )
   }
 
   ngOnDestroy(): void {
-    this.approvedSubscription.unsubscribe()
+    this.approvedSubscription?.unsubscribe()
   }
 
   logOut(){

@@ -94,8 +94,8 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/payment/conform`,{data}, httpOptions)
   }
 
-  getProfessionals(page : number) : Observable<{data : professionalData[], totalProfessional : number}> {
-    return this.http.get<{data : professionalData[], totalProfessional : number}>(`${this.apiUrl}/user/professionalsdata?page=${page}`)
+  getProfessionals() : Observable<{data : professionalData[], totalProfessional : number}> {
+    return this.http.get<{data : professionalData[], totalProfessional : number}>(`${this.apiUrl}/user/professionalsdata`)
   }
 
   submitFile(image : FormData, id : string) {
@@ -135,8 +135,8 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/review/addreview`, {data, id}, httpOptions)
   }
 
-  getReviews(id : string, page : number) : Observable<{data : Review[], total : number}> {
-    return this.http.get<{data : Review[], total : number}>(`${this.apiUrl}/review/getreviews?id=${id}&page=${page}`, httpOptions)
+  getReviews(id : string, page : number) : Observable<{data : Review[], total : number, average : number}> {
+    return this.http.get<{data : Review[], total : number, average : number}>(`${this.apiUrl}/review/getreviews?id=${id}&page=${page}`, httpOptions)
   }
 
   addNotificationToken(token : string) {

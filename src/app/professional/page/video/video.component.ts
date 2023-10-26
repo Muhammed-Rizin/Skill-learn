@@ -78,10 +78,12 @@ export class VideoComponent {
             this.toUserData = data
             this._notificationService.pushCall(
               data.firstName +' '+ data.lastName, 
-              "Calliing",
+              "Call",
               data.notificationToken,
               data.image,
-              this.roomId
+              this.roomId,
+              this.toUserData._id,
+              this.userData._id
             )
           },
           (err) => {

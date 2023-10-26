@@ -21,7 +21,6 @@ export const selectProfessionalsState = createFeatureSelector<initialStateType>(
 export const selectProfessionalsData = createSelector(selectProfessionalsState, state => (state.user as professionalData[]))
 export const selectProfessionalsError = createSelector(selectProfessionalsState, state => (state.error?.message))
 export const selectProfessionalsLoading = createSelector(selectProfessionalsState, state => (state.loading))
-export const selectProfessionalsTotal = createSelector(selectProfessionalsState, state => (state?.total))
 
 export const selectInprogressTaskState = createFeatureSelector<taskInitialState>('userInprogressTask')
 export const selectInprogressTaskData = createSelector(selectInprogressTaskState, state => (state.tasks as CompleteTask[]))

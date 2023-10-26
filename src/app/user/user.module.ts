@@ -28,6 +28,8 @@ import { VideoComponent } from './page/video/video.component';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatIconModule} from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormsModule,
     MatMenuModule,
     NgbModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatIconModule,
+    MatBadgeModule
   ],
   exports : [RouterModule]
 })

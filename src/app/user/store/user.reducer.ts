@@ -85,9 +85,9 @@ export const ProfessionalDataReducer = createReducer(
 // Get Professionals 
 export const professionalsList = createReducer(
     initialState,
-    on(UserActions.getProfessionals, (state, {page}) => ({...state, loading : true})),
-    on(UserActions.getProfessionalsSuccess, (state, {professionals, total}) => (
-        {...state, loading : false, loaded : true, user : professionals, total : total}
+    on(UserActions.getProfessionals, (state) => ({...state, loading : true})),
+    on(UserActions.getProfessionalsSuccess, (state, {professionals}) => (
+        {...state, loading : false, loaded : true, user : professionals}
     )),
     on(UserActions.getProfessionalsFailure, (state, {error}) => ({...state, loading : false, error : error}))
 )

@@ -81,9 +81,9 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.taksSubscription.unsubscribe()
-    this.loadingSubscription.unsubscribe()
-    this.totalPageSubscription.unsubscribe()
-    this.taskDoneSubscription.unsubscribe()
+    this.taksSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
+    this.totalPageSubscription?.unsubscribe()
+    this.taskDoneSubscription?.unsubscribe()
   }
 }

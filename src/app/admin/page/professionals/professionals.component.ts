@@ -49,9 +49,9 @@ export class ProfessionalsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.professionalSubscription.unsubscribe()
-    this.loadingSubscription.unsubscribe()
-    this.totalSubscription.unsubscribe()
+    this.professionalSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
+    this.totalSubscription?.unsubscribe()
   }
 
   block(id : string, name : string){

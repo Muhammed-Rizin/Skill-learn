@@ -58,6 +58,7 @@ export interface professionalData {
     about: string
     emailToken: string
     notificationToken: string
+    averageRating?: null | number
 }
 
 

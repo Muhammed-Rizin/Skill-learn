@@ -1,5 +1,5 @@
 <div class="toast-container" *ngIf="showToast">
-    <div class="toast-content" *ngIf="!message?.data">
+    <div class="toast-content" *ngIf="!message?.data?.call">
       <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon">
       <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon">
       <div class="user-info">
@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div class="toast-container" *ngIf="message?.data?.roomId">
+    <div class="toast-container" *ngIf="message?.data?.call">
       <div class="toast-content">
         <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon?.trim()">
         <img src="../assets/null-icon.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon?.trim()">

@@ -14,10 +14,10 @@
                     <div class="nameandbio col-6">
                         <h2>{{userData.firstName+ " " + userData.lastName}}</h2>
                         <p>{{userData.bio + "  "}}</p>
-                        <!-- <div class="avg-review" *ngIf="reviews$">
-                            <ngb-rating [max]="5" [rate]="averageReview()"[readonly]="true" class="average-review"></ngb-rating>
+                        <div class="avg-review" *ngIf="reviews$">
+                            <ngb-rating [max]="5" [rate]="averageReview"[readonly]="true" class="average-review"></ngb-rating>
                             <span>{{total + ' '}} reviews</span>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="chat-option col-6">
                         <button [routerLink]="['/chat', getRoomId(userData.email)]">Chat</button>
@@ -31,14 +31,15 @@
                         <p *ngIf="userData.work.trim()">Working in {{userData.work }}</p>
                         <p>{{userData.field }}</p>
                     </div>
-                    <div class="payment-option" *ngIf="userData.payment">
+                    <div class="payment-option" *ngIf="userData.payment ">
                         <div class="payment">
                             <div class="text">
                                 <p>One to One session</p>
                                 <p>{{userData.payment}}</p>
                             </div>
                             <div class="payment-button">
-                                <button *ngIf="!subscribed" (click)="paymentSubmit()">PAY {{userData.payment}}</button>
+                                <button *ngIf="userLogined && !subscribed" (click)="paymentSubmit()">PAY {{userData.payment}}</button>
+                                <button *ngIf="!userLogined" >Login to pay</button>
                                 <button *ngIf="subscribed">Subscribed</button>
                             </div>
                         </div>

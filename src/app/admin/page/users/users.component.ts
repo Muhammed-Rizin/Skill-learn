@@ -49,9 +49,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.store.dispatch(loadTotalUsers())
   }
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe()
-    this.loadingSubscription.unsubscribe()
-    this.totalSubscription.unsubscribe()
+    this.userSubscription?.unsubscribe()
+    this.loadingSubscription?.unsubscribe()
+    this.totalSubscription?.unsubscribe()
   }
 
   unblock(id : string, name : string){

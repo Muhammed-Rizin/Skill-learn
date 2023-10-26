@@ -41,7 +41,7 @@ const routes: Routes = [
   {path : 'explore', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard ]},
   {path : 'profile', component : ProfileComponent, canActivate : [ConsecutiveGuard, UserAuthentication, UserBlockedGuard]},
   {path : 'verifyemail', component : VerifyEmailComponent, canActivate : [ConsecutiveGuard]},
-  {path : 'viewprofile/:id', component : ProfessionalProfileComponent, canActivate : [UserAuthentication,UserBlockedGuard, ConsecutiveGuard]},
+  {path : 'viewprofile/:id', component : ProfessionalProfileComponent, canActivate : [ConsecutiveGuard]},
   {path : 'ordersuccess', component : OrderSuccessComponent, canActivate : [UserAuthentication,UserBlockedGuard, ConsecutiveGuard]},
 
   {path : 'chat', component : ChatComponent, canActivate : [UserAuthentication, ConsecutiveGuard, UserBlockedGuard]},

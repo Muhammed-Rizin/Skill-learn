@@ -6,7 +6,6 @@ export interface initialStateType {
     loading: boolean,
     loaded: boolean,
     error: any
-    total?: number
 }
 
 export interface taskInitialState {
@@ -125,7 +124,11 @@ export interface msgType {
 }
 
 export interface data {
-    roomId : string
+    roomId : string,
+    call ?: boolean,
+    toUserId ?: string,
+    fromUserID ?: string
+
 }
 
 export interface notification {

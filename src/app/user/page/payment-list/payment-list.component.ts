@@ -67,6 +67,6 @@ export class PaymentListComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.paymentDataSubscription.unsubscribe()
+    this.paymentDataSubscription?.unsubscribe()
   }
 }

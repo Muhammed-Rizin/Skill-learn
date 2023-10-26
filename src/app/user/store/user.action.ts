@@ -34,9 +34,9 @@ export const getProfessionalDataSuccess = createAction(`[User Component] Get pro
 export const getProfessionalDataFailure = createAction(`[User Component] Get professional data failure`, props<{error : any}>())
 
 // List professinals
-export const getProfessionals = createAction(`[User Component] Professionals `, props<{page : number}>())
+export const getProfessionals = createAction(`[User Component] Professionals `)
 export const getProfessionalsSuccess = 
-createAction(`[User Component] Professionals success `, props<{professionals : professionalData[], total : number}>())
+createAction(`[User Component] Professionals success `, props<{professionals : professionalData[]}>())
 export const getProfessionalsFailure = createAction(`[User Component] Professionals failure `, props<{error : any}>())
 
 // List inprogress tasks 

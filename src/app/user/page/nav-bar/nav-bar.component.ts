@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { userData } from '../../types/user.types';
+import { msgType, notification, userData } from '../../types/user.types';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,14 +11,23 @@ import { userData } from '../../types/user.types';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  user !: boolean
+  user !: string | null
+  notifications : notification[] = []
   constructor(
     private router : Router, 
     readonly _userService : UserService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _notificationService : NotificationService
   ) {}
   ngOnInit(): void {
-    this.user = localStorage.getItem('userjwt') ? true : false
+    this.user = localStorage.getItem('userjwt') 
+    if(this.user){ 
+      this._notificationService.getNotification().subscribe(
+        (data) => {
+          this.notifications = data.notifications
+        }
+      )
+    }
   }
   logOut(){
     const dialogRef = this.dialog.open(logoutDialog, {

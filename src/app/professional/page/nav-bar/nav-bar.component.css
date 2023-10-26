@@ -12,6 +12,7 @@
     height: 30px;
     border-radius: 150%;
 }
+
 .dropdown-menu {
     width: 100px;
 }
@@ -20,11 +21,87 @@
     border-bottom: 1.6px solid #00A4BD;
 }
 
+
+.profile-notification {
+    display: flex;
+}
+
+.notification-icon {
+    font-size: 2rem;
+    width: auto;
+    height: auto;
+}
+
+.toast-container {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    z-index: 10000;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+}
+
+.toast-content .image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.toast-content .user-info {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.toast-content .name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.toast-content .message {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* Animation */
+.toast-container.show-toast {
+    animation: slide-in 0.5s forwards;
+}
+
+@keyframes slide-in {
+    from {
+        right: -300px;
+    }
+
+    to {
+        right: 1rem;
+    }
+}
+
+.items {
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.items ::-webkit-scrollbar {
+    display: none;
+}
+
+
 button {
     border: none;
     outline: none;
     background: transparent;
-    color: rgba(0,0,0,.55);
+    color: rgba(0, 0, 0, .55);
 }
 
 .sidebar {
@@ -59,7 +136,9 @@ div.content {
     padding: 1px 16px;
 }
 
-a.logout:hover { cursor: pointer; }
+a.logout:hover {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 700px) {
     .sidebar {
@@ -93,27 +172,27 @@ a.logout:hover { cursor: pointer; }
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .custom-dialog-title {
+}
+
+.custom-dialog-title {
     /* Customize the title styles */
     font-size: 24px;
     margin-bottom: 10px;
-  }
-  
-  .custom-dialog-content {
+}
+
+.custom-dialog-content {
     /* Customize the content styles */
     font-size: 16px;
     margin-bottom: 20px;
-  }
-  
-  .custom-dialog-actions {
+}
+
+.custom-dialog-actions {
     /* Customize the actions container styles */
     display: flex;
     justify-content: flex-end;
-  }
-  
-  .custom-dialog-button {
+}
+
+.custom-dialog-button {
     /* Customize the button styles */
     margin-left: 10px;
     padding: 8px 16px;
@@ -123,16 +202,15 @@ a.logout:hover { cursor: pointer; }
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-  }
-  
-  .custom-dialog-button:hover {
+}
+
+.custom-dialog-button:hover {
     /* Customize the button hover styles */
     background-color: #0056b3;
-  }
-  
-  .custom-dialog-button:focus {
+}
+
+.custom-dialog-button:focus {
     /* Customize the button focus styles */
     outline: none;
     box-shadow: 0 0 0 2px #007bff;
-  }
-  
+}
