@@ -6,7 +6,7 @@
             <div class="col-12 col-lg-3 profileimage">
                 <img [src]="userData.image"
                     alt="profile image" *ngIf="userData?.image">
-                <img src="../../../assets/null-icon.jpg"
+                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
                     alt="profile image" *ngIf="!userData?.image">
             </div>
             <div class="col-12 col-lg-9 userinformation">
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="chat-option col-6">
-                        <button [routerLink]="['/chat', getRoomId(userData.email)]">Chat</button>
+                        <button [routerLink]="['/chat', getRoomId(userData._id)]">Chat</button>
                     </div>
                 </div>
                 <div class="userdata">
@@ -56,7 +56,8 @@
                             <ngb-rating class="review-star" [max]="5" formControlName="rating"></ngb-rating>
                             <input type="text" formControlName="title" placeholder="Title" id="">
                             <input type="text" formControlName="description" placeholder="Description" id="">
-                            <button type="submit">Submit</button>
+                            <button type="submit" *ngIf="!reviewSubmitted">Submit</button>
+                            <button *ngIf="reviewSubmitted">Loading...</button>
                         </form>
                     </div>
                     <ng-container *ngFor="let review of reviews$ ">
@@ -64,7 +65,7 @@
                             <div class="user-header">
                                 <div class="image">
                                     <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image?.trim()">
-                                    <img src="../../../../assets/null-icon.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
+                                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
                                 </div>
                                 <div class="name">
                                     <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>

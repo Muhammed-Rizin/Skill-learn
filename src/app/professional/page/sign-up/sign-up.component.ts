@@ -28,7 +28,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   error$ : Observable<String> | string
   loading$ : Observable<boolean> | boolean
 
-  formSubmitSubscriptiion !: Subscription
+  formSubmitSubscription !: Subscription
 
   pageCount : number = 1
   data : professionalType = {
@@ -73,7 +73,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.formSubmitSubscriptiion?.unsubscribe()
+      this.formSubmitSubscription?.unsubscribe()
   }
 
   next(){
@@ -100,7 +100,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   passwordSubmit() {
-    console.log('hi', this.error$ as string, this.oneNumber && this.upperCase && this.lowerCase && this.characters)
     if(this.oneNumber && this.upperCase && this.lowerCase && this.characters){
       this.data['password'] = this.passwordForm.value.password
       this.pageCount++
@@ -114,7 +113,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   passwordCheck(){
     const password = this.passwordForm.value.password
 
-    if (password.length > 8) {
+    if (password.length >= 8) {
       this.characters = true
     }else {
       this.characters = false
@@ -144,12 +143,11 @@ export class SignUpComponent implements OnInit, OnDestroy {
     if(this.emailForm.valid){
       this.loading = true
       const emailData = this.emailForm.getRawValue()
-      this.formSubmitSubscriptiion = this.professionalService.checkEmail(emailData.email).subscribe(
+      this.formSubmitSubscription = this.professionalService.checkEmail(emailData.email).subscribe(
         (res) => {
           this.data.email = emailData?.email || ''
           this.pageCount++
           this.loading = false
-          console.log('i')
         },
         (err) => {
           if(err.status === 400) {

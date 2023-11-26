@@ -37,7 +37,8 @@
                     <input type="time" id="time" formControlName="time">
                     <p class="validation"  
                     *ngIf="form.get('time')?.touched && form.controls['time'].errors?.['required']">Time is required</p>
-                    <button type="submit" class="submit">Add</button>
+                    <button type="submit" class="submit" *ngIf="!newEvent">Add</button>
+                    <button class="submit" *ngIf="newEvent">Loading..</button>
                 </div>
             </form>
         </div>

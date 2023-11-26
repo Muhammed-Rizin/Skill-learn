@@ -18,11 +18,11 @@ export class UserEffects {
 
     loginUser$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(UserActions.loginUseraction),
+            ofType(UserActions.loginUserAction),
             mergeMap((payload) => 
                 this.userService.userLogin(payload.data).pipe(
                     map((users : userData) => {
-                        localStorage.setItem('userjwt',users.token)
+                        localStorage.setItem('userJwt',users.token)
                         this.router.navigate(['/'])
                         return UserActions.loginUserSuccess({userData : users})
                     }),
@@ -37,9 +37,9 @@ export class UserEffects {
             mergeMap((payload) => (
                 this.userService.userRegister(payload.userData).pipe(
                     map((users : userData) => {
-                        localStorage.setItem('userjwt', users.token)
+                        localStorage.setItem('userJwt', users.token)
                         this.router.navigate(['/'])
-                        return UserActions.registerUseruccess({userData : users})
+                        return UserActions.registerUserSuccess({userData : users})
                 }),
                     catchError(error => of(UserActions.registerUserFailure({error : error.error})))
                 )
@@ -69,7 +69,7 @@ export class UserEffects {
                 return (
                 this.userService.newPassword(payload.token, payload.password).pipe(
                     map((user : userData) =>{ 
-                        localStorage.setItem('userjwt', user.token)
+                        localStorage.setItem('userJwt', user.token)
                         this.router.navigate(['/'])
                         return UserActions.newPasswordSuccess({userData : user})
                     }),

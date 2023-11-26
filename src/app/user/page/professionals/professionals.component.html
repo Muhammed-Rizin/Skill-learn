@@ -18,9 +18,9 @@
                         <div class="user-header">
                             <div class="d-flex">
                                 <img class="user-image" [src]="professional.image" alt="image" *ngIf="professional?.image?.trim()">
-                                <img class="user-image" src="../../../../assets/null-icon.jpg" alt="image" *ngIf="!professional?.image?.trim()">
+                                <img class="user-image" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="image" *ngIf="!professional?.image?.trim()">
                                 <div class="name-review">
-                                    <p class="user-name ms-1" routerLink="/viewprofile/{{professional.email}}">
+                                    <p class="user-name ms-1" routerLink="/viewprofile/{{professional._id}}">
                                         {{professional.firstName  + ' ' + professional.lastName | uppercase}} </p>
                                     <div class="review">
                                         <div class="rating-avarage">

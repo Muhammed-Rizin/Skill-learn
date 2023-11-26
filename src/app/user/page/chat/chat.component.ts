@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChatData, Message, userData } from '../../types/user.types';
 import { professionalData } from 'src/app/professional/types/professional.types';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +16,7 @@ import { NotificationService } from 'src/app/services/notification/notification.
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnDestroy{
-  secret = "crypto-js"
+  secret = environment.crypto_secret
   
   alreadyMessaged !: ChatData[]
   
@@ -52,7 +53,6 @@ export class ChatComponent implements OnInit, OnDestroy{
       this._socketService.setupSocketConnection(this.userData?._id as string);
       
       this._socketService.subscribeToMessages((err, data) => this.handleMessage(data));
-
       this.router.params.subscribe((params) => {
         if(params['id']){
           this.handleRoom(params['id'])
@@ -104,15 +104,17 @@ export class ChatComponent implements OnInit, OnDestroy{
   }
 
   handleRoom(roomId : string) {
-    if(this.decryptString(roomId) !== this.CHAT_ROOM){
+    if(roomId !== this.CHAT_ROOM){
       this.loading = true
     }
-    this.CHAT_ROOM = this.decryptString(roomId)
+    console.log(roomId)
+    this.CHAT_ROOM = roomId
+    console.log(this.CHAT_ROOM, ' to', this.userData.email)
 
     this._socketService.join(this.CHAT_ROOM)
 
-    const toUserEmail = this.CHAT_ROOM.replace(this.userData.email, '')
-    this._userService.getProfessionalDataByEmail(toUserEmail).subscribe(
+    const toUserId = this.CHAT_ROOM.replace(this.userData._id, '')
+    this._userService.getProfessionalDataById(toUserId).subscribe(
       (data) => {
         this.toUserData = data
       },
@@ -135,7 +137,6 @@ export class ChatComponent implements OnInit, OnDestroy{
     this._userService.getChatHistory(this.CHAT_ROOM, this.page , this.limit).subscribe(
       (data) => {
         const alreadyUser = this.chatHistory?.users.find((value) => value == this.toUserData?._id)
-        console.log(alreadyUser)
         if(alreadyUser){
           this.chatHistory.messages = [...data.chatData.messages, ...this.chatHistory.messages]
 
@@ -169,7 +170,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     )
   }
 
-  handleMessage(data : { sender: string, text: string, recever: string, data: ChatData }) {
+  handleMessage(data : { sender: string, text: string, receiver: string, data: ChatData }) {
     const newMessage = data.data?.messages[data.data?.messages?.length - 1]
     this.sendNotification(newMessage)
 
@@ -198,7 +199,7 @@ export class ChatComponent implements OnInit, OnDestroy{
   }
 
   getUserDetails(chat : ChatData) {
-    const data =  chat.messages[0]?.recever?._id === this.userData._id ? chat.messages[0]?.sender  : chat.messages[0]?.recever
+    const data =  chat.messages[0]?.receiver?._id === this.userData._id ? chat.messages[0]?.sender  : chat.messages[0]?.receiver
     this.toUserId = data._id
     return data
   }
@@ -209,20 +210,19 @@ export class ChatComponent implements OnInit, OnDestroy{
     const toUserID = this.toUserData._id
     if(message.trim().length !== 0){
       this._socketService.sendMessage(
-        {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'User', receverType : 'Professional'},  
+        {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'User', receiverType : 'Professional'},  
         cb => {
-          console.log("ACKNOWLEDGEMENT ", cb);
         })
       this.message = ''
     }
   }
 
   sendNotification(newMessage : Message) {
-    const nofificationToken = newMessage.recever.notificationToken
+    const notificationToken = newMessage.receiver.notificationToken
     this._notificationService.pushNotification(
       newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
       newMessage.text,
-      nofificationToken,
+      notificationToken,
       newMessage.sender.image,
       this.CHAT_ROOM,
       this.toUserId,
@@ -230,23 +230,13 @@ export class ChatComponent implements OnInit, OnDestroy{
     )
   }
 
-  getRoomId(email : string) {
-    if (email) {
-      if(email.length > this.userData.email?.toString().length ){
-        return this.encryptString(`${this.userData.email}${email}`)
-      }
-      return this.encryptString(`${email}${this.userData.email}`)
+  getRoomId(_id : string) {
+    if (_id) {
+      return `${_id}${this.userData._id}`
     }
     return null
   }
-  encryptString(roomId : string) {
-    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
-  }
-
-  decryptString(roomId : string) {
-    const bytes = CryptoJS.AES.decrypt(roomId, this.secret);
-    return bytes.toString(CryptoJS.enc.Utf8);
-  }
+  
   
   @ViewChild('chatContainer') chatContainer!: ElementRef 
   ngAfterViewChecked(): void {

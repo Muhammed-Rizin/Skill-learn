@@ -24,10 +24,6 @@ export class AdminService {
     return this.http.post<adminData>(`${this.apiUrl}/admin/login`,formData, httpOptions)
   }
 
-  adminLogined() : boolean {
-    return localStorage.getItem('admin_jwt') ? true : false
-  }
-
   getTotalUsers() : Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/admin/get_totalusers`, httpOptions)
   }

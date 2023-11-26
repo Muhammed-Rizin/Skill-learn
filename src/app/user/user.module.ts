@@ -11,7 +11,7 @@ import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfileComponent } from './page/profile/profile.component';
-import { ForgetpasswordComponent } from './page/forgetpassword/forgetpassword.component';
+import { ForgotPasswordComponent } from './page/forgotPassword/forgotPassword.component';
 import { NewPasswordComponent } from './page/new-password/new-password.component';
 import { ChatComponent } from './page/chat/chat.component';
 import { VerifyEmailComponent } from './page/verify-email/verify-email.component';
@@ -39,7 +39,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     SignUpComponent,
     ProfessionalsComponent,
     ProfileComponent,
-    ForgetpasswordComponent,
+    ForgotPasswordComponent,
     NewPasswordComponent,
     ChatComponent,
     VerifyEmailComponent,

@@ -5,7 +5,7 @@ import { CanActivate, Router } from '@angular/router';
     providedIn: 'root'
 })
 
-export class ServerErrorguard implements CanActivate {
+export class ServerErrorGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate() {

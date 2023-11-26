@@ -14,6 +14,7 @@ export class ScheduledNewComponent implements OnInit, OnDestroy {
   form !: FormGroup
   users: userData[] = []
   loading$: boolean = true
+  newEvent : boolean = false
 
   subscribers !: Subscription
   schedule !: Subscription
@@ -39,9 +40,9 @@ ngOnInit(): void {
       const currentDate = new Date();
 
       const timeDifference = currentDate.getTime() - createdAtDate.getTime();
-      const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+      const oneWeekInMillisecond = 30 * 24 * 60 * 60 * 1000;
 
-      if (timeDifference <= oneWeekInMillis) {
+      if (timeDifference <= oneWeekInMillisecond) {
         this.users.push(value.from as userData)
       }
     })
@@ -57,7 +58,7 @@ ngOnDestroy(): void {
 submitForm() {
   if (this.form.valid) {
     const values = this.form.getRawValue()
-
+    this.newEvent = true
     const endTimeParts = values.time.split(':');
     const endTime = new Date(values.date);
     endTime.setHours(Number(endTimeParts[0]), Number(endTimeParts[1]), 0, 0);

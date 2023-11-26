@@ -49,10 +49,10 @@ export const loadUsersReducer = createReducer(
         user : (state?.user as User[]).map((user) => user._id == id ? { ...user, blocked: true } : user)})),
     on(adminActions.userBlockingFailure, (state, {error}) => ({...state, loading : false, error})),
 
-    on(adminActions.userunBlocking, (state, {id}) => ({...state, loading : true})),
-    on(adminActions.userunBlockingSuccess, (state, {id}) => ({...state , loaded : true, loading : false, 
+    on(adminActions.userUnblocking, (state, {id}) => ({...state, loading : true})),
+    on(adminActions.userUnblockingSuccess, (state, {id}) => ({...state , loaded : true, loading : false, 
        user : (state?.user as User[]).map((user) => user._id == id ? { ...user, blocked: false } : user)})),
-    on(adminActions.userunBlockingFailure, (state, {error}) => ({...state, loading : false, error})),
+    on(adminActions.userUnblockingFailure, (state, {error}) => ({...state, loading : false, error})),
 )
 
 export const loadProfessionalsReducer = createReducer(
@@ -67,8 +67,8 @@ export const loadProfessionalsReducer = createReducer(
     })),
     on(adminActions.professionalBlockingFailure, (state, {error}) => ({...state, loading : false, error})),
 
-    on(adminActions.professionalunBlocking, (state, {id}) => ({...state, loading : true})),
-    on(adminActions.professionalunBlockingSuccess, (state, {id}) => ({...state , loaded : true, loading : false, 
+    on(adminActions.professionalUnblocking, (state, {id}) => ({...state, loading : true})),
+    on(adminActions.professionalUnblockingSuccess, (state, {id}) => ({...state , loaded : true, loading : false, 
         user : (state?.user as User[]).map((user) => user._id == id ? { ...user, blocked: false } : user)
     })),
     on(adminActions.professionalBlockingFailure, (state, {error}) => ({...state, loading : false, error})),

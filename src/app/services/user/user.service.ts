@@ -27,7 +27,7 @@ export class UserService {
   }
 
   user() : boolean {
-    return localStorage.getItem('userjwt') ? true : false
+    return localStorage.getItem('userJwt') ? true : false
   }
 
   checkEmail(email : string): Observable<{message : string}> {
@@ -62,6 +62,10 @@ export class UserService {
 
   getProfessionalDataByEmail(email :string) : Observable<professionalData> {
     return this.http.get<professionalData>(`${this.apiUrl}/user/userdatabyemail?email=${email}`, httpOptions)
+  }
+
+  getProfessionalDataById(id :string) : Observable<professionalData> {
+    return this.http.get<professionalData>(`${this.apiUrl}/user/professionalData?id=${id}`, httpOptions)
   }
 
   getChats() : Observable<ChatData[]> {

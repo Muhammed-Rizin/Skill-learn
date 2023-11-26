@@ -48,9 +48,9 @@ export class PaymentListComponent implements OnInit, OnDestroy{
     const currentDate = new Date();
 
     const timeDifference = currentDate.getTime() - createdAtDate.getTime();
-    const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+    const oneWeekInMilliSecond = 30 * 24 * 60 * 60 * 1000;
 
-    if (timeDifference <= oneWeekInMillis) {
+    if (timeDifference <= oneWeekInMilliSecond) {
         return true;
     }
     return false; 

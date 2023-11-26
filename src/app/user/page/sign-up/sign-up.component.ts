@@ -89,7 +89,6 @@ export class SignUpComponent implements OnInit{
   }
 
   passwordSubmit() {
-    console.log('hi', this.error$ as string, this.oneNumber && this.upperCase && this.lowerCase && this.characters)
     if(this.oneNumber && this.upperCase && this.lowerCase && this.characters){
       this.data['password'] = this.passwordForm.value.password
       this.pageCount++
@@ -103,7 +102,7 @@ export class SignUpComponent implements OnInit{
   passwordCheck(){
     const password = this.passwordForm.value.password
 
-    if (password.length > 8) {
+    if (password.length >= 8) {
       this.characters = true
     }else {
       this.characters = false
@@ -162,7 +161,6 @@ export class SignUpComponent implements OnInit{
           this.data.email = emailData?.email || ''
           this.pageCount++
           this.loading = false
-          console.log('i')
         },
         (err) => {
           if(err.status === 400) {

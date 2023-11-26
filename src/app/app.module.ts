@@ -10,20 +10,22 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { initializeApp } from 'firebase/app';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
 import { ProfessionalModule } from './professional/professional.module';
-import { ProfessionalDataReducer, completedSchedule, completedTask, forgetpasswordReducer, getUserDetailsByTokenReducer, inprogressSchedule, inprogressTask, loginReducer, newPasswordReducer, professionalsList, registerReducer } from './user/store/user.reducer';
+
 import { UserEffects } from './user/store/user.effect';
 import { adminLoginReducer, loadRequestedProfessionalsReducer, loadProfessionalsReducer, loadUsersReducer, loadTotalUserReducer, loadTotalProfessionalsReducer, loadTotalRequestProfessionalReducer } from './admin/store/admin.reducer';
 import { adminEffects } from './admin/store/admin.effects';
 import { UserService } from './services/user/user.service';
 import { ProfessionalService } from './services/professional/professional.service';
 import { AdminService } from './services/admin/admin.service';
-import { getProfessionalDetailsReducer, getcompletedSchedule, getcompletedTask, getinprogressSchedule, getinprogressTask, professionalForgetpasswordReducer, professionalLoginReducer, professionalNewPasswordReducer, professionalRegisterReducer } from './professional/store/professional.reducer';
+import { getProfessionalDetailsReducer, getCompletedSchedule, getCompletedTask, getInprogressSchedule, getInprogressTask, professionalForgetPasswordReducer, professionalLoginReducer, professionalNewPasswordReducer, professionalRegisterReducer } from './professional/store/professional.reducer';
 import { professionalEffects } from './professional/store/professional.effects';
 import { ErrorPageComponent } from './error/error-page/error-page.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
@@ -31,7 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { NotificationService } from './services/notification/notification.service';
 import { ServerErrorComponent } from './error/server-error/server-error.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+
+import { ProfessionalDataReducer, completedSchedule, completedTask, forgetPasswordReducer, getUserDetailsByTokenReducer, inprogressSchedule, inprogressTask, loginReducer, newPasswordReducer, professionalsList, registerReducer } from './user/store/user.reducer';
 
 @NgModule({
   declarations: [
@@ -59,10 +62,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
       loadUsersState : loadUsersReducer,
       loadProfessionalState : loadProfessionalsReducer,
       loadRequestProfessionalState : loadRequestedProfessionalsReducer,
-      userForgetPasswordState : forgetpasswordReducer,
+      userForgetPasswordState : forgetPasswordReducer,
       userDetailsState : getUserDetailsByTokenReducer,
       newPasswordState : newPasswordReducer,
-      professionalForgotPasswordState : professionalForgetpasswordReducer,
+      professionalForgotPasswordState : professionalForgetPasswordReducer,
       professionlaDetailsState : getProfessionalDetailsReducer,
       professionalnewPasswordState : professionalNewPasswordReducer,
       getProfessionalDataReducerInUser : ProfessionalDataReducer,
@@ -73,10 +76,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
       userInprogressSchedule : inprogressSchedule,
       userCompletedSchedule : completedSchedule,
 
-      professionalInprogressTask : getinprogressTask,
-      professionalCompletedTask : getcompletedTask,
-      professionalInprogressSchedule : getinprogressSchedule,
-      professionalCompletedSchedule : getcompletedSchedule,
+      professionalInprogressTask : getInprogressTask,
+      professionalCompletedTask : getCompletedTask,
+      professionalInprogressSchedule : getInprogressSchedule,
+      professionalCompletedSchedule : getCompletedSchedule,
     }),
     EffectsModule.forRoot([UserEffects, adminEffects, professionalEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

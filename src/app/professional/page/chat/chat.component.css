@@ -513,3 +513,22 @@ ul {
   color: #999;
   font-size: 14px;
 }
+
+
+.empty-message {
+  text-align: center;
+  color: #888888;
+  margin: 20px auto;
+  max-width: 300px;
+}
+
+.empty-message img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.empty-message p {
+  font-size: 16px;
+  line-height: 1.4;
+}

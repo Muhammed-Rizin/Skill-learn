@@ -65,7 +65,7 @@ export class AuthInterceptor implements HttpInterceptor {
         )
       )
     }else {
-      const token = localStorage.getItem('userjwt') || localStorage.getItem('professional_token')
+      const token = localStorage.getItem('userJwt') || localStorage.getItem('professional_token')
       request = request.clone({headers : request.headers.set('authorization', 'Bearer ' + token)})
       return next.handle(request).pipe(
         tap(
@@ -73,8 +73,11 @@ export class AuthInterceptor implements HttpInterceptor {
           (error : any) => {
             if(error instanceof HttpErrorResponse){
               if(error.status === 401){
-                localStorage.removeItem('userjwt')
+                localStorage.removeItem('userJwt')
                 this.router.navigate(['/'])
+              }else if(error.status == 500) {
+                localStorage.setItem('server-error' , 'server-error')
+                this.router.navigate(['/server-error'])
               }
             }
           } 

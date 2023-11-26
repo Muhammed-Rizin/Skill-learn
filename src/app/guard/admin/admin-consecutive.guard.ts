@@ -10,7 +10,7 @@ export class ConsecutiveGuard implements CanActivate {
 
     canActivate() {
         const professional = localStorage.getItem('professional_token');
-        const user = localStorage.getItem('userjwt');
+        const user = localStorage.getItem('userJwt');
         if (professional) {
             this.router.navigate(['/professional']);
             return false;

@@ -6,11 +6,11 @@ import { Observable, map } from 'rxjs';
 import { selectForgotPasswordError, selectForgotPasswordLoading, selectForgotPasswordMessage } from '../../store/user.selector';
 
 @Component({
-  selector: 'app-forgetpassword',
-  templateUrl: './forgetpassword.component.html',
-  styleUrls: ['./forgetpassword.component.css']
+  selector: 'app-forgotPassword',
+  templateUrl: './forgotPassword.component.html',
+  styleUrls: ['./forgotPassword.component.css']
 })
-export class ForgetpasswordComponent implements OnInit{
+export class ForgotPasswordComponent implements OnInit{
   form !: FormGroup
   message$ : Observable<string> | string 
   loading$ : Observable<boolean> | boolean

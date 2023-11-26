@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
-import { professionalData } from '../../types/professional.types';
 import { Store, select } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { selectLoginError, selectLoginLoading, selectLoginUserData } from '../../store/professional.selector';
 import { professionalLogin } from '../../store/professional.actions';
 

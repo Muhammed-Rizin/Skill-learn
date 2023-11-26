@@ -22,10 +22,10 @@ import { ProfessionalGuard } from '../guard/professional/professional.guard';
 import { ConsecutiveGuard } from '../guard/professional/professional-consecutive.guard';
 import { ProfessionalBlockedGuard } from '../guard/professional/professional-blocked.guard';
 import { ProfessionalApprovedGuard } from '../guard/professional/professional-approved.guard';
-import { ProfessionalchatGuard } from '../guard/professional/professional-chat.guard';
+import { ProfessionalChatGuard } from '../guard/professional/professional-chat.guard';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
 import { ServerErrorComponent } from '../error/server-error/server-error.component';
-import { ServerErrorguard } from '../guard/server-error.guard';
+import { ServerErrorGuard } from '../guard/server-error.guard';
 
 const routes: Routes = [
     {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
@@ -39,7 +39,7 @@ const routes: Routes = [
       [ConsecutiveGuard]},
     
     {path : '', component: HomeComponent, canActivate :
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard, ProfessionalchatGuard]},
+      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard, ProfessionalChatGuard]},
     {path : 'chat', component : ChatComponent, canActivate : 
       [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
     {path : 'chat/:id', component : ChatComponent, canActivate : 
@@ -64,7 +64,7 @@ const routes: Routes = [
 
     {path : 'payment', component : PaymentListComponent, canActivate : 
     [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'server-error', component : ServerErrorComponent, canActivate: [ServerErrorguard]},
+    {path : 'server-error', component : ServerErrorComponent, canActivate: [ServerErrorGuard]},
     {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 

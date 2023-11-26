@@ -4,13 +4,13 @@ import { CompleteSchedule, CompleteTask, Task, professionalData } from "src/app/
 
 
 // User login
-export const loginUseraction = createAction(`[User Component] Login User`, props<{data : loginUser}>())
+export const loginUserAction = createAction(`[User Component] Login User`, props<{data : loginUser}>())
 export const loginUserSuccess = createAction(`[User Component] Login User Success`, props<{userData : userData}>())
 export const loginUserFailure = createAction(`[User Component] Login User Failure`, props<{error : any}>())
 
 // User register
 export const registerUser = createAction(`[User Component] Register User`, props<{userData : registerUserType}>())
-export const registerUseruccess = createAction(`[User Component] Register User Success`,props<{userData : userData}>())
+export const registerUserSuccess = createAction(`[User Component] Register User Success`,props<{userData : userData}>())
 export const registerUserFailure = createAction(`[User Component] Register User Failure`, props<{error : any}>())
 
 // Forgot password
@@ -33,7 +33,7 @@ export const getProfessionalData = createAction(`[User Component] Get profession
 export const getProfessionalDataSuccess = createAction(`[User Component] Get professional data success`, props<{userData : professionalData}>())
 export const getProfessionalDataFailure = createAction(`[User Component] Get professional data failure`, props<{error : any}>())
 
-// List professinals
+// List professionals
 export const getProfessionals = createAction(`[User Component] Professionals `)
 export const getProfessionalsSuccess = 
 createAction(`[User Component] Professionals success `, props<{professionals : professionalData[]}>())

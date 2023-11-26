@@ -7,7 +7,7 @@ export const adminLoginAction = createAction(`[Admin component] Admin login`, pr
 export const adminLoginSuccess = createAction(`[Admin component] Admin login success`, props<{adminData : adminData}>())
 export const adminLoginFailure = createAction(`[Admin component] Admin login failure`, props<{error : any}>())
 
-// Loadin total users
+// Loading total users
 export const loadTotalUsers = createAction(`[Admin component] Load total user`)
 export const loadTotalUsersSuccess = createAction(`[Admin component] Load total user success`, props<{user : User[]}>())
 export const loadTotalUsersFailure = createAction(`[Admin component] Load total user failure`, props<{error : any}>())
@@ -34,9 +34,9 @@ export const userBlockingSuccess = createAction(`[Admin component] User block su
 export const userBlockingFailure = createAction(`[Admin component] User block failure`, props<{error : any}>())
 
 // Unblock user
-export const userunBlocking = createAction(`[Admin component] User unblock`, props<{id : string}>())
-export const userunBlockingSuccess = createAction(`[Admin component] User unblock success`, props<{id : string}>())
-export const userunBlockingFailure = createAction(`[Admin component] User unblock failure`, props<{error : any}>())
+export const userUnblocking = createAction(`[Admin component] User unblock`, props<{id : string}>())
+export const userUnblockingSuccess = createAction(`[Admin component] User unblock success`, props<{id : string}>())
+export const userUnblockingFailure = createAction(`[Admin component] User unblock failure`, props<{error : any}>())
 
 // Load professionals
 export const loadProfessionals = createAction(`[Admin component] Load professionals`, props<{page : number, limit : number}>())
@@ -65,6 +65,6 @@ export const professionalBlockingSuccess = createAction(`[Admin component] profe
 export const professionalBlockingFailure = createAction(`[Admin component] professional block failure`, props<{error : any}>())
 
 // Unblock professional
-export const professionalunBlocking = createAction(`[Admin component] professional unblock`, props<{id : string}>())
-export const professionalunBlockingSuccess = createAction(`[Admin component] professional unblock success`, props<{id : string}>())
-export const professionalunBlockingFailure = createAction(`[Admin component] professional unblock failure`, props<{error : any}>())
+export const professionalUnblocking = createAction(`[Admin component] professional unblock`, props<{id : string}>())
+export const professionalUnblockingSuccess = createAction(`[Admin component] professional unblock success`, props<{id : string}>())
+export const professionalUnblockingFailure = createAction(`[Admin component] professional unblock failure`, props<{error : any}>())

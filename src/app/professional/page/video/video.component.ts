@@ -7,6 +7,7 @@ import { professionalData, sendMessageType } from '../../types/professional.type
 import { userData } from 'src/app/user/types/user.types';
 import * as CryptoJS from 'crypto-js';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video',
@@ -26,7 +27,7 @@ export class VideoComponent {
   remoteStream !: MediaStream
   peerConnection !: RTCPeerConnection
   socket !: Socket
-  secret = "crypto-js"
+  secret = environment.crypto_secret
   roomId!: string 
   toUserData!: userData
   userData!: professionalData
@@ -70,17 +71,17 @@ export class VideoComponent {
     this.videoService.setupSocketConnection(this.userData._id)
       this.route.params.subscribe((params) => {
         if(params['id']){
-          this.roomId = this.decryptString(params['id'])
+          this.roomId = params['id']
           this.videoService.join(this.roomId)
-          const toUserEmail = this.roomId.replace(this.userData.email, '')
-          this.videoService.newUserJoined(this.roomId, toUserEmail, this.userData.email)
-          this.userService.getUserDataByEmail(toUserEmail).subscribe((data) => {
+          const toUserId = this.roomId.replace(this.userData._id, '')
+          this.userService.getUserData(toUserId).subscribe((data) => {
+            this.videoService.newUserJoined(this.roomId, data.email, this.userData.email)
             this.toUserData = data
             this._notificationService.pushCall(
               data.firstName +' '+ data.lastName, 
               "Call",
               data.notificationToken,
-              data.image,
+              this.userData.image,
               this.roomId,
               this.toUserData._id,
               this.userData._id
@@ -156,7 +157,7 @@ export class VideoComponent {
     };
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
-        this.videoService.sendmessage({ type: 'candidate', candidate: event.candidate }, this.roomId)
+        this.videoService.sendMessage({ type: 'candidate', candidate: event.candidate }, this.roomId)
       }
     };
   }
@@ -166,7 +167,7 @@ export class VideoComponent {
     const offer = await this.peerConnection.createOffer()
     await this.peerConnection.setLocalDescription(offer)
 
-    this.videoService.sendmessage({ type: 'offer', offer: offer }, this.roomId)
+    this.videoService.sendMessage({ type: 'offer', offer: offer }, this.roomId)
   }
 
   async createAnswer(offer: RTCSessionDescriptionInit) {
@@ -177,7 +178,7 @@ export class VideoComponent {
     const answer = await this.peerConnection.createAnswer()
     await this.peerConnection.setLocalDescription(answer)
 
-    this.videoService.sendmessage({ type: 'answer', answer: answer }, this.roomId)
+    this.videoService.sendMessage({ type: 'answer', answer: answer }, this.roomId)
   }
 
   async addAnswer(answer: RTCSessionDescriptionInit) {
@@ -240,12 +241,5 @@ export class VideoComponent {
   }
 
 
-  encryptString(roomId : string) {
-    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
-  }
-
-  decryptString(roomId : string) {
-    const bytes = CryptoJS.AES.decrypt(roomId, this.secret);
-    return bytes.toString(CryptoJS.enc.Utf8);
-  }
+  
 }

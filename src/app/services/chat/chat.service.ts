@@ -21,8 +21,8 @@ export class ChatService {
     }
   }
 
-  subscribeToMessages = (cb: (err: any, data: { sender: string, text: string, recever: string, data: ChatData }) => void) => {
-    this.socket.on('message', (msg: { sender: string, text: string, recever: string, data: ChatData }) => {
+  subscribeToMessages = (cb: (err: any, data: { sender: string, text: string, receiver: string, data: ChatData }) => void) => {
+    this.socket.on('message', (msg: { sender: string, text: string, receiver: string, data: ChatData }) => {
       cb(null, msg);
     });
     return true;
@@ -35,8 +35,8 @@ export class ChatService {
   }
 
   sendMessage =
-    ({ message, roomName, from, to, type, receverType }:
-      { message: string, roomName: string, from: string, to: string, type: string, receverType: string }, cb: (cb: string) => void) => {
-      if (this.socket) this.socket.emit('message', { message, roomName, from, to, type, receverType }, cb);
+    ({ message, roomName, from, to, type, receiverType }:
+      { message: string, roomName: string, from: string, to: string, type: string, receiverType: string }, cb: (cb: string) => void) => {
+      if (this.socket) this.socket.emit('message', { message, roomName, from, to, type, receiverType }, cb);
     }
 }

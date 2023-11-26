@@ -37,7 +37,7 @@ export const newPasswordState : newPassword = {
 // User login
 export const loginReducer = createReducer(
     initialState,
-    on(UserActions.loginUseraction, (state, {data}) => ({...state, loading : true})),
+    on(UserActions.loginUserAction, (state, {data}) => ({...state, loading : true})),
     on(UserActions.loginUserSuccess, (state, {userData}) => ({...state, loading : false, loaded : true, user : userData})),
     on(UserActions.loginUserFailure, (state, {error}) => ({...state, loading : false, error}))
 )
@@ -46,12 +46,12 @@ export const loginReducer = createReducer(
 export const registerReducer = createReducer(
     initialState,
     on(UserActions.registerUser, (state, {userData}) => ({...state, loading : true, user : userData})),
-    on(UserActions.registerUseruccess, (state, {userData}) => ({...state, loaded : true, loading : false, user : userData})),
+    on(UserActions.registerUserSuccess, (state, {userData}) => ({...state, loaded : true, loading : false, user : userData})),
     on(UserActions.registerUserFailure, (state, {error}) => ({...state, loading : false, error}))
 )
 
 // Forgot password
-export const forgetpasswordReducer = createReducer(
+export const forgetPasswordReducer = createReducer(
     newPasswordState,
     on(UserActions.forgotEmailUser, (state, {email}) => ({...state, loading : true})),
     on(UserActions.forgotEmailUserSuccess, (state, {message}) => ({...state, loading : false, loaded : true, message})),

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { selectLoadingTotalProfessionals, selectProfessional, selectTotalProfessional } from '../../store/admin.selector';
-import { loadProfessionals, loadTotalProfessionals, professionalBlocking, professionalunBlocking } from '../../store/admin.actions';
+import { loadProfessionals, loadTotalProfessionals, professionalBlocking, professionalUnblocking } from '../../store/admin.actions';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Professional } from '../../types/admin.types';
@@ -75,7 +75,7 @@ export class ProfessionalsComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.store.dispatch(professionalunBlocking({id}))
+        this.store.dispatch(professionalUnblocking({id}))
       }
     });
   }

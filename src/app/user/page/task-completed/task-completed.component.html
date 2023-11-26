@@ -12,8 +12,8 @@
             <div class="taskdetails mb-3" *ngFor="let task of tasks">
                 <div class="username">
                     <p class="name">{{task.from.firstName + " " + task.from.lastName}}</p>
-                    <p class="date">{{task.endtime.toString().slice(0,10)}}</p>
-                    <p class="time">{{getTime(task.endtime)}}</p>
+                    <p class="date">{{task.endTime.toString().slice(0,10)}}</p>
+                    <p class="time">{{getTime(task.endTime)}}</p>
                 </div>
                 <div class="task">
                     <p class="heading">{{task.task}}</p>

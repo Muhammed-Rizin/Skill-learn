@@ -20,13 +20,13 @@ export class NavBarComponent implements OnInit, OnDestroy{
 
   constructor(
     private router : Router, 
-    readonly professioanlService : ProfessionalService,
+    readonly professionalService : ProfessionalService,
     public dialog: MatDialog,
     private _notificationService : NotificationService
   ) {}
 
   ngOnInit(): void {
-    this.approvedSubscription = this.professioanlService.isApproved().subscribe((data) => {
+    this.approvedSubscription = this.professionalService.isApproved().subscribe((data) => {
       this.approved = !data
     }, 
     (err) => {
@@ -45,7 +45,7 @@ export class NavBarComponent implements OnInit, OnDestroy{
   }
 
   logOut(){
-    const dialogRef = this.dialog.open(logoutdialog, {
+    const dialogRef = this.dialog.open(logoutDialog, {
       width: '350px'
     });
 
@@ -76,8 +76,8 @@ export class NavBarComponent implements OnInit, OnDestroy{
   `,
   styleUrls: ['./nav-bar.component.css']
 })
-export class logoutdialog {
-  constructor(public dialogRef: MatDialogRef<logoutdialog>) {}
+export class logoutDialog {
+  constructor(public dialogRef: MatDialogRef<logoutDialog>) {}
 
   onCancelClick(){
     this.dialogRef.close(false);

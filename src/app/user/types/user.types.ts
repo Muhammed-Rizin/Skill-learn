@@ -79,8 +79,8 @@ export interface Message {
     text: string
     sender: userData | professionalData
     senderType: string
-    recever: userData | professionalData
-    recevertype: string
+    receiver: userData | professionalData
+    receivertype: string
     time: string
     _id: string
 }

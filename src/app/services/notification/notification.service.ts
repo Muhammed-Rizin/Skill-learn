@@ -25,7 +25,7 @@ export class NotificationService {
   showToast(message : msgType) {
     this.status.next(message)
 
-    if(!message.data){
+    if(!message.data.call){
       window.setTimeout(() => {
         this.status.next(null)
       }, 3000)
@@ -52,7 +52,7 @@ export class NotificationService {
     this.http.post(`${environment.apiUrl}/notification/newNotification`,{notification}, httpOptions).subscribe()
   }
 
-  pushCall(title : string , body : string, to : string, image : string, roomid : string, toUserId : string, fromUserId : string){
+  pushCall(title : string , body : string, to : string, image : string, roomId : string, toUserId : string, fromUserId : string){
     const data = {
       notification : {
         title : title,
@@ -61,14 +61,14 @@ export class NotificationService {
       },
       data :{
         call : true,
-        roomId : roomid,
+        roomId : roomId,
         toUserId : toUserId,
         fromUserId : fromUserId
       },
       to : to
     }
 
-    const notification = {title, body , icon : image, call : true, roomId : roomid , to:  toUserId, from : fromUserId}
+    const notification = {title, body , icon : image, call : true, roomId : roomId , to:  toUserId, from : fromUserId}
     this.http.post(environment.notificationAPi,data, httpOptions).subscribe()
     this.http.post(`${environment.apiUrl}/notification/newNotification`,{notification}, httpOptions).subscribe()
   }

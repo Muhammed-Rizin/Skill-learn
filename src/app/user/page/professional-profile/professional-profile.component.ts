@@ -27,6 +27,7 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   loading: boolean = true
 
   addReview: boolean = false
+  reviewSubmitted : boolean = false
   reviewForm!: FormGroup
   reviews$!: Review[]
 
@@ -36,7 +37,7 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   total!: number
   averageReview !: number
 
-  userLogined : boolean = localStorage.getItem('userjwt') ? true : false
+  userLogined : boolean = localStorage.getItem('userJwt') ? true : false
 
   professionalDataSubscription !: Subscription
   reviewsSubscription !: Subscription
@@ -54,9 +55,10 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   ){
     this.route.params.subscribe((params) => {
       if(params['id']){
-        this.professionalDataSubscription = this.userService.getProfessionalDataByEmail(params['id']).subscribe(
+        this.professionalDataSubscription = this.userService.getProfessionalDataById(params['id']).subscribe(
           (data) => {
             this.processUserData(data)
+            console.log(this.userLogined)
             if(this.userLogined) {
               this.checkSubscriptionStatus()
             }
@@ -102,6 +104,7 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   }
 
   private checkSubscriptionStatus(): void {
+    console.log('subs ')
     this.userDataSubscription = this.userService.getUserData().subscribe((data) => {
       this.userEmail = data.email;
       this.userId = data._id;
@@ -127,27 +130,19 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
     const currentDate = new Date();
 
     const timeDifference = currentDate.getTime() - createdAtDate.getTime();
-    const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+    const oneWeekInMilliSecond = 30 * 24 * 60 * 60 * 1000;
 
-    if (timeDifference <= oneWeekInMillis) {
+    if (timeDifference <= oneWeekInMilliSecond) {
         return true;
     }
     return false; 
   }
 
-  getRoomId(email : string) {
-    if (email) {
-      if(email.length > this.userEmail?.toString().length ){
-        return this.encryptString(`${this.userEmail}${email}`)
-      }
-      return this.encryptString(`${email}${this.userEmail}`)
+  getRoomId(id : string) {
+    if (id) {
+      return `${id}${this.userId}`
     }
     return null
-  }
-
-  
-  encryptString(roomId : string) {
-    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
   }
 
   paymentSubmit() {
@@ -192,6 +187,7 @@ export class ProfessionalProfileComponent implements OnInit, OnDestroy{
   reviewSubmit() {
     if(this.reviewForm.valid){
       const data = this.reviewForm.getRawValue()
+      this.reviewSubmitted = true
       this.addReviewSubscription = this.userService.addReview(data,this.userData._id).subscribe(
         (data) =>{
          window.location.reload()

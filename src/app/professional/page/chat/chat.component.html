@@ -4,7 +4,13 @@
   <!-- <div class="preloader" *ngIf=" loading">
     <div class="loader"></div>
   </div> -->
-  <div class="container">
+  <div class="chat-container" *ngIf="!alreadyMessaged.length && !toUserData">
+    <div class="empty-message">
+      <p>No messages to display</p>
+      <p>Start a conversation to get connected!</p>
+    </div>
+  </div>
+  <div class="container" *ngIf="alreadyMessaged.length || toUserData">
     <div class="content-wrapper mt-3">
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -15,10 +21,10 @@
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
                     <li class="person" 
                     *ngIf="!chatHistory"
-                    [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
+                    [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat)._id)]">
                       <div class="user">
                         <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
@@ -31,7 +37,7 @@
                     [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
                       <div class="user">
                         <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
@@ -58,11 +64,11 @@
                 <div class="selected-user">
                   <div>
                     <img [src]="toUserData.image"  class="profile" *ngIf="toUserData?.image?.trim()">
-                    <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!toUserData?.image?.trim()">
+                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"  class="profile" *ngIf="!toUserData?.image?.trim()">
                     <span class="name">{{toUserData.firstName + " " + toUserData.lastName}}</span>
                   </div>
                   <div class="control-container">
-                    <img [routerLink]="['/professional/video', getRoomId(toUserData.email)]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
+                    <img [routerLink]="['/professional/video', CHAT_ROOM]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
                   </div>
                 </div>
 
@@ -77,7 +83,7 @@
                   <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
                     <li class="chat-left" *ngIf="message.senderType !== 'Professional'">
                       <div class="chat-avatar">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
                         <img [src]="getUserDetails(chatHistory).image" *ngIf="getUserDetails(chatHistory)?.image?.trim()">
                         <div class="chat-name">{{getUserDetails(chatHistory).firstName}}</div>
                       </div>
@@ -89,7 +95,7 @@
                       <div class="chat-text">{{ message.text }}</div>
                       <div class="chat-avatar">
                         <img [src]="professionalData.image" *ngIf="professionalData?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!professionalData?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" *ngIf="!professionalData?.image?.trim()">
                         <div class="chat-name">{{professionalData.firstName}}</div>
                       </div>
                     </li>

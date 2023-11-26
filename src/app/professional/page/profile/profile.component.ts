@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   imageUrl !: string | Observable<string>
   message!: string;
 
-  dataSubcription !: Subscription
+  dataSubscription !: Subscription
   reviewSubscription !: Subscription
   fileSubmitSubscription !: Subscription
   sendVerifyUserSubscription !: Subscription
@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ){}
 
   ngOnInit(): void {
-    this.dataSubcription = this._professionalService.getProfessionalData().subscribe(
+    this.dataSubscription = this._professionalService.getProfessionalData().subscribe(
       (data) => {
       this.userData = data
       this.userData.bio = this.userData.bio?.trim()
@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       else {
         this.validation = ''
         this.fileSubmitSubscription = this._professionalService.updateProfessional(this.userData).subscribe((data) => {
-          window.location.reload()
+          this.actualData = data
         })
       }
   }
@@ -145,7 +145,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataSubcription?.unsubscribe()
+    this.dataSubscription?.unsubscribe()
     this.reviewSubscription?.unsubscribe()
     this.fileSubmitSubscription?.unsubscribe()
     this.sendVerifyUserSubscription?.unsubscribe()

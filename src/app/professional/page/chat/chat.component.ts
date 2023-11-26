@@ -17,6 +17,7 @@ import { environment }  from 'src/environments/environment'
 export class ChatComponent implements  OnInit, OnDestroy{
   secret = environment.crypto_secret
   CHAT_ROOM !: string
+  roomId !: string
   message!: string
   toUserId !: string
   
@@ -106,13 +107,13 @@ export class ChatComponent implements  OnInit, OnDestroy{
   }
 
   handleRoom(roomId : string){
-    if(this.decryptString(roomId) !== this.CHAT_ROOM){
+    if(roomId !== this.CHAT_ROOM){
       this.loading = true
     }
-    this.CHAT_ROOM = this.decryptString(roomId)
+    this.CHAT_ROOM = roomId
     this._socketService.join(this.CHAT_ROOM)
-    const toUserEmail = this.CHAT_ROOM.replace(this.professionalData.email, '')
-    this._professionalService.getUserDataByEmail(toUserEmail).subscribe(
+    const toUserId = this.CHAT_ROOM.replace(this.professionalData._id, '')
+    this._professionalService.getUserData(toUserId).subscribe(
       (data) => {
         this.toUserData = data
       },
@@ -196,13 +197,13 @@ export class ChatComponent implements  OnInit, OnDestroy{
     });
   }
 
-  sendNotification(data : { sender: string, text: string, recever: string, data: ChatData }){
+  sendNotification(data : { sender: string, text: string, receiver: string, data: ChatData }){
     const newMessage = data.data?.messages[data.data?.messages?.length - 1]
-    const nofificationToken = newMessage.recever.notificationToken
+    const notificationToken = newMessage.receiver.notificationToken
     this._notificationService.pushNotification(
       newMessage.sender.firstName +' '+ newMessage.sender.lastName, 
       newMessage.text,
-      nofificationToken,
+      notificationToken,
       newMessage.sender.image,
       this.CHAT_ROOM,
       this.toUserId,
@@ -218,38 +219,27 @@ export class ChatComponent implements  OnInit, OnDestroy{
     const toUserID = this.toUserId
     if(message.trim().length !== 0){
       this._socketService.sendMessage(
-        {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'Professional', receverType : 'User'},  
+        {message,  roomName : this.CHAT_ROOM, from : userId as string, to : toUserID, type : 'Professional', receiverType : 'User'},  
         cb => {
-          console.log("ACKNOWLEDGEMENT ", cb);
         })
       this.message = ''
     }
   }
 
   getUserDetails(chat : ChatData) {
-    const data =  chat.messages[0]?.recever?._id === this.professionalData._id ? chat.messages[0]?.sender  : chat.messages[0]?.recever
+    const data =  chat.messages[0]?.receiver?._id === this.professionalData._id ? chat.messages[0]?.sender  : chat.messages[0]?.receiver
     this.toUserId = data?._id
     return data
   }
 
-  getRoomId(email : string) {
-    if (email) {
-      if(email.length > this.professionalData.email?.toString().length ){
-        return this.encryptString(`${this.professionalData.email}${email}`)
-      }
-      return this.encryptString(`${email}${this.professionalData.email}`)
+  getRoomId(_id : string) {
+    if (_id) {
+      return `${this.professionalData._id}${_id}`
     }
     return null
   }
 
-  encryptString(roomId : string) {
-    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
-  }
-
-  decryptString(roomId : string) {
-    const bytes = CryptoJS.AES.decrypt(roomId, this.secret);
-    return bytes.toString(CryptoJS.enc.Utf8);
-  }
+  
   
 
 

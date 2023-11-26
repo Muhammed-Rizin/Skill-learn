@@ -20,15 +20,28 @@ export class NavBarComponent implements OnInit {
     private _notificationService : NotificationService
   ) {}
   ngOnInit(): void {
-    this.user = localStorage.getItem('userjwt') 
+    this.user = localStorage.getItem('userJwt') 
     if(this.user){ 
-      this._notificationService.getNotification().subscribe(
-        (data) => {
-          this.notifications = data.notifications
+      this.loadNotification()
+      this._notificationService.status.subscribe((msg) => {
+        if(msg === null){
+        }else { 
+          this.loadNotification()
         }
-      )
+      })
     }
+
+
   }
+
+  loadNotification(){
+    this._notificationService.getNotification().subscribe(
+      (data) => {
+        this.notifications = data.notifications
+      }
+    )
+  }
+
   logOut(){
     const dialogRef = this.dialog.open(logoutDialog, {
       width: '350px'
@@ -36,7 +49,7 @@ export class NavBarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        localStorage.removeItem('userjwt')
+        localStorage.removeItem('userJwt')
         window.location.reload()
       } 
     });

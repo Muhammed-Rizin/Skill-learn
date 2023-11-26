@@ -7,7 +7,7 @@ import { ProfessionalService } from '../../services/professional/professional.se
   providedIn: 'root'
 })
 
-export class  ProfessionalchatGuard implements CanActivate{
+export class  ProfessionalChatGuard implements CanActivate{
   constructor(private router : Router) {}
   canActivate() {
     this.router.navigate(['/professional/chat'])

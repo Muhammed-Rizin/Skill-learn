@@ -6,7 +6,7 @@ import { HomeComponent } from './page/home/home.component';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
 import { ProfileComponent } from './page/profile/profile.component';
-import { ForgetpasswordComponent } from './page/forgetpassword/forgetpassword.component';
+import { ForgotPasswordComponent } from './page/forgotPassword/forgotPassword.component';
 import { NewPasswordComponent } from './page/new-password/new-password.component';
 import { ErrorPageComponent } from '../error/error-page/error-page.component';
 import { ChatComponent } from './page/chat/chat.component';
@@ -25,7 +25,7 @@ import { UserAuthentication } from '../guard/user/user-authentication.guard';
 import { UserBlockedGuard } from '../guard/user/user-blocked.guard';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
 import { ServerErrorComponent } from '../error/server-error/server-error.component';
-import { ServerErrorguard } from '../guard/server-error.guard';
+import { ServerErrorGuard } from '../guard/server-error.guard';
 
 
 const routes: Routes = [
@@ -35,7 +35,7 @@ const routes: Routes = [
   {path : 'login' , component : LoginComponent, canActivate : [UserAvailable, ConsecutiveGuard]},
   {path : 'sign_up', component : SignUpComponent, canActivate: [UserAvailable, ConsecutiveGuard]},
 
-  {path : 'forgotpassword', component : ForgetpasswordComponent, canActivate : [UserAvailable, ConsecutiveGuard]},
+  {path : 'forgotpassword', component : ForgotPasswordComponent, canActivate : [UserAvailable, ConsecutiveGuard]},
   {path : 'newpassword', component : NewPasswordComponent, canActivate : [UserAvailable, ConsecutiveGuard]},
   
   {path : 'explore', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard ]},
@@ -57,7 +57,7 @@ const routes: Routes = [
 
   {path : 'payments', component : PaymentListComponent, canActivate : [UserAuthentication, ConsecutiveGuard, UserBlockedGuard]},
 
-  {path : 'server-error', component : ServerErrorComponent, canActivate: [ServerErrorguard]},
+  {path : 'server-error', component : ServerErrorComponent, canActivate: [ServerErrorGuard]},
   {path : '**', pathMatch : 'full', component : ErrorPageComponent}
 ];
 

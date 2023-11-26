@@ -44,7 +44,7 @@ export const professionalLoginReducer = createReducer(
 
 )
 
-export const professionalForgetpasswordReducer = createReducer(
+export const professionalForgetPasswordReducer = createReducer(
     initialState,
     on(professionalActions.forgotEmailProfessional, (state, {email}) => ({...state, loading : true})),
     on(professionalActions.forgotEmailProfessionalSuccess, (state, {message}) => ({...state, loading : false, loaded : true, message})),
@@ -66,7 +66,7 @@ export const professionalNewPasswordReducer = createReducer(
 )
 
 
-export const getinprogressTask = createReducer(
+export const getInprogressTask = createReducer(
     TaskInitialState,
     on(professionalActions.getInprogressTask, (state, {page}) => ({...state, loading : true})),
     on(professionalActions.getInprogressTaskSuccess, (state, {tasks, total}) => (
@@ -75,7 +75,7 @@ export const getinprogressTask = createReducer(
     on(professionalActions.getInprogressTaskFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )
 
-export const getcompletedTask = createReducer(
+export const getCompletedTask = createReducer(
     TaskInitialState,
     on(professionalActions.getCompletedTask, (state, {page}) => ({...state, loading : true})),
     on(professionalActions.getCompletedTaskSuccess, (state, {tasks, total}) => (
@@ -84,7 +84,7 @@ export const getcompletedTask = createReducer(
     on(professionalActions.getCompletedTaskFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )
 
-export const getinprogressSchedule = createReducer(
+export const getInprogressSchedule = createReducer(
     scheduleInitialState,
     on(professionalActions.getInprogressSchedule, (state, {page}) => ({...state, loading : true})),
     on(professionalActions.getInprogressScheduleSuccess, (state, {meeting, total}) => (
@@ -93,7 +93,7 @@ export const getinprogressSchedule = createReducer(
     on(professionalActions.getInprogressScheduleFailure, (state, {error}) => ({...state, loading : false, error : error})),
 )
 
-export const getcompletedSchedule = createReducer(
+export const getCompletedSchedule = createReducer(
     scheduleInitialState,
     on(professionalActions.getCompletedSchedule, (state, {page}) => ({...state, loading : true})),
     on(professionalActions.getCompletedScheduleSuccess, (state, {meeting, total}) => (

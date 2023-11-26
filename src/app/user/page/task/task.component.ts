@@ -20,7 +20,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   limit : number = 5
   totalPage !: number 
 
-  taksSubscription : Subscription
+  taskSubscription : Subscription
   loadingSubscription : Subscription
   totalPageSubscription : Subscription
   taskDoneSubscription !: Subscription
@@ -30,7 +30,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     private readonly _store : Store,
     private readonly _router : Router
   ){
-    this.taksSubscription = this._store.pipe(select(selectInprogressTaskData)).subscribe((tasks)=> {
+    this.taskSubscription = this._store.pipe(select(selectInprogressTaskData)).subscribe((tasks)=> {
       this.tasks = tasks
     })
     this.loadingSubscription = this._store.pipe(select(selectInprogressTaskLoading)).subscribe((loading)=> {
@@ -81,7 +81,7 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.taksSubscription?.unsubscribe()
+    this.taskSubscription?.unsubscribe()
     this.loadingSubscription?.unsubscribe()
     this.totalPageSubscription?.unsubscribe()
     this.taskDoneSubscription?.unsubscribe()

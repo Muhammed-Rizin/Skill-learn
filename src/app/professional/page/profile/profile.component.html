@@ -4,10 +4,10 @@
     <div class="container mt-2">
         <div class="userdetails row" >
             <div class="col-12 col-lg-3 profileimage">
-                <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" name="profile"/>
+                <input type="file" #fileInput style="display: none" accept=".jpg, .png" (change)="onFileSelected($event)" name="profile"/>
                 <img [src]="userData.image"
-                    alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()">
-                <img src="../../../assets/null-icon.jpg"
+                    alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()" >
+                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
                     alt="profile image" *ngIf="!userData?.image"  (click)="fileInput.click()">
             </div>
             <div class="col-12 col-lg-9 userinformation">
@@ -114,7 +114,7 @@
                             <div class="user-header">
                                 <div class="image">
                                     <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image?.trim()">
-                                    <img src="../../../../assets/null-icon.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
+                                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
                                 </div>
                                 <div class="name">
                                     <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>

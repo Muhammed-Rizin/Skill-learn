@@ -48,9 +48,9 @@ export class professionalEffects {
     forgetPassword$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(professionalActions.forgotEmailProfessional),
-            mergeMap((paylod) => {
+            mergeMap((payload) => {
                 return(
-                this.professionalService.sendForgotPasswordMail(paylod.email).pipe(
+                this.professionalService.sendForgotPasswordMail(payload.email).pipe(
                     map((message : string) => {
                         return professionalActions.forgotEmailProfessionalSuccess({message})
                     }),

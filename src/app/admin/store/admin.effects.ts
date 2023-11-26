@@ -82,8 +82,8 @@ export class adminEffects {
     blockUser$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.userBlocking),
-            mergeMap((paylod) => {
-                return this.adminService.blockUser(paylod.id).pipe(
+            mergeMap((payload) => {
+                return this.adminService.blockUser(payload.id).pipe(
                     map((id) => adminActions.userBlockingSuccess({id : id})),
                     catchError(error => of(adminActions.userBlockingFailure({error: error})))
                 )
@@ -93,11 +93,11 @@ export class adminEffects {
 
     unblockUser$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(adminActions.userunBlocking),
-            mergeMap((paylod) => {
-                return this.adminService.unblockUser(paylod.id).pipe(
-                    map((id) => adminActions.userunBlockingSuccess({id : id})),
-                    catchError(error => of(adminActions.userunBlockingFailure({error: error})))
+            ofType(adminActions.userUnblocking),
+            mergeMap((payload) => {
+                return this.adminService.unblockUser(payload.id).pipe(
+                    map((id) => adminActions.userUnblockingSuccess({id : id})),
+                    catchError(error => of(adminActions.userUnblockingFailure({error: error})))
                 )
             })
         )
@@ -130,8 +130,8 @@ export class adminEffects {
     approveProfessionals$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.approveProfessionals),
-            mergeMap((paylod) => {
-                return this.adminService.approveProfessionals(paylod.id).pipe(
+            mergeMap((payload) => {
+                return this.adminService.approveProfessionals(payload.id).pipe(
                     map((id) => adminActions.approveProfessionalsSuccess({id : id.id})),
                     catchError(error => of(adminActions.approveProfessionalsFailure({error: error})))
                 )
@@ -142,8 +142,8 @@ export class adminEffects {
     rejectProfessionals$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.rejectProfessionals),
-            mergeMap((paylod) => {
-                return this.adminService.rejectProfessionals(paylod.id).pipe(
+            mergeMap((payload) => {
+                return this.adminService.rejectProfessionals(payload.id).pipe(
                     map((id) => adminActions.rejectProfessionalsSuccess({id : id})),
                     catchError(error => of(adminActions.rejectProfessionalsFailure({error: error})))
                 )
@@ -154,8 +154,8 @@ export class adminEffects {
     blockProfessionals$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(adminActions.professionalBlocking),
-            mergeMap((paylod) => {
-                return this.adminService.blockProfessionals(paylod.id).pipe(
+            mergeMap((payload) => {
+                return this.adminService.blockProfessionals(payload.id).pipe(
                     map((id) => adminActions.professionalBlockingSuccess({id : id})),
                     catchError(error => of(adminActions.professionalBlockingFailure({error: error})))
                 )
@@ -165,11 +165,11 @@ export class adminEffects {
 
     unblockProfessionals$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(adminActions.professionalunBlocking),
-            mergeMap((paylod) => {
-                return this.adminService.unblockProfessionals(paylod.id).pipe(
-                    map((id) => adminActions.professionalunBlockingSuccess({id : id})),
-                    catchError(error => of(adminActions.professionalunBlockingFailure({error: error})))
+            ofType(adminActions.professionalUnblocking),
+            mergeMap((payload) => {
+                return this.adminService.unblockProfessionals(payload.id).pipe(
+                    map((id) => adminActions.professionalUnblockingSuccess({id : id})),
+                    catchError(error => of(adminActions.professionalUnblockingFailure({error: error})))
                 )
             })
         )

@@ -19,10 +19,10 @@
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
                 <div class="users-container">
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
-                    <li class="person" *ngIf="!chatHistory" [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
+                    <li class="person" *ngIf="!chatHistory" [routerLink]="['/chat', getRoomId(getUserDetails(chat)._id)]">
                       <div class="user">
                         <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
@@ -33,10 +33,10 @@
                     </li>
                     <li class="person" *ngIf="chatHistory" 
                     [ngClass]="{'active-user' : getUserDetails(chatHistory)._id ==  getUserDetails(chat)._id}" data-chat="person1" 
-                    [routerLink]="['/chat', getRoomId(getUserDetails(chat).email)]">
+                    [routerLink]="['/chat', getRoomId(getUserDetails(chat)._id)]">
                       <div class="user">
                         <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
                       </div>
                       <p class="name-time">
                         <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
@@ -53,7 +53,7 @@
                 <div class="selected-user">
                   <div>
                     <img [src]="toUserData.image"  class="profile" *ngIf="toUserData.image">
-                    <img src="../../../../assets/null-icon.jpg"  class="profile" *ngIf="!toUserData.image">
+                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"  class="profile" *ngIf="!toUserData.image">
                     <span class="name">{{toUserData.firstName + " " + toUserData.lastName}}</span>
                   </div>
                   <div class="control-container">
@@ -75,7 +75,7 @@
                   <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
                     <li class="chat-left" *ngIf="message.senderType === 'Professional'">
                       <div class="chat-avatar">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
                         <img [src]="getUserDetails(chatHistory).image" *ngIf="getUserDetails(chatHistory)?.image?.trim()">
                         <div class="chat-name">{{getUserDetails(chatHistory).firstName}}</div>
                       </div>
@@ -87,7 +87,7 @@
                       <div class="chat-text">{{ message.text }}</div>
                       <div class="chat-avatar">
                         <img [src]="userData.image" *ngIf="userData?.image?.trim()">
-                        <img src="../../../../assets/null-icon.jpg" *ngIf="!userData?.image?.trim()">
+                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" *ngIf="!userData?.image?.trim()">
                         <div class="chat-name">{{userData.firstName}}</div>
                       </div>
                     </li>

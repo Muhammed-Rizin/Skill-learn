@@ -59,8 +59,8 @@ export class ProfessionalService {
     return this.http.get<professionalData>(`${this.apiUrl}/professional/professionaldata`)
   }
 
-  getUserDataByEmail(email :string) : Observable<professionalData> {
-    return this.http.get<professionalData>(`${this.apiUrl}/professional/userdatabyemail?email=${email}`, httpOptions)
+  getUserData(id :string) : Observable<professionalData> {
+    return this.http.get<professionalData>(`${this.apiUrl}/professional/userData?id=${id}`, httpOptions)
   }
 
   getChats() : Observable<ChatData[]> {

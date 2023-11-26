@@ -25,18 +25,19 @@
                     <input type="text" placeholder="Description" id="description" formControlName="description">
                     <p class="validation" 
                     *ngIf="form.get('description')?.touched && form.controls['description'].errors?.['required']">
-                    D   escription is required</p>
+                    Description is required</p>
                     <p class="validation" 
                     *ngIf="form.get('description')?.touched && form.controls['description'].errors?.['minlength']">Minimum 10 characters required</p>
 
-                    <input type="date" id="date" formControlName="enddate">
+                    <input type="date" id="date" formControlName="endDate">
                     <p class="validation" 
-                    *ngIf="form.get('enddate')?.touched && form.controls['enddate'].errors?.['required']">Date is required</p>
+                    *ngIf="form.get('endDate')?.touched && form.controls['endDate'].errors?.['required']">Date is required</p>
 
-                    <input type="time" id="time" formControlName="endtime">
+                    <input type="time" id="time" formControlName="endTime">
                     <p class="validation"  
-                    *ngIf="form.get('endtime')?.touched && form.controls['endtime'].errors?.['required']">Time is required</p>
-                    <button type="submit" class="submit">Add</button>
+                    *ngIf="form.get('endTime')?.touched && form.controls['endTime'].errors?.['required']">Time is required</p>
+                    <button type="submit" class="submit" *ngIf="!newTask">Add</button>
+                    <button class="submit" *ngIf="newTask">Loading..</button>
                 </div>
             </form>
         </div>

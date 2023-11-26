@@ -32,7 +32,7 @@ export class VideoService {
     }
   }
 
-  sendmessage(message : sendMessageType, roomId : string){
+  sendMessage(message : sendMessageType, roomId : string){
     this.socket.emit('send-message', {message, roomId})
   }
 

@@ -16,26 +16,21 @@ import * as CryptoJS from 'crypto-js';
 })
 export class AppComponent implements OnInit {
   message: msgType | null = null;
-  secret = "crypto-js"
+  secret = environment.crypto_secret
 
   constructor(
     private _userService : UserService,
     private _professionalService : ProfessionalService,
-    private _notifcation : NotificationService,
+    private _notification : NotificationService,
     private _router : Router,
   ) {}
 
   ngOnInit(): void {
-    if(localStorage.getItem('userjwt')){
-      this.userRequestPermission();
-    }
-    if(localStorage.getItem('professional_token')){
-      this.professionalRequestPermission();
-    }
+    this.requestPermission()
     this.listen();
 
 
-    this._notifcation.status.subscribe((msg) => {
+    this._notification.status.subscribe((msg) => {
       if(msg === null){
         this.showToast = false
       }else { 
@@ -45,31 +40,19 @@ export class AppComponent implements OnInit {
     })
   }
   
-  userRequestPermission() {
+  requestPermission() {
     const messaging = getMessaging();
     getToken(messaging, { vapidKey: environment.firebase.vapidKey }).then(
       (currentToken) => {
         if (currentToken) {
-          if(localStorage.getItem('notification') !== currentToken){
-            this._userService.addNotificationToken(currentToken).subscribe(data => {})
-          }
-          localStorage.setItem('notification', currentToken)
-        } else {
-          console.log('No registration token available. Request permission to generate one.');
-        }
-      }
-    ).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
-    });
-  }
-
-  professionalRequestPermission() {
-    const messaging = getMessaging();
-    getToken(messaging, { vapidKey: environment.firebase.vapidKey }).then(
-      (currentToken) => {
-        if (currentToken) {
-          if(localStorage.getItem('notification') !== currentToken){
-            this._professionalService.addNotificationToken(currentToken).subscribe(data => {})
+          if(localStorage.getItem('userJwt')){
+            if(localStorage.getItem('notification') !== currentToken){
+              this._userService.addNotificationToken(currentToken).subscribe(data => {})
+            }
+          }else if(localStorage.getItem('professional_token')){
+            if(localStorage.getItem('notification') !== currentToken){
+              this._professionalService.addNotificationToken(currentToken).subscribe(data => {})
+            }
           }
           localStorage.setItem('notification', currentToken)
         } else {
@@ -88,7 +71,7 @@ export class AppComponent implements OnInit {
         notification : payload.notification as notification,
         data : payload.data as {roomId : string}
       }
-      this._notifcation.showToast(data)
+      this._notification.showToast(data)
     });
   }
 
@@ -104,7 +87,5 @@ export class AppComponent implements OnInit {
 
   
   
-  encryptString(roomId : string) {
-    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
-  }
+  
 }

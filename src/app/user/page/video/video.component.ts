@@ -7,6 +7,7 @@ import { VideoService } from 'src/app/services/video/video.service';
 import { professionalData } from 'src/app/professional/types/professional.types';
 import { sendMessageType, userData } from '../../types/user.types';
 import { UserService } from 'src/app/services/user/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video',
@@ -25,7 +26,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
   remoteStream !: MediaStream
   peerConnection !: RTCPeerConnection
   socket !: Socket
-  secret = "crypto-js"
+  secret = environment.crypto_secret
   roomId!: string 
   toUserData!: professionalData
   userData!: userData
@@ -69,12 +70,12 @@ export class VideoComponent  implements OnInit, OnDestroy{
     this.videoService.setupSocketConnection(this.userData._id)
       this.route.params.subscribe((params) => {
         if(params['id']){
-          this.roomId = this.decryptString(params['id'])
+          this.roomId = params['id']
           this.videoService.join(this.roomId)
-          const toUserEmail = this.roomId.replace(this.userData.email, '')
-          this.videoService.newUserJoined(this.roomId, toUserEmail, this.userData.email)
-          this.userService.getProfessionalDataByEmail(toUserEmail).subscribe(
+          const toUserId = this.roomId.replace(this.userData._id, '')
+          this.userService.getProfessionalDataById(toUserId).subscribe(
             (data) => {
+              this.videoService.newUserJoined(this.roomId, data.email, this.userData.email)
               this.toUserData = data
             },
             (err) => {
@@ -147,7 +148,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
     };
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
-        this.videoService.sendmessage({ type: 'candidate', candidate: event.candidate }, this.roomId)
+        this.videoService.sendMessage({ type: 'candidate', candidate: event.candidate }, this.roomId)
       }
     };
   }
@@ -157,7 +158,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
     const offer = await this.peerConnection.createOffer()
     await this.peerConnection.setLocalDescription(offer)
 
-    this.videoService.sendmessage({ type: 'offer', offer: offer }, this.roomId)
+    this.videoService.sendMessage({ type: 'offer', offer: offer }, this.roomId)
   }
 
   async createAnswer(offer: RTCSessionDescriptionInit) {
@@ -168,7 +169,7 @@ export class VideoComponent  implements OnInit, OnDestroy{
     const answer = await this.peerConnection.createAnswer()
     await this.peerConnection.setLocalDescription(answer)
 
-    this.videoService.sendmessage({ type: 'answer', answer: answer }, this.roomId)
+    this.videoService.sendMessage({ type: 'answer', answer: answer }, this.roomId)
   }
 
   async addAnswer(answer: RTCSessionDescriptionInit) {
@@ -228,15 +229,5 @@ export class VideoComponent  implements OnInit, OnDestroy{
     } catch (error) {
       console.error('Error leaving channel:', error);
     }
-  }
-
-
-  encryptString(roomId : string) {
-    return CryptoJS.AES.encrypt(roomId, this.secret).toString();
-  }
-
-  decryptString(roomId : string) {
-    const bytes = CryptoJS.AES.decrypt(roomId, this.secret);
-    return bytes.toString(CryptoJS.enc.Utf8);
   }
 }

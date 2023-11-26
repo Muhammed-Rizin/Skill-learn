@@ -11,7 +11,7 @@ export class UserAvailable implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate() {
-        const token = localStorage.getItem('userjwt');
+        const token = localStorage.getItem('userJwt');
         if (token) {
             this.router.navigate(['/']);
             return false;

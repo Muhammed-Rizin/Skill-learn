@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { loginUseraction } from '../../store/user.action';
+import { loginUserAction } from '../../store/user.action';
 import { Observable, map } from 'rxjs';
 import { selectError, selectLoading, selectUserData } from '../../store/user.selector';
 import { Router } from '@angular/router';
@@ -43,7 +43,7 @@ export class LoginComponent {
   submit(){
     const data : loginUser = this.form.getRawValue()
     if(this.form.valid){
-      this.store.dispatch(loginUseraction({data} ))
+      this.store.dispatch(loginUserAction({data} ))
     }else {
       this.markFormControlsAsTouched(this.form);
     }

@@ -14,6 +14,7 @@ export class TaskNewComponent implements OnInit{
   form !: FormGroup
   users : userData[] = []
   loading$ : boolean = true
+  newTask : boolean = false
   constructor(
     private _formBuilder : FormBuilder,
     private _professionalService : ProfessionalService,
@@ -25,8 +26,8 @@ export class TaskNewComponent implements OnInit{
         user : ['', [Validators.required]],
         task : ['', [Validators.required ,Validators.minLength(5)]],
         description : ['', [Validators.required ,Validators.minLength(10)]],
-        endtime : ['',Validators.required],
-        enddate : ['',Validators.required],
+        endTime : ['',Validators.required],
+        endDate : ['',Validators.required],
       })
 
       this._professionalService.getSubscribers().subscribe(data => {
@@ -35,9 +36,9 @@ export class TaskNewComponent implements OnInit{
           const currentDate = new Date();
       
           const timeDifference = currentDate.getTime() - createdAtDate.getTime();
-          const oneWeekInMillis = 30 * 24 * 60 * 60 * 1000;
+          const oneWeekInMillisecond = 30 * 24 * 60 * 60 * 1000;
         
-          if (timeDifference <= oneWeekInMillis) {
+          if (timeDifference <= oneWeekInMillisecond) {
             this.users.push(value.from as userData)
           }
         })
@@ -55,12 +56,12 @@ export class TaskNewComponent implements OnInit{
   submitForm() {
     if(this.form.valid){
       const values = this.form.getRawValue()
-
-      const endTimeParts = values.endtime.split(':');
-      const endTime = new Date(values.enddate);
+      this.newTask = true
+      const endTimeParts = values.endTime.split(':');
+      const endTime = new Date(values.endDate);
       endTime.setHours(Number(endTimeParts[0]), Number(endTimeParts[1]), 0, 0);
 
-      values.endtime = endTime
+      values.endTime = endTime
       this._professionalService.addTask(values).subscribe(
         (data) => {
           this._router.navigate(['/professional/tasks'])

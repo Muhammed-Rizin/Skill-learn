@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { selectLoadingTotalUsers, selectTotalUsers, selectUsers } from '../../store/admin.selector';
-import { loadTotalUsers, loadUsers, userBlocking, userunBlocking } from '../../store/admin.actions';
+import { loadTotalUsers, loadUsers, userBlocking, userUnblocking } from '../../store/admin.actions';
 import { PageEvent } from '@angular/material/paginator';
 import { Professional, User } from '../../types/admin.types';
 import { Subscription } from 'rxjs';
@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.store.dispatch(userunBlocking({id}))
+        this.store.dispatch(userUnblocking({id}))
       }
     });
   }

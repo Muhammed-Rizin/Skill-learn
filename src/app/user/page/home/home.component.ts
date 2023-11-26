@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit{
   user !: boolean
   
   ngOnInit(): void {
-    this.user = localStorage.getItem('userjwt') ? true : false
+    this.user = localStorage.getItem('userJwt') ? true : false
   }
   toMentor(){
     this.mentor = true

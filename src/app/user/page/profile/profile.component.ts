@@ -60,8 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
         this.validation = ''
         this.updateUSerSubscription = this._userService.updateUser(this.userData).subscribe(
           (data) => {
-            this.userData = data
-            window.location.reload()
+            this.actualData = data
           },
           (err) => {
             if(err.status == 500) {

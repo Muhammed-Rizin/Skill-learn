@@ -10,7 +10,7 @@ import { Observable, map } from 'rxjs';
 export class UserAuthentication implements CanActivate {
   constructor(private router: Router) {}
   canActivate() {
-    const token = localStorage.getItem('userjwt');
+    const token = localStorage.getItem('userJwt');
     if (token) {
       return true;
     } else {

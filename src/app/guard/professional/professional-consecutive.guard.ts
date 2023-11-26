@@ -11,7 +11,7 @@ export class ConsecutiveGuard implements CanActivate {
 
   canActivate() {
     const admin = localStorage.getItem('admin_jwt');
-    const user = localStorage.getItem('userjwt');
+    const user = localStorage.getItem('userJwt');
     if (admin) {
       this.router.navigate(['/admin/dashboard']);
       return false;
