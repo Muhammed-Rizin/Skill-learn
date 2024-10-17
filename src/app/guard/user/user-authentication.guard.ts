@@ -6,7 +6,6 @@ import { Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-
 export class UserAuthentication implements CanActivate {
   constructor(private router: Router) {}
   canActivate() {

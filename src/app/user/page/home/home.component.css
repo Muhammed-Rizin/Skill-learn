@@ -1,222 +1,221 @@
 .content {
-    min-height: 100vh;
-    height: inherit;
-    width: 100%;
-    background: #EAEAEA;
-    color: #374151;
+  min-height: 100vh;
+  height: inherit;
+  width: 100%;
+  background: #eaeaea;
+  color: #374151;
 }
 
 app-nav-bar {
-    width: 100%;
-    font-family: 'Roboto';
-    font-size: 15px;
-    font-style: normal;
-    position: sticky;
-    top: 0;
+  width: 100%;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-style: normal;
+  position: sticky;
+  top: 0;
 }
 
 .section1 {
-    height: calc(100vh - 65px);
-    width: 50%;
-    background: white;
+  height: calc(100vh - 65px);
+  width: 50%;
+  background: white;
 
-    padding: 5rem 2.5rem 5rem 8.3rem;
-    align-items: center;
-    justify-content: center;
-
+  padding: 5rem 2.5rem 5rem 8.3rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .tabs {
-    height: 2rem;
+  height: 2rem;
 }
 
 .select-role {
-    width: 100%;
-    padding: 5rem 0;
+  width: 100%;
+  padding: 5rem 0;
 }
 
 .role {
-    color: #0A243F;
-    margin-right: 1rem;
-    padding: 0 0 1rem 0;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 1rem;
-    font-family: 'Inter';
+  color: #0a243f;
+  margin-right: 1rem;
+  padding: 0 0 1rem 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Inter";
 }
 
 .text-content {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .text-content h1 {
-    color: #0A243F;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: normal;
+  color: #0a243f;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .text-content p {
-    color: #0A243F;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
-    width: 80%;
+  color: #0a243f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  width: 80%;
 }
 
-
 .redirect {
-    margin-top: 1.5rem;
-    color: #FFF;
-    text-align: center;
-    font-family: 'Roboto';
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22.75px;
-    text-transform: uppercase;
-    border-radius: 10px;
-    background: #E76943;
-    border: none;
-    padding: 0.5rem 4rem;
+  margin-top: 1.5rem;
+  color: #fff;
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.75px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  background: #e76943;
+  border: none;
+  padding: 0.5rem 4rem;
 }
 
 .active {
-    border-bottom: 1.6px solid #00A4BD;
+  border-bottom: 1.6px solid #00a4bd;
 }
 
-
 .section2 {
-    height: inherit;
+  height: inherit;
 
-    padding: 5rem 2.5rem 5rem 8.3rem;
+  padding: 5rem 2.5rem 5rem 8.3rem;
 }
 
 .text-content2 {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin: 0 24%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 24%;
 }
 
 .text-content2 h1 {
-    color: #0A243F;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: normal;
-
+  color: #0a243f;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .text-content2 p {
-    color: #0A243F;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
+  color: #0a243f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
 }
 
-.features, .more {
-    width: 100%;
-    padding: 1rem 25%;
-    display: flex;
-    justify-content: space-between;
+.features,
+.more {
+  width: 100%;
+  padding: 1rem 25%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .item {
-    padding: 1rem 2rem;
-    text-align: center;
+  padding: 1rem 2rem;
+  text-align: center;
 }
 
 .item h3 {
-    font-family: 'Inter';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 32px;
+  font-family: "Inter";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
 }
 
 .item p {
-    margin-top: 1rem;
-    text-align: center;
-    font-family: 'Inter';
-    font-size: 0.8rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.8rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: "Inter";
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.8rem;
 }
 
 .item img {
-    border-radius: 1.5rem;
+  border-radius: 1.5rem;
 }
 
 .more {
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .more a {
-    margin: 1.2rem 0  0 1rem;
-    color: #0A243F;
+  margin: 1.2rem 0 0 1rem;
+  color: #0a243f;
 }
 
 @media (max-width: 1025px) {
-    
-    .section1{
-        padding: 2rem 1rem 2rem 2rem;
-        width: 100%;
-    }
-    
-    .section2 {
-        padding: 1rem;
-    }
+  .section1 {
+    padding: 2rem 1rem 2rem 2rem;
+    width: 100%;
+  }
 
-    .features , .more {
-        padding: 0.5rem;
-    }
+  .section2 {
+    padding: 1rem;
+  }
 
-    .item {
-        padding: 0;
-    }
+  .features,
+  .more {
+    padding: 0.5rem;
+  }
 
-    .text-content2 {
-        margin: 0;
-    }
+  .item {
+    padding: 0;
+  }
 
-    .text-content h1, .text-content2 h1 {
-        font-size: 32px; 
-    }
+  .text-content2 {
+    margin: 0;
+  }
 
-    .text-content p, .text-content2 p {
-        font-size: 16px; 
-        line-height: 24px;
-    }
+  .text-content h1,
+  .text-content2 h1 {
+    font-size: 32px;
+  }
 
-    .item h3 {
-        font-size: 0.8rem; 
-    }
+  .text-content p,
+  .text-content2 p {
+    font-size: 16px;
+    line-height: 24px;
+  }
 
-    .item p {
-        font-size: 0.7rem; 
-    }
+  .item h3 {
+    font-size: 0.8rem;
+  }
 
-    .more a {
-        font-size: 0.9rem; 
-    }
+  .item p {
+    font-size: 0.7rem;
+  }
 
-    .item img {
-        width: 80px; 
-        height: 80px; 
-    }
+  .more a {
+    font-size: 0.9rem;
+  }
 
-    .redirect {
-        font-size: 12px; 
-        padding: 0.4rem 2rem;
-    }
+  .item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .redirect {
+    font-size: 12px;
+    padding: 0.4rem 2rem;
+  }
 }
 
 @media (max-width: 576px) {
-    .tempSection {
-        display: none;
-    }
+  .tempSection {
+    display: none;
+  }
 }

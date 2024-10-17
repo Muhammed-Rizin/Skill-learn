@@ -7,40 +7,42 @@ import { PaymentData } from 'src/app/user/types/user.types';
 @Component({
   selector: 'app-payment-list',
   templateUrl: './payment-list.component.html',
-  styleUrls: ['./payment-list.component.css']
+  styleUrls: ['./payment-list.component.css'],
 })
-export class PaymentListComponent implements OnInit, OnDestroy{
-  paymentHistory !: PaymentData[]
-  loading : boolean = true
+export class PaymentListComponent implements OnInit, OnDestroy {
+  paymentHistory!: PaymentData[];
+  loading: boolean = true;
 
-  pageCount : number = 1
-  limit : number = 10
-  totalPage !: number 
+  pageCount: number = 1;
+  limit: number = 10;
+  totalPage!: number;
 
-  paymentHistorySubscription !: Subscription
+  paymentHistorySubscription!: Subscription;
 
   constructor(
-    private professionalService : ProfessionalService,
-    private _router : Router
-  ){}
+    private professionalService: ProfessionalService,
+    private _router: Router,
+  ) {}
   ngOnInit(): void {
-    this.handlePaymentData()
+    this.handlePaymentData();
   }
 
-  handlePaymentData(){
-    this.paymentHistorySubscription = this.professionalService.getPayments(this.pageCount, this.limit).subscribe(
-      (data) => {
-        this.paymentHistory = data.data
-        this.totalPage = Math.ceil(data.total / this.limit)
-        this.loading = false
-      },
-      (err) => {
-        if(err.status == 500) {
-          localStorage.setItem('server-error' , 'server-error')
-          this._router.navigate(['/professional/server-error'])
-        }
-      }
-    )
+  handlePaymentData() {
+    this.paymentHistorySubscription = this.professionalService
+      .getPayments(this.pageCount, this.limit)
+      .subscribe(
+        (data) => {
+          this.paymentHistory = data.data;
+          this.totalPage = Math.ceil(data.total / this.limit);
+          this.loading = false;
+        },
+        (err) => {
+          if (err.status == 500) {
+            localStorage.setItem('server-error', 'server-error');
+            this._router.navigate(['/professional/server-error']);
+          }
+        },
+      );
   }
 
   status(value: Date): boolean {
@@ -51,22 +53,22 @@ export class PaymentListComponent implements OnInit, OnDestroy{
     const oneWeekInMilliSecond = 30 * 24 * 60 * 60 * 1000;
 
     if (timeDifference <= oneWeekInMilliSecond) {
-        return true;
+      return true;
     }
-    return false; 
+    return false;
   }
 
   nextPage() {
-    this.pageCount ++ 
-    this.handlePaymentData()
+    this.pageCount++;
+    this.handlePaymentData();
   }
 
   prevPage() {
-    this.pageCount--
-    this.handlePaymentData()
+    this.pageCount--;
+    this.handlePaymentData();
   }
 
   ngOnDestroy(): void {
-    this.paymentHistorySubscription?.unsubscribe()
+    this.paymentHistorySubscription?.unsubscribe();
   }
 }

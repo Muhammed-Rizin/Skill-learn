@@ -4,13 +4,12 @@ import { UserService } from '../../services/user/user.service';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-
 export class HomeGuard implements CanActivate {
-    constructor(private router: Router) {}
-    canActivate() {
-      this.router.navigate(['/home'])
-      return false
-    }
+  constructor(private router: Router) {}
+  canActivate() {
+    this.router.navigate(['/home']);
+    return false;
   }
+}

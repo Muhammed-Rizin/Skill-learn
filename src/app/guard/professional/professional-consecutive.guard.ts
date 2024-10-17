@@ -4,10 +4,10 @@ import { Observable, map } from 'rxjs';
 import { ProfessionalService } from '../../services/professional/professional.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConsecutiveGuard implements CanActivate {
-  constructor(private router : Router){}
+  constructor(private router: Router) {}
 
   canActivate() {
     const admin = localStorage.getItem('admin_jwt');
@@ -16,8 +16,8 @@ export class ConsecutiveGuard implements CanActivate {
       this.router.navigate(['/admin/dashboard']);
       return false;
     } else if (user) {
-       this.router.navigate(['/']);
-       return false;
+      this.router.navigate(['/']);
+      return false;
     } else {
       return true;
     }

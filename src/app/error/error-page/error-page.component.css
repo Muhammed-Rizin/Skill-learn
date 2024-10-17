@@ -1,54 +1,54 @@
 .message {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    align-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .image {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .text {
-    text-align: center;
+  text-align: center;
 }
 
 img {
-    width: 500px;
-    height: 523.85px;
-    flex-shrink: 0;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
+  width: 500px;
+  height: 523.85px;
+  flex-shrink: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
 }
 
 h3 {
-    color: #044150;
-    font-family: 'Montserrat';
-    font-size: 44px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: #044150;
+  font-family: "Montserrat";
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 p {
-    color: #044150;
-    font-family: 'Montserrat';
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  color: #044150;
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 button {
-    padding: 17.59px 62.01px 18.01px 61.99px;
-    align-items: flex-start;
-    flex: 1 0 0;
-    border-radius: 200px;
-    border: 1px solid #04313D;
-    background: #FFF;
+  padding: 17.59px 62.01px 18.01px 61.99px;
+  align-items: flex-start;
+  flex: 1 0 0;
+  border-radius: 200px;
+  border: 1px solid #04313d;
+  background: #fff;
 }

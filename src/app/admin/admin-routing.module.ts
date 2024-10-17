@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { LoginComponent } from './page/login/login.component';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { ProfessionalsComponent } from './page/professionals/professionals.component';
@@ -15,19 +14,43 @@ import { ServerErrorComponent } from '../error/server-error/server-error.compone
 import { ServerErrorGuard } from '../guard/server-error.guard';
 
 const routes: Routes = [
-    {path : '', component : LoginComponent, canActivate : [ConsecutiveGuard, AdminGuard]},
-    {path : 'dashboard', component : DashboardComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
+  {
+    path: '',
+    component: LoginComponent,
+    canActivate: [ConsecutiveGuard, AdminGuard],
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ConsecutiveGuard, AdminAuthentication],
+  },
 
-    {path : 'users', component : UsersComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
-    {path : 'professionals', component : ProfessionalsComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
-    {path : 'professionals/request', component : ProfessionalRequestsComponent, canActivate : [ConsecutiveGuard, AdminAuthentication]},
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [ConsecutiveGuard, AdminAuthentication],
+  },
+  {
+    path: 'professionals',
+    component: ProfessionalsComponent,
+    canActivate: [ConsecutiveGuard, AdminAuthentication],
+  },
+  {
+    path: 'professionals/request',
+    component: ProfessionalRequestsComponent,
+    canActivate: [ConsecutiveGuard, AdminAuthentication],
+  },
 
-    {path : 'server-error', component : ServerErrorComponent, canActivate: [ServerErrorGuard]},
-    {path : '**', pathMatch : 'full', component : ErrorPageComponent}
+  {
+    path: 'server-error',
+    component: ServerErrorComponent,
+    canActivate: [ServerErrorGuard],
+  },
+  { path: '**', pathMatch: 'full', component: ErrorPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

@@ -28,48 +28,167 @@ import { ServerErrorComponent } from '../error/server-error/server-error.compone
 import { ServerErrorGuard } from '../guard/server-error.guard';
 
 const routes: Routes = [
-    {path : 'login', component : LoginComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
-    {path : 'sign-up', component : SignUpComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
-    {path : 'forgotpassword', component : ForgotPasswordComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
-    {path : 'newpassword', component : NewPasswordComponent, canActivate : [ConsecutiveGuard, ProfessionalGuard]},
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [ConsecutiveGuard, ProfessionalGuard],
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    canActivate: [ConsecutiveGuard, ProfessionalGuard],
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent,
+    canActivate: [ConsecutiveGuard, ProfessionalGuard],
+  },
+  {
+    path: 'newpassword',
+    component: NewPasswordComponent,
+    canActivate: [ConsecutiveGuard, ProfessionalGuard],
+  },
 
-    {path : 'profile', component : ProfileComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard]},
-    {path : 'verifyemail', component : VerifyEmailComponent, canActivate : 
-      [ConsecutiveGuard]},
-    
-    {path : '', component: HomeComponent, canActivate :
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard, ProfessionalChatGuard]},
-    {path : 'chat', component : ChatComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'chat/:id', component : ChatComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+    ],
+  },
+  {
+    path: 'verifyemail',
+    component: VerifyEmailComponent,
+    canActivate: [ConsecutiveGuard],
+  },
 
-    {path : 'tasks', component : TaskComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'tasks/completed', component : TaskCompletedComponent, canActivate : 
-    [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'tasks/new', component : TaskNewComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+      ProfessionalChatGuard,
+    ],
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+  {
+    path: 'chat/:id',
+    component: ChatComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
 
-    {path : 'schedule', component : ScheduledComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'schedule/completed', component : ScheduledCompletedComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'schedule/new', component : ScheduledNewComponent, canActivate : 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+  {
+    path: 'tasks',
+    component: TaskComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+  {
+    path: 'tasks/completed',
+    component: TaskCompletedComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+  {
+    path: 'tasks/new',
+    component: TaskNewComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
 
-    {path : 'video/:id', component : VideoComponent, canActivate: 
-      [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
+  {
+    path: 'schedule',
+    component: ScheduledComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+  {
+    path: 'schedule/completed',
+    component: ScheduledCompletedComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+  {
+    path: 'schedule/new',
+    component: ScheduledNewComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
 
-    {path : 'payment', component : PaymentListComponent, canActivate : 
-    [ConsecutiveGuard, ProfessionalAuthenticationGuard, ProfessionalBlockedGuard, ProfessionalApprovedGuard]},
-    {path : 'server-error', component : ServerErrorComponent, canActivate: [ServerErrorGuard]},
-    {path : '**', pathMatch : 'full', component : ErrorPageComponent}
+  {
+    path: 'video/:id',
+    component: VideoComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+
+  {
+    path: 'payment',
+    component: PaymentListComponent,
+    canActivate: [
+      ConsecutiveGuard,
+      ProfessionalAuthenticationGuard,
+      ProfessionalBlockedGuard,
+      ProfessionalApprovedGuard,
+    ],
+  },
+  {
+    path: 'server-error',
+    component: ServerErrorComponent,
+    canActivate: [ServerErrorGuard],
+  },
+  { path: '**', pathMatch: 'full', component: ErrorPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProfessionalRoutingModule { }
+export class ProfessionalRoutingModule {}

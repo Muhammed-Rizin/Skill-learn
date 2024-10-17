@@ -1,260 +1,256 @@
 div.content {
-    margin-left: 200px;
-    color: #374151;
-    font-family: 'Roboto';
-    /* font-style: normal; */
-    font-size: 25px;
-    line-height: 20px;
-    width: 80%;
+  margin-left: 200px;
+  color: #374151;
+  font-family: "Roboto";
+  /* font-style: normal; */
+  font-size: 25px;
+  line-height: 20px;
+  width: 80%;
 }
 
 @media screen and (max-width: 700px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
 
-    .sidebar a {
-        float: left;
-    }
+  .sidebar a {
+    float: left;
+  }
 
-    div.content {
-        margin-left: 0;
-        width: 100%;
-    }
+  div.content {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 a {
-    text-decoration: none;
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    /* 100% */
+  text-decoration: none;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 100% */
 }
 
 a:hover {
-    cursor: pointer;
-    color: black;
+  cursor: pointer;
+  color: black;
 }
 
 .active {
-    border-bottom: 1.6px solid #00A4BD;
+  border-bottom: 1.6px solid #00a4bd;
 }
 
 .body {
-    padding: 6rem 1rem 6rem 1rem;
+  padding: 6rem 1rem 6rem 1rem;
 }
 
 .table-div {
-    display: inline-flex;
-    padding: 2rem;
-    width: 100%;
-    align-items: center;
-    flex-shrink: 0;
-    border-radius: 8px;
-    background: #FFF;
-    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    overflow: auto;
+  display: inline-flex;
+  padding: 2rem;
+  width: 100%;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  overflow: auto;
 }
 
 th {
-    border-right: 0.8px solid #EEE;
+  border-right: 0.8px solid #eee;
 }
 
 thead {
-    color: rgba(0, 0, 0, 0.65);
-    font-family: 'Inter';
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 200;
-    line-height: 21px;
+  color: rgba(0, 0, 0, 0.65);
+  font-family: "Inter";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: 21px;
 }
 
 tbody,
 a {
-    color: #797979;
-    font-family: 'Inter';
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 21px;
+  color: #797979;
+  font-family: "Inter";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
 }
 
 .navigate {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    /* 100% */
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 100% */
 }
 
 button {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 }
 
 h3 {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
 }
-
-
 
 /* dialog */
 .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background: #E8F3FF;
-    position: fixed;
-    height: 100vh;
-    overflow: auto;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background: #e8f3ff;
+  position: fixed;
+  height: 100vh;
+  overflow: auto;
 }
 
 .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
 }
 
 .sidebar a.active {
-    background-color: #00A4BD;
-    color: white;
+  background-color: #00a4bd;
+  color: white;
 }
 
 .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
+  background-color: #555;
+  color: white;
 }
 
 div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
+  margin-left: 200px;
+  padding: 1px 16px;
 }
 
 a.logout:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
 
-    .sidebar a {
-        float: left;
-    }
+  .sidebar a {
+    float: left;
+  }
 
-    div.content {
-        margin-left: 0;
-    }
+  div.content {
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 400px) {
-    .sidebar a {
-        text-align: center;
-        float: none;
-    }
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }
-
 
 /* Add your custom styles here */
 .custom-dialog {
-    /* Customize the dialog container styles */
-    max-width: 400px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Customize the dialog container styles */
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .custom-dialog-title {
-    /* Customize the title styles */
-    font-size: 24px;
-    margin-bottom: 10px;
+  /* Customize the title styles */
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .custom-dialog-content {
-    /* Customize the content styles */
-    font-size: 16px;
-    margin-bottom: 20px;
+  /* Customize the content styles */
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .custom-dialog-actions {
-    /* Customize the actions container styles */
-    display: flex;
-    justify-content: flex-end;
+  /* Customize the actions container styles */
+  display: flex;
+  justify-content: flex-end;
 }
 
 .custom-dialog-button {
-    /* Customize the button styles */
-    margin-left: 10px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
+  /* Customize the button styles */
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .custom-dialog-button:hover {
-    /* Customize the button hover styles */
-    background-color: #0056b3;
+  /* Customize the button hover styles */
+  background-color: #0056b3;
 }
 
 .custom-dialog-button:focus {
-    /* Customize the button focus styles */
-    outline: none;
-    box-shadow: 0 0 0 2px #007bff;
+  /* Customize the button focus styles */
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
 }
 
-
 .status {
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 12px;
-    display: inline-block;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  display: inline-block;
 }
 
 .active-button {
-    color: #00a65a;
-    background-color: #c9f7e7;
+  color: #00a65a;
+  background-color: #c9f7e7;
 }
 
 .expired {
-    color: #f39c12;
-    background-color: #f5e79e;
+  color: #f39c12;
+  background-color: #f5e79e;
 }
 
 .empty-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .empty-message h3 {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.2;
-    text-align: center;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
 }

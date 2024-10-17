@@ -5,79 +5,131 @@ import { msgType, notification } from 'src/app/user/types/user.types';
 import { environment } from 'src/environments/environment';
 
 const httpOptions = {
-  headers : new HttpHeaders({
-    'Authorization': environment.Authorization,
-    'Content-Type': 'application/json'
-  })
+  headers: new HttpHeaders({
+    Authorization: environment.Authorization,
+    'Content-Type': 'application/json',
+  }),
 };
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http : HttpClient
-  ) {}
+  status: BehaviorSubject<msgType | null> = new BehaviorSubject<msgType | null>(
+    null,
+  );
 
-  status : BehaviorSubject<msgType | null> = new BehaviorSubject<msgType | null>(null)
-  
+  showToast(message: msgType) {
+    this.status.next(message);
 
-  showToast(message : msgType) {
-    this.status.next(message)
-
-    if(!message.data.call){
+    if (!message.data.call) {
       window.setTimeout(() => {
-        this.status.next(null)
-      }, 3000)
+        this.status.next(null);
+      }, 3000);
     }
   }
 
-  pushNotification(title : string, body : string, to : string, image : string, roomId : string,  toUserId : string, fromUserId : string) {
+  pushNotification(
+    title: string,
+    body: string,
+    to: string,
+    image: string,
+    roomId: string,
+    toUserId: string,
+    fromUserId: string,
+  ) {
     const data = {
-      notification : {
-        title : title,
-        body : body,
-        icon : image
+      notification: {
+        title: title,
+        body: body,
+        icon: image,
       },
-      data : {
-        roomId : roomId,
-        toUserId : toUserId,
-        fromUserID : fromUserId
-      },  
-      to : to
-    }
-    
-    const notification = {title, body , icon : image, call : false, roomId , to : toUserId, from : fromUserId}
-    this.http.post(environment.notificationAPi,data, httpOptions).subscribe()
-    this.http.post(`${environment.apiUrl}/notification/newNotification`,{notification}, httpOptions).subscribe()
+      data: {
+        roomId: roomId,
+        toUserId: toUserId,
+        fromUserID: fromUserId,
+      },
+      to: to,
+    };
+
+    const notification = {
+      title,
+      body,
+      icon: image,
+      call: false,
+      roomId,
+      to: toUserId,
+      from: fromUserId,
+    };
+    this.http.post(environment.notificationAPi, data, httpOptions).subscribe();
+    this.http
+      .post(
+        `${environment.apiUrl}/notification/newNotification`,
+        { notification },
+        httpOptions,
+      )
+      .subscribe();
   }
 
-  pushCall(title : string , body : string, to : string, image : string, roomId : string, toUserId : string, fromUserId : string){
+  pushCall(
+    title: string,
+    body: string,
+    to: string,
+    image: string,
+    roomId: string,
+    toUserId: string,
+    fromUserId: string,
+  ) {
     const data = {
-      notification : {
-        title : title,
-        body : body,
-        icon : image
+      notification: {
+        title: title,
+        body: body,
+        icon: image,
       },
-      data :{
-        call : true,
-        roomId : roomId,
-        toUserId : toUserId,
-        fromUserId : fromUserId
+      data: {
+        call: true,
+        roomId: roomId,
+        toUserId: toUserId,
+        fromUserId: fromUserId,
       },
-      to : to
-    }
+      to: to,
+    };
 
-    const notification = {title, body , icon : image, call : true, roomId : roomId , to:  toUserId, from : fromUserId}
-    this.http.post(environment.notificationAPi,data, httpOptions).subscribe()
-    this.http.post(`${environment.apiUrl}/notification/newNotification`,{notification}, httpOptions).subscribe()
+    const notification = {
+      title,
+      body,
+      icon: image,
+      call: true,
+      roomId: roomId,
+      to: toUserId,
+      from: fromUserId,
+    };
+    this.http.post(environment.notificationAPi, data, httpOptions).subscribe();
+    this.http
+      .post(
+        `${environment.apiUrl}/notification/newNotification`,
+        { notification },
+        httpOptions,
+      )
+      .subscribe();
   }
 
-  updateNotification(userId  :string, roomId: string): Observable<{message : string}>{
-    return this.http.patch<{message : string}>(`${environment.apiUrl}/notification/updateStatus`,{userId, roomId}, httpOptions)
+  updateNotification(
+    userId: string,
+    roomId: string,
+  ): Observable<{ message: string }> {
+    return this.http.patch<{ message: string }>(
+      `${environment.apiUrl}/notification/updateStatus`,
+      { userId, roomId },
+      httpOptions,
+    );
   }
 
-  getNotification(): Observable<{notifications : notification[]}> {
-    return this.http.get<{notifications : notification[]}>(`${environment.apiUrl}/notification/getNotification`, httpOptions)
+  getNotification(): Observable<{ notifications: notification[] }> {
+    return this.http.get<{ notifications: notification[] }>(
+      `${environment.apiUrl}/notification/getNotification`,
+      httpOptions,
+    );
   }
 }

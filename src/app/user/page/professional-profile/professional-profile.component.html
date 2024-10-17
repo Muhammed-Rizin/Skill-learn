@@ -1,101 +1,152 @@
-<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <div class="body" *ngIf="!loading">
-    <app-nav-bar></app-nav-bar>
-    <div class="container mt-2">
-        <div class="userdetails row" *ngIf="userData">
-            <div class="col-12 col-lg-3 profileimage">
-                <img [src]="userData.image"
-                    alt="profile image" *ngIf="userData?.image">
-                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
-                    alt="profile image" *ngIf="!userData?.image">
+  <app-nav-bar></app-nav-bar>
+  <div class="container mt-2">
+    <div class="userdetails row" *ngIf="userData">
+      <div class="col-12 col-lg-3 profileimage">
+        <img
+          [src]="userData.image"
+          alt="profile image"
+          *ngIf="userData?.image"
+        />
+        <img
+          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+          alt="profile image"
+          *ngIf="!userData?.image"
+        />
+      </div>
+      <div class="col-12 col-lg-9 userinformation">
+        <div class="username row">
+          <div class="nameandbio col-6">
+            <h2>{{ userData.firstName + " " + userData.lastName }}</h2>
+            <p>{{ userData.bio + "  " }}</p>
+            <div class="avg-review" *ngIf="reviews$">
+              <ngb-rating
+                [max]="5"
+                [rate]="averageReview"
+                [readonly]="true"
+                class="average-review"
+              ></ngb-rating>
+              <span>{{ total + " " }} reviews</span>
             </div>
-            <div class="col-12 col-lg-9 userinformation">
-                <div class="username row">
-                    <div class="nameandbio col-6">
-                        <h2>{{userData.firstName+ " " + userData.lastName}}</h2>
-                        <p>{{userData.bio + "  "}}</p>
-                        <div class="avg-review" *ngIf="reviews$">
-                            <ngb-rating [max]="5" [rate]="averageReview"[readonly]="true" class="average-review"></ngb-rating>
-                            <span>{{total + ' '}} reviews</span>
-                        </div>
-                    </div>
-                    <div class="chat-option col-6">
-                        <button [routerLink]="['/chat', getRoomId(userData._id)]">Chat</button>
-                    </div>
-                </div>
-                <div class="userdata">
-                    <div class="about">
-                        <p>{{userData.about}}</p>
-                    </div>
-                    <div class=" mt-5">
-                        <p *ngIf="userData.work.trim()">Working in {{userData.work }}</p>
-                        <p>{{userData.field }}</p>
-                    </div>
-                    <div class="payment-option" *ngIf="userData.payment ">
-                        <div class="payment">
-                            <div class="text">
-                                <p>One to One session</p>
-                                <p>{{userData.payment}}</p>
-                            </div>
-                            <div class="payment-button">
-                                <button *ngIf="userLogined && !subscribed" (click)="paymentSubmit()">PAY {{userData.payment}}</button>
-                                <button *ngIf="!userLogined" >Login to pay</button>
-                                <button *ngIf="subscribed">Subscribed</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="review">
-                    <div class="review-header">
-                        <h3>Review</h3>
-                        <button *ngIf="!addReview && subscribed" (click)="toggleReview()">Add</button>
-                        <button *ngIf="addReview && subscribed" (click)="toggleReview()">X</button>
-                    </div>
-                    <div class="add-review" *ngIf="addReview">
-                        <form [formGroup]="reviewForm" (submit)="reviewSubmit()">
-                            <ngb-rating class="review-star" [max]="5" formControlName="rating"></ngb-rating>
-                            <input type="text" formControlName="title" placeholder="Title" id="">
-                            <input type="text" formControlName="description" placeholder="Description" id="">
-                            <button type="submit" *ngIf="!reviewSubmitted">Submit</button>
-                            <button *ngIf="reviewSubmitted">Loading...</button>
-                        </form>
-                    </div>
-                    <ng-container *ngFor="let review of reviews$ ">
-                        <div class="review-details mt-3">
-                            <div class="user-header">
-                                <div class="image">
-                                    <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image?.trim()">
-                                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
-                                </div>
-                                <div class="name">
-                                    <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>
-                                    <div class="rating">
-                                        <ngb-rating class="review-star" [max]="5" [rate]="review.rating"[readonly]="true"></ngb-rating>
-                                    </div>
-                                </div>
-                                <div class="date">
-                                    <p>{{review?.createdAt?.slice(0,10)}}</p>
-                                </div>
-                            </div>
-                            <div class="review-content">
-                                <h2>{{review.title}}</h2>
-                                <p>{{review.description}}</p>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <div class="pagination mt-3" *ngIf="reviews$.length">
-                        <div class="next-page me-2" *ngIf="pageCount > 1">
-                            <button (click)="prevPage()">Prev</button>
-                        </div>
-                        <div class="page-count">
-                            <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
-                        </div>
-                        <div class="next-page" *ngIf="pageCount !== totalPage">
-                            <button (click)="nextPage()">Next</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div class="chat-option col-6">
+            <button [routerLink]="['/chat', getRoomId(userData._id)]">
+              Chat
+            </button>
+          </div>
         </div>
+        <div class="userdata">
+          <div class="about">
+            <p>{{ userData.about }}</p>
+          </div>
+          <div class="mt-5">
+            <p *ngIf="userData.work.trim()">Working in {{ userData.work }}</p>
+            <p>{{ userData.field }}</p>
+          </div>
+          <div class="payment-option" *ngIf="userData.payment">
+            <div class="payment">
+              <div class="text">
+                <p>One to One session</p>
+                <p>{{ userData.payment }}</p>
+              </div>
+              <div class="payment-button">
+                <button
+                  *ngIf="userLogined && !subscribed"
+                  (click)="paymentSubmit()"
+                >
+                  PAY {{ userData.payment }}
+                </button>
+                <button *ngIf="!userLogined">Login to pay</button>
+                <button *ngIf="subscribed">Subscribed</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="review">
+          <div class="review-header">
+            <h3>Review</h3>
+            <button *ngIf="!addReview && subscribed" (click)="toggleReview()">
+              Add
+            </button>
+            <button *ngIf="addReview && subscribed" (click)="toggleReview()">
+              X
+            </button>
+          </div>
+          <div class="add-review" *ngIf="addReview">
+            <form [formGroup]="reviewForm" (submit)="reviewSubmit()">
+              <ngb-rating
+                class="review-star"
+                [max]="5"
+                formControlName="rating"
+              ></ngb-rating>
+              <input
+                type="text"
+                formControlName="title"
+                placeholder="Title"
+                id=""
+              />
+              <input
+                type="text"
+                formControlName="description"
+                placeholder="Description"
+                id=""
+              />
+              <button type="submit" *ngIf="!reviewSubmitted">Submit</button>
+              <button *ngIf="reviewSubmitted">Loading...</button>
+            </form>
+          </div>
+          <ng-container *ngFor="let review of reviews$">
+            <div class="review-details mt-3">
+              <div class="user-header">
+                <div class="image">
+                  <img
+                    [src]="review?.user?.image"
+                    alt=""
+                    *ngIf="review?.user?.image?.trim()"
+                  />
+                  <img
+                    src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                    alt=""
+                    *ngIf="!review?.user?.image?.trim()"
+                  />
+                </div>
+                <div class="name">
+                  <h5>
+                    {{ review?.user?.firstName + " " + review?.user?.lastName }}
+                  </h5>
+                  <div class="rating">
+                    <ngb-rating
+                      class="review-star"
+                      [max]="5"
+                      [rate]="review.rating"
+                      [readonly]="true"
+                    ></ngb-rating>
+                  </div>
+                </div>
+                <div class="date">
+                  <p>{{ review?.createdAt?.slice(0, 10) }}</p>
+                </div>
+              </div>
+              <div class="review-content">
+                <h2>{{ review.title }}</h2>
+                <p>{{ review.description }}</p>
+              </div>
+            </div>
+          </ng-container>
+          <div class="pagination mt-3" *ngIf="reviews$.length">
+            <div class="next-page me-2" *ngIf="pageCount > 1">
+              <button (click)="prevPage()">Prev</button>
+            </div>
+            <div class="page-count">
+              <p>{{ pageCount + " " }} of {{ " " + totalPage + " " }} pages</p>
+            </div>
+            <div class="next-page" *ngIf="pageCount !== totalPage">
+              <button (click)="nextPage()">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

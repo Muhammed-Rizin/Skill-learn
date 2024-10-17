@@ -1,82 +1,146 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
-<app-side-bar *ngIf="!loading$ "></app-side-bar >
-<div class="content" *ngIf="!loading$ ">
-    <div class="body">
-        <div class="navigate mb-5">
-            <a class="me-4" routerLink="/admin/professionals" > ALL</a>
-            <a routerLink="/admin/professional_request" class="active"> Request</a>
-        </div>
-        
-        <div class="empty-message" *ngIf="professionals$.length === 0 || getLength() === 0">
-          <h3>No users found</h3>
-        </div>
-        <mat-paginator  *ngIf="professionals$.length !== 0" 
-          [length]="total"
-          [pageSize]="5"
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          (page)="pageChange($event)"
-          aria-label="Select page">
-        </mat-paginator>
-        <div class="table-div table-responsive" *ngIf="professionals$.length !== 0" >
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Location</th>
-                    <th>Education</th>
-                    <th>Email verified</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let professional of professionals$; let i = index">
-                    <th scope="row">{{(page -1) * limit + i+1}}</th>
-                    <td>{{professional.firstName.trim()}}</td>
-                    <td>{{professional.email.trim()}}</td>
-                    <td>
-                        <p *ngIf="professional.location.trim()">{{professional.location.trim()}}</p>
-                        <p class="text-danger" *ngIf="!professional.location.trim()">Not provided</p>
-                    </td>
-                    <td>
-                        <p *ngIf="professional.education">{{professional.education.trim()}}</p>
-                        <p class="text-danger" *ngIf="!professional.education.trim()">Not provided</p>
-                    </td>
-                    <td>
-                        <p *ngIf="professional.emailVerified" class="status active-button">verified</p>
-                        <p class="status expired" *ngIf="!professional.emailVerified">Not verified</p>
-                    </td>
-                    <td>
-                      <span class="navbar-text" *ngIf="!professional.rejected">
-                        <ul class="navbar-nav me-5">
-                            <li class="nav-item dropdown ">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">   
-                                    Action
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                  <li><a class="dropdown-item" (click)="approve(professional._id, professional.firstName)">Approve</a></li>
-                                  <li><a class="dropdown-item" (click)="reject(professional._id, professional.firstName)">Reject</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </span>
-                    <span class="navbar-text" *ngIf="professional.rejected">
-                      <ul class="navbar-nav me-5">
-                          <li class="nav-item dropdown ">
-                              <a class="nav-link dropdown-toggle text-danger p-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Rejected
-                              </a>
-                              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" (click)="approve(professional._id, professional.firstName)">Approve</a></li>
-                              </ul>
-                          </li>
-                      </ul>
-                  </span>
-                    </td>
-                  </tr>
-                 
-                </tbody>
-              </table>
-        </div>
+<app-side-bar *ngIf="!loading$"></app-side-bar>
+<div class="content" *ngIf="!loading$">
+  <div class="body">
+    <div class="navigate mb-5">
+      <a class="me-4" routerLink="/admin/professionals"> ALL</a>
+      <a routerLink="/admin/professional_request" class="active"> Request</a>
     </div>
+
+    <div
+      class="empty-message"
+      *ngIf="professionals$.length === 0 || getLength() === 0"
+    >
+      <h3>No users found</h3>
+    </div>
+    <mat-paginator
+      *ngIf="professionals$.length !== 0"
+      [length]="total"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageChange($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+    <div class="table-div table-responsive" *ngIf="professionals$.length !== 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Education</th>
+            <th>Email verified</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let professional of professionals$; let i = index">
+            <th scope="row">{{ (page - 1) * limit + i + 1 }}</th>
+            <td>{{ professional.firstName.trim() }}</td>
+            <td>{{ professional.email.trim() }}</td>
+            <td>
+              <p *ngIf="professional.location.trim()">
+                {{ professional.location.trim() }}
+              </p>
+              <p class="text-danger" *ngIf="!professional.location.trim()">
+                Not provided
+              </p>
+            </td>
+            <td>
+              <p *ngIf="professional.education">
+                {{ professional.education.trim() }}
+              </p>
+              <p class="text-danger" *ngIf="!professional.education.trim()">
+                Not provided
+              </p>
+            </td>
+            <td>
+              <p
+                *ngIf="professional.emailVerified"
+                class="status active-button"
+              >
+                verified
+              </p>
+              <p class="status expired" *ngIf="!professional.emailVerified">
+                Not verified
+              </p>
+            </td>
+            <td>
+              <span class="navbar-text" *ngIf="!professional.rejected">
+                <ul class="navbar-nav me-5">
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Action
+                    </a>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          (click)="
+                            approve(professional._id, professional.firstName)
+                          "
+                          >Approve</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          (click)="
+                            reject(professional._id, professional.firstName)
+                          "
+                          >Reject</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </span>
+              <span class="navbar-text" *ngIf="professional.rejected">
+                <ul class="navbar-nav me-5">
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle text-danger p-0"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Rejected
+                    </a>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="navbarDropdownMenuLink"
+                    >
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          (click)="
+                            approve(professional._id, professional.firstName)
+                          "
+                          >Approve</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

@@ -1,45 +1,52 @@
-<mat-progress-bar mode="indeterminate" *ngIf=" loading$"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
 <div class="body" *ngIf="!loading$">
-    <app-nav-bar></app-nav-bar>
-    <div class="content">
-        <div class="navigate">
-            <div class="d-flex">
-                <a class="me-4 active" routerLink="/professional/tasks"> In progress</a>
-                <a routerLink="/tasks/completed">Expired</a>
-            </div>
-        </div>
-        <div class="tasks">
-            <div class="taskdetails mb-3" *ngFor="let task of tasks">
-                <div class="username">
-                    <p class="name">{{task.from.firstName + " " + task.from.lastName}}</p>
-                    <p class="date">{{task.endTime.toString().slice(0,10)}}</p>
-                    <p class="time">{{getTime(task.endTime)}}</p>
-                </div>
-                <div class="task">
-                    <p class="heading">{{task.task}}</p>
-                    <p class="description">{{task.description}}</p>
-                    <div class="done">
-                        <p class="completed heading" *ngIf="task.completed">Completed</p>
-                        <button class="done-btn" (click)="taskDone(task._id)" *ngIf="!task.completed">done</button>
-                    </div>
-                </div>
-            </div>
-            <div class="pagination" *ngIf="tasks.length && !loading$">
-                <div class="next-page me-2" *ngIf="pageCount > 1">
-                    <button (click)="prevPage()">Prev</button>
-                </div>
-                <div class="page-count">
-                    <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
-                </div>
-                <div class="next-page" *ngIf="pageCount !== totalPage">
-                    <button (click)="nextPage()">Next</button>
-                </div>
-            </div>
-        </div>
-        <div class="no-task mt-3" *ngIf="!tasks.length && !loading$">
-            <h1>No tasks found</h1>
-            <p>There are currently no tasks available</p>
-        </div>
-        
+  <app-nav-bar></app-nav-bar>
+  <div class="content">
+    <div class="navigate">
+      <div class="d-flex">
+        <a class="me-4 active" routerLink="/professional/tasks"> In progress</a>
+        <a routerLink="/tasks/completed">Expired</a>
+      </div>
     </div>
+    <div class="tasks">
+      <div class="taskdetails mb-3" *ngFor="let task of tasks">
+        <div class="username">
+          <p class="name">
+            {{ task.from.firstName + " " + task.from.lastName }}
+          </p>
+          <p class="date">{{ task.endTime.toString().slice(0, 10) }}</p>
+          <p class="time">{{ getTime(task.endTime) }}</p>
+        </div>
+        <div class="task">
+          <p class="heading">{{ task.task }}</p>
+          <p class="description">{{ task.description }}</p>
+          <div class="done">
+            <p class="completed heading" *ngIf="task.completed">Completed</p>
+            <button
+              class="done-btn"
+              (click)="taskDone(task._id)"
+              *ngIf="!task.completed"
+            >
+              done
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pagination" *ngIf="tasks.length && !loading$">
+        <div class="next-page me-2" *ngIf="pageCount > 1">
+          <button (click)="prevPage()">Prev</button>
+        </div>
+        <div class="page-count">
+          <p>{{ pageCount + " " }} of {{ " " + totalPage + " " }} pages</p>
+        </div>
+        <div class="next-page" *ngIf="pageCount !== totalPage">
+          <button (click)="nextPage()">Next</button>
+        </div>
+      </div>
+    </div>
+    <div class="no-task mt-3" *ngIf="!tasks.length && !loading$">
+      <h1>No tasks found</h1>
+      <p>There are currently no tasks available</p>
+    </div>
+  </div>
 </div>

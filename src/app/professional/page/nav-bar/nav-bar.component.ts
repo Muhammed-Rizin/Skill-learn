@@ -10,80 +10,86 @@ import { NotificationService } from 'src/app/services/notification/notification.
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
-export class NavBarComponent implements OnInit, OnDestroy{
-  approved : boolean = false
+export class NavBarComponent implements OnInit, OnDestroy {
+  approved: boolean = false;
 
-  approvedSubscription !: Subscription
-  notifications : notification[] = []
+  approvedSubscription!: Subscription;
+  notifications: notification[] = [];
 
   constructor(
-    private router : Router, 
-    readonly professionalService : ProfessionalService,
+    private router: Router,
+    readonly professionalService: ProfessionalService,
     public dialog: MatDialog,
-    private _notificationService : NotificationService
+    private _notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {
-    this.approvedSubscription = this.professionalService.isApproved().subscribe((data) => {
-      this.approved = !data
-    }, 
-    (err) => {
-      if(err.status == 500) {
-        localStorage.setItem('server-error' , 'server-error')
-        this.router.navigate(['/professional/server-error'])
-      }
-    })
-    this._notificationService.getNotification().subscribe(
-      data => this.notifications = data.notifications
-    )
+    this.approvedSubscription = this.professionalService.isApproved().subscribe(
+      (data) => {
+        this.approved = !data;
+      },
+      (err) => {
+        if (err.status == 500) {
+          localStorage.setItem('server-error', 'server-error');
+          this.router.navigate(['/professional/server-error']);
+        }
+      },
+    );
+    this._notificationService
+      .getNotification()
+      .subscribe((data) => (this.notifications = data.notifications));
   }
 
   ngOnDestroy(): void {
-    this.approvedSubscription?.unsubscribe()
+    this.approvedSubscription?.unsubscribe();
   }
 
-  logOut(){
+  logOut() {
     const dialogRef = this.dialog.open(logoutDialog, {
-      width: '350px'
+      width: '350px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        localStorage.removeItem('professional_token')
-        this.router.navigate(['/professional/login'])
-      } 
+        localStorage.removeItem('professional_token');
+        this.router.navigate(['/professional/login']);
+      }
     });
-    
   }
 }
 
-
 @Component({
   selector: 'dialog-animations-example-dialog',
-  template : `
-  <div class="custom-dialog">
-    <h1 class="custom-dialog-title">Log Out</h1>
-    <div class="custom-dialog-content">
-      Would you like to log out?
+  template: `
+    <div class="custom-dialog">
+      <h1 class="custom-dialog-title">Log Out</h1>
+      <div class="custom-dialog-content">Would you like to log out?</div>
+      <div class="custom-dialog-actions">
+        <button class="custom-dialog-button" (click)="onCancelClick()">
+          No
+        </button>
+        <button
+          class="custom-dialog-button"
+          (click)="onOkClick()"
+          cdkFocusInitial
+        >
+          Yes
+        </button>
+      </div>
     </div>
-    <div class="custom-dialog-actions">
-      <button class="custom-dialog-button" (click)="onCancelClick()">No</button>
-      <button class="custom-dialog-button" (click)="onOkClick()" cdkFocusInitial>Yes</button>
-    </div>
-  </div>
   `,
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class logoutDialog {
   constructor(public dialogRef: MatDialogRef<logoutDialog>) {}
 
-  onCancelClick(){
+  onCancelClick() {
     this.dialogRef.close(false);
   }
 
-  onOkClick(){
+  onOkClick() {
     this.dialogRef.close(true);
   }
 }

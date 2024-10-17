@@ -1,15 +1,20 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
-<app-side-bar *ngIf="!loading$ "></app-side-bar >
-<div class="content" *ngIf="!loading$ ">
+<app-side-bar *ngIf="!loading$"></app-side-bar>
+<div class="content" *ngIf="!loading$">
   <div class="empty-message" *ngIf="users$.length === 0">
-      <h3>No users found</h3>
-    </div>
-  <div class="body"  *ngIf="users$.length !== 0">
-    <mat-paginator [length]="total" [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChange($event)" aria-label="Select page">
+    <h3>No users found</h3>
+  </div>
+  <div class="body" *ngIf="users$.length !== 0">
+    <mat-paginator
+      [length]="total"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageChange($event)"
+      aria-label="Select page"
+    >
     </mat-paginator>
     <div class="table-div table-responsive">
-      <table class="table" >
+      <table class="table">
         <thead>
           <tr>
             <th>#</th>
@@ -23,24 +28,43 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users$; let i = index">
-            <th scope="row">{{(page -1) * limit + i+1}}</th>
-            <td>{{user.firstName.trim()}}</td>
-            <td>{{user.email.trim()}}</td>
+            <th scope="row">{{ (page - 1) * limit + i + 1 }}</th>
+            <td>{{ user.firstName.trim() }}</td>
+            <td>{{ user.email.trim() }}</td>
             <td>
-              <p *ngIf="user.location.trim()">{{user.location.trim()}}</p>
-              <p class="text-danger" *ngIf="!user.location.trim()">Not provided</p>
+              <p *ngIf="user.location.trim()">{{ user.location.trim() }}</p>
+              <p class="text-danger" *ngIf="!user.location.trim()">
+                Not provided
+              </p>
             </td>
             <td>
-              <p *ngIf="user.education.trim()">{{user.education.trim()}}</p>
+              <p *ngIf="user.education.trim()">{{ user.education.trim() }}</p>
               <p class="text-danger" *ngIf="!user.education">Not provided</p>
             </td>
             <td>
               <p *ngIf="user.emailVerified" class="status active">verified</p>
-              <p class="text-danger" *ngIf="!user.emailVerified" class="status expired">Not verified</p>
+              <p
+                class="text-danger"
+                *ngIf="!user.emailVerified"
+                class="status expired"
+              >
+                Not verified
+              </p>
             </td>
             <td>
-              <button (click)="unblock(user._id, user.firstName)" *ngIf="user.blocked">Unblock</button>
-              <button (click)="block(user._id, user.firstName)" class="text-danger" *ngIf="!user.blocked">Block</button>
+              <button
+                (click)="unblock(user._id, user.firstName)"
+                *ngIf="user.blocked"
+              >
+                Unblock
+              </button>
+              <button
+                (click)="block(user._id, user.firstName)"
+                class="text-danger"
+                *ngIf="!user.blocked"
+              >
+                Block
+              </button>
             </td>
           </tr>
         </tbody>

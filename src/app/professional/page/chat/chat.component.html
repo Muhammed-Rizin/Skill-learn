@@ -1,5 +1,5 @@
-<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
-<div class="body" *ngIf=" !loading && alreadyMessaged">
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div class="body" *ngIf="!loading && alreadyMessaged">
   <app-nav-bar></app-nav-bar>
   <!-- <div class="preloader" *ngIf=" loading">
     <div class="loader"></div>
@@ -19,30 +19,82 @@
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
                 <div class="users-container">
                   <ul class="users" *ngFor="let chat of alreadyMessaged">
-                    <li class="person" 
-                    *ngIf="!chatHistory"
-                    [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat)._id)]">
+                    <li
+                      class="person"
+                      *ngIf="!chatHistory"
+                      [routerLink]="[
+                        '/professional/chat',
+                        getRoomId(getUserDetails(chat)._id),
+                      ]"
+                    >
                       <div class="user">
-                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
-                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
+                        <img
+                          [src]="getUserDetails(chat).image"
+                          *ngIf="getUserDetails(chat)?.image?.trim()"
+                        />
+                        <img
+                          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                          *ngIf="!getUserDetails(chat)?.image?.trim()"
+                        />
                       </div>
                       <p class="name-time">
-                        <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
-                        <span class="time"
-                        [ngClass]="{'unseen' : !chat.professionalRead, 'seen' : chat.professionalRead}">{{chat.messages[chat.messages.length - 1].text}}</span>
+                        <span class="name">{{
+                          getUserDetails(chat).firstName +
+                            " " +
+                            getUserDetails(chat).lastName
+                        }}</span>
+                        <span
+                          class="time"
+                          [ngClass]="{
+                            unseen: !chat.professionalRead,
+                            seen: chat.professionalRead,
+                          }"
+                          >{{
+                            chat.messages[chat.messages.length - 1].text
+                          }}</span
+                        >
                       </p>
                     </li>
-                    <li class="person" *ngIf="chatHistory"
-                    [ngClass]="{'active-user' : getUserDetails(chatHistory)._id ==  getUserDetails(chat)._id}" data-chat="person1" 
-                    [routerLink]="['/professional/chat', getRoomId(getUserDetails(chat).email)]">
+                    <li
+                      class="person"
+                      *ngIf="chatHistory"
+                      [ngClass]="{
+                        'active-user':
+                          getUserDetails(chatHistory)._id ==
+                          getUserDetails(chat)._id,
+                      }"
+                      data-chat="person1"
+                      [routerLink]="[
+                        '/professional/chat',
+                        getRoomId(getUserDetails(chat).email),
+                      ]"
+                    >
                       <div class="user">
-                        <img [src]="getUserDetails(chat).image"  *ngIf="getUserDetails(chat)?.image?.trim()">
-                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"   *ngIf="!getUserDetails(chat)?.image?.trim()">
+                        <img
+                          [src]="getUserDetails(chat).image"
+                          *ngIf="getUserDetails(chat)?.image?.trim()"
+                        />
+                        <img
+                          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                          *ngIf="!getUserDetails(chat)?.image?.trim()"
+                        />
                       </div>
                       <p class="name-time">
-                        <span class="name">{{getUserDetails(chat).firstName + " " + getUserDetails(chat).lastName}}</span>
-                        <span class="time"
-                        [ngClass]="{'unseen' : !chat.professionalRead, 'seen' : chat.professionalRead}">{{chat.messages[chat.messages.length - 1].text}}</span>
+                        <span class="name">{{
+                          getUserDetails(chat).firstName +
+                            " " +
+                            getUserDetails(chat).lastName
+                        }}</span>
+                        <span
+                          class="time"
+                          [ngClass]="{
+                            unseen: !chat.professionalRead,
+                            seen: chat.professionalRead,
+                          }"
+                          >{{
+                            chat.messages[chat.messages.length - 1].text
+                          }}</span
+                        >
                       </p>
                     </li>
                     <!-- <li class="person active-user" data-chat="person2">
@@ -55,61 +107,119 @@
                         <span class="time">12/02/2019</span>
                       </p>
                     </li> -->
-                    
                   </ul>
-                  <p class="no-users"  *ngIf="!loading && !alreadyMessaged.length">Start a conversation</p>
+                  <p
+                    class="no-users"
+                    *ngIf="!loading && !alreadyMessaged.length"
+                  >
+                    Start a conversation
+                  </p>
                 </div>
               </div>
-              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" *ngIf="chatHistory">
+              <div
+                class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9"
+                *ngIf="chatHistory"
+              >
                 <div class="selected-user">
                   <div>
-                    <img [src]="toUserData.image"  class="profile" *ngIf="toUserData?.image?.trim()">
-                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"  class="profile" *ngIf="!toUserData?.image?.trim()">
-                    <span class="name">{{toUserData.firstName + " " + toUserData.lastName}}</span>
+                    <img
+                      [src]="toUserData.image"
+                      class="profile"
+                      *ngIf="toUserData?.image?.trim()"
+                    />
+                    <img
+                      src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                      class="profile"
+                      *ngIf="!toUserData?.image?.trim()"
+                    />
+                    <span class="name">{{
+                      toUserData.firstName + " " + toUserData.lastName
+                    }}</span>
                   </div>
                   <div class="control-container">
-                    <img [routerLink]="['/professional/video', CHAT_ROOM]" src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"  class="profile">
+                    <img
+                      [routerLink]="['/professional/video', CHAT_ROOM]"
+                      src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691408091/video-solid_dokfyj.svg"
+                      class="profile"
+                    />
                   </div>
                 </div>
 
-                <div class="chat-container"  #chatContainer >
+                <div class="chat-container" #chatContainer>
                   <div class="load-more">
-                    <button class="load-more-button" (click)="moreChat()" *ngIf="totalPages !== page && !chatLoading">
+                    <button
+                      class="load-more-button"
+                      (click)="moreChat()"
+                      *ngIf="totalPages !== page && !chatLoading"
+                    >
                       Show More Messages
                     </button>
                     <p class="loading-text" *ngIf="chatLoading">Loading...</p>
                   </div>
 
-                  <ul class="chat-box chatContainerScroll" *ngFor="let message of chatHistory?.messages">
-                    <li class="chat-left" *ngIf="message.senderType !== 'Professional'">
+                  <ul
+                    class="chat-box chatContainerScroll"
+                    *ngFor="let message of chatHistory?.messages"
+                  >
+                    <li
+                      class="chat-left"
+                      *ngIf="message.senderType !== 'Professional'"
+                    >
                       <div class="chat-avatar">
-                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" *ngIf="!getUserDetails(chatHistory)?.image?.trim()">
-                        <img [src]="getUserDetails(chatHistory).image" *ngIf="getUserDetails(chatHistory)?.image?.trim()">
-                        <div class="chat-name">{{getUserDetails(chatHistory).firstName}}</div>
+                        <img
+                          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                          *ngIf="!getUserDetails(chatHistory)?.image?.trim()"
+                        />
+                        <img
+                          [src]="getUserDetails(chatHistory).image"
+                          *ngIf="getUserDetails(chatHistory)?.image?.trim()"
+                        />
+                        <div class="chat-name">
+                          {{ getUserDetails(chatHistory).firstName }}
+                        </div>
                       </div>
                       <div class="chat-text">{{ message.text }}</div>
                       <!-- <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div> -->
                     </li>
-                    <li class="chat-right" *ngIf="message.senderType === 'Professional'">
+                    <li
+                      class="chat-right"
+                      *ngIf="message.senderType === 'Professional'"
+                    >
                       <!-- <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div> -->
                       <div class="chat-text">{{ message.text }}</div>
                       <div class="chat-avatar">
-                        <img [src]="professionalData.image" *ngIf="professionalData?.image?.trim()">
-                        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" *ngIf="!professionalData?.image?.trim()">
-                        <div class="chat-name">{{professionalData.firstName}}</div>
+                        <img
+                          [src]="professionalData.image"
+                          *ngIf="professionalData?.image?.trim()"
+                        />
+                        <img
+                          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                          *ngIf="!professionalData?.image?.trim()"
+                        />
+                        <div class="chat-name">
+                          {{ professionalData.firstName }}
+                        </div>
                       </div>
                     </li>
-                    
                   </ul>
                   <!-- <div class="form-group mt-3 mb-0">
                     <input type="text" class="form-control" rows="3" placeholder="Type your message here...">
                   </div> -->
                 </div>
                 <div class="chat-form d-flex">
-                  <input type="text" [(ngModel)]="message" class="form-control" rows="3" placeholder="Type your message here...">
-                  <button (click)="sendMessage()" class="input-button"><img
+                  <input
+                    type="text"
+                    [(ngModel)]="message"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Type your message here..."
+                  />
+                  <button (click)="sendMessage()" class="input-button">
+                    <img
                       src="https://res.cloudinary.com/dsre6gifr/image/upload/v1692020007/png-transparent-paper-plane-airplane-computer-icons-send-angle-ribbon-rectangle-thumbnail_1_x8gxwf.png"
-                      alt=""></button>
+                      alt=""
+                    />
+                  </button>
                 </div>
               </div>
             </div>
@@ -118,5 +228,4 @@
       </div>
     </div>
   </div>
-
 </div>

@@ -1,24 +1,45 @@
 <div class="body">
-    <div id="videos">
-        <video class="video-player" id="user-1" [muted]="true" autoplay playsinline #video1></video>
-        <video class="video-player" id="user-2" autoplay playsinline #video2 ></video>
-    </div>
-    <div id="controls">
-        <a (click)="toggleCamera()">
-            <div class="control-container" id="camera-btn" #video>
-                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691383329/profile-images/camera_eg8jbp.png" alt="">
-            </div>
-        </a>
-        <a (click)="toggleAudio()">
-            <div class="control-container" id="mic-btn" #audio>
-                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691383329/profile-images/mic_zhnh6y.png" alt="">
-            </div>
-        </a>
-        <a (click)="leaveChannel()">
-            <div class="control-container" id="leave-btn"  #leave>
-                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691383329/profile-images/phone_d2hece.png" alt="">
-            </div>
-        </a>
-    </div>
-
+  <div id="videos">
+    <video
+      class="video-player"
+      id="user-1"
+      [muted]="true"
+      autoplay
+      playsinline
+      #video1
+    ></video>
+    <video
+      class="video-player"
+      id="user-2"
+      autoplay
+      playsinline
+      #video2
+    ></video>
+  </div>
+  <div id="controls">
+    <a (click)="toggleCamera()">
+      <div class="control-container" id="camera-btn" #video>
+        <img
+          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691383329/profile-images/camera_eg8jbp.png"
+          alt=""
+        />
+      </div>
+    </a>
+    <a (click)="toggleAudio()">
+      <div class="control-container" id="mic-btn" #audio>
+        <img
+          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691383329/profile-images/mic_zhnh6y.png"
+          alt=""
+        />
+      </div>
+    </a>
+    <a (click)="leaveChannel()">
+      <div class="control-container" id="leave-btn" #leave>
+        <img
+          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1691383329/profile-images/phone_d2hece.png"
+          alt=""
+        />
+      </div>
+    </a>
+  </div>
 </div>

@@ -1,8 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CompleteSchedule, CompleteTask, Schedule, Task, professionalData, professionalType } from 'src/app/professional/types/professional.types';
-import { ChatData, Payment, PaymentData, Review, userData } from 'src/app/user/types/user.types';
+import {
+  CompleteSchedule,
+  CompleteTask,
+  Schedule,
+  Task,
+  professionalData,
+  professionalType,
+} from 'src/app/professional/types/professional.types';
+import {
+  ChatData,
+  Payment,
+  PaymentData,
+  Review,
+  userData,
+} from 'src/app/user/types/user.types';
 import { environment } from 'src/environments/environment';
 
 const httpOptions = {
@@ -12,122 +25,226 @@ const httpOptions = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfessionalService {
+  apiUrl: string = environment.apiUrl;
+  constructor(private http: HttpClient) {}
 
-  apiUrl : string = environment.apiUrl
-  constructor(private http : HttpClient) { }
-
-  professionalRegister(data : professionalType) : Observable<professionalData>{
-    return this.http.post<professionalData>(`${this.apiUrl}/professional/register`,data, httpOptions)
+  professionalRegister(data: professionalType): Observable<professionalData> {
+    return this.http.post<professionalData>(
+      `${this.apiUrl}/professional/register`,
+      data,
+      httpOptions,
+    );
   }
-  professionalLogin(data : professionalType) : Observable<professionalData>{
-    return this.http.post<professionalData>(`${this.apiUrl}/professional/login`,data, httpOptions)
-  }
-
-  sendForgotPasswordMail(email : string) : Observable<string> {
-    return this.http.get<string>(`${this.apiUrl}/professional/forgetpassword?email=${email}`, httpOptions)
-  }
-
-
-  checkEmail(email : string): Observable<{message : string}> {
-    return this.http.get<{message : string}>(`${this.apiUrl}/professional/checkemail?email=${email}`, httpOptions)
+  professionalLogin(data: professionalType): Observable<professionalData> {
+    return this.http.post<professionalData>(
+      `${this.apiUrl}/professional/login`,
+      data,
+      httpOptions,
+    );
   }
 
-  getProfessionalDetails(token : string) : Observable<professionalData> {
-    return this.http.get<professionalData>(`${this.apiUrl}/professional/forgetpassword/professional_details?token=${token}`, httpOptions)
+  sendForgotPasswordMail(email: string): Observable<string> {
+    return this.http.get<string>(
+      `${this.apiUrl}/professional/forgetpassword?email=${email}`,
+      httpOptions,
+    );
   }
 
-  newPassword(token : string, password : string) : Observable<professionalData> {
-    return this.http.post<professionalData>(`${this.apiUrl}/professional/newpassword`, {token,password}, httpOptions)
+  checkEmail(email: string): Observable<{ message: string }> {
+    return this.http.get<{ message: string }>(
+      `${this.apiUrl}/professional/checkemail?email=${email}`,
+      httpOptions,
+    );
   }
 
-  isBlocked() : Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/professional/isblocked`, httpOptions)
+  getProfessionalDetails(token: string): Observable<professionalData> {
+    return this.http.get<professionalData>(
+      `${this.apiUrl}/professional/forgetpassword/professional_details?token=${token}`,
+      httpOptions,
+    );
   }
 
-  isApproved() : Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/professional/isapproved`, httpOptions)
+  newPassword(token: string, password: string): Observable<professionalData> {
+    return this.http.post<professionalData>(
+      `${this.apiUrl}/professional/newpassword`,
+      { token, password },
+      httpOptions,
+    );
   }
 
-  updateProfessional(data : professionalData) : Observable<professionalData> {
-    return this.http.patch<professionalData>(`${this.apiUrl}/professional/updateprofessional`,{data}, httpOptions)
+  isBlocked(): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.apiUrl}/professional/isblocked`,
+      httpOptions,
+    );
   }
 
-  getProfessionalData() : Observable<professionalData> {
-    return this.http.get<professionalData>(`${this.apiUrl}/professional/professionaldata`)
+  isApproved(): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.apiUrl}/professional/isapproved`,
+      httpOptions,
+    );
   }
 
-  getUserData(id :string) : Observable<professionalData> {
-    return this.http.get<professionalData>(`${this.apiUrl}/professional/userData?id=${id}`, httpOptions)
+  updateProfessional(data: professionalData): Observable<professionalData> {
+    return this.http.patch<professionalData>(
+      `${this.apiUrl}/professional/updateprofessional`,
+      { data },
+      httpOptions,
+    );
   }
 
-  getChats() : Observable<ChatData[]> {
-    return this.http.get<ChatData[]>(`${this.apiUrl}/professional/getchats`, httpOptions)
+  getProfessionalData(): Observable<professionalData> {
+    return this.http.get<professionalData>(
+      `${this.apiUrl}/professional/professionaldata`,
+    );
   }
 
-  getChatHistory(roomId : string, page : number, limit : number) : Observable<{chatData : ChatData, total : number}> {
-    return this.http.get<{chatData : ChatData, total : number}>(
-      `${this.apiUrl}/professional/getchathistory?roomid=${roomId}&page=${page}&limit=${limit}`
-      , httpOptions)
+  getUserData(id: string): Observable<professionalData> {
+    return this.http.get<professionalData>(
+      `${this.apiUrl}/professional/userData?id=${id}`,
+      httpOptions,
+    );
   }
 
-  updateReadStatus(roomId : string){
-    return this.http.patch(`${this.apiUrl}/professional/messageseen?roomid=${roomId}`, httpOptions)
+  getChats(): Observable<ChatData[]> {
+    return this.http.get<ChatData[]>(
+      `${this.apiUrl}/professional/getchats`,
+      httpOptions,
+    );
   }
 
-  sendVerifyUser(): Observable<{message : string}>{
-    return this.http.get<{message : string}>(`${this.apiUrl}/professional/sendverifymail`, httpOptions)
+  getChatHistory(
+    roomId: string,
+    page: number,
+    limit: number,
+  ): Observable<{ chatData: ChatData; total: number }> {
+    return this.http.get<{ chatData: ChatData; total: number }>(
+      `${this.apiUrl}/professional/getchathistory?roomid=${roomId}&page=${page}&limit=${limit}`,
+      httpOptions,
+    );
   }
 
-  verifyEmail(token : string) {
-    return this.http.get(`${this.apiUrl}/professional/verifyemail?token=${token}`, httpOptions)
-  }
-  submitFile(image : FormData, id : string) {
-    return this.http.post(`${this.apiUrl}/professional/uploadimage?id=${id}`,image)
-  }
-
-  getSubscribers() : Observable<Payment[]> {
-    return this.http.get<Payment[]>(`${this.apiUrl}/professional/getsubscribers`,httpOptions)
+  updateReadStatus(roomId: string) {
+    return this.http.patch(
+      `${this.apiUrl}/professional/messageseen?roomid=${roomId}`,
+      httpOptions,
+    );
   }
 
-  addTask(task : Task) {
-    return this.http.post(`${this.apiUrl}/professional/addtask`,{task}, httpOptions)
+  sendVerifyUser(): Observable<{ message: string }> {
+    return this.http.get<{ message: string }>(
+      `${this.apiUrl}/professional/sendverifymail`,
+      httpOptions,
+    );
   }
 
-  getInProgressTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
-    return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/professional/inprogresstask?page=${page}`, httpOptions)
+  verifyEmail(token: string) {
+    return this.http.get(
+      `${this.apiUrl}/professional/verifyemail?token=${token}`,
+      httpOptions,
+    );
+  }
+  submitFile(image: FormData, id: string) {
+    return this.http.post(
+      `${this.apiUrl}/professional/uploadimage?id=${id}`,
+      image,
+    );
   }
 
-  getCompletedTask(page : number) : Observable<{data : CompleteTask[], total : number}> {
-    return this.http.get<{data : CompleteTask[], total : number}>(`${this.apiUrl}/professional/completedtask?page=${page}`, httpOptions)
+  getSubscribers(): Observable<Payment[]> {
+    return this.http.get<Payment[]>(
+      `${this.apiUrl}/professional/getsubscribers`,
+      httpOptions,
+    );
   }
 
-  scheduleMeeting(schedule  : Schedule) {
-    return this.http.post(`${this.apiUrl}/professional/schedule`,{schedule}, httpOptions)
+  addTask(task: Task) {
+    return this.http.post(
+      `${this.apiUrl}/professional/addtask`,
+      { task },
+      httpOptions,
+    );
   }
 
-  getInProgressMeeting(page : number) : Observable<{data : CompleteSchedule[], total : number}> {
-    return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/professional/inprogressmeeting?page=${page}`,httpOptions)
-  }
-  getCompletedMeeting(page : number) : Observable<{data : CompleteSchedule[], total : number}> {
-    return this.http.get<{data : CompleteSchedule[], total : number}>(`${this.apiUrl}/professional/completedmeeting?page=${page}`,httpOptions)
-  }
-
-  getPayments(page :number, limit : number) : Observable<{data : PaymentData[], total : number}> {
-    return this.http.get<{data : PaymentData[], total : number}>(`${this.apiUrl}/payment/professionalhistory?page=${page}&limit=${limit}`)
+  getInProgressTask(
+    page: number,
+  ): Observable<{ data: CompleteTask[]; total: number }> {
+    return this.http.get<{ data: CompleteTask[]; total: number }>(
+      `${this.apiUrl}/professional/inprogresstask?page=${page}`,
+      httpOptions,
+    );
   }
 
-  getReviews(id : string, page : number) : Observable<{data : Review[], total : number}> {
-    return this.http.get<{data : Review[], total : number}>(`${this.apiUrl}/review/professionalreviews?id=${id}&page=${page}`, httpOptions)
+  getCompletedTask(
+    page: number,
+  ): Observable<{ data: CompleteTask[]; total: number }> {
+    return this.http.get<{ data: CompleteTask[]; total: number }>(
+      `${this.apiUrl}/professional/completedtask?page=${page}`,
+      httpOptions,
+    );
   }
 
-  addNotificationToken(token : string) {
-    return this.http.patch(`${this.apiUrl}/professional/setnotification`,{token}, httpOptions)
+  scheduleMeeting(schedule: Schedule) {
+    return this.http.post(
+      `${this.apiUrl}/professional/schedule`,
+      { schedule },
+      httpOptions,
+    );
   }
 
-  meetingDone(id : string) {
-    return this.http.patch(`${this.apiUrl}/professional/meetingdone`,{id}, httpOptions)
+  getInProgressMeeting(
+    page: number,
+  ): Observable<{ data: CompleteSchedule[]; total: number }> {
+    return this.http.get<{ data: CompleteSchedule[]; total: number }>(
+      `${this.apiUrl}/professional/inprogressmeeting?page=${page}`,
+      httpOptions,
+    );
+  }
+  getCompletedMeeting(
+    page: number,
+  ): Observable<{ data: CompleteSchedule[]; total: number }> {
+    return this.http.get<{ data: CompleteSchedule[]; total: number }>(
+      `${this.apiUrl}/professional/completedmeeting?page=${page}`,
+      httpOptions,
+    );
+  }
+
+  getPayments(
+    page: number,
+    limit: number,
+  ): Observable<{ data: PaymentData[]; total: number }> {
+    return this.http.get<{ data: PaymentData[]; total: number }>(
+      `${this.apiUrl}/payment/professionalhistory?page=${page}&limit=${limit}`,
+    );
+  }
+
+  getReviews(
+    id: string,
+    page: number,
+  ): Observable<{ data: Review[]; total: number }> {
+    return this.http.get<{ data: Review[]; total: number }>(
+      `${this.apiUrl}/review/professionalreviews?id=${id}&page=${page}`,
+      httpOptions,
+    );
+  }
+
+  addNotificationToken(token: string) {
+    return this.http.patch(
+      `${this.apiUrl}/professional/setnotification`,
+      { token },
+      httpOptions,
+    );
+  }
+
+  meetingDone(id: string) {
+    return this.http.patch(
+      `${this.apiUrl}/professional/meetingdone`,
+      { id },
+      httpOptions,
+    );
   }
 }

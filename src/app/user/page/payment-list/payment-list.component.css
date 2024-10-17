@@ -1,115 +1,119 @@
-h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
 
 .body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #EAEAEA;
-    min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+  background-color: #eaeaea;
+  min-height: 100vh;
 }
 
 .content {
-    background-color: #EAEAEA;
-    height: inherit;    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 1rem;
-    width: 100%;
-    padding: 1rem;
+  background-color: #eaeaea;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  width: 100%;
+  padding: 1rem;
 }
 
 .table-div {
-    padding: 1rem;
-    border-radius: 8px;
-    background: #ffffff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-    width: 70%;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  width: 70%;
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.table th, .table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .name {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .status {
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 12px;
-    display: inline-block;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  display: inline-block;
 }
 
 .active {
-    color: #00a65a;
-    background-color: #c9f7e7;
+  color: #00a65a;
+  background-color: #c9f7e7;
 }
 
 .expired {
-    color: #f39c12;
-    background-color: #f5e79e;
+  color: #f39c12;
+  background-color: #f5e79e;
 }
 
 .empty-message {
-    font-size: 18px;
-    color: #888888;
-    margin: 1rem 0;
+  font-size: 18px;
+  color: #888888;
+  margin: 1rem 0;
 }
-
-
 
 /* Pagination */
 .pagination {
-    margin-top: 1rem;
-    width: 70%;
-    display: flex;
-    justify-content: flex-end;
+  margin-top: 1rem;
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .page-count {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    margin-right: 0.5rem;
-    margin-top: 2px;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 0.5rem;
+  margin-top: 2px;
 }
 
 .next-page {
-    border-radius: 4px;
-    border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
 }
 
 .next-page button {
-    border: 1px solid #E5E7EB;
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  background: #fff;
 }
 
 @media (max-width: 768px) {
-    .table-div,
-    .pagination {
-        width: 100%;
-    }   
+  .table-div,
+  .pagination {
+    width: 100%;
+  }
 }

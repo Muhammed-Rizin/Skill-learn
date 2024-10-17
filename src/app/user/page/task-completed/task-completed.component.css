@@ -1,208 +1,203 @@
 .body {
-    width: 100%;
-    height: inherit;
-    min-height: 100vh;
-    background-color: #EAEAEA;
+  width: 100%;
+  height: inherit;
+  min-height: 100vh;
+  background-color: #eaeaea;
 }
 
 .navigate a {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    text-decoration: none;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
 }
 
 .navigate {
-    display: flex;
-    width: 58.33333333%;
-    justify-content: space-between;
+  display: flex;
+  width: 58.33333333%;
+  justify-content: space-between;
 }
 
 .content {
-    padding: 2rem 5rem;
+  padding: 2rem 5rem;
 }
 
 @media screen and (max-width: 720px) {
-    .content {
-        padding: 1rem;
-    }
+  .content {
+    padding: 1rem;
+  }
 }
 
-
 .add {
-    border-radius: 4px;
-    border: 1px solid #E5E7EB;
-    color: #000;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    /* 142.857% */
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+  color: #000;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
 }
 
 .active {
-    border-bottom: 1.6px solid #00A4BD;
+  border-bottom: 1.6px solid #00a4bd;
 }
 
 .tasks {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .taskdetails {
-    width: 58.33333333%;
-    border-radius: 8px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 1rem;
+  width: 58.33333333%;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
 }
 
 .username {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .name {
-    color: #374151;
-    font-family: 'Roboto';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    /* 133.333% */
-    margin-right: 1rem;
+  color: #374151;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  /* 133.333% */
+  margin-right: 1rem;
 }
 
 .date,
 .time {
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    margin-right: 1rem;
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin-right: 1rem;
 
-    /* 145.455% */
+  /* 145.455% */
 }
 
 .heading {
-    color: #374151;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 20px;
-    /* 142.857% */
+  color: #374151;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  /* 142.857% */
 }
 
 .description {
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-    /* 153.846% */
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 153.846% */
 }
 
 .done-btn {
-    border-radius: 4px;
-    border: 1px solid #E5E7EB;
-    color: #000;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    background: none;
-    /* 142.857% */
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+  color: #000;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  background: none;
+  /* 142.857% */
 }
 
 .done {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .completed {
-    color:  #9CA3AF;
+  color: #9ca3af;
 }
 .not-completed {
-    color: #9CA3AF;
-    font-weight: 500;
+  color: #9ca3af;
+  font-weight: 500;
 }
-
 
 /* Pagination */
 .pagination {
-    width: 58.33333333%;
-    display: flex;
-    justify-content: flex-end;
+  width: 58.33333333%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .page-count {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    margin-right: 0.5rem;
-    margin-top: 2px;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 0.5rem;
+  margin-top: 2px;
 }
 
 .next-page {
-    border-radius: 4px;
-    border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
 }
 
 .next-page button {
-    border: 1px solid #E5E7EB;
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  background: #fff;
 }
 
-
-
 @media screen and (max-width: 768px) {
-
-    .navigate,
-    .taskdetails,
-    .pagination {
-        width: 100%;
-    }
+  .navigate,
+  .taskdetails,
+  .pagination {
+    width: 100%;
+  }
 }
 
 .no-task {
-    text-align: center;
-    width: 58.33333333%;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  width: 58.33333333%;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .no-task h1 {
-    color: #374151;
-    font-family: 'Roboto';
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 1rem;
+  color: #374151;
+  font-family: "Roboto";
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .no-task p {
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
 }

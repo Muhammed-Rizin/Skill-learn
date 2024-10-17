@@ -1,47 +1,55 @@
-<mat-progress-bar mode="indeterminate" *ngIf=" loading$"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
 <div class="body" *ngIf="!loading$">
-    <app-nav-bar></app-nav-bar>
-    <div class="content">
-        <div class="navigate">
-            <div class="d-flex">
-                <a class="me-4 active" routerLink="/professional/schedule"> In progress</a>
-                <a routerLink="/professional/schedule/completed">Expired</a>
-            </div>
-            <button class="add" routerLink="/professional/schedule/new">Add </button>
-        </div>
-        <div class="tasks">
-            <div class="taskdetails mb-3" *ngFor="let task of meetings">
-                <div class="username">
-                    <p class="name">{{task.to.firstName + " " + task.to.lastName}}</p>
-                    <p class="date">{{task.time.toString().slice(0,10)}}</p>
-                    <p class="time">{{getTime(task.time)}}</p>
-                </div>
-                <div class="task">
-                    <p class="heading">{{task.topic}}</p>
-                    <p class="description">{{task.description}}</p>
-                    <div class="done">
-                        <div class="done">
-                        <p class="completed heading" *ngIf="task.completed">Completed</p>
-                        <button class="done-btn" (click)="taskDone(task._id)" *ngIf="!task.completed">done</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pagination" *ngIf="meetings.length && !loading$">
-                <div class="next-page me-2" *ngIf="pageCount > 1">
-                    <button (click)="prevPage()">Prev</button>
-                </div>
-                <div class="page-count">
-                    <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
-                </div>
-                <div class="next-page" *ngIf="pageCount !== totalPage">
-                    <button (click)="nextPage()">Next</button>
-                </div>
-            </div>
-        </div>
-        <div class="no-task mt-3" *ngIf="!meetings.length && !loading$">
-            <h1>No In-Progress Meetings</h1>
-            <p>There are currently no meetings in progress.</p>
-        </div>        
+  <app-nav-bar></app-nav-bar>
+  <div class="content">
+    <div class="navigate">
+      <div class="d-flex">
+        <a class="me-4 active" routerLink="/professional/schedule">
+          In progress</a
+        >
+        <a routerLink="/professional/schedule/completed">Expired</a>
+      </div>
+      <button class="add" routerLink="/professional/schedule/new">Add</button>
     </div>
+    <div class="tasks">
+      <div class="taskdetails mb-3" *ngFor="let task of meetings">
+        <div class="username">
+          <p class="name">{{ task.to.firstName + " " + task.to.lastName }}</p>
+          <p class="date">{{ task.time.toString().slice(0, 10) }}</p>
+          <p class="time">{{ getTime(task.time) }}</p>
+        </div>
+        <div class="task">
+          <p class="heading">{{ task.topic }}</p>
+          <p class="description">{{ task.description }}</p>
+          <div class="done">
+            <div class="done">
+              <p class="completed heading" *ngIf="task.completed">Completed</p>
+              <button
+                class="done-btn"
+                (click)="taskDone(task._id)"
+                *ngIf="!task.completed"
+              >
+                done
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagination" *ngIf="meetings.length && !loading$">
+        <div class="next-page me-2" *ngIf="pageCount > 1">
+          <button (click)="prevPage()">Prev</button>
+        </div>
+        <div class="page-count">
+          <p>{{ pageCount + " " }} of {{ " " + totalPage + " " }} pages</p>
+        </div>
+        <div class="next-page" *ngIf="pageCount !== totalPage">
+          <button (click)="nextPage()">Next</button>
+        </div>
+      </div>
+    </div>
+    <div class="no-task mt-3" *ngIf="!meetings.length && !loading$">
+      <h1>No In-Progress Meetings</h1>
+      <p>There are currently no meetings in progress.</p>
+    </div>
+  </div>
 </div>

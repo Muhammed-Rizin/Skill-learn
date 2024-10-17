@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { LoginComponent } from './page/login/login.component';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
@@ -12,7 +12,6 @@ import { ProfessionalRequestsComponent } from './page/professional-requests/prof
 import { UsersComponent } from './page/users/users.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 
 @NgModule({
   declarations: [
@@ -28,8 +27,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AdminRoutingModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
-  exports : [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminModule { }
+export class AdminModule {}

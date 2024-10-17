@@ -2,23 +2,22 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ConsecutiveGuard implements CanActivate {
-    constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-    canActivate() {
-        const professional = localStorage.getItem('professional_token');
-        const user = localStorage.getItem('userJwt');
-        if (professional) {
-            this.router.navigate(['/professional']);
-            return false;
-        } else if (user) {
-            this.router.navigate(['/']);
-            return false;
-        } else {
-            return true;
-        }
+  canActivate() {
+    const professional = localStorage.getItem('professional_token');
+    const user = localStorage.getItem('userJwt');
+    if (professional) {
+      this.router.navigate(['/professional']);
+      return false;
+    } else if (user) {
+      this.router.navigate(['/']);
+      return false;
+    } else {
+      return true;
     }
+  }
 }

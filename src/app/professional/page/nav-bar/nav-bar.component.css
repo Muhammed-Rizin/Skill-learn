@@ -1,216 +1,213 @@
 .logo {
-    width: 150px;
-    margin-top: -5px;
+  width: 150px;
+  margin-top: -5px;
 }
 
 .nav-item {
-    margin-right: 30px;
+  margin-right: 30px;
 }
 
 .icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 150%;
+  width: 30px;
+  height: 30px;
+  border-radius: 150%;
 }
 
 .dropdown-menu {
-    width: 100px;
+  width: 100px;
 }
 
 .home {
-    border-bottom: 1.6px solid #00A4BD;
+  border-bottom: 1.6px solid #00a4bd;
 }
 
-
 .profile-notification {
-    display: flex;
+  display: flex;
 }
 
 .notification-icon {
-    font-size: 2rem;
-    width: auto;
-    height: auto;
+  font-size: 2rem;
+  width: auto;
+  height: auto;
 }
 
 .toast-container {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    z-index: 10000;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  z-index: 10000;
 }
 
 .toast-content {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .toast-content .image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .toast-content .user-info {
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
 }
 
 .toast-content .name {
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .toast-content .message {
-    margin-top: 5px;
-    font-size: 14px;
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 /* Animation */
 .toast-container.show-toast {
-    animation: slide-in 0.5s forwards;
+  animation: slide-in 0.5s forwards;
 }
 
 @keyframes slide-in {
-    from {
-        right: -300px;
-    }
+  from {
+    right: -300px;
+  }
 
-    to {
-        right: 1rem;
-    }
+  to {
+    right: 1rem;
+  }
 }
 
 .items {
-    overflow-x: scroll;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .items ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-
 button {
-    border: none;
-    outline: none;
-    background: transparent;
-    color: rgba(0, 0, 0, .55);
+  border: none;
+  outline: none;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
 }
 
 .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background: #F8FAFC;
-    position: fixed;
-    height: 100vh;
-    overflow: auto;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background: #f8fafc;
+  position: fixed;
+  height: 100vh;
+  overflow: auto;
 }
 
 .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
 }
 
 .sidebar a.active {
-    background-color: #00A4BD;
-    color: white;
+  background-color: #00a4bd;
+  color: white;
 }
 
 .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
+  background-color: #555;
+  color: white;
 }
 
 div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
+  margin-left: 200px;
+  padding: 1px 16px;
 }
 
 a.logout:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
 
-    .sidebar a {
-        float: left;
-    }
+  .sidebar a {
+    float: left;
+  }
 
-    div.content {
-        margin-left: 0;
-    }
+  div.content {
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 400px) {
-    .sidebar a {
-        text-align: center;
-        float: none;
-    }
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }
-
 
 /* Add your custom styles here */
 .custom-dialog {
-    /* Customize the dialog container styles */
-    max-width: 400px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Customize the dialog container styles */
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .custom-dialog-title {
-    /* Customize the title styles */
-    font-size: 24px;
-    margin-bottom: 10px;
+  /* Customize the title styles */
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .custom-dialog-content {
-    /* Customize the content styles */
-    font-size: 16px;
-    margin-bottom: 20px;
+  /* Customize the content styles */
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .custom-dialog-actions {
-    /* Customize the actions container styles */
-    display: flex;
-    justify-content: flex-end;
+  /* Customize the actions container styles */
+  display: flex;
+  justify-content: flex-end;
 }
 
 .custom-dialog-button {
-    /* Customize the button styles */
-    margin-left: 10px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
+  /* Customize the button styles */
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .custom-dialog-button:hover {
-    /* Customize the button hover styles */
-    background-color: #0056b3;
+  /* Customize the button hover styles */
+  background-color: #0056b3;
 }
 
 .custom-dialog-button:focus {
-    /* Customize the button focus styles */
-    outline: none;
-    box-shadow: 0 0 0 2px #007bff;
+  /* Customize the button focus styles */
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
 }

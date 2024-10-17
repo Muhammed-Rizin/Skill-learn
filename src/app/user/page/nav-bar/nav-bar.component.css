@@ -73,8 +73,8 @@ nav {
 
 .items {
   overflow-x: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .items ::-webkit-scrollbar {
@@ -96,21 +96,21 @@ nav {
 }
 
 .home {
-  border-bottom: 1.6px solid #00A4BD;
+  border-bottom: 1.6px solid #00a4bd;
 }
 
 button {
   border: none;
   outline: none;
   background: transparent;
-  color: rgba(0, 0, 0, .55);
+  color: rgba(0, 0, 0, 0.55);
 }
 
 .sidebar {
   margin: 0;
   padding: 0;
   width: 200px;
-  background: #F8FAFC;
+  background: #f8fafc;
   position: fixed;
   height: 100vh;
   overflow: auto;
@@ -124,7 +124,7 @@ button {
 }
 
 .sidebar a.active {
-  background-color: #00A4BD;
+  background-color: #00a4bd;
   color: white;
 }
 
@@ -164,7 +164,6 @@ a.logout:hover {
     float: none;
   }
 }
-
 
 /* Add your custom styles here */
 .custom-dialog {

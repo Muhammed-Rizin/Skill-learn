@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
 import { LoginComponent } from './page/login/login.component';
 import { HomeComponent } from './page/home/home.component';
 import { NavBarComponent } from './page/nav-bar/nav-bar.component';
@@ -28,7 +27,7 @@ import { VideoComponent } from './page/video/video.component';
 import { PaymentListComponent } from './page/payment-list/payment-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
@@ -51,7 +50,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     ScheduledCompletedComponent,
     ScheduledComponent,
     VideoComponent,
-    PaymentListComponent
+    PaymentListComponent,
   ],
   imports: [
     CommonModule,
@@ -62,8 +61,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     NgbModule,
     MatProgressBarModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
-  exports : [RouterModule]
+  exports: [RouterModule],
 })
-export class UserModule { }
+export class UserModule {}

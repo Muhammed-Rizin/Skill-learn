@@ -4,16 +4,19 @@ import { Observable, map } from 'rxjs';
 import { ProfessionalService } from '../../services/professional/professional.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfessionalBlockedGuard implements CanActivate {
-  constructor(private router : Router,private professionalService : ProfessionalService) {}
+  constructor(
+    private router: Router,
+    private professionalService: ProfessionalService,
+  ) {}
   canActivate(): Observable<boolean> {
     return this.professionalService.isBlocked().pipe(
       map((isBlocked: boolean) => {
         if (isBlocked) {
-          localStorage.clear()
-          this.router.navigate(['/professional'])
+          localStorage.clear();
+          this.router.navigate(['/professional']);
           return false;
         } else {
           return true;

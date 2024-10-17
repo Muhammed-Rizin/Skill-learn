@@ -8,80 +8,80 @@ import { NotificationService } from 'src/app/services/notification/notification.
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  user !: string | null
-  notifications : notification[] = []
+  user!: string | null;
+  notifications: notification[] = [];
   constructor(
-    private router : Router, 
-    readonly _userService : UserService,
+    private router: Router,
+    readonly _userService: UserService,
     public dialog: MatDialog,
-    private _notificationService : NotificationService
+    private _notificationService: NotificationService,
   ) {}
   ngOnInit(): void {
-    this.user = localStorage.getItem('userJwt') 
-    if(this.user){ 
-      this.loadNotification()
+    this.user = localStorage.getItem('userJwt');
+    if (this.user) {
+      this.loadNotification();
       this._notificationService.status.subscribe((msg) => {
-        if(msg === null){
-        }else { 
-          this.loadNotification()
+        if (msg === null) {
+        } else {
+          this.loadNotification();
         }
-      })
+      });
     }
-
-
   }
 
-  loadNotification(){
-    this._notificationService.getNotification().subscribe(
-      (data) => {
-        this.notifications = data.notifications
-      }
-    )
+  loadNotification() {
+    this._notificationService.getNotification().subscribe((data) => {
+      this.notifications = data.notifications;
+    });
   }
 
-  logOut(){
+  logOut() {
     const dialogRef = this.dialog.open(logoutDialog, {
-      width: '350px'
+      width: '350px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        localStorage.removeItem('userJwt')
-        window.location.reload()
-      } 
+        localStorage.removeItem('userJwt');
+        window.location.reload();
+      }
     });
-    
   }
 }
 
-
 @Component({
   selector: 'dialog-animations-example-dialog',
-  template : `
-  <div class="custom-dialog">
-    <h1 class="custom-dialog-title">Log Out</h1>
-    <div class="custom-dialog-content">
-      Would you like to log out?
+  template: `
+    <div class="custom-dialog">
+      <h1 class="custom-dialog-title">Log Out</h1>
+      <div class="custom-dialog-content">Would you like to log out?</div>
+      <div class="custom-dialog-actions">
+        <button class="custom-dialog-button" (click)="onCancelClick()">
+          No
+        </button>
+        <button
+          class="custom-dialog-button"
+          (click)="onOkClick()"
+          cdkFocusInitial
+        >
+          Yes
+        </button>
+      </div>
     </div>
-    <div class="custom-dialog-actions">
-      <button class="custom-dialog-button" (click)="onCancelClick()">No</button>
-      <button class="custom-dialog-button" (click)="onOkClick()" cdkFocusInitial>Yes</button>
-    </div>
-  </div>
   `,
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class logoutDialog {
   constructor(public dialogRef: MatDialogRef<logoutDialog>) {}
 
-  onCancelClick(){
+  onCancelClick() {
     this.dialogRef.close(false);
   }
 
-  onOkClick(){
+  onOkClick() {
     this.dialogRef.close(true);
   }
 }

@@ -1,150 +1,290 @@
-<mat-progress-bar mode="indeterminate" *ngIf=" loading"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <div class="body" *ngIf="!loading">
-    <app-nav-bar></app-nav-bar>
-    <div class="container mt-2">
-        <div class="userdetails row" >
-            <div class="col-12 col-lg-3 profileimage">
-                <input type="file" #fileInput style="display: none" accept=".jpg, .png" (change)="onFileSelected($event)" name="profile"/>
-                <img [src]="userData.image"
-                    alt="profile image" *ngIf="userData?.image"  (click)="fileInput.click()" >
-                <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
-                    alt="profile image" *ngIf="!userData?.image"  (click)="fileInput.click()">
-            </div>
-            <div class="col-12 col-lg-9 userinformation">
-                <div class="username">
-                    <h2>{{userData.firstName+ " " + userData.lastName}}</h2>
-                    <p>{{userData.bio + "  "}}</p>
-                </div>
-                <div class="userdata mt-2">
-                    <h4>Basic Info</h4>
-                    <p class="validation">{{validation}}</p>
-                    <p class="validation" style="color: green;">{{message}}</p>
-                    <div class="detail">
-                        <p class="col-4">First Name</p>
-                        <input type="text" [(ngModel)]="userData.firstName" class="col-4">
-                        <button class="col-4 edit" (click)="submit('First name')"
-                        *ngIf="userData.firstName != actualData.firstName">Save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Last Name</p>
-                        <input type="text" [(ngModel)]="userData.lastName" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Last name')"
-                        *ngIf="userData.lastName != actualData.lastName">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Location</p>
-                        <input type="text" [(ngModel)]="userData.location" class="col-4" 
-                        [placeholder]="userData.location ? userData.location: 'Your location'">
-                        <button class="col-4 edit" (click)="submit('Location')"
-                        *ngIf="userData.location != actualData.location">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Bio</p>
-                        <input type="text" [(ngModel)]="userData.bio" class="col-4" 
-                        [placeholder]="userData.bio ? userData.bio : 'Your bio'">
-                        <button class="col-4 edit" (click)="submit('Bio')"
-                        *ngIf="userData.bio != actualData.bio">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Education</p>
-                        <input type="text" [(ngModel)]="userData.education" class="col-4"
-                        [placeholder]="userData.education ? userData.education : 'Your education'">
-                        <button class="col-4 edit" (click)="submit('Education')"
-                        *ngIf="userData.education != actualData.education">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Qualification</p>
-                        <input type="text" [(ngModel)]="userData.qualification" class="col-4" 
-                        [placeholder]="userData.qualification ? userData.qualification : 'Your qualification'">
-                        <button class="col-4 edit" (click)="submit('Qualification')"
-                        *ngIf="userData.qualification != actualData.qualification">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Field</p>
-                        <input type="text" [(ngModel)]="userData.field" class="col-4"
-                        [placeholder]="userData.field ? userData.field: 'Your field'" >
-                        
-                        <button class="col-4 edit" (click)="submit('Field')"
-                        *ngIf="userData.field != actualData.field">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Payment</p>
-                        <input type="number" [(ngModel)]="userData.payment"
-                        [placeholder]="userData.payment ? userData.payment : 'Your payment'" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Payment')"
-                        *ngIf="userData.payment != actualData.payment">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Email</p>
-                        <p class="col-4">{{userData.email}}</p>
-                        <button class="col-4 edit text-danger" *ngIf="!userData.emailVerified" (click)="sendVerifyUser()">Verify</button>
-                        <p class="col-4 edit text-success"  *ngIf="userData.emailVerified">verified</p>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">Address</p>
-                        <input type="text" [(ngModel)]="userData.address" 
-                        [placeholder]="userData.address ? userData.address : 'Your address'" class="col-4">
-                        <button class="col-4 edit" (click)="submit('Address')"
-                        *ngIf="userData.address != actualData.address">save</button>
-                    </div>
-                    <div class="detail">
-                        <p class="col-4">About</p>
-                        <input type="text" [(ngModel)]="userData.about" class="col-4"  
-                        [placeholder]="userData.about ? userData.about : 'Your about'">
-                        <button class="col-4 edit" (click)="submit('Address')"
-                        *ngIf="userData.about != actualData.about">save</button>
-                    </div>
-
-                    <h4 class="mt-5">Experience</h4>
-                    <p class="validation">{{validation}}</p>
-                    <div class="detail">
-                        <p class="col-4">Work</p>
-                        <input type="text" [(ngModel)]="userData.work" class="col-4"
-                        [placeholder]="userData.work ? userData.work: 'Your work'">
-                        <button class="col-4 edit" (click)="submit('Work')"
-                        *ngIf="userData.work != actualData.work">save</button>
-                    </div>
-                </div>
-                <div class="review mt-3">
-                    <div class="review-header">
-                        <h3>Review</h3>
-                    </div>
-                    <ng-container *ngFor="let review of reviews$ ">
-                        <div class="review-details mt-2">
-                            <div class="user-header">
-                                <div class="image">
-                                    <img [src]="review?.user?.image" alt="" *ngIf="review?.user?.image?.trim()">
-                                    <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="" *ngIf="!review?.user?.image?.trim()">
-                                </div>
-                                <div class="name">
-                                    <h5>{{review?.user?.firstName + ' ' + review?.user?.lastName}}</h5>
-                                    <div class="rating">
-                                        <ngb-rating [max]="5" [rate]="review.rating"[readonly]="true"></ngb-rating>
-                                    </div>
-                                </div>
-                                <div class="date">
-                                    <p>{{review?.createdAt?.slice(0,10)}}</p>
-                                </div>
-                            </div>
-                            <div class="review-content">
-                                <h2>{{review.title}}</h2>
-                                <p>{{review.description}}</p>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <div class="pagination mt-3" *ngIf="reviews$.length">
-                        <div class="next-page me-2" *ngIf="pageCount > 1">
-                            <button (click)="prevPage()">Prev</button>
-                        </div>
-                        <div class="page-count">
-                            <p>{{pageCount + ' '}}  of {{' '+ totalPage + ' '}} pages</p>
-                        </div>
-                        <div class="next-page" *ngIf="pageCount !== totalPage">
-                            <button (click)="nextPage()">Next</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <app-nav-bar></app-nav-bar>
+  <div class="container mt-2">
+    <div class="userdetails row">
+      <div class="col-12 col-lg-3 profileimage">
+        <input
+          type="file"
+          #fileInput
+          style="display: none"
+          accept=".jpg, .png"
+          (change)="onFileSelected($event)"
+          name="profile"
+        />
+        <img
+          [src]="userData.image"
+          alt="profile image"
+          *ngIf="userData?.image"
+          (click)="fileInput.click()"
+        />
+        <img
+          src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+          alt="profile image"
+          *ngIf="!userData?.image"
+          (click)="fileInput.click()"
+        />
+      </div>
+      <div class="col-12 col-lg-9 userinformation">
+        <div class="username">
+          <h2>{{ userData.firstName + " " + userData.lastName }}</h2>
+          <p>{{ userData.bio + "  " }}</p>
         </div>
+        <div class="userdata mt-2">
+          <h4>Basic Info</h4>
+          <p class="validation">{{ validation }}</p>
+          <p class="validation" style="color: green">{{ message }}</p>
+          <div class="detail">
+            <p class="col-4">First Name</p>
+            <input type="text" [(ngModel)]="userData.firstName" class="col-4" />
+            <button
+              class="col-4 edit"
+              (click)="submit('First name')"
+              *ngIf="userData.firstName != actualData.firstName"
+            >
+              Save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Last Name</p>
+            <input type="text" [(ngModel)]="userData.lastName" class="col-4" />
+            <button
+              class="col-4 edit"
+              (click)="submit('Last name')"
+              *ngIf="userData.lastName != actualData.lastName"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Location</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.location"
+              class="col-4"
+              [placeholder]="
+                userData.location ? userData.location : 'Your location'
+              "
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Location')"
+              *ngIf="userData.location != actualData.location"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Bio</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.bio"
+              class="col-4"
+              [placeholder]="userData.bio ? userData.bio : 'Your bio'"
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Bio')"
+              *ngIf="userData.bio != actualData.bio"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Education</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.education"
+              class="col-4"
+              [placeholder]="
+                userData.education ? userData.education : 'Your education'
+              "
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Education')"
+              *ngIf="userData.education != actualData.education"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Qualification</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.qualification"
+              class="col-4"
+              [placeholder]="
+                userData.qualification
+                  ? userData.qualification
+                  : 'Your qualification'
+              "
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Qualification')"
+              *ngIf="userData.qualification != actualData.qualification"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Field</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.field"
+              class="col-4"
+              [placeholder]="userData.field ? userData.field : 'Your field'"
+            />
+
+            <button
+              class="col-4 edit"
+              (click)="submit('Field')"
+              *ngIf="userData.field != actualData.field"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Payment</p>
+            <input
+              type="number"
+              [(ngModel)]="userData.payment"
+              [placeholder]="
+                userData.payment ? userData.payment : 'Your payment'
+              "
+              class="col-4"
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Payment')"
+              *ngIf="userData.payment != actualData.payment"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">Email</p>
+            <p class="col-4">{{ userData.email }}</p>
+            <button
+              class="col-4 edit text-danger"
+              *ngIf="!userData.emailVerified"
+              (click)="sendVerifyUser()"
+            >
+              Verify
+            </button>
+            <p class="col-4 edit text-success" *ngIf="userData.emailVerified">
+              verified
+            </p>
+          </div>
+          <div class="detail">
+            <p class="col-4">Address</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.address"
+              [placeholder]="
+                userData.address ? userData.address : 'Your address'
+              "
+              class="col-4"
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Address')"
+              *ngIf="userData.address != actualData.address"
+            >
+              save
+            </button>
+          </div>
+          <div class="detail">
+            <p class="col-4">About</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.about"
+              class="col-4"
+              [placeholder]="userData.about ? userData.about : 'Your about'"
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Address')"
+              *ngIf="userData.about != actualData.about"
+            >
+              save
+            </button>
+          </div>
+
+          <h4 class="mt-5">Experience</h4>
+          <p class="validation">{{ validation }}</p>
+          <div class="detail">
+            <p class="col-4">Work</p>
+            <input
+              type="text"
+              [(ngModel)]="userData.work"
+              class="col-4"
+              [placeholder]="userData.work ? userData.work : 'Your work'"
+            />
+            <button
+              class="col-4 edit"
+              (click)="submit('Work')"
+              *ngIf="userData.work != actualData.work"
+            >
+              save
+            </button>
+          </div>
+        </div>
+        <div class="review mt-3">
+          <div class="review-header">
+            <h3>Review</h3>
+          </div>
+          <ng-container *ngFor="let review of reviews$">
+            <div class="review-details mt-2">
+              <div class="user-header">
+                <div class="image">
+                  <img
+                    [src]="review?.user?.image"
+                    alt=""
+                    *ngIf="review?.user?.image?.trim()"
+                  />
+                  <img
+                    src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+                    alt=""
+                    *ngIf="!review?.user?.image?.trim()"
+                  />
+                </div>
+                <div class="name">
+                  <h5>
+                    {{ review?.user?.firstName + " " + review?.user?.lastName }}
+                  </h5>
+                  <div class="rating">
+                    <ngb-rating
+                      [max]="5"
+                      [rate]="review.rating"
+                      [readonly]="true"
+                    ></ngb-rating>
+                  </div>
+                </div>
+                <div class="date">
+                  <p>{{ review?.createdAt?.slice(0, 10) }}</p>
+                </div>
+              </div>
+              <div class="review-content">
+                <h2>{{ review.title }}</h2>
+                <p>{{ review.description }}</p>
+              </div>
+            </div>
+          </ng-container>
+          <div class="pagination mt-3" *ngIf="reviews$.length">
+            <div class="next-page me-2" *ngIf="pageCount > 1">
+              <button (click)="prevPage()">Prev</button>
+            </div>
+            <div class="page-count">
+              <p>{{ pageCount + " " }} of {{ " " + totalPage + " " }} pages</p>
+            </div>
+            <div class="next-page" *ngIf="pageCount !== totalPage">
+              <button (click)="nextPage()">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

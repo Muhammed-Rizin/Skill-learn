@@ -1,29 +1,55 @@
 <div class="toast-container" *ngIf="showToast">
-    <div class="toast-content" *ngIf="!message?.data?.call">
-      <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon">
-      <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon">
-      <div class="user-info">
-        <span class="name">{{message?.notification?.title}}</span>
-        <span class="message">{{message?.notification?.body}}</span>
-      </div>
-    </div>
-
-    <div class="toast-container" *ngIf="message?.data?.call">
-      <div class="toast-content">
-        <img [src]="message?.notification?.icon" alt="User Image" class="image" *ngIf="message?.notification?.icon?.trim()">
-        <img src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg" alt="User Image" class="image" *ngIf="!message?.notification?.icon?.trim()">
-        <div class="user-info">
-          <span class="name">{{message?.notification?.title}}</span>
-          <span class="message">{{message?.notification?.body}}</span>
-        </div>
-        <div class="call-buttons">
-          <button class="call-button accept-button me-2" 
-          [routerLink]="['/video', message?.data?.roomId ]" (click)="accept()"> Accept</button>
-          <button class="call-button reject-button" (click)="reject()">Reject</button>
-        </div>
-      </div>
+  <div class="toast-content" *ngIf="!message?.data?.call">
+    <img
+      [src]="message?.notification?.icon"
+      alt="User Image"
+      class="image"
+      *ngIf="message?.notification?.icon"
+    />
+    <img
+      src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+      alt="User Image"
+      class="image"
+      *ngIf="!message?.notification?.icon"
+    />
+    <div class="user-info">
+      <span class="name">{{ message?.notification?.title }}</span>
+      <span class="message">{{ message?.notification?.body }}</span>
     </div>
   </div>
 
-  
+  <div class="toast-container" *ngIf="message?.data?.call">
+    <div class="toast-content">
+      <img
+        [src]="message?.notification?.icon"
+        alt="User Image"
+        class="image"
+        *ngIf="message?.notification?.icon?.trim()"
+      />
+      <img
+        src="https://res.cloudinary.com/dsre6gifr/image/upload/v1700986182/null-icon_zq38m6.jpg"
+        alt="User Image"
+        class="image"
+        *ngIf="!message?.notification?.icon?.trim()"
+      />
+      <div class="user-info">
+        <span class="name">{{ message?.notification?.title }}</span>
+        <span class="message">{{ message?.notification?.body }}</span>
+      </div>
+      <div class="call-buttons">
+        <button
+          class="call-button accept-button me-2"
+          [routerLink]="['/video', message?.data?.roomId]"
+          (click)="accept()"
+        >
+          Accept
+        </button>
+        <button class="call-button reject-button" (click)="reject()">
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

@@ -1,69 +1,131 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink=""><img src="../../../assets/skill learn.png" alt="skill learn" class="logo"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto  mb-lg-0">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink=""
+      ><img
+        src="../../../assets/skill learn.png"
+        alt="skill learn"
+        class="logo"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="home" routerLink="/home"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="home" routerLink="/explore"
+            >Professionals</a
+          >
+        </li>
+        <ng-container *ngIf="user">
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="home" routerLink="/home">Home</a>
+            <a class="nav-link" routerLinkActive="home" routerLink="/chat"
+              >Chat</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="home" routerLink="/explore">Professionals</a>
+            <a class="nav-link" routerLinkActive="home" routerLink="/tasks"
+              >Tasks</a
+            >
           </li>
-          <ng-container *ngIf="user">
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="home" routerLink="/chat">Chat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="home" routerLink="/tasks">Tasks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="home" routerLink="/schedule">Scheduled</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLinkActive="home" routerLink="/payments">Payments</a>
-            </li>
-          </ng-container>
-        </ul>
-        <span class="navbar-text" *ngIf="user">
-          <div class="profile-notification">
-            <button mat-button [matMenuTriggerFor]="notification" *ngIf="notifications.length">
-              <button mat-fab color="warn" aria-label="Example icon button with a home icon">
-                <mat-icon [matBadge]="notifications.length" matBadgeColor="warn" class="notification-icon">notifications</mat-icon>
-              </button>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="home" routerLink="/schedule"
+              >Scheduled</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="home" routerLink="/payments"
+              >Payments</a
+            >
+          </li>
+        </ng-container>
+      </ul>
+      <span class="navbar-text" *ngIf="user">
+        <div class="profile-notification">
+          <button
+            mat-button
+            [matMenuTriggerFor]="notification"
+            *ngIf="notifications.length"
+          >
+            <button
+              mat-fab
+              color="warn"
+              aria-label="Example icon button with a home icon"
+            >
+              <mat-icon
+                [matBadge]="notifications.length"
+                matBadgeColor="warn"
+                class="notification-icon"
+                >notifications</mat-icon
+              >
             </button>
-            <button mat-fab color="warn" aria-label="Example icon button with a home icon" *ngIf="!notifications.length">
-              <mat-icon [matBadge]="notifications.length" matBadgeColor="warn" class="notification-icon">notifications</mat-icon>
-            </button>
-            <mat-menu #notification="matMenu" class="items">
-              <ng-container *ngFor="let item of notifications">
-                <div mat-menu-item class="toast-container" >
-                  <div  class="toast-content">
-                    <img src="../../../../assets/user-icon.svg" alt="User Image" class="image" *ngIf="!item.icon">
-                    <img [src]="item.icon" alt="User Image" class="image" *ngIf="item.icon">
-                    <div class="user-info">
-                      <span class="name">{{item.title}}</span>
-                      <span class="message">{{item.body}}</span>
-                    </div>
+          </button>
+          <button
+            mat-fab
+            color="warn"
+            aria-label="Example icon button with a home icon"
+            *ngIf="!notifications.length"
+          >
+            <mat-icon
+              [matBadge]="notifications.length"
+              matBadgeColor="warn"
+              class="notification-icon"
+              >notifications</mat-icon
+            >
+          </button>
+          <mat-menu #notification="matMenu" class="items">
+            <ng-container *ngFor="let item of notifications">
+              <div mat-menu-item class="toast-container">
+                <div class="toast-content">
+                  <img
+                    src="../../../../assets/user-icon.svg"
+                    alt="User Image"
+                    class="image"
+                    *ngIf="!item.icon"
+                  />
+                  <img
+                    [src]="item.icon"
+                    alt="User Image"
+                    class="image"
+                    *ngIf="item.icon"
+                  />
+                  <div class="user-info">
+                    <span class="name">{{ item.title }}</span>
+                    <span class="message">{{ item.body }}</span>
                   </div>
                 </div>
-              </ng-container>
-            </mat-menu>
-            <button mat-button [matMenuTriggerFor]="menu">
-              <img src="../../../../assets/user-icon.svg" alt="skill learn" class="icon">
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="/profile">Profile</button>
-              <button mat-menu-item  (click)="logOut()">Logout</button>
-            </mat-menu>
-          </div>
-        </span>
-        <ng-container *ngIf="!user">
-          <button routerLink="/login"  class="me-2">Login</button>
-          <button routerLink="/sign_up">Sign Up</button>
-        </ng-container>
-      </div>
+              </div>
+            </ng-container>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menu">
+            <img
+              src="../../../../assets/user-icon.svg"
+              alt="skill learn"
+              class="icon"
+            />
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/profile">Profile</button>
+            <button mat-menu-item (click)="logOut()">Logout</button>
+          </mat-menu>
+        </div>
+      </span>
+      <ng-container *ngIf="!user">
+        <button routerLink="/login" class="me-2">Login</button>
+        <button routerLink="/sign_up">Sign Up</button>
+      </ng-container>
     </div>
-  </nav>
+  </div>
+</nav>

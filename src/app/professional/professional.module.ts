@@ -7,7 +7,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-
 import { LoginComponent } from './page/login/login.component';
 import { HomeComponent } from './page/home/home.component';
 import { SignUpComponent } from './page/sign-up/sign-up.component';
@@ -33,9 +32,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 
-const route : Routes = [
-  
-]
+const route: Routes = [];
 
 @NgModule({
   declarations: [
@@ -70,8 +67,8 @@ const route : Routes = [
     NgbModule,
     MatProgressBarModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
-  exports : [RouterModule]
+  exports: [RouterModule],
 })
-export class ProfessionalModule { }
+export class ProfessionalModule {}

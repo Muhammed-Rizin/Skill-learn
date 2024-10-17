@@ -1,270 +1,262 @@
 .body {
-    width: 100%;
-    height: inherit;
-    background: #EAEAEA;
+  width: 100%;
+  height: inherit;
+  background: #eaeaea;
 }
 
 .container {
-    width: 100%;
-    height: auto;
-    min-height: calc(100vh - 110px)
+  width: 100%;
+  height: auto;
+  min-height: calc(100vh - 110px);
 }
 
 .userdetails {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    border-radius: 8px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 3rem 3rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 3rem 3rem;
 }
 
 .profileimage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .profileimage img {
-    width: 200px;
-    height: 200px;
-    border-radius: 1500px;
-    background: lightgray 50% / cover no-repeat;
+  width: 200px;
+  height: 200px;
+  border-radius: 1500px;
+  background: lightgray 50% / cover no-repeat;
 }
 
 .userinformation {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .username {
-    margin-bottom: 1rem;
-    margin-top: 3rem;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
 }
 
 .username h2 {
-    margin: 0;
-    color: #000;
-    font-family: 'Inter';
-    font-size: 23px;
-    font-style: normal;
-    line-height: 36px;
+  margin: 0;
+  color: #000;
+  font-family: "Inter";
+  font-size: 23px;
+  font-style: normal;
+  line-height: 36px;
 }
 
 .username p {
-    color: #797979;
-    font-family: 'Inter';
-    font-size: 11px;
-    font-style: normal;
-    line-height: 18px;
+  color: #797979;
+  font-family: "Inter";
+  font-size: 11px;
+  font-style: normal;
+  line-height: 18px;
 }
 
 .userdata,
 .review {
-    flex-shrink: 0;
-    border-radius: 5px;
-    background: #FFF;
-    box-shadow: 0px 15px 30px 0px rgba(0, 0, 0, 0.15);
-    padding: 2rem;
-    margin-top: 1rem;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 15px 30px 0px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  margin-top: 1rem;
 }
 
 .userdata h4 {
-    color: rgba(0, 0, 0, 0.65);
-    font-family: 'Inter';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
+  color: rgba(0, 0, 0, 0.65);
+  font-family: "Inter";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
 }
 
 .detail {
-    display: flex;
-    width: 100%;
-    padding: 12px 12px 12.8px 12px;
-    flex-shrink: 0;
-    border-bottom: 1px solid #EEE;
+  display: flex;
+  width: 100%;
+  padding: 12px 12px 12.8px 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #eee;
 }
 
 .detail p,
 .detail input .detail button {
-    color: rgba(0, 0, 0, 0.65);
-    font-family: 'Inter';
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 21px;
-    margin: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-family: "Inter";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 0;
 }
 
 .detail input {
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
 }
 
 .detail button {
-    border: none;
-    outline: none;
-    background: none;
+  border: none;
+  outline: none;
+  background: none;
 }
 
 .edit {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .empty {
-    color: #BCBCBC;
+  color: #bcbcbc;
 }
 
 .validation {
-    color: red;
+  color: red;
 }
-
-
 
 /* Review  */
 
 ngb-rating {
-    width: 100%;
-    color: #ffc107;
-    font-size: 2rem;
+  width: 100%;
+  color: #ffc107;
+  font-size: 2rem;
 }
 
-
 .add-review {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .review-details {
-    width: 100%;
-    height: inherit;
-    padding: 1rem;
-    border-radius: 8px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: inherit;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .user-header {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .user-header img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .user-header h5 {
-    color: #374151;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    margin: 0 5px;
+  color: #374151;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0 5px;
 }
 
 .user-header p {
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    margin: 0;
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0;
 }
 
 .user-header ngb-rating {
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
 }
 
 .review-content {
-    width: 100%;
-    height: inherit;
-    margin: 0.5rem 0;
+  width: 100%;
+  height: inherit;
+  margin: 0.5rem 0;
 }
 .review-content h2 {
-    color: #374151;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 20px;
-    /* 142.857% */
+  color: #374151;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  /* 142.857% */
 }
 
 .review-content p {
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-    /* 153.846% */
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 153.846% */
 }
-
-
-
 
 /* Pagination */
 .pagination {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .page-count {
-    color: #6B7280;
-    font-family: 'Roboto';
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    margin-right: 0.5rem;
-    margin-top: 2px;
+  color: #6b7280;
+  font-family: "Roboto";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 0.5rem;
+  margin-top: 2px;
 }
-
 
 .next-page button {
-    border-radius: 4px;
+  border-radius: 4px;
 
-    border: 1px solid #E5E7EB;
-    color: #9CA3AF;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    background: #fff;
+  border: 1px solid #e5e7eb;
+  color: #9ca3af;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  background: #fff;
 }
 
-
 @media screen and (max-width: 750px) {
-    form {
-        width: 100%;
-    }
+  form {
+    width: 100%;
+  }
 
-    .userdetails,
-    .userdata,
-    .payment-option,
-    .payment,
-    form ,
-    .review-details,
-    .review{
-        padding: 0.5rem;
-    }
+  .userdetails,
+  .userdata,
+  .payment-option,
+  .payment,
+  form,
+  .review-details,
+  .review {
+    padding: 0.5rem;
+  }
 }
 
 @media screen and (max-width: 450px) {
-    form {
-        width: 100%;
-    }
+  form {
+    width: 100%;
+  }
 }

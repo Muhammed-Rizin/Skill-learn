@@ -1,59 +1,86 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading$"></mat-progress-bar>
-<app-side-bar *ngIf="!loading$ "></app-side-bar >
-<div class="content" *ngIf="!loading$ ">
-    <div class="body">
-        <div class="navigate mb-5">
-            <a class="me-4 active" routerLink="/admin/professionals" > ALL</a>
-            <a routerLink="/admin/professionals/request"> Request</a>
-        </div>
-        <div class="empty-message" *ngIf="professionals$.length === 0">
-          <h3>No users found</h3>
-        </div>
-        <mat-paginator  *ngIf="professionals$.length !== 0" 
-          [length]="total"
-          [pageSize]="5"
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          (page)="pageChange($event)"
-          aria-label="Select page">
-        </mat-paginator>
-        <div class="table-div table-responsive" *ngIf="professionals$.length !== 0" >
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Location</th>
-                    <th>Education</th>
-                    <th>Email verified</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let professional of professionals$; let i = index">
-                    <th scope="row">{{(page -1) * limit + i+1}}</th>
-                    <td>{{professional.firstName.trim()}}</td>
-                    <td>{{professional.email.trim()}}</td>
-                    <td>
-                        <p *ngIf="professional.location.trim()">{{professional.location.trim()}}</p>
-                        <p class="text-danger" *ngIf="!professional.location.trim()">Not provided</p>
-                    </td>
-                    <td>
-                        <p *ngIf="professional.education.trim()">{{professional.education.trim()}}</p>
-                        <p class="text-danger" *ngIf="!professional.education.trim()">Not provided</p>
-                    </td>
-                    <td>
-                        <p *ngIf="professional.emailVerified" class="status active-button">verified</p>
-                        <p class="status expired" *ngIf="!professional.emailVerified">Not verified</p>
-                    </td>
-                    <td>
-                        <button (click)="unblock(professional._id, professional.firstName)" *ngIf="professional.blocked">Unblock</button>
-                        <button (click)="block(professional._id, professional.firstName)" class="text-danger" *ngIf="!professional.blocked">Block</button>
-                    </td>
-                  </tr>
-                 
-                </tbody>
-              </table>
-        </div>
+<app-side-bar *ngIf="!loading$"></app-side-bar>
+<div class="content" *ngIf="!loading$">
+  <div class="body">
+    <div class="navigate mb-5">
+      <a class="me-4 active" routerLink="/admin/professionals"> ALL</a>
+      <a routerLink="/admin/professionals/request"> Request</a>
     </div>
+    <div class="empty-message" *ngIf="professionals$.length === 0">
+      <h3>No users found</h3>
+    </div>
+    <mat-paginator
+      *ngIf="professionals$.length !== 0"
+      [length]="total"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageChange($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+    <div class="table-div table-responsive" *ngIf="professionals$.length !== 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Education</th>
+            <th>Email verified</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let professional of professionals$; let i = index">
+            <th scope="row">{{ (page - 1) * limit + i + 1 }}</th>
+            <td>{{ professional.firstName.trim() }}</td>
+            <td>{{ professional.email.trim() }}</td>
+            <td>
+              <p *ngIf="professional.location.trim()">
+                {{ professional.location.trim() }}
+              </p>
+              <p class="text-danger" *ngIf="!professional.location.trim()">
+                Not provided
+              </p>
+            </td>
+            <td>
+              <p *ngIf="professional.education.trim()">
+                {{ professional.education.trim() }}
+              </p>
+              <p class="text-danger" *ngIf="!professional.education.trim()">
+                Not provided
+              </p>
+            </td>
+            <td>
+              <p
+                *ngIf="professional.emailVerified"
+                class="status active-button"
+              >
+                verified
+              </p>
+              <p class="status expired" *ngIf="!professional.emailVerified">
+                Not verified
+              </p>
+            </td>
+            <td>
+              <button
+                (click)="unblock(professional._id, professional.firstName)"
+                *ngIf="professional.blocked"
+              >
+                Unblock
+              </button>
+              <button
+                (click)="block(professional._id, professional.firstName)"
+                class="text-danger"
+                *ngIf="!professional.blocked"
+              >
+                Block
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

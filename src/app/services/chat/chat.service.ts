@@ -4,12 +4,12 @@ import { environment } from 'src/environments/environment';
 import { ChatData } from 'src/app/user/types/user.types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
-  socket !: Socket;
+  socket!: Socket;
 
-  constructor() { }
+  constructor() {}
 
   setupSocketConnection(userId: string) {
     this.socket = io(environment.apiUrl, { auth: { userId } });
@@ -21,22 +21,55 @@ export class ChatService {
     }
   }
 
-  subscribeToMessages = (cb: (err: any, data: { sender: string, text: string, receiver: string, data: ChatData }) => void) => {
-    this.socket.on('message', (msg: { sender: string, text: string, receiver: string, data: ChatData }) => {
-      cb(null, msg);
-    });
+  subscribeToMessages = (
+    cb: (
+      err: any,
+      data: { sender: string; text: string; receiver: string; data: ChatData },
+    ) => void,
+  ) => {
+    this.socket.on(
+      'message',
+      (msg: {
+        sender: string;
+        text: string;
+        receiver: string;
+        data: ChatData;
+      }) => {
+        cb(null, msg);
+      },
+    );
     return true;
   };
 
   join(roomName: string) {
-    if(this.socket){
-      this.socket.emit('join', roomName)
+    if (this.socket) {
+      this.socket.emit('join', roomName);
     }
   }
 
-  sendMessage =
-    ({ message, roomName, from, to, type, receiverType }:
-      { message: string, roomName: string, from: string, to: string, type: string, receiverType: string }, cb: (cb: string) => void) => {
-      if (this.socket) this.socket.emit('message', { message, roomName, from, to, type, receiverType }, cb);
-    }
+  sendMessage = (
+    {
+      message,
+      roomName,
+      from,
+      to,
+      type,
+      receiverType,
+    }: {
+      message: string;
+      roomName: string;
+      from: string;
+      to: string;
+      type: string;
+      receiverType: string;
+    },
+    cb: (cb: string) => void,
+  ) => {
+    if (this.socket)
+      this.socket.emit(
+        'message',
+        { message, roomName, from, to, type, receiverType },
+        cb,
+      );
+  };
 }
